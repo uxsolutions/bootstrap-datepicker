@@ -111,6 +111,18 @@ Integer.  Default: 0
 
 Day of the week start. 0 (Sunday) to 6 (Saturday)
 
+### startDate
+
+String.  Default: Beginning of time
+
+The earliest date that may be selected; all earlier dates will be disabled.
+
+### endDate
+
+String.  Default: End of time
+
+The latest date that may be selected; all later dates will be disabled.
+
 ## Markup
 
 Format a component.

@@ -6,7 +6,7 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  */
- 
+
 .datepicker {
 	top: 0;
 	left: 0;
@@ -66,8 +66,16 @@
 		&.new {
 			color: @grayLight;
 		}
+		&.disabled,
+		&.disabled:hover {
+			background: none;
+			color: @grayLight;
+			cursor: default;
+		}
 		&.active,
-		&.active:hover {
+		&.active:hover,
+		&.active.disabled,
+		&.active.disabled:hover {
 			.buttonBackground(@primaryButtonBackground, spin(@primaryButtonBackground, 20));
 			color: #fff;
 			text-shadow: 0 -1px 0 rgba(0,0,0,.25);
@@ -84,7 +92,16 @@
 			&:hover {
 				background: @grayLighter;
 			}
-			&.active {
+			&.disabled,
+			&.disabled:hover {
+				background:none;
+				color: @grayLight;
+				cursor: default;
+			}
+			&.active,
+			&.active:hover,
+			&.active.disabled,
+			&.active.disabled:hover {
 				.buttonBackground(@primaryButtonBackground, spin(@primaryButtonBackground, 20));
 				color: #fff;
 				text-shadow: 0 -1px 0 rgba(0,0,0,.25);
@@ -94,11 +111,11 @@
 			}
 		}
 	}
-	
+
 	th.switch {
 		width: 145px;
 	}
-	
+
 	thead tr:first-child th {
 		cursor: pointer;
 		&:hover{
