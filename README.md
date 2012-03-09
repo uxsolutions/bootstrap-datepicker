@@ -139,6 +139,33 @@ Format a component.
 
 Initializes an datepicker.
 
+### show
+
+Arguments: None
+
+Show the datepicker.
+
+    :::javascript
+    $('#datepicker').datepicker('show');
+
+### hide
+
+Arguments: None
+
+Hide the datepicker.
+
+    :::javascript
+    $('#datepicker').datepicker('hide');
+
+### update
+
+Arguments: None
+
+Update the datepicker with the current input value.
+
+    :::javascript
+    $('#datepicker').datepicker('update');
+
 ### setStartDate
 
 Arguments:
