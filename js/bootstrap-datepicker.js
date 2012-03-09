@@ -50,14 +50,10 @@
 		this.viewMode = 0;
 		this.weekStart = options.weekStart||this.element.data('date-weekstart')||0;
 		this.weekEnd = this.weekStart == 0 ? 6 : this.weekStart - 1;
-		this.startDate = options.startDate||this.element.data('date-startdate')||-Infinity;
-		if (this.startDate !== -Infinity) {
-			this.startDate = DPGlobal.parseDate(this.startDate, this.format);
-		}
-		this.endDate = options.endDate||this.element.data('date-enddate')||Infinity;
-		if (this.endDate !== Infinity) {
-			this.endDate = DPGlobal.parseDate(this.endDate, this.format);
-		}
+		this.startDate = -Infinity;
+		this.endDate = Infinity;
+		this.setStartDate(options.startDate||this.element.data('date-startdate'));
+		this.setEndDate(options.endDate||this.element.data('date-enddate'));
 		this.fillDow();
 		this.fillMonths();
 		this.update();
@@ -110,6 +106,24 @@
 			} else {
 				this.element.prop('value', formated);
 			}
+		},
+		
+		setStartDate: function(startDate){
+			this.startDate = startDate||-Infinity;
+			if (this.startDate !== -Infinity) {
+				this.startDate = DPGlobal.parseDate(this.startDate, this.format);
+			}
+			this.update();
+			this.updateNavArrows();
+		},
+		
+		setEndDate: function(endDate){
+			this.endDate = endDate||Infinity;
+			if (this.endDate !== Infinity) {
+				this.endDate = DPGlobal.parseDate(this.endDate, this.format);
+			}
+			this.update();
+			this.updateNavArrows();
 		},
 		
 		place: function(){
@@ -397,6 +411,7 @@
 			return {separator: separator, parts: parts};
 		},
 		parseDate: function(date, format) {
+			if (date instanceof Date) return date;
 			var parts = date.split(format.separator),
 				date = new Date(1970, 1, 1, 0, 0, 0),
 				val;

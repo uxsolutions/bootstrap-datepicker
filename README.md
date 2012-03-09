@@ -139,6 +139,40 @@ Format a component.
 
 Initializes an datepicker.
 
+### setStartDate
+
+Arguments:
+
+* startDate (String)
+
+Sets a new lower date limit on the datepicker.
+
+    :::javascript
+    $('#datepicker').datepicker('setStartDate', '2012-01-01');
+
+Omit startDate (or provide an otherwise falsey value) to unset the limit.
+
+    :::javascript
+    $('#datepicker').datepicker('setStartDate');
+    $('#datepicker').datepicker('setStartDate', null);
+
+### setEndDate
+
+Arguments:
+
+* endDate (String)
+
+Sets a new upper date limit on the datepicker.
+
+    :::javascript
+    $('#datepicker').datepicker('setEndDate', '2012-12-31');
+
+Omit endDate (or provide an otherwise falsey value) to unset the limit.
+
+    :::javascript
+    $('#datepicker').datepicker('setEndDate');
+    $('#datepicker').datepicker('setEndDate', null);
+
 ## Events
 
 Datepicker class exposes a few events for manipulating the dates.
