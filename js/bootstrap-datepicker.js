@@ -195,9 +195,9 @@
 					html.push('<tr>');
 				}
 				clsName = '';
-				if (prevMonth.getMonth() < month) {
+				if (prevMonth.getFullYear() < year || (prevMonth.getFullYear() == year && prevMonth.getMonth() < month)) {
 					clsName += ' old';
-				} else if (prevMonth.getMonth() > month) {
+				} else if (prevMonth.getFullYear() > year || (prevMonth.getFullYear() == year && prevMonth.getMonth() > month)) {
 					clsName += ' new';
 				}
 				if (prevMonth.valueOf() == currentDate) {
@@ -319,13 +319,23 @@
 					case 'td':
 						if (target.is('.day') && !target.is('.disabled')){
 							var day = parseInt(target.text(), 10)||1;
-							var month = this.viewDate.getMonth();
+							var year = this.viewDate.getFullYear(),
+								month = this.viewDate.getMonth();
 							if (target.is('.old')) {
-								month -= 1;
+								if (month == 0) {
+									month = 11;
+									year -= 1;
+								} else {
+									month -= 1;
+								}
 							} else if (target.is('.new')) {
-								month += 1;
+								if (month == 11) {
+									month = 0;
+									year += 1;
+								} else {
+									month += 1;
+								}
 							}
-							var year = this.viewDate.getFullYear();
 							this.date = new Date(year, month, day,0,0,0,0);
 							this.viewDate = new Date(year, month, day,0,0,0,0);
 							this.fill();
