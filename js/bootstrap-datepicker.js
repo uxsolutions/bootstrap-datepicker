@@ -334,6 +334,11 @@
 								type: 'changeDate',
 								date: this.date
 							});
+							if (this.isInput) {
+								this.element.change();
+							} else if (this.component){
+								this.element.find('input').change();
+							}
 						}
 						break;
 				}
