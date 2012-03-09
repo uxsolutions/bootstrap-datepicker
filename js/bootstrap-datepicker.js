@@ -341,6 +341,8 @@
 	};
 	
 	$.fn.datepicker = function ( option ) {
+		var args = Array.apply(null, arguments);
+		args.shift();
 		return this.each(function () {
 			var $this = $(this),
 				data = $this.data('datepicker'),
@@ -348,7 +350,7 @@
 			if (!data) {
 				$this.data('datepicker', (data = new Datepicker(this, $.extend({}, $.fn.datepicker.defaults,options))));
 			}
-			if (typeof option == 'string') data[option]();
+			if (typeof option == 'string') data[option].apply(data, args);
 		});
 	};
 
