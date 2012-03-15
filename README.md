@@ -123,6 +123,12 @@ String.  Default: End of time
 
 The latest date that may be selected; all later dates will be disabled.
 
+### autoclose
+
+Boolean.  Default: false
+
+Whether or not to close the datepicker immediately when a date is selected.
+
 ## Markup
 
 Format a component.

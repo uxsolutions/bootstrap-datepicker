@@ -46,7 +46,14 @@
 				this.element.on('click', $.proxy(this.show, this));
 			}
 		}
-		
+
+		this.autoclose = false;
+		if ('autoclose' in options) {
+			this.autoclose = options.autoclose;
+		} else if ('date-autoclose' in this.element.data()) {
+			this.autoclose = this.element.data('date-autoclose');
+		}
+
 		this.viewMode = 0;
 		this.weekStart = options.weekStart||this.element.data('date-weekstart')||0;
 		this.weekEnd = this.weekStart == 0 ? 6 : this.weekStart - 1;
@@ -369,10 +376,17 @@
 								type: 'changeDate',
 								date: this.date
 							});
+							var element;
 							if (this.isInput) {
-								this.element.change();
+								element = this.element;
 							} else if (this.component){
-								this.element.find('input').change();
+								element = this.element.find('input');
+							}
+							if (element) {
+								element.change();
+								if (this.autoclose) {
+									element.blur();
+								}
 							}
 						}
 						break;
