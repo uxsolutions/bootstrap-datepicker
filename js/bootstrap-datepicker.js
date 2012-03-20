@@ -457,7 +457,7 @@
 			return [31, (DPGlobal.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month]
 		},
 		parseFormat: function(format){
-			var separator = format.match(/[.\/-].*?/),
+			var separator = format.match(/[.\/ -].*?/),
 				parts = format.split(/\W+/);
 			if (!separator || !parts || parts.length == 0){
 				throw new Error("Invalid date format.");
@@ -468,10 +468,28 @@
 			if (date instanceof Date) return date;
 			var parts = date.split(format.separator),
 				date = new Date(1970, 1, 1, 0, 0, 0),
-				val;
+				val, filtered;
 			if (parts.length == format.parts.length) {
 				for (var i=0, cnt = format.parts.length; i < cnt; i++) {
 					val = parseInt(parts[i], 10)||1;
+					switch(format.parts[i]) {
+						case 'MM':
+							filtered = $(this.dates.months).filter(function(){
+								var m = this.slice(0, parts[i].length),
+									p = parts[i].slice(0, m.length);
+								return m == p;
+							});
+							val = $.inArray(filtered[0], this.dates.months) + 1;
+							break;
+						case 'M':
+							filtered = $(this.dates.monthsShort).filter(function(){
+								var m = this.slice(0, parts[i].length),
+									p = parts[i].slice(0, m.length);
+								return m == p;
+							});
+							val = $.inArray(filtered[0], this.dates.monthsShort) + 1;
+							break;
+					}
 					switch(format.parts[i]) {
 						case 'dd':
 						case 'd':
@@ -479,6 +497,8 @@
 							break;
 						case 'mm':
 						case 'm':
+						case 'MM':
+						case 'M':
 							date.setMonth(val - 1);
 							break;
 						case 'yy':
@@ -496,6 +516,8 @@
 			var val = {
 				d: date.getDate(),
 				m: date.getMonth() + 1,
+				M: this.dates.monthsShort[date.getMonth()],
+				MM: this.dates.months[date.getMonth()],
 				yy: date.getFullYear().toString().substring(2),
 				yyyy: date.getFullYear()
 			};

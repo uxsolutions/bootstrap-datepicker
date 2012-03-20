@@ -94,7 +94,7 @@ Call the datepicker via javascript:
 
 String.  Default: 'mm/dd/yyyy'
 
-The date format, combination of d, dd, m, mm, yy, yyy.
+The date format, combination of d, dd, m, mm, M, MM, yy, yyy.
 
 ### weekStart
 
