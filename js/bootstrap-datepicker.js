@@ -113,7 +113,7 @@
 			}
 		},
 		
-		hide: function(){
+		hide: function(e){
 			this.picker.hide();
 			$(window).off('resize', this.place);
 			this.viewMode = 0;
@@ -121,7 +121,8 @@
 			if (!this.isInput) {
 				$(document).off('mousedown', this.hide);
 			}
-			this.setValue();
+			if (e.currentTarget.value)
+				this.setValue();
 			this.element.trigger({
 				type: 'hide',
 				date: this.date
@@ -466,7 +467,7 @@
 		},
 		parseDate: function(date, format) {
 			if (date instanceof Date) return date;
-			var parts = date.split(format.separator),
+			var parts = date ? date.split(format.separator) : [],
 				date = new Date(),
 				val, filtered;
 			date = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
