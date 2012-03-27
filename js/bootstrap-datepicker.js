@@ -24,6 +24,7 @@
 	
 	var Datepicker = function(element, options){
 		this.element = $(element);
+        this.language = options.language || "en";
 		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'mm/dd/yyyy');
 		this.picker = $(DPGlobal.template)
 							.appendTo('body')
@@ -132,7 +133,7 @@
 		},
 		
 		setValue: function() {
-			var formated = DPGlobal.formatDate(this.date, this.format);
+			var formated = DPGlobal.formatDate(this.date, this.format, this.language);
 			if (!this.isInput) {
 				if (this.component){
 					this.element.find('input').prop('value', formated);
@@ -146,7 +147,7 @@
 		setStartDate: function(startDate){
 			this.startDate = startDate||-Infinity;
 			if (this.startDate !== -Infinity) {
-				this.startDate = DPGlobal.parseDate(this.startDate, this.format);
+				this.startDate = DPGlobal.parseDate(this.startDate, this.format, this.language);
 			}
 			this.update();
 			this.updateNavArrows();
@@ -155,7 +156,7 @@
 		setEndDate: function(endDate){
 			this.endDate = endDate||Infinity;
 			if (this.endDate !== Infinity) {
-				this.endDate = DPGlobal.parseDate(this.endDate, this.format);
+				this.endDate = DPGlobal.parseDate(this.endDate, this.format, this.language);
 			}
 			this.update();
 			this.updateNavArrows();
@@ -172,7 +173,7 @@
 		update: function(){
 			this.date = DPGlobal.parseDate(
 				this.isInput ? this.element.prop('value') : this.element.data('date'),
-				this.format
+				this.format, this.language
 			);
 			if (this.date < this.startDate) {
 				this.viewDate = new Date(this.startDate);
@@ -188,7 +189,7 @@
 			var dowCnt = this.weekStart;
 			var html = '<tr>';
 			while (dowCnt < this.weekStart + 7) {
-				html += '<th class="dow">'+DPGlobal.dates.daysMin[(dowCnt++)%7]+'</th>';
+				html += '<th class="dow">'+DPGlobal.dates[this.language].daysMin[(dowCnt++)%7]+'</th>';
 			}
 			html += '</tr>';
 			this.picker.find('.datepicker-days thead').append(html);
@@ -198,7 +199,7 @@
 			var html = '';
 			var i = 0
 			while (i < 12) {
-				html += '<span class="month">'+DPGlobal.dates.monthsShort[i++]+'</span>';
+				html += '<span class="month">'+DPGlobal.dates[this.language].monthsShort[i++]+'</span>';
 			}
 			this.picker.find('.datepicker-months td').html(html);
 		},
@@ -213,7 +214,7 @@
 				endMonth = this.endDate !== Infinity ? this.endDate.getMonth() : Infinity,
 				currentDate = this.date.valueOf();
 			this.picker.find('.datepicker-days th:eq(1)')
-						.text(DPGlobal.dates.months[month]+' '+year);
+						.text(DPGlobal.dates[this.language].months[month]+' '+year);
 			this.updateNavArrows();
 			this.fillMonths();
 			var prevMonth = new Date(year, month-1, 28,0,0,0,0),
@@ -543,13 +544,22 @@
 				navFnc: 'FullYear',
 				navStep: 10
 		}],
-		dates:{
-			days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-			daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-			daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
-			months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-			monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-		},
+        dates:{
+            en: {
+                days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+                daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+                daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
+                months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+                monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+            },
+            de: {
+                days: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"],
+                daysShort: ["Son", "Mon", "Die", "Mit", "Don", "Fre", "Sam", "Son"],
+                daysMin: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"],
+                months: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
+                monthsShort: ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"]
+            }
+        },
 		isLeapYear: function (year) {
 			return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0))
 		},
@@ -564,7 +574,7 @@
 			}
 			return {separator: separator, parts: parts};
 		},
-		parseDate: function(date, format) {
+		parseDate: function(date, format, language) {
 			if (date instanceof Date) return date;
 			var parts = date ? date.split(format.separator) : [],
 				date = new Date(),
@@ -575,20 +585,20 @@
 					val = parseInt(parts[i], 10)||1;
 					switch(format.parts[i]) {
 						case 'MM':
-							filtered = $(this.dates.months).filter(function(){
+							filtered = $(this.dates[language].months).filter(function(){
 								var m = this.slice(0, parts[i].length),
 									p = parts[i].slice(0, m.length);
 								return m == p;
 							});
-							val = $.inArray(filtered[0], this.dates.months) + 1;
+							val = $.inArray(filtered[0], this.dates[language].months) + 1;
 							break;
 						case 'M':
-							filtered = $(this.dates.monthsShort).filter(function(){
+							filtered = $(this.dates[language].monthsShort).filter(function(){
 								var m = this.slice(0, parts[i].length),
 									p = parts[i].slice(0, m.length);
 								return m == p;
 							});
-							val = $.inArray(filtered[0], this.dates.monthsShort) + 1;
+							val = $.inArray(filtered[0], this.dates[language].monthsShort) + 1;
 							break;
 					}
 					switch(format.parts[i]) {
@@ -613,12 +623,12 @@
 			}
 			return date;
 		},
-		formatDate: function(date, format){
+		formatDate: function(date, format, language){
 			var val = {
 				d: date.getDate(),
 				m: date.getMonth() + 1,
-				M: this.dates.monthsShort[date.getMonth()],
-				MM: this.dates.months[date.getMonth()],
+				M: this.dates[language].monthsShort[date.getMonth()],
+				MM: this.dates[language].months[date.getMonth()],
 				yy: date.getFullYear().toString().substring(2),
 				yyyy: date.getFullYear()
 			};
