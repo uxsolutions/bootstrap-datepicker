@@ -120,6 +120,12 @@ Boolean.  Default: false
 
 Whether or not to close the datepicker immediately when a date is selected.
 
+### language
+
+String.  Default: 'en'
+
+The two-letter code of the language to use for month and day names.  These will also be used as the input's value (and subsequently sent to the server in the case of form submissions).  Currently ships with English ('en') and German ('de') translations, but others can be added (see I18N below).  If an unknown language code is given, English will be used.
+
 ## Markup
 
 Format a component.
@@ -234,3 +240,16 @@ The escape key can be used to hide and re-show the datepicker; this is necessary
 ### enter
 
 When the picker is visible, enter will simply hide it.  When the picker is not visible, enter will have normal effects -- submitting the current form, etc.
+
+## I18N
+
+The plugin supports i18n for the month and day names; English ('en', the default) and German ('de') are included.  To add more languages, simply add a key to `$.fn.datepicker.dates`, before calling `$().datepicker()`.  Example:
+
+    $.fn.datepicker.dates.en = {
+        days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
+        months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    };
+
