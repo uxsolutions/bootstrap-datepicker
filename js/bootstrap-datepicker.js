@@ -543,8 +543,8 @@
 		},
 		es: {
 		  days: ["Domingo", "Lunes", "Martes", "Mi\xE9rcoles", "Jueves", "Viernes", "Sábado", "Domingo"],
-		  daysShort: ["Dom", "Lun", "Mar", "Mi\xE9", "Jue", "Vie", "Sáb", "Dom"],
-		  daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
+		  daysShort: ["Dom", "Lun", "Mar", "Mi\xE9", "Jue", "Vie", "S\xE1b", "Dom"],
+		  daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "S\xE1", "Do"],
 		  months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
 		  monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
 		}
