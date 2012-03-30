@@ -124,7 +124,7 @@ Whether or not to close the datepicker immediately when a date is selected.
 
 String.  Default: 'en'
 
-The two-letter code of the language to use for month and day names.  These will also be used as the input's value (and subsequently sent to the server in the case of form submissions).  Currently ships with English ('en') and German ('de') translations, but others can be added (see I18N below).  If an unknown language code is given, English will be used.
+The two-letter code of the language to use for month and day names.  These will also be used as the input's value (and subsequently sent to the server in the case of form submissions).  Currently ships with English ('en'), German ('de'), Brazilian ('br'), and Spanish ('es') translations, but others can be added (see I18N below).  If an unknown language code is given, English will be used.
 
 ## Markup
 
@@ -253,3 +253,6 @@ The plugin supports i18n for the month and day names; English ('en', the default
         monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     };
 
+If your browser (or those of your users) is displaying special characters wrong, chances are the browser is loading the javascript file with a non-unicode encoding.  Simply add `charset="UTF-8"` to your `script` tag:
+
+    <script type="text/javascript" src="bootstrap-datepicker.js" charset="UTF-8">
