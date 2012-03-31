@@ -590,6 +590,31 @@
 		},
 		parseDate: function(date, format, language) {
 			if (date instanceof Date) return date;
+			if (/^[-+]\d+[dmwy]([\s,]+[-+]\d+[dmwy])*$/.test(date)) {
+				var part_re = /([-+]\d+)([dmwy])/,
+					parts = date.match(/([-+]\d+)([dmwy])/g),
+					part, dir;
+				date = new Date();
+				for (var i=0; i<parts.length; i++) {
+					part = part_re.exec(parts[i]);
+					dir = parseInt(part[1]);
+					switch(part[2]){
+						case 'd':
+							date.setDate(date.getDate() + dir);
+							break;
+						case 'm':
+							date = Datepicker.prototype.moveMonth.call(null, date, dir);
+							break;
+						case 'w':
+							date.setDate(date.getDate() + dir * 7);
+							break;
+						case 'y':
+							date = Datepicker.prototype.moveYear.call(Datepicker.prototype, date, dir);
+							break;
+					}
+				}
+				return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
+			}
 			var parts = date ? date.split(format.separator) : [],
 				date = new Date(),
 				val, filtered;

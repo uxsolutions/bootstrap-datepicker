@@ -90,6 +90,8 @@ Call the datepicker via javascript:
 
 ## Options
 
+All options that take a "Date" can handle a `Date` object; a String formatted according to the given `format`; or a timedelta relative to today, eg '-1d', '+6m +1y', etc, where valid units are 'd' (day), 'w' (week), 'm' (month), and 'y' (year).
+
 ### format
 
 String.  Default: 'mm/dd/yyyy'
@@ -104,13 +106,13 @@ Day of the week start. 0 (Sunday) to 6 (Saturday)
 
 ### startDate
 
-String.  Default: Beginning of time
+Date.  Default: Beginning of time
 
 The earliest date that may be selected; all earlier dates will be disabled.
 
 ### endDate
 
-String.  Default: End of time
+Date.  Default: End of time
 
 The latest date that may be selected; all later dates will be disabled.
 
