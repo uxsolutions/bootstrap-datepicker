@@ -615,7 +615,7 @@
 							date.setDate(date.getDate() + dir);
 							break;
 						case 'm':
-							date = Datepicker.prototype.moveMonth.call(null, date, dir);
+							date = Datepicker.prototype.moveMonth.call(Datepicker.prototype, date, dir);
 							break;
 						case 'w':
 							date.setDate(date.getDate() + dir * 7);
