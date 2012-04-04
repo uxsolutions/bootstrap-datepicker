@@ -57,7 +57,14 @@
 			this.autoclose = this.element.data('date-autoclose');
 		}
 
-		this.viewMode = 0;
+    // Allow users to start from the decade rather than the date
+    // Good for DOB pickers etc
+    if ('start_with_decade' in options) {
+      this.viewMode = 2;
+    } else {
+      this.viewMode = 0;
+    }
+
 		this.weekStart = options.weekStart||this.element.data('date-weekstart')||0;
 		this.weekEnd = this.weekStart == 0 ? 6 : this.weekStart - 1;
 		this.startDate = -Infinity;
