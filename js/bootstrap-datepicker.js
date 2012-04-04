@@ -126,7 +126,7 @@
 		hide: function(e){
 			this.picker.hide();
 			$(window).off('resize', this.place);
-			this.viewMode = 0;
+			this.viewMode = this.startViewMode;
 			this.showMode();
 			if (!this.isInput) {
 				$(document).off('mousedown', this.hide);
