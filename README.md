@@ -245,7 +245,7 @@ When the picker is visible, enter will simply hide it.  When the picker is not v
 
 ## I18N
 
-The plugin supports i18n for the month and day names; English ('en', the default) and German ('de') are included.  To add more languages, simply add a key to `$.fn.datepicker.dates`, before calling `$().datepicker()`.  Example:
+The plugin supports i18n for the month and day names and the `weekStart` option; English ('en', the default) and German ('de') are included.  To add more languages, simply add a key to `$.fn.datepicker.dates`, before calling `$().datepicker()`.  Example:
 
     $.fn.datepicker.dates.en = {
         days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
