@@ -26,7 +26,7 @@
 		this.element = $(element);
 		this.language = options.language in dates ? options.language : "en";
 		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'mm/dd/yyyy');
-		this.picker = $(DPGlobal.template)
+		this.picker = $(template)
 							.appendTo('body')
 							.on({
 								click: $.proxy(this.click, this),
@@ -662,35 +662,38 @@
 		},
 		moveYear: function(date, dir){
 			return this.moveMonth(date, dir*12);
-		},
-		headTemplate: '<thead>'+
-							'<tr>'+
-								'<th class="prev"><i class="icon-arrow-left"/></th>'+
-								'<th colspan="5" class="switch"></th>'+
-								'<th class="next"><i class="icon-arrow-right"/></th>'+
-							'</tr>'+
-						'</thead>',
-		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>'
+		}
 	};
-	DPGlobal.template = '<div class="datepicker dropdown-menu">'+
-							'<div class="datepicker-days">'+
-								'<table class=" table-condensed">'+
-									DPGlobal.headTemplate+
-									'<tbody></tbody>'+
-								'</table>'+
-							'</div>'+
-							'<div class="datepicker-months">'+
-								'<table class="table-condensed">'+
-									DPGlobal.headTemplate+
-									DPGlobal.contTemplate+
-								'</table>'+
-							'</div>'+
-							'<div class="datepicker-years">'+
-								'<table class="table-condensed">'+
-									DPGlobal.headTemplate+
-									DPGlobal.contTemplate+
-								'</table>'+
-							'</div>'+
-						'</div>';
+
+	var headTemplate =
+		'<thead>'+
+			'<tr>'+
+				'<th class="prev"><i class="icon-arrow-left"/></th>'+
+				'<th colspan="5" class="switch"></th>'+
+				'<th class="next"><i class="icon-arrow-right"/></th>'+
+			'</tr>'+
+		'</thead>',
+		contTemplate = '<tbody><tr><td colspan="7"></td></tr></tbody>',
+		template =
+		'<div class="datepicker dropdown-menu">'+
+			'<div class="datepicker-days">'+
+				'<table class=" table-condensed">'+
+					headTemplate+
+					'<tbody></tbody>'+
+				'</table>'+
+			'</div>'+
+			'<div class="datepicker-months">'+
+				'<table class="table-condensed">'+
+					headTemplate+
+					contTemplate+
+				'</table>'+
+			'</div>'+
+			'<div class="datepicker-years">'+
+				'<table class="table-condensed">'+
+					headTemplate+
+					contTemplate+
+				'</table>'+
+			'</div>'+
+		'</div>';
 
 }( window.jQuery )
