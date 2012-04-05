@@ -330,7 +330,7 @@
 								break;
 							case 'prev':
 							case 'next':
-								var dir = DPGlobal.modes[this.viewMode].navStep * (target[0].className == 'prev' ? -1 : 1);
+								var dir = modes[this.viewMode].navStep * (target[0].className == 'prev' ? -1 : 1);
 								switch(this.viewMode){
 									case 0:
 										this.viewDate = DPGlobal.moveMonth(this.viewDate, dir);
@@ -465,7 +465,7 @@
 			if (dir) {
 				this.viewMode = Math.max(0, Math.min(2, this.viewMode + dir));
 			}
-			this.picker.find('>div').hide().filter('.datepicker-'+DPGlobal.modes[this.viewMode].clsName).show();
+			this.picker.find('>div').hide().filter('.datepicker-'+modes[this.viewMode].clsName).show();
 			this.updateNavArrows();
 		}
 	};
@@ -497,23 +497,25 @@
 		}
 	}
 
+	var modes = [
+		{
+			clsName: 'days',
+			navFnc: 'Month',
+			navStep: 1
+		},
+		{
+			clsName: 'months',
+			navFnc: 'FullYear',
+			navStep: 1
+		},
+		{
+			clsName: 'years',
+			navFnc: 'FullYear',
+			navStep: 10
+		}
+	];
+
 	var DPGlobal = {
-		modes: [
-			{
-				clsName: 'days',
-				navFnc: 'Month',
-				navStep: 1
-			},
-			{
-				clsName: 'months',
-				navFnc: 'FullYear',
-				navStep: 1
-			},
-			{
-				clsName: 'years',
-				navFnc: 'FullYear',
-				navStep: 10
-		}],
 		isLeapYear: function (year) {
 			return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0))
 		},
