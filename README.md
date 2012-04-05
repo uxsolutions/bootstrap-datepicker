@@ -84,13 +84,21 @@ Attached to non-field element, using events to work with the date values.
 
 # Using bootstrap-datepicker.js
 
+Load datepicker, the desired backend, and any locales after jquery:
+
+    <script type="text/javascript" src="lib/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="js/backkends/bootstrap-datepicker.default.js"></script>
+    <script type="text/javascript" src="js/locales/bootstrap-datepicker.de.js"></script>
+    <script type="text/javascript" src="js/locales/bootstrap-datepicker.fr.js"></script>
+
 Call the datepicker via javascript:
 
     $('.datepicker').datepicker()
 
 ## Options
 
-All options that take a "Date" can handle a `Date` object; a String formatted according to the given `format`; or a timedelta relative to today, eg '-1d', '+6m +1y', etc, where valid units are 'd' (day), 'w' (week), 'm' (month), and 'y' (year).
+All options that take a "Date" can handle `Date` objects and Strings formatted according to the given `format`.  If the default backend is used, they can also handle a timedelta relative to today, eg '-1d', '+6m +1y', etc, where valid units are 'd' (day), 'w' (week), 'm' (month), and 'y' (year).
 
 ### format
 
@@ -258,3 +266,66 @@ The plugin supports i18n for the month and weekday names and the `weekStart` opt
 If your browser (or those of your users) is displaying characters wrong, chances are the browser is loading the javascript file with a non-unicode encoding.  Simply add `charset="UTF-8"` to your `script` tag:
 
     <script type="text/javascript" src="bootstrap-datepicker.de.js" charset="UTF-8"></script>
+
+
+# Backends
+
+Bootstrap-datepicker supports a generic backend interface for manipulating Date objects.  The default backend performs these operations manually, but if you are using a third-party Date library, it may be more efficient to use a backend that interfaces with that library instead.
+
+To create a backend, simply call the `setBackend` function with an object which provides the required functions:
+
+    $.fn.datepicker.setBackend({
+        name: 'my_backend',
+        // required functions
+    });
+
+## Required functions
+
+### isLeapYear(year)
+
+Arguments:
+ * year (Number)
+
+Returns: `true` or `false`
+
+### getDaysInMonth(date)
+
+Arguments:
+ * date (Date)
+
+Returns: Number
+
+### parseDate(date, format, language)
+
+Arguments:
+ * date (String, Date)
+ * format (String)
+ * language (String)
+
+Returns: Date.  If `date` is a Date object, it may be returned unchanged.
+
+### formatDate(date, format, language)
+
+Arguments:
+ * date (Date)
+ * format (String)
+ * language (String)
+
+Returns: String
+
+### moveMonth(date, vector)
+
+Arguments:
+ * date (Date)
+ * vector (Number)
+
+Returns: A new date object whose month is `vector` months ahead of the original `date`'s month.  Must support negative `vector`s.
+
+### moveYear(date, vector)
+
+Arguments:
+ * date (Date)
+ * vector (Number)
+
+Returns: A new date object whose year is `vector` years ahead of the original `date`'s year.  Must support negative `vector`s.
+
