@@ -333,11 +333,11 @@
 								var dir = DPGlobal.modes[this.viewMode].navStep * (target[0].className == 'prev' ? -1 : 1);
 								switch(this.viewMode){
 									case 0:
-										this.viewDate = this.moveMonth(this.viewDate, dir);
+										this.viewDate = DPGlobal.moveMonth(this.viewDate, dir);
 										break;
 									case 1:
 									case 2:
-										this.viewDate = this.moveYear(this.viewDate, dir);
+										this.viewDate = DPGlobal.moveYear(this.viewDate, dir);
 										break;
 								}
 								this.fill();
@@ -408,50 +408,6 @@
 			e.preventDefault();
 		},
 
-		moveMonth: function(date, dir){
-			if (!dir) return date;
-			var new_date = new Date(date.valueOf()),
-				day = new_date.getDate(),
-				month = new_date.getMonth(),
-				mag = Math.abs(dir),
-				new_month, test;
-			dir = dir > 0 ? 1 : -1;
-			if (mag == 1){
-				test = dir == -1
-					// If going back one month, make sure month is not current month
-					// (eg, Mar 31 -> Feb 31 == Feb 28, not Mar 02)
-					? function(){ return new_date.getMonth() == month; }
-					// If going forward one month, make sure month is as expected
-					// (eg, Jan 31 -> Feb 31 == Feb 28, not Mar 02)
-					: function(){ return new_date.getMonth() != new_month; };
-				new_month = month + dir;
-				new_date.setMonth(new_month);
-				// Dec -> Jan (12) or Jan -> Dec (-1) -- limit expected date to 0-11
-				if (new_month < 0 || new_month > 11)
-					new_month = (new_month + 12) % 12;
-			} else {
-				// For magnitudes >1, move one month at a time...
-				for (var i=0; i<mag; i++)
-					// ...which might decrease the day (eg, Jan 31 to Feb 28, etc)...
-					new_date = this.moveMonth(new_date, dir);
-				// ...then reset the day, keeping it in the new month
-				new_month = new_date.getMonth();
-				new_date.setDate(day);
-				test = function(){ return new_month != new_date.getMonth(); };
-			}
-			// Common date-resetting loop -- if date is beyond end of month, make it
-			// end of month
-			while (test()){
-				new_date.setDate(--day);
-				new_date.setMonth(new_month);
-			}
-			return new_date;
-		},
-
-		moveYear: function(date, dir){
-			return this.moveMonth(date, dir*12);
-		},
-
 		keydown: function(e){
 			if (this.picker.is(':not(:visible)')){
 				if (e.keyCode == 27) // allow escape to hide and re-show picker
@@ -468,11 +424,11 @@
 				case 39: // right
 					dir = e.keyCode == 37 ? -1 : 1;
 					if (e.ctrlKey){
-						this.date = this.moveYear(this.date, dir);
-						this.viewDate = this.moveYear(this.viewDate, dir);
+						this.date = DPGlobal.moveYear(this.date, dir);
+						this.viewDate = DPGlobal.moveYear(this.viewDate, dir);
 					} else if (e.shiftKey){
-						this.date = this.moveMonth(this.date, dir);
-						this.viewDate = this.moveMonth(this.viewDate, dir);
+						this.date = DPGlobal.moveMonth(this.date, dir);
+						this.viewDate = DPGlobal.moveMonth(this.viewDate, dir);
 					} else {
 						this.date.setDate(this.date.getDate() + dir);
 						this.viewDate.setDate(this.viewDate.getDate() + dir);
@@ -485,11 +441,11 @@
 				case 40: // down
 					dir = e.keyCode == 38 ? -1 : 1;
 					if (e.ctrlKey){
-						this.date = this.moveYear(this.date, dir);
-						this.viewDate = this.moveYear(this.viewDate, dir);
+						this.date = DPGlobal.moveYear(this.date, dir);
+						this.viewDate = DPGlobal.moveYear(this.viewDate, dir);
 					} else if (e.shiftKey){
-						this.date = this.moveMonth(this.date, dir);
-						this.viewDate = this.moveMonth(this.viewDate, dir);
+						this.date = DPGlobal.moveMonth(this.date, dir);
+						this.viewDate = DPGlobal.moveMonth(this.viewDate, dir);
 					} else {
 						this.date.setDate(this.date.getDate() + dir * 7);
 						this.viewDate.setDate(this.viewDate.getDate() + dir * 7);
@@ -587,13 +543,13 @@
 							date.setDate(date.getDate() + dir);
 							break;
 						case 'm':
-							date = Datepicker.prototype.moveMonth.call(Datepicker.prototype, date, dir);
+							date = DPGlobal.moveMonth(date, dir);
 							break;
 						case 'w':
 							date.setDate(date.getDate() + dir * 7);
 							break;
 						case 'y':
-							date = Datepicker.prototype.moveYear.call(Datepicker.prototype, date, dir);
+							date = DPGlobal.moveYear(date, dir);
 							break;
 					}
 				}
@@ -662,6 +618,48 @@
 				date.push(val[format.parts[i]]);
 			}
 			return date.join(format.separator);
+		},
+		moveMonth: function(date, dir){
+			if (!dir) return date;
+			var new_date = new Date(date.valueOf()),
+				day = new_date.getDate(),
+				month = new_date.getMonth(),
+				mag = Math.abs(dir),
+				new_month, test;
+			dir = dir > 0 ? 1 : -1;
+			if (mag == 1){
+				test = dir == -1
+					// If going back one month, make sure month is not current month
+					// (eg, Mar 31 -> Feb 31 == Feb 28, not Mar 02)
+					? function(){ return new_date.getMonth() == month; }
+					// If going forward one month, make sure month is as expected
+					// (eg, Jan 31 -> Feb 31 == Feb 28, not Mar 02)
+					: function(){ return new_date.getMonth() != new_month; };
+				new_month = month + dir;
+				new_date.setMonth(new_month);
+				// Dec -> Jan (12) or Jan -> Dec (-1) -- limit expected date to 0-11
+				if (new_month < 0 || new_month > 11)
+					new_month = (new_month + 12) % 12;
+			} else {
+				// For magnitudes >1, move one month at a time...
+				for (var i=0; i<mag; i++)
+					// ...which might decrease the day (eg, Jan 31 to Feb 28, etc)...
+					new_date = this.moveMonth(new_date, dir);
+				// ...then reset the day, keeping it in the new month
+				new_month = new_date.getMonth();
+				new_date.setDate(day);
+				test = function(){ return new_month != new_date.getMonth(); };
+			}
+			// Common date-resetting loop -- if date is beyond end of month, make it
+			// end of month
+			while (test()){
+				new_date.setDate(--day);
+				new_date.setMonth(new_month);
+			}
+			return new_date;
+		},
+		moveYear: function(date, dir){
+			return this.moveMonth(date, dir*12);
 		},
 		headTemplate: '<thead>'+
 							'<tr>'+
