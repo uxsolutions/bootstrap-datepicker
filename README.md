@@ -122,6 +122,12 @@ Boolean.  Default: false
 
 Whether or not to close the datepicker immediately when a date is selected.
 
+### startView
+
+Number, String.  Default: 0, 'month'
+
+The view that the datepicker should show when it is opened.  Accepts values of 0 or 'month' for month view (the default), 1 or 'year' for the 12-month overview, and 2 or 'decade' for the 10-year overview.  Useful for date-of-birth datepickers.
+
 ### language
 
 String.  Default: 'en'
