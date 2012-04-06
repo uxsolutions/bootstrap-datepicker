@@ -88,6 +88,10 @@ Call the datepicker via javascript:
 
     $('.datepicker').datepicker()
 
+## Dependencies
+
+Requires bootstrap's dropdown component (`dropdowns.less`).
+
 ## Options
 
 All options that take a "Date" can handle a `Date` object; a String formatted according to the given `format`; or a timedelta relative to today, eg '-1d', '+6m +1y', etc, where valid units are 'd' (day), 'w' (week), 'm' (month), and 'y' (year).
@@ -251,9 +255,9 @@ When the picker is visible, enter will simply hide it.  When the picker is not v
 
 ## I18N
 
-The plugin supports i18n for the month and day names; English ('en', the default) and German ('de') are included.  To add more languages, simply add a key to `$.fn.datepicker.dates`, before calling `$().datepicker()`.  Example:
+The plugin supports i18n for the month and weekday names and the `weekStart` option.  The default is English ('en'); other available translations are avilable in the `js/locales/` directory, simply include your desired locale after the plugin.  To add more languages, simply add a key to `$.fn.datepicker.dates`, before calling `.datepicker()`.  Example:
 
-    $.fn.datepicker.dates.en = {
+    $.fn.datepicker.dates['en'] = {
         days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
         daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
         daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
@@ -261,6 +265,6 @@ The plugin supports i18n for the month and day names; English ('en', the default
         monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     };
 
-If your browser (or those of your users) is displaying special characters wrong, chances are the browser is loading the javascript file with a non-unicode encoding.  Simply add `charset="UTF-8"` to your `script` tag:
+If your browser (or those of your users) is displaying characters wrong, chances are the browser is loading the javascript file with a non-unicode encoding.  Simply add `charset="UTF-8"` to your `script` tag:
 
-    <script type="text/javascript" src="bootstrap-datepicker.js" charset="UTF-8">
+    <script type="text/javascript" src="bootstrap-datepicker.de.js" charset="UTF-8"></script>
