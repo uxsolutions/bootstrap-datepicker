@@ -14,13 +14,15 @@
 				year = date.getFullYear();
 			return [31, (this.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month]
 		},
+		validParts: /dd?|mm?|MM?|yy(?:yy)?/g,
+		nonpunctuation: /[^ -\/:-@\[-`{-~\t\n\r]+/g,
 		parseFormat: function(format){
-			var separator = format.match(/[.\/ -].*?/),
-				parts = format.split(/\W+/);
-			if (!separator || !parts || parts.length == 0){
+			var separators = format.split(this.validParts),
+				parts = format.match(this.validParts);
+			if (!separators || !separators.length || !parts || parts.length == 0){
 				throw new Error("Invalid date format.");
 			}
-			return {separator: separator, parts: parts};
+			return {separators: separators, parts: parts};
 		},
 		parseDate: function(date, format, language) {
 			if (date instanceof Date) return date;
@@ -50,7 +52,7 @@
 				return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
 			}
 			var format = this.parseFormat(format),
-				parts = date ? date.split(format.separator) : [],
+				parts = date ? date.match(this.nonpunctuation) : [],
 				date = new Date(),
 				val, filtered;
 			date = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
@@ -109,11 +111,14 @@
 			};
 			val.dd = (val.d < 10 ? '0' : '') + val.d;
 			val.mm = (val.m < 10 ? '0' : '') + val.m;
-			var date = [];
+			var date = [],
+				seps = $.extend([], format.separators);
 			for (var i=0, cnt = format.parts.length; i < cnt; i++) {
+				if (seps.length)
+					date.push(seps.shift())
 				date.push(val[format.parts[i]]);
 			}
-			return date.join(format.separator);
+			return date.join('');
 		},
 		moveMonth: function(date, dir){
 			if (!dir) return date;
