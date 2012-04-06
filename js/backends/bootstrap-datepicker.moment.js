@@ -6,9 +6,6 @@
 ;(function($){
 	$.fn.datepicker.setBackend({
 		name: 'moment',
-		isLeapYear: function (year) {
-			return moment(Sring(year), 'YYYY').isLeapYear();
-		},
 		getDaysInMonth: function (date) {
 			return moment(date).daysInMonth();
 		},

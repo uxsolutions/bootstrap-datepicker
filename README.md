@@ -281,13 +281,6 @@ To create a backend, simply call the `setBackend` function with an object which 
 
 ## Required functions
 
-### isLeapYear(year)
-
-Arguments:
- * year (Number)
-
-Returns: `true` or `false`
-
 ### getDaysInMonth(date)
 
 Arguments:
