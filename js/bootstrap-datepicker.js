@@ -508,6 +508,9 @@
 			getWeekStart: function(lang){
 				return dates[this.getLang(lang)].weekStart || 0;
 			},
+			getDays: function(lang){
+				return dates[this.getLang(lang)].days;
+			},
 			getDaysMin: function(lang){
 				return dates[this.getLang(lang)].daysMin;
 			},
