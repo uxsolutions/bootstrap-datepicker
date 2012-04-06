@@ -216,7 +216,7 @@
 				endMonth = this.endDate !== Infinity ? this.endDate.getMonth() : Infinity,
 				currentDate = this.date.valueOf();
 			this.picker.find('.datepicker-days th:eq(1)')
-						.text(dates[this.language].months[month]+' '+year);
+						.text(DPGlobal.getMonths(this.language)[month]+' '+year);
 			this.updateNavArrows();
 			this.fillMonths();
 			var prevMonth = new Date(year, month-1, 28,0,0,0,0),
@@ -510,6 +510,9 @@
 			},
 			getDaysMin: function(lang){
 				return dates[this.getLang(lang)].daysMin;
+			},
+			getMonths: function(lang){
+				return dates[this.getLang(lang)].months;
 			},
 			getMonthsShort: function(lang){
 				return dates[this.getLang(lang)].monthsShort;

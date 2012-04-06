@@ -59,12 +59,12 @@
 					val = parseInt(parts[i], 10)||1;
 					switch(format.parts[i]) {
 						case 'MM':
-							filtered = $(dates[language].months).filter(function(){
+							filtered = $(this.getMonths(language)).filter(function(){
 								var m = this.slice(0, parts[i].length),
 									p = parts[i].slice(0, m.length);
 								return m == p;
 							});
-							val = $.inArray(filtered[0], dates[language].months) + 1;
+							val = $.inArray(filtered[0], this.getMonths(language)) + 1;
 							break;
 						case 'M':
 							filtered = $(this.getMonthsShort(language)).filter(function(){
@@ -103,7 +103,7 @@
 				d: date.getDate(),
 				m: date.getMonth() + 1,
 				M: this.getMonthsShort(language)[date.getMonth()],
-				MM: dates[language].months[date.getMonth()],
+				MM: this.getMonths(language)[date.getMonth()],
 				yy: date.getFullYear().toString().substring(2),
 				yyyy: date.getFullYear()
 			};

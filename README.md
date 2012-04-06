@@ -340,6 +340,13 @@ Arguments:
 
 Return: A list of the minimal names of the days of the week; eg `["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]`
 
+### getMonths(language)
+
+Arguments:
+ * language (String)
+
+Return: A list of full month names; eg `["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]`
+
 ### getMonthsShort(language)
 
 Arguments:

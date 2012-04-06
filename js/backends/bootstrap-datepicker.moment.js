@@ -41,6 +41,12 @@
 				return m.day(i).format('ddd').slice(0,2);
 			});
 		},
+		getMonths: function(lang){
+			var m = moment().month(-1);
+			return $.map(Array(12), function(_, i){
+				return m.add('months', 1).format('MMMM');
+			});
+		},
 		getMonthsShort: function(lang){
 			var m = moment().month(-1);
 			return $.map(Array(12), function(_, i){
