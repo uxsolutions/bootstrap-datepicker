@@ -24,7 +24,7 @@
 
 	var Datepicker = function(element, options){
 		this.element = $(element);
-		this.language = options.language in dates ? options.language : "en";
+		this.language = options.language || 'en';
 		this.format = options.format||this.element.data('date-format')||'mm/dd/yyyy';
 		this.picker = $(template)
 							.appendTo('body')
@@ -58,7 +58,7 @@
 		}
 
 		this.viewMode = 0;
-		this.weekStart = options.weekStart||this.element.data('date-weekstart')||dates[this.language].weekStart||0;
+		this.weekStart = options.weekStart||this.element.data('date-weekstart')||DPGlobal.getWeekStart(this.language)||0;
 		this.weekEnd = this.weekStart == 0 ? 6 : this.weekStart - 1;
 		this.startDate = -Infinity;
 		this.endDate = Infinity;
@@ -498,7 +498,16 @@
 	}
 
 	var DPGlobal = {};
-	$.fn.datepicker.setBackend = function(backend){ DPGlobal = backend; };
+	$.fn.datepicker.setBackend = function(backend){
+		DPGlobal = $.extend({}, {
+			getLang: function(lang){
+				return lang in dates ? lang : 'en';
+			},
+			getWeekStart: function(lang){
+				return dates[this.getLang(lang)].weekStart || 0;
+			}
+		}, backend);
+	};
 
 	var modes = [
 		{

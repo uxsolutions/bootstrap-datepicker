@@ -322,3 +322,15 @@ Arguments:
 
 Returns: A new date object whose year is `vector` years ahead of the original `date`'s year.  Must support negative `vector`s.
 
+## Optional functions
+
+These are mostly localization functions.  If omitted, defaults will be provided that plug into bootstrap-datepicker's own i18n infrastructure.  Backends can access these fill-ins as if they were local methods, ie `this.getWeekStart()`.
+
+### getWeekStart(language)
+
+Arguments:
+ * language (String)
+
+Returns: A Number, 0-6 representing the first day of the week.
+
+
