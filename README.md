@@ -340,6 +340,13 @@ Arguments:
 
 Return: A list of the full names of the days of the week; eg `["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]`
 
+### getDaysShort(language)
+
+Arguments:
+ * language (String)
+
+Return: A list of the short names of the days of the week; eg `["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]`
+
 ### getDaysMin(language)
 
 Arguments:

@@ -39,6 +39,12 @@
 				return m.day(i).format('dddd');
 			});
 		},
+		getDaysShort: function(lang){
+			var m = moment();
+			return $.map(Array(8), function(_, i){
+				return m.day(i).format('ddd');
+			});
+		},
 		getDaysMin: function(lang){
 			// Moment doesn't yet support two-letter weekdays; return a list of
 			// the first two letters of moment's three-letter representations.
