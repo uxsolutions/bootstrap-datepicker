@@ -88,6 +88,10 @@ Call the datepicker via javascript:
 
     $('.datepicker').datepicker()
 
+## Dependencies
+
+Requires bootstrap's dropdown component (`dropdowns.less`).
+
 ## Options
 
 All options that take a "Date" can handle a `Date` object; a String formatted according to the given `format`; or a timedelta relative to today, eg '-1d', '+6m +1y', etc, where valid units are 'd' (day), 'w' (week), 'm' (month), and 'y' (year).
