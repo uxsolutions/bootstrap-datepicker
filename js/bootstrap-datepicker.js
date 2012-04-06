@@ -57,7 +57,22 @@
 			this.autoclose = this.element.data('date-autoclose');
 		}
 
-		this.viewMode = 0;
+		switch(options.startView){
+			case 2:
+			case 'decade':
+				this.viewMode = this.startViewMode = 2;
+				break;
+			case 1:
+			case 'year':
+				this.viewMode = this.startViewMode = 1;
+				break;
+			case 0:
+			case 'month':
+			default:
+				this.viewMode = this.startViewMode = 0;
+				break;
+		}
+
 		this.weekStart = options.weekStart||this.element.data('date-weekstart')||dates[this.language].weekStart||0;
 		this.weekEnd = this.weekStart == 0 ? 6 : this.weekStart - 1;
 		this.startDate = -Infinity;
@@ -119,7 +134,7 @@
 		hide: function(e){
 			this.picker.hide();
 			$(window).off('resize', this.place);
-			this.viewMode = 0;
+			this.viewMode = this.startViewMode;
 			this.showMode();
 			if (!this.isInput) {
 				$(document).off('mousedown', this.hide);
