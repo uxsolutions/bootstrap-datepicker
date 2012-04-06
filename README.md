@@ -333,4 +333,11 @@ Arguments:
 
 Returns: A Number, 0-6 representing the first day of the week.
 
+### getDaysMin(language)
+
+Arguments:
+ * language (String)
+
+Return: A list of the minimal names of the days of the week; eg `["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]`
+
 

@@ -188,8 +188,9 @@
 		fillDow: function(){
 			var dowCnt = this.weekStart;
 			var html = '<tr>';
+			var days = DPGlobal.getDaysMin(this.language);
 			while (dowCnt < this.weekStart + 7) {
-				html += '<th class="dow">'+dates[this.language].daysMin[(dowCnt++)%7]+'</th>';
+				html += '<th class="dow">'+days[(dowCnt++)%7]+'</th>';
 			}
 			html += '</tr>';
 			this.picker.find('.datepicker-days thead').append(html);
@@ -505,6 +506,9 @@
 			},
 			getWeekStart: function(lang){
 				return dates[this.getLang(lang)].weekStart || 0;
+			},
+			getDaysMin: function(lang){
+				return dates[this.getLang(lang)].daysMin;
 			}
 		}, backend);
 	};
