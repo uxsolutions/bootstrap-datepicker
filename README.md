@@ -136,7 +136,7 @@ The view that the datepicker should show when it is opened.  Accepts values of 0
 
 String.  Default: 'en'
 
-The two-letter code of the language to use for month and day names.  These will also be used as the input's value (and subsequently sent to the server in the case of form submissions).  Currently ships with English ('en'), German ('de'), Brazilian ('br'), and Spanish ('es') translations, but others can be added (see I18N below).  If an unknown language code is given, English will be used.
+The two-letter code of the language to use for month and day names.  These will also be used as the input's value (and subsequently sent to the server in the case of form submissions).  Currently ships with English ('en'), German ('de'), Brazilian ('br'), Spanish ('es') and Turkish ('tr') translations, but others can be added (see I18N below).  If an unknown language code is given, English will be used.
 
 ## Markup
 
