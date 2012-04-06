@@ -199,8 +199,9 @@
 		fillMonths: function(){
 			var html = '';
 			var i = 0
+			var months = DPGlobal.getMonthsShort(this.language);
 			while (i < 12) {
-				html += '<span class="month">'+dates[this.language].monthsShort[i++]+'</span>';
+				html += '<span class="month">'+months[i++]+'</span>';
 			}
 			this.picker.find('.datepicker-months td').html(html);
 		},
@@ -509,6 +510,9 @@
 			},
 			getDaysMin: function(lang){
 				return dates[this.getLang(lang)].daysMin;
+			},
+			getMonthsShort: function(lang){
+				return dates[this.getLang(lang)].monthsShort;
 			}
 		}, backend);
 	};

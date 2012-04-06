@@ -67,12 +67,12 @@
 							val = $.inArray(filtered[0], dates[language].months) + 1;
 							break;
 						case 'M':
-							filtered = $(dates[language].monthsShort).filter(function(){
+							filtered = $(this.getMonthsShort(language)).filter(function(){
 								var m = this.slice(0, parts[i].length),
 									p = parts[i].slice(0, m.length);
 								return m == p;
 							});
-							val = $.inArray(filtered[0], dates[language].monthsShort) + 1;
+							val = $.inArray(filtered[0], this.getMonthsShort(language)) + 1;
 							break;
 					}
 					switch(format.parts[i]) {
@@ -102,7 +102,7 @@
 			var val = {
 				d: date.getDate(),
 				m: date.getMonth() + 1,
-				M: dates[language].monthsShort[date.getMonth()],
+				M: this.getMonthsShort(language)[date.getMonth()],
 				MM: dates[language].months[date.getMonth()],
 				yy: date.getFullYear().toString().substring(2),
 				yyyy: date.getFullYear()
