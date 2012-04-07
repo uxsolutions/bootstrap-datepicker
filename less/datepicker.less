@@ -149,8 +149,18 @@
 		.border-radius(0 3px 3px 0);
 	}
 	.add-on {
-		.input-append .add-on;
-		.border-radius(0);
+		display: inline-block;
+		width: auto;
+		min-width: 16px;
+		height: @baseLineHeight;
+		padding: 4px 5px;
+		font-weight: normal;
+		line-height: @baseLineHeight;
+		text-align: center;
+		text-shadow: 0 1px 0 @white;
+		vertical-align: middle;
+		background-color: @grayLighter;
+		border: 1px solid #ccc;
 		margin-left:-5px;
 		margin-right:-5px;
 	}
