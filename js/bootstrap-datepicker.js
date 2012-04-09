@@ -34,6 +34,8 @@
 							});
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on') : false;
+		if(this.component && this.component.length === 0)
+			this.component = false;
 
 		if (this.isInput) {
 			this.element.on({
