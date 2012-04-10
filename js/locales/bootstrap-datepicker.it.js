@@ -1,6 +1,6 @@
 /**
- * Spanish translation for bootstrap-datepicker
- * Bruno Bonamin <bruno.bonamin@gmail.com>
+ * Italian translation for bootstrap-datepicker
+ * Enrico Rubboli <rubboli@gmail.com>
  */
 ;(function($){
 	$.fn.datepicker.dates['it'] = {
