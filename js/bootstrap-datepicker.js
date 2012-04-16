@@ -475,7 +475,8 @@
 					this.show();
 				return;
 			}
-			var dir, day, month;
+			var dateChanged = false,
+				dir, day, month;
 			switch(e.keyCode){
 				case 27: // escape
 					this.hide();
@@ -497,6 +498,7 @@
 					this.setValue();
 					this.update();
 					e.preventDefault();
+					dateChanged = true;
 					break;
 				case 38: // up
 				case 40: // down
@@ -514,11 +516,27 @@
 					this.setValue();
 					this.update();
 					e.preventDefault();
+					dateChanged = true;
 					break;
 				case 13: // enter
 					this.hide();
 					e.preventDefault();
 					break;
+			}
+			if (dateChanged){
+				this.element.trigger({
+					type: 'changeDate',
+					date: this.date
+				});
+				var element;
+				if (this.isInput) {
+					element = this.element;
+				} else if (this.component){
+					element = this.element.find('input');
+				}
+				if (element) {
+					element.change();
+				}
 			}
 		},
 
