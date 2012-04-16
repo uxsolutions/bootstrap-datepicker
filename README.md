@@ -147,6 +147,15 @@ Format a component.
         <span class="add-on"><i class="icon-th"></i></span>
     </div>
 
+Create a date-range picker:
+
+    <div class="input-daterange" id="datepicker">
+        <input class="input-small" name="start" value="2012-04-05" />
+        <span class="add-on">to</span>
+        <input class="input-small" name="end" value="2012-04-07" />
+    </div>
+
+
 ## Methods
 
 ### .datepicker(options)

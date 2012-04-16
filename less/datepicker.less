@@ -73,6 +73,21 @@
 			color: @grayLight;
 			cursor: default;
 		}
+		&.range,
+		&.range:hover,
+		&.range.disabled,
+		&.range.disabled:hover {
+			background:@grayLighter;
+			.border-radius(0);
+		}
+		&.selected,
+		&.selected:hover,
+		&.selected.disabled,
+		&.selected.disabled:hover {
+			.buttonBackground(lighten(@grayLight, 10), darken(@grayLight, 10));
+			color: #fff;
+			text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+		}
 		&.active,
 		&.active:hover,
 		&.active.disabled,

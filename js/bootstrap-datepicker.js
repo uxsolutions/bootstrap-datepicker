@@ -81,6 +81,7 @@
 		this.setEndDate(options.endDate||this.element.data('date-enddate'));
 		this.fillDow();
 		this.fillMonths();
+		this.setRange(options.range);
 		this.update();
 		this.showMode();
 	};
@@ -147,7 +148,9 @@
 			});
 		},
 
-		setValue: function() {
+		setValue: function(new_date) {
+			if (new_date)
+				this.date = new_date;
 			var formated = DPGlobal.formatDate(this.date, this.format, this.language);
 			if (!this.isInput) {
 				if (this.component){
@@ -219,6 +222,41 @@
 			this.picker.find('.datepicker-months td').html(html);
 		},
 
+		setRange: function(range){
+			if (!range || !range.length)
+				delete this.range;
+			else
+				this.range = $.map(range, function(d){ return d.valueOf(); });
+			this.fill();
+		},
+
+		getClassNames: function(date){
+			var cls = [],
+				year = this.viewDate.getFullYear(),
+				month = this.viewDate.getMonth(),
+				currentDate = this.date.valueOf();
+			if (date.getFullYear() < year || (date.getFullYear() == year && date.getMonth() < month)) {
+				cls.push('old');
+			} else if (date.getFullYear() > year || (date.getFullYear() == year && date.getMonth() > month)) {
+				cls.push('new');
+			}
+			if (date.valueOf() == currentDate) {
+				cls.push('active');
+			}
+			if (date.valueOf() < this.startDate || date.valueOf() > this.endDate) {
+				cls.push('disabled');
+			}
+			if (this.range){
+				if (date > this.range[0] && date < this.range[this.range.length-1]){
+					cls.push('range');
+				}
+				if ($.inArray(date.valueOf(), this.range) != -1){
+					cls.push('selected');
+				}
+			}
+			return cls;
+		},
+
 		fill: function() {
 			var d = new Date(this.viewDate),
 				year = d.getFullYear(),
@@ -245,19 +283,9 @@
 				if (prevMonth.getDay() == this.weekStart) {
 					html.push('<tr>');
 				}
-				clsName = '';
-				if (prevMonth.getFullYear() < year || (prevMonth.getFullYear() == year && prevMonth.getMonth() < month)) {
-					clsName += ' old';
-				} else if (prevMonth.getFullYear() > year || (prevMonth.getFullYear() == year && prevMonth.getMonth() > month)) {
-					clsName += ' new';
-				}
-				if (prevMonth.valueOf() == currentDate) {
-					clsName += ' active';
-				}
-				if (prevMonth.valueOf() < this.startDate || prevMonth.valueOf() > this.endDate) {
-					clsName += ' disabled';
-				}
-				html.push('<td class="day'+clsName+'">'+prevMonth.getDate() + '</td>');
+				clsName = this.getClassNames(prevMonth);
+				clsName.push('day');
+				html.push('<td class="'+clsName.join(' ')+'">'+prevMonth.getDate() + '</td>');
 				if (prevMonth.getDay() == this.weekEnd) {
 					html.push('</tr>');
 				}
@@ -529,6 +557,50 @@
 		}
 	};
 
+	var DateRangePicker = function(options){
+		this.inputs = $.map(options.inputs, function(i){ return i.jquery ? i[0] : i; });
+
+		$(this.inputs)
+			.datepicker(options)
+			.bind('changeDate', $.proxy(this.dateUpdated, this));
+
+		this.pickers = $.map(this.inputs, function(i){ return $(i).data('datepicker'); });
+		this.updateDates();
+	};
+	DateRangePicker.prototype = {
+		updateDates: function(){
+			this.dates = $.map(this.pickers, function(i){ return i.date; });
+			this.updateRanges();
+		},
+		updateRanges: function(){
+			var range = $.map(this.dates, function(d){ return d.valueOf(); });
+			$.each(this.pickers, function(i, p){
+				p.setRange(range);
+			});
+		},
+		dateUpdated: function(e){
+			var dp = $(e.target).data('datepicker'),
+				new_date = e.date,
+				i = $.inArray(e.target, this.inputs),
+				l = this.inputs.length;
+			if (i == -1) return;
+
+			if (new_date < this.dates[i]){
+				// Date being moved earlier/left
+				while (i && new_date < this.dates[i]){
+					this.pickers[i--].setValue(new_date);
+				}
+			}
+			else if (new_date > this.dates[i]){
+				// Date being moved later/right
+				while (i<l && new_date > this.dates[i]){
+					this.pickers[i++].setValue(new_date);
+				}
+			}
+			this.updateDates();
+		}
+	};
+	
 	$.fn.datepicker = function ( option ) {
 		var args = Array.apply(null, arguments);
 		args.shift();
@@ -537,7 +609,15 @@
 				data = $this.data('datepicker'),
 				options = typeof option == 'object' && option;
 			if (!data) {
-				$this.data('datepicker', (data = new Datepicker(this, $.extend({}, $.fn.datepicker.defaults,options))));
+				if ($this.is('.input-daterange')){
+					var opts = {
+							inputs: $this.find('input').toArray()
+						};
+					$this.data('datepicker', (data = new DateRangePicker($.extend(opts, $.fn.datepicker.defaults,options))));
+				}
+				else{
+					$this.data('datepicker', (data = new Datepicker(this, $.extend({}, $.fn.datepicker.defaults,options))));
+				}
 			}
 			if (typeof option == 'string') data[option].apply(data, args);
 		});
