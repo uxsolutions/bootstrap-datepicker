@@ -75,8 +75,8 @@
 				break;
 		}
 
-		this.weekStart = options.weekStart||this.element.data('date-weekstart')||dates[this.language].weekStart||0;
-		this.weekEnd = this.weekStart == 0 ? 6 : this.weekStart - 1;
+		this.weekStart = parseInt(options.weekStart||this.element.data('date-weekstart')||dates[this.language].weekStart||0);
+		this.weekEnd = ((this.weekStart + 6) % 7);
 		this.startDate = -Infinity;
 		this.endDate = Infinity;
 		this.setStartDate(options.startDate||this.element.data('date-startdate'));
