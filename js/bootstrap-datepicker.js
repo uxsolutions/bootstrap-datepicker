@@ -24,7 +24,8 @@
 
 	var Datepicker = function(element, options){
 		this.element = $(element);
-		this.language = options.language in dates ? options.language : "en";
+		this.language = options.language||this.element.data('date-language')||"en";
+		this.language = this.language in dates ? this.language : "en";
 		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'mm/dd/yyyy');
 		this.picker = $(DPGlobal.template)
 							.appendTo('body')
