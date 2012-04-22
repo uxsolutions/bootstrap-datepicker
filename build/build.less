@@ -1,13 +1,10 @@
-// Datepicker .css buildfile.  Includes select mixins/variables from bootstrap
+// Datepicker .less buildfile.  Includes select mixins/variables from bootstrap
 // and imports the included datepicker.less to output a minimal datepicker.css
 //
 // Usage:
-//     lessc build.css css/datepicker.css
+//     lessc build.less datepicker.css
 //
 // Variables and mixins copied from bootstrap 2.0.2
-//
-// Mixins must be included individually, else some (eg, .clearfix) will be
-// included in the built .css
 
 // Variables
 @grayLight:             #999;
@@ -66,4 +63,4 @@
   }
 }
 
-@import "less/datepicker.less";
+@import "../less/datepicker.less";
