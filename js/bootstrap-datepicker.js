@@ -24,7 +24,8 @@
 
 	var Datepicker = function(element, options){
 		this.element = $(element);
-		this.language = options.language || 'en';
+		this.language = options.language||this.element.data('date-language')||"en";
+		this.language = this.language in dates ? this.language : "en";
 		this.format = options.format||this.element.data('date-format')||'mm/dd/yyyy';
 		this.picker = $(template)
 							.appendTo('body')
@@ -34,6 +35,8 @@
 							});
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on') : false;
+		if(this.component && this.component.length === 0)
+			this.component = false;
 
 		if (this.isInput) {
 			this.element.on({
@@ -45,6 +48,10 @@
 		} else {
 			if (this.component){
 				this.component.on('click', $.proxy(this.show, this));
+				var element = this.element.find('input');
+				element.on({
+					blur: $.proxy(this._hide, this)
+				})
 			} else {
 				this.element.on('click', $.proxy(this.show, this));
 			}
@@ -57,9 +64,24 @@
 			this.autoclose = this.element.data('date-autoclose');
 		}
 
-		this.viewMode = 0;
-		this.weekStart = options.weekStart||this.element.data('date-weekstart')||DPGlobal.getWeekStart(this.language)||0;
-		this.weekEnd = this.weekStart == 0 ? 6 : this.weekStart - 1;
+		switch(options.startView){
+			case 2:
+			case 'decade':
+				this.viewMode = this.startViewMode = 2;
+				break;
+			case 1:
+			case 'year':
+				this.viewMode = this.startViewMode = 1;
+				break;
+			case 0:
+			case 'month':
+			default:
+				this.viewMode = this.startViewMode = 0;
+				break;
+		}
+
+		this.weekStart = ((options.weekStart||this.element.data('date-weekstart')||DPGlobal.getWeekStart(this.language)||0) % 7);
+		this.weekEnd = ((this.weekStart + 6) % 7);
 		this.startDate = -Infinity;
 		this.endDate = Infinity;
 		this.setStartDate(options.startDate||this.element.data('date-startdate'));
@@ -119,7 +141,7 @@
 		hide: function(e){
 			this.picker.hide();
 			$(window).off('resize', this.place);
-			this.viewMode = 0;
+			this.viewMode = this.startViewMode;
 			this.showMode();
 			if (!this.isInput) {
 				$(document).off('mousedown', this.hide);
@@ -416,7 +438,8 @@
 					this.show();
 				return;
 			}
-			var dir, day, month;
+			var dateChanged = false,
+				dir, day, month;
 			switch(e.keyCode){
 				case 27: // escape
 					this.hide();
@@ -438,6 +461,7 @@
 					this.setValue();
 					this.update();
 					e.preventDefault();
+					dateChanged = true;
 					break;
 				case 38: // up
 				case 40: // down
@@ -455,11 +479,27 @@
 					this.setValue();
 					this.update();
 					e.preventDefault();
+					dateChanged = true;
 					break;
 				case 13: // enter
 					this.hide();
 					e.preventDefault();
 					break;
+			}
+			if (dateChanged){
+				this.element.trigger({
+					type: 'changeDate',
+					date: this.date
+				});
+				var element;
+				if (this.isInput) {
+					element = this.element;
+				} else if (this.component){
+					element = this.element.find('input');
+				}
+				if (element) {
+					element.change();
+				}
 			}
 		},
 
