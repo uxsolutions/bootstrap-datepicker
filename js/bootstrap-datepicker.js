@@ -80,8 +80,10 @@
 				break;
 		}
 
-		this.weekStart = ((options.weekStart||this.element.data('date-weekstart')||dates[this.language].weekStart||0) % 7);
-		this.weekEnd = ((this.weekStart + 6) % 7);
+		var weekLength = dates[this.language].days.length;
+
+		this.weekStart = ((options.weekStart||this.element.data('date-weekstart')||dates[this.language].weekStart||0) % weekLength);
+		this.weekEnd = ((this.weekStart + weekLength - 1) % weekLength);
 		this.startDate = -Infinity;
 		this.endDate = Infinity;
 		this.setStartDate(options.startDate||this.element.data('date-startdate'));
