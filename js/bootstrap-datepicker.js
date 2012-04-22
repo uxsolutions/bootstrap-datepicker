@@ -48,6 +48,10 @@
 		} else {
 			if (this.component){
 				this.component.on('click', $.proxy(this.show, this));
+				var element = this.element.find('input');
+				element.on({
+					blur: $.proxy(this._hide, this)
+				})
 			} else {
 				this.element.on('click', $.proxy(this.show, this));
 			}
