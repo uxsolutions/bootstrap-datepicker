@@ -239,7 +239,7 @@
 				currentDate = this.date.valueOf();
 			this.picker.find('.datepicker-days thead th:eq(1)')
 						.text(dates[this.language].months[month]+' '+year);
-			this.picker.find('.datepicker-days tfoot th:eq(0)')
+			this.picker.find('tfoot th.today')
 						.text(dates[this.language].today)
 						.toggle(this.todayBtn);
 			this.updateNavArrows();
@@ -750,12 +750,14 @@
 							'<div class="datepicker-months">'+
 								'<table class="table-condensed">'+
 									DPGlobal.headTemplate+
+									DPGlobal.footTemplate+
 									DPGlobal.contTemplate+
 								'</table>'+
 							'</div>'+
 							'<div class="datepicker-years">'+
 								'<table class="table-condensed">'+
 									DPGlobal.headTemplate+
+									DPGlobal.footTemplate+
 									DPGlobal.contTemplate+
 								'</table>'+
 							'</div>'+
