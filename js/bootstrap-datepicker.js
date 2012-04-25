@@ -80,6 +80,8 @@
 				break;
 		}
 
+		this.todayBtn = (options.todayBtn||(this.element.data('today-btn')==='true')||false);
+
 		this.weekStart = ((options.weekStart||this.element.data('date-weekstart')||dates[this.language].weekStart||0) % 7);
 		this.weekEnd = ((this.weekStart + 6) % 7);
 		this.startDate = -Infinity;
@@ -238,7 +240,8 @@
 			this.picker.find('.datepicker-days thead th:eq(1)')
 						.text(dates[this.language].months[month]+' '+year);
 			this.picker.find('.datepicker-days tfoot th:eq(0)')
-						.text(dates[this.language].today);
+						.text(dates[this.language].today)
+						.toggle(this.todayBtn);
 			this.updateNavArrows();
 			this.fillMonths();
 			var prevMonth = new Date(year, month-1, 28,0,0,0,0),
