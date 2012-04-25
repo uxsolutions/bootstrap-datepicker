@@ -376,6 +376,7 @@
 								date.setSeconds(0);
 								date.setMilliseconds(0);
 
+								this.showMode(-2);
 								this._setDate(date);
 								break;
 						}
