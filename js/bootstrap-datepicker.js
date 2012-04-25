@@ -80,7 +80,7 @@
 				break;
 		}
 
-		this.todayBtn = (options.todayBtn||(this.element.data('today-btn')==='true')||false);
+		this.todayBtn = (options.todayBtn||this.element.data('date-today-btn')||false);
 
 		this.weekStart = ((options.weekStart||this.element.data('date-weekstart')||dates[this.language].weekStart||0) % 7);
 		this.weekEnd = ((this.weekStart + 6) % 7);
