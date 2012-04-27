@@ -370,10 +370,21 @@
 						if (!target.is('.disabled')) {
 							if (target.is('.month')) {
 								var month = target.parent().find('span').index(target);
+								this.viewDate.setDate(1);
 								this.viewDate.setMonth(month);
+								this.element.trigger({
+									type: 'pickMonth',
+									date: this.viewDate
+								});
 							} else {
 								var year = parseInt(target.text(), 10)||0;
 								this.viewDate.setFullYear(year);
+								this.viewDate.setDate(1);
+								this.viewDate.setMonth(0);
+								this.element.trigger({
+									type: 'pickYear',
+									date: this.viewDate
+								});
 							}
 							this.showMode(-1);
 							this.fill();
