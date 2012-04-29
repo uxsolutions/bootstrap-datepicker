@@ -72,11 +72,18 @@ test('yyyy: Year, four-digit.', function(){
     equal(this.input.val().split('-')[0], '2012');
 });
 
-
 test('dd-mm-yyyy: Regression: Prevent potential month overflow in small-to-large formats (Mar 31, 2012 -> Mar 01, 2012)', function(){
     this.input
         .val('31-03-2012')
         .datepicker({format: 'dd-mm-yyyy'})
         .datepicker('setValue');
     equal(this.input.val(), '31-03-2012');
+});
+
+test('dd-mm-yyyy: Leap day', function(){
+    this.input
+        .val('29-02-2012')
+        .datepicker({format: 'dd-mm-yyyy'})
+        .datepicker('setValue');
+    equal(this.input.val(), '29-02-2012');
 });

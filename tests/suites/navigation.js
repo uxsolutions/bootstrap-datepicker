@@ -53,7 +53,7 @@ test('Navigating next/prev by month', function(){
     deepEqual(this.dp.viewDate, new Date(2012, 1, 29),
               'Expected: '+format_date(new Date(2012, 1, 29))+'; Got: '+format_date(this.dp.viewDate));
     deepEqual(this.dp.date, new Date(2012, 2, 31),
-              'Expected: '+format_date(new Date(2012, 1, 31))+'; Got: '+format_date(this.dp.date));
+              'Expected: '+format_date(new Date(2012, 2, 31))+'; Got: '+format_date(this.dp.date));
 
     // Re-rendered on click
     target = this.picker.find('.datepicker-days tbody td:first');
@@ -238,4 +238,3 @@ test('Navigating prev/next in decade view', function(){
     deepEqual(this.dp.date, new Date(2012, 2, 31),
               'Expected: '+format_date(new Date(2012, 2, 31))+'; Got: '+format_date(this.dp.date));
 });
-
