@@ -1,4 +1,4 @@
-module('Navigation 2012', {
+module('Mouse Navigation 2012', {
     setup: function(){
         /*
             Tests start with picker on March 31, 2012.  Fun facts:
