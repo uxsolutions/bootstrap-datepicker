@@ -645,12 +645,23 @@
 			}
 			var parts = date ? date.match(this.nonpunctuation) : [],
 				date = new Date(),
-				val, filtered;
+				parsed = {},
+				setters_order = ['yyyy', 'yy', 'M', 'MM', 'm', 'mm', 'd', 'dd'],
+				setters_map = {
+					yyyy: function(d,v){ return d.setFullYear(v); },
+					yy: function(d,v){ return d.setFullYear(2000+v); },
+					m: function(d,v){ return d.setMonth(v-1); },
+					d: function(d,v){ return d.setDate(v); },
+				},
+				val, filtered, part;
+			setters_map['M'] = setters_map['MM'] = setters_map['mm'] = setters_map['m'];
+			setters_map['dd'] = setters_map['d'];
 			date = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
 			if (parts.length == format.parts.length) {
 				for (var i=0, cnt = format.parts.length; i < cnt; i++) {
 					val = parseInt(parts[i], 10)||1;
-					switch(format.parts[i]) {
+					part = format.parts[i];
+					switch(part) {
 						case 'MM':
 							filtered = $(dates[language].months).filter(function(){
 								var m = this.slice(0, parts[i].length),
@@ -668,24 +679,12 @@
 							val = $.inArray(filtered[0], dates[language].monthsShort) + 1;
 							break;
 					}
-					switch(format.parts[i]) {
-						case 'dd':
-						case 'd':
-							date.setDate(val);
-							break;
-						case 'mm':
-						case 'm':
-						case 'MM':
-						case 'M':
-							date.setMonth(val - 1);
-							break;
-						case 'yy':
-							date.setFullYear(2000 + val);
-							break;
-						case 'yyyy':
-							date.setFullYear(val);
-							break;
-					}
+					parsed[part] = val;
+				}
+				for (var i=0, s; i<setters_order.length; i++){
+					s = setters_order[i];
+					if (s in parsed)
+						setters_map[s](date, parsed[s])
 				}
 			}
 			return date;
