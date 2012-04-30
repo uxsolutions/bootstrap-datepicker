@@ -206,8 +206,8 @@
 .datepicker td span.old {
   color: #999999;
 }
-.datepicker td span.today {
-  background: #dddddd;
+.datepicker td.today {
+  border: 1px solid #ddd;
 }
 .datepicker th.switch {
   width: 145px;
