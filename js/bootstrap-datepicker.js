@@ -247,7 +247,8 @@
 			nextMonth.setDate(nextMonth.getDate() + 42);
 			nextMonth = nextMonth.valueOf();
 			html = [];
-			var clsName;
+			var clsName,
+			    today = new Date();
 			while(prevMonth.valueOf() < nextMonth) {
 				if (prevMonth.getDay() == this.weekStart) {
 					html.push('<tr>');
@@ -263,6 +264,9 @@
 				}
 				if (prevMonth.valueOf() < this.startDate || prevMonth.valueOf() > this.endDate) {
 					clsName += ' disabled';
+				}
+				if ( prevMonth.getMonth() == today.getMonth() && prevMonth.getDate() == today.getDate() && prevMonth.getFullYear() == today.getFullYear() ) {
+					clsName += ' today';
 				}
 				html.push('<td class="day'+clsName+'">'+prevMonth.getDate() + '</td>');
 				if (prevMonth.getDay() == this.weekEnd) {
