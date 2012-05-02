@@ -60,7 +60,7 @@
 		this.autoclose = false;
 		if ('autoclose' in options) {
 			this.autoclose = options.autoclose;
-		} else if ('dateAutoclose' in this.element.data()) {
+		} else if ('date-autoclose' in this.element.data()) {
 			this.autoclose = this.element.data('date-autoclose');
 		}
 
