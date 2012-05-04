@@ -206,6 +206,9 @@
 .datepicker td span.old {
   color: #999999;
 }
+.datepicker td.today {
+  border: 1px solid #ddd;
+}
 .datepicker th.switch {
   width: 145px;
 }
