@@ -71,3 +71,81 @@ test('simple keyboard nav test', function(){
     equal(target.text(), 'March 2011', 'Title is "March 2011"');
 });
 
+test('setValue', function(){
+    this.dp.date = new Date(2012, 2, 13)
+    this.dp.setValue()
+    datesEqual(this.dp.date, new Date(2012, 2, 13));
+    equal(this.input.val(), '13-03-2012');
+});
+
+test('update', function(){
+    this.input.val('13-03-2012');
+    this.dp.update()
+    datesEqual(this.dp.date, new Date(2012, 2, 13));
+});
+
+test('Navigating to/from decade view', function(){
+    var target;
+
+    this.addon.click();
+    this.input.val('31-03-2012');
+    this.dp.update();
+
+    equal(this.dp.viewMode, 0);
+    target = this.picker.find('.datepicker-days thead th.switch');
+    ok(target.is(':visible'), 'View switcher is visible');
+
+    target.click();
+    ok(this.picker.find('.datepicker-months').is(':visible'), 'Month picker is visible');
+    equal(this.dp.viewMode, 1);
+    // Not modified when switching modes
+    datesEqual(this.dp.viewDate, new Date(2012, 2, 31));
+    datesEqual(this.dp.date, new Date(2012, 2, 31));
+
+    target = this.picker.find('.datepicker-months thead th.switch');
+    ok(target.is(':visible'), 'View switcher is visible');
+
+    target.click();
+    ok(this.picker.find('.datepicker-years').is(':visible'), 'Year picker is visible');
+    equal(this.dp.viewMode, 2);
+    // Not modified when switching modes
+    datesEqual(this.dp.viewDate, new Date(2012, 2, 31));
+    datesEqual(this.dp.date, new Date(2012, 2, 31));
+
+    // Change years to test internal state changes
+    target = this.picker.find('.datepicker-years tbody span:contains(2011)');
+    target.click();
+    equal(this.dp.viewMode, 1);
+    // Only viewDate modified
+    datesEqual(this.dp.viewDate, new Date(2011, 2, 31));
+    datesEqual(this.dp.date, new Date(2012, 2, 31));
+
+    target = this.picker.find('.datepicker-months tbody span:contains(Apr)');
+    target.click();
+    equal(this.dp.viewMode, 0);
+    // Only viewDate modified
+    datesEqual(this.dp.viewDate, new Date(2011, 3, 30));
+    datesEqual(this.dp.date, new Date(2012, 2, 31));
+});
+
+test('Selecting date resets viewDate and date', function(){
+    var target;
+
+    this.addon.click();
+    this.input.val('31-03-2012');
+    this.dp.update();
+
+    // Rendered correctly
+    equal(this.dp.viewMode, 0);
+    target = this.picker.find('.datepicker-days tbody td:first');
+    equal(target.text(), '26'); // Should be Feb 26
+
+    // Updated internally on click
+    target.click();
+    datesEqual(this.dp.viewDate, new Date(2012, 1, 26))
+    datesEqual(this.dp.date, new Date(2012, 1, 26))
+
+    // Re-rendered on click
+    target = this.picker.find('.datepicker-days tbody td:first');
+    equal(target.text(), '29'); // Should be Jan 29
+});
