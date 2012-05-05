@@ -35,24 +35,58 @@ function waitFor(testFx, onReady, timeOutMillis) {
         }, 100); //< repeat check every 100ms
 };
 
-
 if (system.args.length !== 2) {
     console.log('Usage: run-qunit.js URL');
     phantom.exit(1);
 }
 
+var fs = require('fs');
 var page = require('webpage').create();
 
 // Route "console.log()" calls from within the Page context to the main Phantom context (i.e. current "this")
 page.onConsoleMessage = function(msg) {
     console.log(msg);
 };
+page.onError = function (msg, trace) {
+    console.log(msg);
+    trace.forEach(function(item) {
+        console.log('  ', item.file, ':', item.line);
+    })
+}
 
-page.open(system.args[1], function(status){
+var _openPath = phantom.args[0].replace(/^.*(\\|\/)/, '');
+var openPath = _openPath;
+var origdir = '../js/';
+var basedir = '../instrumented/';
+var coverageBase = fs.read('_coverage.html');
+
+if (fs.exists(basedir)){
+    var script = /<script.*><\/script>/g,
+        src = /src=(["'])(.*?)\1/,
+        contents = fs.read(openPath),
+        _contents = contents,
+        srcs = [],
+        s;
+    while (script.exec(contents)){
+        s = src.exec(RegExp.lastMatch)[2];
+        if (s && s.indexOf(origdir) != -1)
+            _contents = _contents.replace(s, s.replace(origdir, basedir))
+    }
+    if (_contents != contents){
+        openPath += '.cov.html';
+        fs.write(openPath, _contents);
+    }
+}
+
+page.open(openPath, function(status){
     if (status !== "success") {
         console.log("Unable to access network");
         phantom.exit(1);
     } else {
+        // Inject instrumented sources if they exist
+        if (fs.exists(basedir))
+            for (var i=0; i<srcs.length; i++)
+                page.includeJs(srcs[i]);
         waitFor(function(){
             return page.evaluate(function(){
                 var el = document.getElementById('qunit-testresult');
@@ -62,6 +96,40 @@ page.open(system.args[1], function(status){
                 return false;
             });
         }, function(){
+            // output colorized code coverage
+            // reach into page context and pull out coverage info. stringify to pass context boundaries.
+            var coverageInfo = JSON.parse(page.evaluate(function() { return JSON.stringify(getCoverageByLine()); }));
+            if (coverageInfo.key){
+                var lineCoverage = coverageInfo.lines;
+                var originalFile = origdir + fs.separator + coverageInfo.key;
+                var source = coverageInfo.source;
+                var fileLines = readFileLines(originalFile);
+
+                var colorized = '';
+
+                for (var idx=0; idx < lineCoverage.length; idx++) {
+                    //+1: coverage lines count from 1.
+                    var cvg = lineCoverage[idx + 1];
+                    var hitmiss = '';
+                    if (typeof cvg === 'number') {
+                        hitmiss = ' ' + (cvg>0 ? 'hit' : 'miss');
+                    } else {
+                        hitmiss = ' ' + 'undef';
+                    }
+                    var htmlLine = fileLines[idx]
+                    if (!source)
+                        htmlLine = htmlLine.replace('<', '&lt;').replace('>', '&gt;');
+                    colorized += '<div class="code' + hitmiss + '">' + htmlLine + '</div>\n';
+                };
+                colorized = coverageBase.replace('COLORIZED_LINE_HTML', colorized);
+
+                fs.write('coverage.html', colorized, 'w');
+
+                console.log('Coverage for ' + coverageInfo.key + ' in coverage.html');
+            }
+            if (_openPath != openPath)
+                fs.remove(openPath);
+
             var failedNum = page.evaluate(function(){
                 var el = document.getElementById('qunit-testresult');
                 console.log(el.innerText);
@@ -74,3 +142,16 @@ page.open(system.args[1], function(status){
         });
     }
 });
+
+function readFileLines(filename) {
+    var stream = fs.open(filename, 'r');
+    var lines = [];
+    var line;
+    while (!stream.atEnd()) {
+        lines.push(stream.readLine());
+    }
+    stream.close();
+
+    return lines;
+}
+

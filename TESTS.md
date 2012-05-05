@@ -16,6 +16,16 @@ To run the tests from the command line, download and install
 Failed tests and their failed assertions will be printed to the console.  A
 results summary will be printed at the end.
 
+To generate coverage statistics, use [JSCoverage](http://siliconforks.com/jscoverage/)
+to instrument the js files:
+
+    $ cd tests/
+    $ jscoverage ../js/ ../instrumented/
+    $ phantomjs run-qunit.js tests.html
+
+Coverage percentage will be included in the output summary, and a highlighted
+line-by-line html file will be generated.
+
 # Shout-out
 
 Thanks to Rod @ While One Fork for the
