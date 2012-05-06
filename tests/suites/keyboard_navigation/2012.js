@@ -334,3 +334,84 @@ test('by year, from leap day', function(){
     target = this.picker.find('.datepicker-days thead th.switch');
     equal(target.text(), 'February 2013', 'Title is "February 2013"');
 });
+
+test('Selection (enter)', function(){
+    var target;
+
+    equal(this.dp.viewMode, 0);
+    target = this.picker.find('.datepicker-days thead th.switch');
+    equal(target.text(), 'March 2012', 'Title is "March 2012"');
+
+    // Navigation: -1 day, left arrow key
+    this.input.trigger({
+        type: 'keydown',
+        keyCode: 37
+    });
+    // Both updated on keyboard navigation
+    datesEqual(this.dp.viewDate, new Date(2012, 2, 30));
+    datesEqual(this.dp.date, new Date(2012, 2, 30));
+    // Month not changed
+    target = this.picker.find('.datepicker-days thead th.switch');
+    equal(target.text(), 'March 2012', 'Title is "March 2012"');
+
+    // Selection: Enter
+    this.input.trigger({
+        type: 'keydown',
+        keyCode: 13
+    });
+    // Both updated on keyboard navigation
+    datesEqual(this.dp.viewDate, new Date(2012, 2, 30));
+    datesEqual(this.dp.date, new Date(2012, 2, 30));
+    // Month not changed
+    target = this.picker.find('.datepicker-days thead th.switch');
+    equal(target.text(), 'March 2012', 'Title is "March 2012"');
+
+    ok(this.picker.is(':not(:visible)'), 'Picker is hidden');
+});
+
+test('Toggle hide/show (escape); navigation while hidden is suppressed', function(){
+    var target;
+
+    equal(this.dp.viewMode, 0);
+    target = this.picker.find('.datepicker-days thead th.switch');
+    equal(target.text(), 'March 2012', 'Title is "March 2012"');
+
+    ok(this.picker.is(':visible'), 'Picker is visible');
+
+    // Hide
+    this.input.trigger({
+        type: 'keydown',
+        keyCode: 27
+    });
+
+    ok(this.picker.is(':not(:visible)'), 'Picker is hidden');
+    datesEqual(this.dp.viewDate, new Date(2012, 2, 31));
+    datesEqual(this.dp.date, new Date(2012, 2, 31));
+
+    // left arrow key, *doesn't* navigate
+    this.input.trigger({
+        type: 'keydown',
+        keyCode: 37
+    });
+
+    datesEqual(this.dp.viewDate, new Date(2012, 2, 31));
+    datesEqual(this.dp.date, new Date(2012, 2, 31));
+
+    // Show
+    this.input.trigger({
+        type: 'keydown',
+        keyCode: 27
+    });
+
+    ok(this.picker.is(':visible'), 'Picker is visible');
+    datesEqual(this.dp.viewDate, new Date(2012, 2, 31));
+    datesEqual(this.dp.date, new Date(2012, 2, 31));
+});
+
+test('Blur hides picker', function(){
+    var target;
+
+    ok(this.picker.is(':visible'), 'Picker is visible');
+    this.input.blur();
+    ok(this.picker.is(':not(:visible)'), 'Picker is hidden');
+});
