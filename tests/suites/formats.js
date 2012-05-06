@@ -87,3 +87,84 @@ test('dd-mm-yyyy: Leap day', function(){
         .datepicker('setValue');
     equal(this.input.val(), '29-02-2012');
 });
+
+test('+1d: Tomorrow', patch_date(function(Date){
+    Date.now = new Date(2012, 2, 15);
+    this.input
+        .val('+1d')
+        .datepicker({format: 'dd-mm-yyyy'})
+        .datepicker('setValue');
+    equal(this.input.val(), '16-03-2012');
+}));
+
+test('-1d: Yesterday', patch_date(function(Date){
+    Date.now = new Date(2012, 2, 15);
+    this.input
+        .val('-1d')
+        .datepicker({format: 'dd-mm-yyyy'})
+        .datepicker('setValue');
+    equal(this.input.val(), '14-03-2012');
+}));
+
+test('+1w: Next week', patch_date(function(Date){
+    Date.now = new Date(2012, 2, 15);
+    this.input
+        .val('+1w')
+        .datepicker({format: 'dd-mm-yyyy'})
+        .datepicker('setValue');
+    equal(this.input.val(), '22-03-2012');
+}));
+
+test('-1w: Last week', patch_date(function(Date){
+    Date.now = new Date(2012, 2, 15);
+    this.input
+        .val('-1w')
+        .datepicker({format: 'dd-mm-yyyy'})
+        .datepicker('setValue');
+    equal(this.input.val(), '08-03-2012');
+}));
+
+test('+1m: Next month', patch_date(function(Date){
+    Date.now = new Date(2012, 2, 15);
+    this.input
+        .val('+1m')
+        .datepicker({format: 'dd-mm-yyyy'})
+        .datepicker('setValue');
+    equal(this.input.val(), '15-04-2012');
+}));
+
+test('-1m: Last month', patch_date(function(Date){
+    Date.now = new Date(2012, 2, 15);
+    this.input
+        .val('-1m')
+        .datepicker({format: 'dd-mm-yyyy'})
+        .datepicker('setValue');
+    equal(this.input.val(), '15-02-2012');
+}));
+
+test('+1y: Next year', patch_date(function(Date){
+    Date.now = new Date(2012, 2, 15);
+    this.input
+        .val('+1y')
+        .datepicker({format: 'dd-mm-yyyy'})
+        .datepicker('setValue');
+    equal(this.input.val(), '15-03-2013');
+}));
+
+test('-1y: Last year', patch_date(function(Date){
+    Date.now = new Date(2012, 2, 15);
+    this.input
+        .val('-1y')
+        .datepicker({format: 'dd-mm-yyyy'})
+        .datepicker('setValue');
+    equal(this.input.val(), '15-03-2011');
+}));
+
+test('-1y +2m: Multiformat', patch_date(function(Date){
+    Date.now = new Date(2012, 2, 15);
+    this.input
+        .val('-1y +2m')
+        .datepicker({format: 'dd-mm-yyyy'})
+        .datepicker('setValue');
+    equal(this.input.val(), '15-05-2011');
+}));
