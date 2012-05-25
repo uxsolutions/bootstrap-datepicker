@@ -104,7 +104,7 @@ All options that take a "Date" can handle a `Date` object; a String formatted ac
 
 String.  Default: 'mm/dd/yyyy'
 
-The date format, combination of d, dd, m, mm, M, MM, yy, yyy.
+The date format, combination of d, dd, m, mm, M, MM, yy, yyyy.
 
 ### weekStart
 
