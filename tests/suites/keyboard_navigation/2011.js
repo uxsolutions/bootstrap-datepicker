@@ -34,8 +34,8 @@ test('Regression: by week (up/down arrows); up from Mar 6, 2011 should go to Feb
         type: 'keydown',
         keyCode: 38
     });
-    datesEqual(this.dp.viewDate, new Date(2012, 1, 27));
-    datesEqual(this.dp.date, new Date(2012, 1, 27));
+    datesEqual(this.dp.viewDate, new Date(2011, 1, 27));
+    datesEqual(this.dp.date, new Date(2011, 1, 27));
     target = this.picker.find('.datepicker-days thead th.switch');
     equal(target.text(), 'February 2011', 'Title is "February 2011"');
 });
@@ -56,8 +56,8 @@ test('Regression: by day (left/right arrows); left from Mar 1, 2011 should go to
         type: 'keydown',
         keyCode: 37
     });
-    datesEqual(this.dp.viewDate, new Date(2012, 1, 28));
-    datesEqual(this.dp.date, new Date(2012, 1, 28));
+    datesEqual(this.dp.viewDate, new Date(2011, 1, 28));
+    datesEqual(this.dp.date, new Date(2011, 1, 28));
     target = this.picker.find('.datepicker-days thead th.switch');
     equal(target.text(), 'February 2011', 'Title is "February 2011"');
 });
@@ -79,8 +79,8 @@ test('Regression: by month (shift + left/right arrows); left from Mar 15, 2011 s
         keyCode: 37,
         shiftKey: true
     });
-    datesEqual(this.dp.viewDate, new Date(2012, 1, 15));
-    datesEqual(this.dp.date, new Date(2012, 1, 15));
+    datesEqual(this.dp.viewDate, new Date(2011, 1, 15));
+    datesEqual(this.dp.date, new Date(2011, 1, 15));
     target = this.picker.find('.datepicker-days thead th.switch');
     equal(target.text(), 'February 2011', 'Title is "February 2011"');
 });
