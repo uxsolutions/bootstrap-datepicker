@@ -194,7 +194,7 @@
 
 		update: function(){
 			this.date = DPGlobal.parseDate(
-				this.isInput ? this.element.prop('value') : this.element.data('date'),
+				this.isInput ? this.element.prop('value') : this.element.data('date') || this.element.find('input').prop('value'),
 				this.format, this.language
 			);
 			if (this.date < this.startDate) {
