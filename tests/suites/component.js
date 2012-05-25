@@ -31,11 +31,17 @@ test('Activation by component', function(){
 test('simple keyboard nav test', function(){
     var target;
 
+    // Keyboard nav only works with non-readonly inputs
+    this.input.removeAttr('readonly');
+
     equal(this.dp.viewMode, 0);
     target = this.picker.find('.datepicker-days thead th.switch');
     equal(target.text(), 'February 2012', 'Title is "February 2012"');
     datesEqual(this.dp.date, new Date(2012, 1, 12));
     datesEqual(this.dp.viewDate, new Date(2012, 1, 12));
+
+    // Focus/open
+    this.addon.click();
 
     // Navigation: -1 day, left arrow key
     this.input.trigger({

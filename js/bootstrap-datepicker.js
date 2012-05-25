@@ -47,6 +47,14 @@
 			});
 		} else {
 			if (this.component){
+				// For components that are not readonly, allow keyboard nav
+				this.element.find('input').on({
+					focus: $.proxy(this.show, this),
+					blur: $.proxy(this._hide, this),
+					keyup: $.proxy(this.update, this),
+					keydown: $.proxy(this.keydown, this)
+				});
+
 				this.component.on('click', $.proxy(this.show, this));
 				var element = this.element.find('input');
 				element.on({
