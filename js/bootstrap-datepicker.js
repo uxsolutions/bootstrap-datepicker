@@ -368,6 +368,7 @@
 						break;
 					case 'span':
 						if (!target.is('.disabled')) {
+							this.viewDate.setDate(1);
 							if (target.is('.month')) {
 								var month = target.parent().find('span').index(target);
 								this.viewDate.setMonth(month);

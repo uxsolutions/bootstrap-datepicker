@@ -89,7 +89,7 @@ test('Navigating to/from year view', function(){
     target.click();
     equal(this.dp.viewMode, 0);
     // Only viewDate modified
-    datesEqual(this.dp.viewDate, new Date(2012, 3, 30)); // Apr 30
+    datesEqual(this.dp.viewDate, new Date(2012, 3, 1)); // Apr 30
     datesEqual(this.dp.date, new Date(2012, 2, 31));
 });
 
@@ -122,14 +122,14 @@ test('Navigating to/from decade view', function(){
     target.click();
     equal(this.dp.viewMode, 1);
     // Only viewDate modified
-    datesEqual(this.dp.viewDate, new Date(2011, 2, 31));
+    datesEqual(this.dp.viewDate, new Date(2011, 2, 1));
     datesEqual(this.dp.date, new Date(2012, 2, 31));
 
     target = this.picker.find('.datepicker-months tbody span:contains(Apr)');
     target.click();
     equal(this.dp.viewMode, 0);
     // Only viewDate modified
-    datesEqual(this.dp.viewDate, new Date(2011, 3, 30));
+    datesEqual(this.dp.viewDate, new Date(2011, 3, 1));
     datesEqual(this.dp.date, new Date(2012, 2, 31));
 });
 
