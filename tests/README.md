@@ -47,3 +47,9 @@ name and `<year>` is the four-digit year the tests pertain to.
 In order for new tests to be run, they must be imported into `tests/tests.html`.
 Find the script includes headed by the html comment `<!-- Test suites -->`, and
 add a new one to the list which includes the new js files.
+
+# Can I use this?
+
+By all means, please do!  Just note that I stopped working on this structure
+once it fit my needs, there's no real support for it, and it may change in the
+future.  Otherwise, have at it.
