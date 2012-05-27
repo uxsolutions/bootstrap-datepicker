@@ -6,7 +6,7 @@ http://www.eyecon.ro/bootstrap-datepicker/
 
 Attached to a field with the format specified via options:
 
-    <input type="text" value="02-16-2012" id="datepicker">  
+    <input type="text" value="02-16-2012" id="datepicker">
 ######
     $('#datepicker').datepicker({
         format: 'mm-dd-yyyy'
@@ -135,6 +135,12 @@ Whether or not to close the datepicker immediately when a date is selected.
 Number, String.  Default: 0, 'month'
 
 The view that the datepicker should show when it is opened.  Accepts values of 0 or 'month' for month view (the default), 1 or 'year' for the 12-month overview, and 2 or 'decade' for the 10-year overview.  Useful for date-of-birth datepickers.
+
+### todayBtn
+
+Boolean.  Default: false
+
+If true, display a button at the bottom of the datepicker to select the current date.
 
 ### language
 
