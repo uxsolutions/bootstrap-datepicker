@@ -651,7 +651,7 @@
 					yyyy: function(d,v){ return d.setFullYear(v); },
 					yy: function(d,v){ return d.setFullYear(2000+v); },
 					m: function(d,v){ return d.setMonth(v-1); },
-					d: function(d,v){ return d.setDate(v); },
+					d: function(d,v){ return d.setDate(v); }
 				},
 				val, filtered, part;
 			setters_map['M'] = setters_map['MM'] = setters_map['mm'] = setters_map['m'];
