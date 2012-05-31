@@ -659,7 +659,13 @@
 				setters_map = {
 					yyyy: function(d,v){ return d.setFullYear(v); },
 					yy: function(d,v){ return d.setFullYear(2000+v); },
-					m: function(d,v){ return d.setMonth(v-1); },
+					m: function(d,v){
+						v -= 1;
+						d.setMonth(v);
+						while (d.getMonth() != v)
+							d.setDate(d.getDate()-1);
+						return d;
+					},
 					d: function(d,v){ return d.setDate(v); }
 				},
 				val, filtered, part;

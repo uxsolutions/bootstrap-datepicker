@@ -168,3 +168,12 @@ test('-1y +2m: Multiformat', patch_date(function(Date){
         .datepicker('setValue');
     equal(this.input.val(), '15-05-2011');
 }));
+
+test('Regression: End-of-month bug', patch_date(function(Date){
+    Date.now = new Date(2012, 4, 31);
+    this.input
+        .val('29-02-2012')
+        .datepicker({format: 'dd-mm-yyyy'})
+        .datepicker('setValue');
+    equal(this.input.val(), '29-02-2012');
+}));
