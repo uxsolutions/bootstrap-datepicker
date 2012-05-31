@@ -110,9 +110,7 @@
 				e.stopPropagation();
 				e.preventDefault();
 			}
-			if (!this.isInput) {
-				$(document).on('mousedown', $.proxy(this.hide, this));
-			}
+			$(document).on('mousedown', $.proxy(this.hide, this));
 			this.element.trigger({
 				type: 'show',
 				date: this.date
@@ -136,9 +134,7 @@
 			$(window).off('resize', this.place);
 			this.viewMode = this.startViewMode;
 			this.showMode();
-			if (!this.isInput) {
-				$(document).off('mousedown', this.hide);
-			}
+			$(document).off('mousedown', this.hide);
 			if (e && e.currentTarget.value)
 				this.setValue();
 			this.element.trigger({
