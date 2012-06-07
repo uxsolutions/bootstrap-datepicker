@@ -22,12 +22,13 @@
 
 	// Picker object
 
+
 	var Datepicker = function(element, options){
 		this.element = $(element);
 		this.language = options.language||this.element.data('date-language')||"en";
 		this.language = this.language in dates ? this.language : "en";
-		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'mm/dd/yyyy');
-		this.picker = $(DPGlobal.template)
+		this.format = $.fn.datepicker.DPGlobal.parseFormat(options.format||this.element.data('date-format')||'mm/dd/yyyy');
+		this.picker = $($.fn.datepicker.DPGlobal.template)
 							.appendTo('body')
 							.on({
 								click: $.proxy(this.click, this),
@@ -163,7 +164,7 @@
 		},
 
 		setValue: function() {
-			var formated = DPGlobal.formatDate(this.date, this.format, this.language);
+			var formated = $.fn.datepicker.DPGlobal.formatDate(this.date, this.format, this.language);
 			if (!this.isInput) {
 				if (this.component){
 					this.element.find('input').prop('value', formated);
@@ -177,7 +178,7 @@
 		setStartDate: function(startDate){
 			this.startDate = startDate||-Infinity;
 			if (this.startDate !== -Infinity) {
-				this.startDate = DPGlobal.parseDate(this.startDate, this.format, this.language);
+				this.startDate = $.fn.datepicker.DPGlobal.parseDate(this.startDate, this.format, this.language);
 			}
 			this.update();
 			this.updateNavArrows();
@@ -186,7 +187,7 @@
 		setEndDate: function(endDate){
 			this.endDate = endDate||Infinity;
 			if (this.endDate !== Infinity) {
-				this.endDate = DPGlobal.parseDate(this.endDate, this.format, this.language);
+				this.endDate = $.fn.datepicker.DPGlobal.parseDate(this.endDate, this.format, this.language);
 			}
 			this.update();
 			this.updateNavArrows();
@@ -201,7 +202,7 @@
 		},
 
 		update: function(){
-			this.date = DPGlobal.parseDate(
+			this.date = $.fn.datepicker.DPGlobal.parseDate(
 				this.isInput ? this.element.prop('value') : this.element.data('date') || this.element.find('input').prop('value'),
 				this.format, this.language
 			);
@@ -248,7 +249,7 @@
 			this.updateNavArrows();
 			this.fillMonths();
 			var prevMonth = new Date(year, month-1, 28,0,0,0,0),
-				day = DPGlobal.getDaysInMonth(prevMonth.getFullYear(), prevMonth.getMonth());
+				day = $.fn.datepicker.DPGlobal.getDaysInMonth(prevMonth.getFullYear(), prevMonth.getMonth());
 			prevMonth.setDate(day);
 			prevMonth.setDate(day - (prevMonth.getDay() - this.weekStart + 7)%7);
 			var nextMonth = new Date(prevMonth);
@@ -360,7 +361,7 @@
 								break;
 							case 'prev':
 							case 'next':
-								var dir = DPGlobal.modes[this.viewMode].navStep * (target[0].className == 'prev' ? -1 : 1);
+								var dir = $.fn.datepicker.DPGlobal.modes[this.viewMode].navStep * (target[0].className == 'prev' ? -1 : 1);
 								switch(this.viewMode){
 									case 0:
 										this.viewDate = this.moveMonth(this.viewDate, dir);
@@ -558,7 +559,7 @@
 			if (dir) {
 				this.viewMode = Math.max(0, Math.min(2, this.viewMode + dir));
 			}
-			this.picker.find('>div').hide().filter('.datepicker-'+DPGlobal.modes[this.viewMode].clsName).show();
+			this.picker.find('>div').hide().filter('.datepicker-'+$.fn.datepicker.DPGlobal.modes[this.viewMode].clsName).show();
 			this.updateNavArrows();
 		}
 	};
@@ -576,7 +577,6 @@
 			if (typeof option == 'string') data[option].apply(data, args);
 		});
 	};
-
 	$.fn.datepicker.defaults = {
 	};
 	$.fn.datepicker.Constructor = Datepicker;
@@ -590,7 +590,7 @@
 		}
 	}
 
-	var DPGlobal = {
+    $.fn.datepicker.DPGlobal = {
 		modes: [
 			{
 				clsName: 'days',
@@ -611,7 +611,7 @@
 			return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0))
 		},
 		getDaysInMonth: function (year, month) {
-			return [31, (DPGlobal.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month]
+			return [31, ($.fn.datepicker.DPGlobal.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month]
 		},
 		validParts: /dd?|mm?|MM?|yy(?:yy)?/g,
 		nonpunctuation: /[^ -\/:-@\[-`{-~\t\n\r]+/g,
@@ -733,23 +733,23 @@
 						'</thead>',
 		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>'
 	};
-	DPGlobal.template = '<div class="datepicker dropdown-menu">'+
+	$.fn.datepicker.DPGlobal.template = '<div class="datepicker dropdown-menu">'+
 							'<div class="datepicker-days">'+
 								'<table class=" table-condensed">'+
-									DPGlobal.headTemplate+
+									$.fn.datepicker.DPGlobal.headTemplate+
 									'<tbody></tbody>'+
 								'</table>'+
 							'</div>'+
 							'<div class="datepicker-months">'+
 								'<table class="table-condensed">'+
-									DPGlobal.headTemplate+
-									DPGlobal.contTemplate+
+									$.fn.datepicker.DPGlobal.headTemplate+
+									$.fn.datepicker.DPGlobal.contTemplate+
 								'</table>'+
 							'</div>'+
 							'<div class="datepicker-years">'+
 								'<table class="table-condensed">'+
-									DPGlobal.headTemplate+
-									DPGlobal.contTemplate+
+									$.fn.datepicker.DPGlobal.headTemplate+
+									$.fn.datepicker.DPGlobal.contTemplate+
 								'</table>'+
 							'</div>'+
 						'</div>';
