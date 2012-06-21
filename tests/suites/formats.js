@@ -88,6 +88,22 @@ test('dd-mm-yyyy: Leap day', function(){
     equal(this.input.val(), '29-02-2012');
 });
 
+test('yyyy-mm-dd: Alternative format', function(){
+    this.input
+        .val('2012-02-12')
+        .datepicker({format: 'yyyy-mm-dd'})
+        .datepicker('setValue');
+    equal(this.input.val(), '2012-02-12');
+});
+
+test('yyyy-MM-dd: Regression: Infinite loop when numbers used for month', function(){
+    this.input
+        .val('2012-02-12')
+        .datepicker({format: 'yyyy-MM-dd'})
+        .datepicker('setValue');
+    equal(this.input.val(), '2012-February-12');
+});
+
 test('+1d: Tomorrow', patch_date(function(Date){
     Date.now = new Date(2012, 2, 15);
     this.input

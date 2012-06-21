@@ -661,6 +661,8 @@
 					yy: function(d,v){ return d.setFullYear(2000+v); },
 					m: function(d,v){
 						v -= 1;
+						while (v<0) v += 12;
+						v %= 12;
 						d.setMonth(v);
 						while (d.getMonth() != v)
 							d.setDate(d.getDate()-1);
@@ -674,25 +676,27 @@
 			date = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
 			if (parts.length == format.parts.length) {
 				for (var i=0, cnt = format.parts.length; i < cnt; i++) {
-					val = parseInt(parts[i], 10)||1;
+					val = parseInt(parts[i], 10);
 					part = format.parts[i];
-					switch(part) {
-						case 'MM':
-							filtered = $(dates[language].months).filter(function(){
-								var m = this.slice(0, parts[i].length),
-									p = parts[i].slice(0, m.length);
-								return m == p;
-							});
-							val = $.inArray(filtered[0], dates[language].months) + 1;
-							break;
-						case 'M':
-							filtered = $(dates[language].monthsShort).filter(function(){
-								var m = this.slice(0, parts[i].length),
-									p = parts[i].slice(0, m.length);
-								return m == p;
-							});
-							val = $.inArray(filtered[0], dates[language].monthsShort) + 1;
-							break;
+					if (isNaN(val)) {
+						switch(part) {
+							case 'MM':
+								filtered = $(dates[language].months).filter(function(){
+									var m = this.slice(0, parts[i].length),
+										p = parts[i].slice(0, m.length);
+									return m == p;
+								});
+								val = $.inArray(filtered[0], dates[language].months) + 1;
+								break;
+							case 'M':
+								filtered = $(dates[language].monthsShort).filter(function(){
+									var m = this.slice(0, parts[i].length),
+										p = parts[i].slice(0, m.length);
+									return m == p;
+								});
+								val = $.inArray(filtered[0], dates[language].monthsShort) + 1;
+								break;
+						}
 					}
 					parsed[part] = val;
 				}
