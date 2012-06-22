@@ -24,7 +24,7 @@
 
 	var Datepicker = function(element, options){
 		this.element = $(element);
-		this.language = options.language||this.element.data('date-language')||"en";
+		this.language = options.language||this.element.data('date-language')|| "kr";
 		this.language = this.language in dates ? this.language : "en";
 		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'mm/dd/yyyy');
 		this.picker = $(DPGlobal.template)
@@ -243,8 +243,10 @@
 				endYear = this.endDate !== Infinity ? this.endDate.getFullYear() : Infinity,
 				endMonth = this.endDate !== Infinity ? this.endDate.getMonth() : Infinity,
 				currentDate = this.date.valueOf();
-			this.picker.find('.datepicker-days th:eq(1)')
-						.text(dates[this.language].months[month]+' '+year);
+			
+				this.picker.find('.datepicker-days th:eq(1)')
+							.text( dates[this.language].dateToLocalizedText(year, month));
+
 			this.updateNavArrows();
 			this.fillMonths();
 			var prevMonth = new Date(year, month-1, 28,0,0,0,0),
@@ -560,6 +562,15 @@
 			}
 			this.picker.find('>div').hide().filter('.datepicker-'+DPGlobal.modes[this.viewMode].clsName).show();
 			this.updateNavArrows();
+		},
+
+		combineDate: function(year, month){
+			var date_str = '';
+
+			date_str = month;				
+			date_str = date_str + ' ' + year;
+
+			return date_str;
 		}
 	};
 
@@ -579,6 +590,7 @@
 
 	$.fn.datepicker.defaults = {
 	};
+
 	$.fn.datepicker.Constructor = Datepicker;
 	var dates = $.fn.datepicker.dates = {
 		en: {
@@ -586,7 +598,14 @@
 			daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
 			daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
 			months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-			monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+			monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+
+			dateToLocalizedText: function(year, month){
+				var date_str = '';
+				date_str = this.months[month] + ' ' + year;
+				return date_str;
+			}
+
 		}
 	}
 
