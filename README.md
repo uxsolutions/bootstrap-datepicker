@@ -1,3 +1,7 @@
+## Modification
+- Add Korean translation file
+- To customize date text on calendar's head, add dateToLocalizedText function
+
 # Home
 
 http://www.eyecon.ro/bootstrap-datepicker/
