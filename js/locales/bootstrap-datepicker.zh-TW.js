@@ -1,5 +1,5 @@
 /**
- * Tranditional Chinese translation for bootstrap-datepicker
+ * Traditional Chinese translation for bootstrap-datepicker
  * Rung-Sheng Jang <daniel@i-trend.co.cc>
  */
 ;(function($){
