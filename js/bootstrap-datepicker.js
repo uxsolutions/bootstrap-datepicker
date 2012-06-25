@@ -255,7 +255,7 @@
 			var nextMonth = new Date(prevMonth);
 			nextMonth.setDate(nextMonth.getDate() + 42);
 			nextMonth = nextMonth.valueOf();
-			html = [];
+			var html = [];
 			var clsName;
 			while(prevMonth.valueOf() < nextMonth) {
 				if (prevMonth.getDay() == this.weekStart) {
