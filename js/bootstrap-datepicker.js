@@ -248,7 +248,8 @@
 			this.updateNavArrows();
 			this.fillMonths();
 			var prevMonth = new Date(year, month-1, 28,0,0,0,0),
-				day = DPGlobal.getDaysInMonth(prevMonth.getFullYear(), prevMonth.getMonth());
+				day = DPGlobal.getDaysInMonth(prevMonth.getFullYear(), prevMonth.getMonth()),
+				prevDate, dstDay = 0, date;
 			prevMonth.setDate(day);
 			prevMonth.setDate(day - (prevMonth.getDay() - this.weekStart + 7)%7);
 			var nextMonth = new Date(prevMonth);
@@ -272,11 +273,42 @@
 				if (prevMonth.valueOf() < this.startDate || prevMonth.valueOf() > this.endDate) {
 					clsName += ' disabled';
 				}
-				html.push('<td class="day'+clsName+'">'+prevMonth.getDate() + '</td>');
+				date = prevMonth.getDate();
+				if (dstDay == -1) date++;
+				html.push('<td class="day'+clsName+'">'+date+ '</td>');
 				if (prevMonth.getDay() == this.weekEnd) {
 					html.push('</tr>');
 				}
+				prevDate = prevMonth.getDate();
 				prevMonth.setDate(prevMonth.getDate()+1);
+				if (prevMonth.getHours() != 0) {
+					// Fix for DST bug: if we are no longer at start of day, a DST jump probably happened
+					// We either fell back (eg, Jan 1 00:00 -> Jan 1 23:00)
+					// or jumped forward   (eg, Jan 1 00:00 -> Jan 2 01:00)
+					// Unfortunately, I can think of no way to test this in the unit tests, as it depends
+					// on the TZ of the client system.
+					if (!dstDay) {
+						// We are not currently handling a dst day (next round will deal with it)
+						if (prevMonth.getDate() == prevDate)
+							// We must compensate for fall-back
+							dstDay = -1;
+						else
+							// We must compensate for a jump-ahead
+							dstDay = +1;
+					}
+					else {
+						// The last round was our dst day (hours are still non-zero)
+						if (dstDay == -1)
+							// For a fall-back, fast-forward to next midnight
+							prevMonth.setHours(24);
+						else
+							// For a jump-ahead, just reset to 0
+							prevMonth.setHours(0);
+						// Reset minutes, as some TZs may be off by portions of an hour
+						prevMonth.setMinutes(0);
+						dstDay = 0;
+					}
+				}
 			}
 			this.picker.find('.datepicker-days tbody').empty().append(html.join(''));
 			var currentYear = this.date.getFullYear();
