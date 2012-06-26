@@ -684,7 +684,7 @@
 				}
 				return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
 			}
-			var parts = date ? date.match(this.nonpunctuation) : [],
+			var parts = date && date.match(this.nonpunctuation) || [],
 				date = new Date(),
 				parsed = {},
 				setters_order = ['yyyy', 'yy', 'M', 'MM', 'm', 'mm', 'd', 'dd'],
