@@ -64,7 +64,7 @@
 			this.autoclose = this.element.data('date-autoclose');
 		}
 
-		switch(options.startView || this.element.data('date-startview')){
+		switch(options.startView || this.element.data('date-start-view')){
 			case 2:
 			case 'decade':
 				this.viewMode = this.startViewMode = 2;
