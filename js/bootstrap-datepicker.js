@@ -33,6 +33,7 @@
 								click: $.proxy(this.click, this),
 								mousedown: $.proxy(this.mousedown, this)
 							});
+		this.isPickerVisible = false;
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on') : false;
 		if(this.component && this.component.length === 0)
@@ -41,7 +42,7 @@
 		if (this.isInput) {
 			this.element.on({
 				focus: $.proxy(this.show, this),
-				blur: $.proxy(this._hide, this),
+				blur: $.proxy(this._blur, this),
 				keyup: $.proxy(this.update, this),
 				keydown: $.proxy(this.keydown, this)
 			});
@@ -50,16 +51,12 @@
 				// For components that are not readonly, allow keyboard nav
 				this.element.find('input').on({
 					focus: $.proxy(this.show, this),
-					blur: $.proxy(this._hide, this),
+					blur: $.proxy(this._blur, this),
 					keyup: $.proxy(this.update, this),
 					keydown: $.proxy(this.keydown, this)
 				});
 
 				this.component.on('click', $.proxy(this.show, this));
-				var element = this.element.find('input');
-				element.on({
-					blur: $.proxy(this._hide, this)
-				})
 			} else {
 				this.element.on('click', $.proxy(this.show, this));
 			}
@@ -105,6 +102,7 @@
 
 		show: function(e) {
 			this.picker.show();
+			this.isPickerVisible = true;
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			this.place();
 			$(window).on('resize', $.proxy(this.place, this));
@@ -112,48 +110,31 @@
 				e.stopPropagation();
 				e.preventDefault();
 			}
-			if (!this.isInput) {
-				$(document).on('mousedown', $.proxy(this.hide, this));
-			}
+			$(document).on('mousedown', $.proxy(this.hide, this));
 			this.element.trigger({
 				type: 'show',
 				date: this.date
 			});
 		},
 
-		_hide: function(e){
+		_blur: function(e){
 			// When going from the input to the picker, IE handles the blur/click
 			// events differently than other browsers, in such a way that the blur
 			// event triggers a hide before the click event can stop propagation.
-			if ($.browser.msie) {
-				var t = this, args = arguments;
-
-				function cancel_hide(){
-					clearTimeout(hide_timeout);
-					e.target.focus();
-					t.picker.off('click', cancel_hide);
-				}
-
-				function do_hide(){
-					t.hide.apply(t, args);
-					t.picker.off('click', cancel_hide);
-				}
-
-				this.picker.on('click', cancel_hide);
-				var hide_timeout = setTimeout(do_hide, 100);
-			} else {
-				return this.hide.apply(this, arguments);
+			if ($.browser.msie && this.isPickerVisible ) {
+				return;
 			}
+
+			return this.hide.apply(this, arguments);
 		},
 
 		hide: function(e){
 			this.picker.hide();
+			this.isPickerVisible = false;
 			$(window).off('resize', this.place);
 			this.viewMode = this.startViewMode;
 			this.showMode();
-			if (!this.isInput) {
-				$(document).off('mousedown', this.hide);
-			}
+			$(document).off('mousedown', this.hide);
 			if (e && e.currentTarget.value)
 				this.setValue();
 			this.element.trigger({
@@ -380,8 +361,10 @@
 		},
 
 		click: function(e) {
+			// Prevents blur propagation in browsers, except for IE (see _blur for the workaround)
 			e.stopPropagation();
 			e.preventDefault();
+
 			var target = $(e.target).closest('span, td, th');
 			if (target.length == 1) {
 				switch(target[0].nodeName.toLowerCase()) {
@@ -457,6 +440,7 @@
 							if (element) {
 								element.change();
 								if (this.autoclose) {
+									this.hide();   // reset isPopupVisible()
 									element.blur();
 								}
 							}
