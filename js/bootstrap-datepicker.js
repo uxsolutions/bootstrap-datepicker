@@ -417,14 +417,14 @@
 								var month = target.parent().find('span').index(target);
 								this.viewDate.setMonth(month);
 								this.element.trigger({
-									type: 'pickMonth',
+									type: 'changeMonth',
 									date: this.viewDate
 								});
 							} else {
 								var year = parseInt(target.text(), 10)||0;
 								this.viewDate.setFullYear(year);
 								this.element.trigger({
-									type: 'pickYear',
+									type: 'changeYear',
 									date: this.viewDate
 								});
 							}
