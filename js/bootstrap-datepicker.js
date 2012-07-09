@@ -635,7 +635,9 @@
 			if (!data) {
 				$this.data('datepicker', (data = new Datepicker(this, $.extend({}, $.fn.datepicker.defaults,options))));
 			}
-			if (typeof option == 'string') data[option].apply(data, args);
+			if (typeof option == 'string' && typeof data[option] == 'function') {
+				data[option].apply(data, args);
+			}
 		});
 	};
 
