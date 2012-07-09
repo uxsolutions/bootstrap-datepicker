@@ -67,8 +67,8 @@
         this.keyboardNavigation = true;
         if ('keyboardNavigation' in options) {
             this.keyboardNavigation = options.keyboardNavigation;
-        } else if ('dateKeyboardnavigation' in this.element.data()) {
-            this.keyboardNavigation = this.element.data('date-keyboardnavigation');
+        } else if ('dateKeyboardNavigation' in this.element.data()) {
+            this.keyboardNavigation = this.element.data('date-keyboard-navigation');
         }
 
 		switch(options.startView){
