@@ -239,6 +239,14 @@ Fired when the date is changed.
             }
         });
 
+### changeYear
+
+Fired when the *view* year is changed from decade view.
+
+### changeMonth
+
+Fired when the *view* month is changed from year view.
+
 ## Keyboard support
 
 The datepicker includes some keyboard navigation:
