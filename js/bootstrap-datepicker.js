@@ -71,6 +71,13 @@
 		} else if ('dateAutoclose' in this.element.data()) {
 			this.autoclose = this.element.data('date-autoclose');
 		}
+        
+        this.keyboardNavigation = true;
+        if ('keyboardNavigation' in options) {
+            this.keyboardNavigation = options.keyboardNavigation;
+        } else if ('dateKeyboardnavigation' in this.element.data()) {
+            this.keyboardNavigation = this.element.data('date-keyboardnavigation');
+        }
 
 		switch(options.startView || this.element.data('date-start-view')){
 			case 2:
@@ -548,6 +555,7 @@
 					break;
 				case 37: // left
 				case 39: // right
+                    if (!this.keyboardNavigation) break;
 					dir = e.keyCode == 37 ? -1 : 1;
 					if (e.ctrlKey){
 						newDate = this.moveYear(this.date, dir);
@@ -572,6 +580,7 @@
 					break;
 				case 38: // up
 				case 40: // down
+                    if (!this.keyboardNavigation) break;
 					dir = e.keyCode == 38 ? -1 : 1;
 					if (e.ctrlKey){
 						newDate = this.moveYear(this.date, dir);
