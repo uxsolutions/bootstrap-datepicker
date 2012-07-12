@@ -169,6 +169,10 @@
 				date: this.date
 			});
 		},
+		
+		remove: function() {
+			this.picker.remove();
+		},
 
 		setValue: function() {
 			var formatted = DPGlobal.formatDate(this.date, this.format, this.language);
