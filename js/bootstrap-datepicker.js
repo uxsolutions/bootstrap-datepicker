@@ -59,7 +59,7 @@
 				var element = this.element.find('input');
 				element.on({
 					blur: $.proxy(this._hide, this)
-				})
+				});
 			} else {
 				this.element.on('click', $.proxy(this.show, this));
 			}
@@ -72,12 +72,12 @@
 			this.autoclose = this.element.data('date-autoclose');
 		}
         
-        this.keyboardNavigation = true;
-        if ('keyboardNavigation' in options) {
-            this.keyboardNavigation = options.keyboardNavigation;
-        } else if ('dateKeyboardNavigation' in this.element.data()) {
-            this.keyboardNavigation = this.element.data('date-keyboard-navigation');
-        }
+		this.keyboardNavigation = true;
+		if ('keyboardNavigation' in options) {
+			this.keyboardNavigation = options.keyboardNavigation;
+		} else if ('dateKeyboardNavigation' in this.element.data()) {
+			this.keyboardNavigation = this.element.data('date-keyboard-navigation');
+		}
 
 		switch(options.startView || this.element.data('date-start-view')){
 			case 2:
@@ -162,8 +162,9 @@
 			if (!this.isInput) {
 				$(document).off('mousedown', this.hide);
 			}
-			if (e && e.currentTarget.value)
+			if (e && e.currentTarget.value) {
 				this.setValue();
+			}
 			this.element.trigger({
 				type: 'hide',
 				date: this.date
@@ -173,7 +174,7 @@
 		setValue: function() {
 			var formatted = DPGlobal.formatDate(this.date, this.format, this.language);
 			if (!this.isInput) {
-				if (this.component){
+				if (this.component) {
 					this.element.find('input').prop('value', formatted);
 				}
 				this.element.data('date', formatted);
@@ -202,7 +203,7 @@
 
 		place: function(){
 			var zIndex = parseInt(this.element.parents().filter(function() {
-                          	return $(this).css('z-index') != 'auto';
+				return $(this).css('z-index') != 'auto';
                         }).first().css('z-index'))+10;		
 			var offset = this.component ? this.component.offset() : this.element.offset();
 			this.picker.css({
@@ -238,8 +239,7 @@
 		},
 
 		fillMonths: function(){
-			var html = '';
-			var i = 0
+			var html = '', i = 0;
 			while (i < 12) {
 				html += '<span class="month">'+dates[this.language].monthsShort[i++]+'</span>';
 			}
@@ -661,7 +661,7 @@
 			months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
 			monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 		}
-	}
+	};
 
 	var DPGlobal = {
 		modes: [
@@ -681,10 +681,10 @@
 				navStep: 10
 		}],
 		isLeapYear: function (year) {
-			return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0))
+			return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0));
 		},
 		getDaysInMonth: function (year, month) {
-			return [31, (DPGlobal.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month]
+			return [31, (DPGlobal.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
 		},
 		validParts: /dd?|mm?|MM?|yy(?:yy)?/g,
 		nonpunctuation: /[^ -\/:-@\[-`{-~\t\n\r]+/g,
@@ -693,17 +693,19 @@
 			// so it's a bad format delimiter, anyway
 			var separators = format.replace(this.validParts, '\0').split('\0'),
 				parts = format.match(this.validParts);
-			if (!separators || !separators.length || !parts || parts.length == 0){
+			if (!separators || !separators.length || !parts || parts.length === 0){
 				throw new Error("Invalid date format.");
 			}
 			return {separators: separators, parts: parts};
 		},
 		parseDate: function(date, format, language) {
 			if (date instanceof Date) return date;
+
+			var parts, part;
 			if (/^[-+]\d+[dmwy]([\s,]+[-+]\d+[dmwy])*$/.test(date)) {
+				parts = date.match(/([-+]\d+)([dmwy])/g);
 				var part_re = /([-+]\d+)([dmwy])/,
-					parts = date.match(/([-+]\d+)([dmwy])/g),
-					part, dir;
+					dir;
 				date = new Date();
 				for (var i=0; i<parts.length; i++) {
 					part = part_re.exec(parts[i]);
@@ -725,9 +727,10 @@
 				}
 				return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
 			}
-			var parts = date && date.match(this.nonpunctuation) || [],
-				date = new Date(),
-				parsed = {},
+
+			parts = date && date.match(this.nonpunctuation) || [];
+			date = new Date();
+			var parsed = {},
 				setters_order = ['yyyy', 'yy', 'M', 'MM', 'm', 'mm', 'd', 'dd'],
 				setters_map = {
 					yyyy: function(d,v){ return d.setFullYear(v); },
@@ -743,7 +746,7 @@
 					},
 					d: function(d,v){ return d.setDate(v); }
 				},
-				val, filtered, part;
+				val, filtered;
 			setters_map['M'] = setters_map['MM'] = setters_map['mm'] = setters_map['m'];
 			setters_map['dd'] = setters_map['d'];
 			date = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
@@ -776,7 +779,7 @@
 				for (var i=0, s; i<setters_order.length; i++){
 					s = setters_order[i];
 					if (s in parsed)
-						setters_map[s](date, parsed[s])
+						setters_map[s](date, parsed[s]);
 				}
 			}
 			return date;
@@ -792,11 +795,11 @@
 			};
 			val.dd = (val.d < 10 ? '0' : '') + val.d;
 			val.mm = (val.m < 10 ? '0' : '') + val.m;
-			var date = [],
-				seps = $.extend([], format.separators);
+			var seps = $.extend([], format.separators);
+			date = [];
 			for (var i=0, cnt = format.parts.length; i < cnt; i++) {
 				if (seps.length)
-					date.push(seps.shift())
+					date.push(seps.shift());
 				date.push(val[format.parts[i]]);
 			}
 			return date.join('');

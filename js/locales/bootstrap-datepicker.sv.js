@@ -3,7 +3,7 @@
  * Patrik Ragnarsson <patrik@starkast.net>
  */
 ;(function($){
-	$.fn.datepicker.dates['sv'] = {
+	$.fn.datepicker.dates.sv = {
 		days: ["Söndag", "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"],
 		daysShort: ["Sön", "Mån", "Tis", "Ons", "Tor", "Fre", "Lör", "Sön"],
 		daysMin: ["Sö", "Må", "Ti", "On", "To", "Fr", "Lö", "Sö"],
