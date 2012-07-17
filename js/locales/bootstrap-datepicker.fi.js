@@ -3,7 +3,7 @@
  * Jaakko Salonen <https://github.com/jsalonen>
  */
 ;(function($){
-	$.fn.datepicker.dates['fi'] = {
+	$.fn.datepicker.dates.fi = {
 		days: ["sunnuntai", "maanantai", "tiistai", "keskiviikko", "torstai", "perjantai", "lauantai", "sunnuntai"],
 		daysShort: ["sun", "maa", "tii", "kes", "tor", "per", "lau", "sun"],
 		daysMin: ["su", "ma", "ti", "ke", "to", "pe", "la", "su"],

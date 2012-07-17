@@ -3,7 +3,7 @@
  * Robert <rtpm@gazeta.pl>
  */
 ;(function($){
-        $.fn.datepicker.dates['pl'] = {
+        $.fn.datepicker.dates.pl = {
                 days: ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela"],
                 daysShort: ["Nie", "Pn", "Wt", "Śr", "Czw", "Pt", "So", "Nie"],
                 daysMin: ["N", "Pn", "Wt", "Śr", "Cz", "Pt", "So", "N"],

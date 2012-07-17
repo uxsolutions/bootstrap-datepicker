@@ -3,7 +3,7 @@
  * Sam Zurcher <sam@orelias.ch>
  */
 ;(function($){
-	$.fn.datepicker.dates['de'] = {
+	$.fn.datepicker.dates.de = {
 		days: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"],
 		daysShort: ["Son", "Mon", "Die", "Mit", "Don", "Fre", "Sam", "Son"],
 		daysMin: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"],

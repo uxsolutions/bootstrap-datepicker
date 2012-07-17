@@ -3,7 +3,7 @@
  * Norio Suzuki <https://github.com/suzuki/>
  */
 ;(function($){
-	$.fn.datepicker.dates['ja'] = {
+	$.fn.datepicker.dates.ja = {
 		days: ["日曜", "月曜", "火曜", "水曜", "木曜", "金曜", "土曜", "日曜"],
 		daysShort: ["日", "月", "火", "水", "木", "金", "土", "日"],
 		daysMin: ["日", "月", "火", "水", "木", "金", "土", "日"],

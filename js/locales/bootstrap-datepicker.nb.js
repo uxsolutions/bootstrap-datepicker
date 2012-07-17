@@ -3,7 +3,7 @@
  * Fredrik Sundmyhr <http://github.com/fsundmyhr>
  */
 ;(function($){
-	$.fn.datepicker.dates['nb'] = {
+	$.fn.datepicker.dates.nb = {
 		days: ["Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"],
 		daysShort: ["Søn", "Man", "Tir", "Ons", "Tor", "Fre", "Lør", "Søn"],
 		daysMin: ["Sø", "Ma", "Ti", "On", "To", "Fr", "Lø", "Sø"],

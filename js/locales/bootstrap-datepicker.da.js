@@ -3,7 +3,7 @@
  * Christian Pedersen <http://github.com/chripede>
  */
 ;(function($){
-	$.fn.datepicker.dates['da'] = {
+	$.fn.datepicker.dates.da = {
 		days: ["Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"],
 		daysShort: ["Søn", "Man", "Tir", "Ons", "Tor", "Fre", "Lør", "Søn"],
 		daysMin: ["Sø", "Ma", "Ti", "On", "To", "Fr", "Lø", "Sø"],
