@@ -733,6 +733,10 @@
 					yyyy: function(d,v){ return d.setFullYear(v); },
 					yy: function(d,v){ return d.setFullYear(2000+v); },
 					m: function(d,v){
+			                        if (isNaN(d)) {
+                        			    date = new Date();
+			                            return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
+			                        }
 						v -= 1;
 						while (v<0) v += 12;
 						v %= 12;
