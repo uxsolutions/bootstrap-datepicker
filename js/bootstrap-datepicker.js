@@ -254,7 +254,8 @@
 				startMonth = this.startDate !== -Infinity ? this.startDate.getMonth() : -Infinity,
 				endYear = this.endDate !== Infinity ? this.endDate.getFullYear() : Infinity,
 				endMonth = this.endDate !== Infinity ? this.endDate.getMonth() : Infinity,
-				currentDate = this.date.valueOf();
+				currentDate = this.date.getDate();
+				currentMonth = this.date.getMonth();
 			this.picker.find('.datepicker-days th:eq(1)')
 						.text(dates[this.language].months[month]+' '+year);
 			this.updateNavArrows();
@@ -279,17 +280,18 @@
 				} else if (prevMonth.getFullYear() > year || (prevMonth.getFullYear() == year && prevMonth.getMonth() > month)) {
 					clsName += ' new';
 				}
-				if (prevMonth.valueOf() == currentDate) {
-					clsName += ' active';
-				}
 				if (prevMonth.valueOf() < this.startDate || prevMonth.valueOf() > this.endDate) {
 					clsName += ' disabled';
 				}
 				date = prevMonth.getDate();
 				if (dstDay == -1) date++;
+				if (date == currentDate && prevMonth.getMonth() == currentMonth) {
+					clsName += ' active';
+				}
 				html.push('<td class="day'+clsName+'">'+date+ '</td>');
 				if (prevMonth.getDay() == this.weekEnd) {
-					html.push('</tr>');
+					if (dstDay != -1)
+						html.push('</tr>');
 				}
 				prevDate = prevMonth.getDate();
 				prevMonth.setDate(prevMonth.getDate()+1);
@@ -462,6 +464,11 @@
 							}
 							this.date = new Date(year, month, day,0,0,0,0);
 							this.viewDate = new Date(year, month, day,0,0,0,0);
+							if(this.date.getDate() < day){
+								this.date.setDate(day);
+								this.viewDate.setDate(day);
+							}
+
 							this.fill();
 							this.setValue();
 							this.element.trigger({
