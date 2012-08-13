@@ -1,11 +1,16 @@
+function UTCDate(){
+    return new Date(Date.UTC.apply(Date, arguments));
+}
+
+
 function format_date(date){
-    var y = date.getFullYear(),
-        m = date.getMonth() + 1,
-        d = date.getDate(),
-        h = date.getHours(),
-        i = date.getMinutes(),
-        s = date.getSeconds(),
-        l = date.getMilliseconds();
+    var y = date.getUTCFullYear(),
+        m = date.getUTCMonth() + 1,
+        d = date.getUTCDate(),
+        h = date.getUTCHours(),
+        i = date.getUTCMinutes(),
+        s = date.getUTCSeconds(),
+        l = date.getUTCMilliseconds();
     function z(i){return (i <= 9 ? '0'+i : i);}
     return y+'-'+z(m)+'-'+z(d)+' '+z(h)+':'+z(i)+':'+z(s)+'.'+z(l);
 }
