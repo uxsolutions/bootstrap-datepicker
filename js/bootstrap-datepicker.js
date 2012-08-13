@@ -577,7 +577,7 @@
 					this.hide();
 					e.preventDefault();
 					break;
-                case 9: // tab
+                case 9: // tab                    
                     this.hide();
                     break;
 			}
