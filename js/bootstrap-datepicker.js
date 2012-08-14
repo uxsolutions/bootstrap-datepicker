@@ -267,6 +267,7 @@
 			var nextMonth = new Date(prevMonth);
 			nextMonth.setDate(nextMonth.getDate() + 42);
 			nextMonth = nextMonth.valueOf();
+			var today = new Date();
 			var html = [];
 			var clsName;
 			while(prevMonth.valueOf() < nextMonth) {
@@ -278,6 +279,9 @@
 					clsName += ' old';
 				} else if (prevMonth.getFullYear() > year || (prevMonth.getFullYear() == year && prevMonth.getMonth() > month)) {
 					clsName += ' new';
+				}
+				if (prevMonth.getFullYear() == today.getFullYear() && prevMonth.getMonth() == today.getMonth() && prevMonth.getDate() == today.getDate()) {
+					clsName += ' today';
 				}
 				if (prevMonth.valueOf() == currentDate) {
 					clsName += ' active';
