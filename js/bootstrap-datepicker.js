@@ -213,10 +213,8 @@
 		},
 
 		update: function(){
-			this.date = DPGlobal.parseDate(
-				this.isInput ? this.element.prop('value') : this.element.data('date') || this.element.find('input').prop('value'),
-				this.format, this.language
-			);
+			var detectedDate = (this.isInput && this.element.prop('value') !== '') ? this.element.prop('value') : this.element.data('date') || this.element.find('input').prop('value');
+            this.date = DPGlobal.parseDate(detectedDate, this.format, this.language);
 			if (this.date < this.startDate) {
 				this.viewDate = new Date(this.startDate);
 			} else if (this.date > this.endDate) {
