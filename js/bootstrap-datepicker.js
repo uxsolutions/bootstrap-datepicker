@@ -71,7 +71,7 @@
 		} else if ('dateAutoclose' in this.element.data()) {
 			this.autoclose = this.element.data('date-autoclose');
 		}
-        
+
         this.keyboardNavigation = true;
         if ('keyboardNavigation' in options) {
             this.keyboardNavigation = options.keyboardNavigation;
@@ -202,8 +202,8 @@
 
 		place: function(){
 			var zIndex = parseInt(this.element.parents().filter(function() {
-                          	return $(this).css('z-index') != 'auto';
-                        }).first().css('z-index'))+10;		
+				return $(this).css('z-index') != 'auto';
+			}).first().css('z-index'))+10;
 			var offset = this.component ? this.component.offset() : this.element.offset();
 			this.picker.css({
 				top: offset.top + this.height,
