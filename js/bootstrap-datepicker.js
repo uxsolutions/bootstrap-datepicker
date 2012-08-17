@@ -41,6 +41,7 @@
 		if (this.isInput) {
 			this.element.on({
 				focus: $.proxy(this.show, this),
+				click: $.proxy(this.show, this),
 				blur: $.proxy(this._hide, this),
 				keyup: $.proxy(this.update, this),
 				keydown: $.proxy(this.keydown, this)
@@ -477,7 +478,7 @@
 							if (element) {
 								element.change();
 								if (this.autoclose) {
-									element.blur();
+									this.hide();
 								}
 							}
 						}
