@@ -27,44 +27,52 @@
 		this.language = options.language||this.element.data('date-language')||"en";
 		this.language = this.language in dates ? this.language : "en";
 		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'mm/dd/yyyy');
-		this.picker = $(DPGlobal.template)
-							.appendTo('body')
-							.on({
-								click: $.proxy(this.click, this),
-								mousedown: $.proxy(this.mousedown, this)
-							});
+        this.isInline = false;
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on') : false;
 		if(this.component && this.component.length === 0)
 			this.component = false;
 
-		if (this.isInput) {
-			this.element.on({
-				focus: $.proxy(this.show, this),
-				blur: $.proxy(this._hide, this),
-				keyup: $.proxy(this.update, this),
-				keydown: $.proxy(this.keydown, this)
-			});
-		} else {
-			if (this.component){
-				// For components that are not readonly, allow keyboard nav
-				this.element.find('input').on({
-					focus: $.proxy(this.show, this),
-					blur: $.proxy(this._hide, this),
-					keyup: $.proxy(this.update, this),
-					keydown: $.proxy(this.keydown, this)
-				});
+       if (this.isInput) {   //single input
+            this.element.on({
+                focus: $.proxy(this.show, this),
+                blur: $.proxy(this._hide, this),
+                keyup: $.proxy(this.update, this),
+                keydown: $.proxy(this.keydown, this)
+            });
+        } else if(this.component) {  //component: input + button
+                // For components that are not readonly, allow keyboard nav
+                this.element.find('input').on({
+                    focus: $.proxy(this.show, this),
+                    blur: $.proxy(this._hide, this),
+                    keyup: $.proxy(this.update, this),
+                    keydown: $.proxy(this.keydown, this)
+                });
 
-				this.component.on('click', $.proxy(this.show, this));
-				var element = this.element.find('input');
-				element.on({
-					blur: $.proxy(this._hide, this)
-				})
-			} else {
-				this.element.on('click', $.proxy(this.show, this));
-			}
-		}
-
+                this.component.on('click', $.proxy(this.show, this));
+                var element = this.element.find('input');
+                element.on({
+                    blur: $.proxy(this._hide, this)
+                });
+        } else if(this.element.is('div')) {  //inline datepicker
+            this.isInline = true;
+        } else {
+            this.element.on('click', $.proxy(this.show, this));
+        }            
+        
+        this.picker = $(DPGlobal.template)
+                            .appendTo(this.isInline ? this.element : 'body')
+                            .on({
+                                click: $.proxy(this.click, this),
+                                mousedown: $.proxy(this.mousedown, this)
+                            });        
+                            
+        if(this.isInline) {
+            this.picker.addClass('datepicker-inline');                           
+        } else {
+            this.picker.addClass('dropdown-menu');                           
+        }
+            
 		this.autoclose = false;
 		if ('autoclose' in options) {
 			this.autoclose = options.autoclose;
@@ -105,6 +113,10 @@
 		this.fillMonths();
 		this.update();
 		this.showMode();
+        
+        if(this.isInline) {
+            this.show();
+        }
 	};
 
 	Datepicker.prototype = {
@@ -155,6 +167,7 @@
 		},
 
 		hide: function(e){
+            if(this.isInline) return;
 			this.picker.hide();
 			$(window).off('resize', this.place);
 			this.viewMode = this.startViewMode;
@@ -201,6 +214,7 @@
 		},
 
 		place: function(){
+            if(this.isInline) return;
 			var zIndex = parseInt(this.element.parents().filter(function() {
                           	return $(this).css('z-index') != 'auto';
                         }).first().css('z-index'))+10;		
@@ -473,7 +487,7 @@
 								element = this.element;
 							} else if (this.component){
 								element = this.element.find('input');
-							}
+							} 
 							if (element) {
 								element.change();
 								if (this.autoclose) {
@@ -810,7 +824,7 @@
 						'</thead>',
 		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>'
 	};
-	DPGlobal.template = '<div class="datepicker dropdown-menu">'+
+	DPGlobal.template = '<div class="datepicker">'+
 							'<div class="datepicker-days">'+
 								'<table class=" table-condensed">'+
 									DPGlobal.headTemplate+
