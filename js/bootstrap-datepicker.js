@@ -70,7 +70,7 @@
         if(this.isInline) {
             this.picker.addClass('datepicker-inline');                           
         } else {
-            this.picker.addClass('dropdown-menu');                           
+            this.picker.addClass('datepicker-float dropdown-menu');                           
         }
             
 		this.autoclose = false;
