@@ -227,10 +227,23 @@
 		},
 
 		update: function(){
-			this.date = DPGlobal.parseDate(
-				this.isInput ? this.element.prop('value') : this.element.data('date') || this.element.find('input').prop('value'),
-				this.format, this.language
-			);
+            var date, strdate;
+            if(arguments && arguments.length && (typeof arguments[0] === 'string' || arguments[0] instanceof Date)) {
+                date = arguments[0];
+                strdate = (date instanceof Date) ? DPGlobal.formatDate(date, this.format, this.language) : date;
+                //set value of input
+                if(this.isInput) {
+                    this.element.val(strdate);
+                } else {
+                    this.element.data('date', strdate);
+                    this.element.find('input').val(strdate);
+                }
+            } else {
+                date = this.isInput ? this.element.prop('value') : this.element.data('date') || this.element.find('input').prop('value');
+            }
+             
+			this.date = DPGlobal.parseDate(date, this.format, this.language);
+            
 			if (this.date < this.startDate) {
 				this.viewDate = new Date(this.startDate);
 			} else if (this.date > this.endDate) {
