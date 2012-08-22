@@ -225,7 +225,7 @@
 				zIndex: zIndex
 			});
 		},
-
+           
 		update: function(){
             var date, fromArgs = false;
             if(arguments && arguments.length && (typeof arguments[0] === 'string' || arguments[0] instanceof Date)) {
