@@ -7,5 +7,8 @@ cp -R ../master/js/* bootstrap-datepicker/js
 mkdir bootstrap-datepicker/css
 cp -R ../master/css/* bootstrap-datepicker/css
 
-echo copied!
+git add bootstrap-datepicker
+git commit -m'update-lib'
+
+echo copied and committed!
 
