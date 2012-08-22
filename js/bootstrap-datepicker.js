@@ -227,22 +227,17 @@
 		},
 
 		update: function(){
-            var date, strdate;
+            var date, fromArgs = false;
             if(arguments && arguments.length && (typeof arguments[0] === 'string' || arguments[0] instanceof Date)) {
                 date = arguments[0];
-                strdate = (date instanceof Date) ? DPGlobal.formatDate(date, this.format, this.language) : date;
-                //set value of input
-                if(this.isInput) {
-                    this.element.val(strdate);
-                } else {
-                    this.element.data('date', strdate);
-                    this.element.find('input').val(strdate);
-                }
+                fromArgs = true;
             } else {
                 date = this.isInput ? this.element.prop('value') : this.element.data('date') || this.element.find('input').prop('value');
             }
              
 			this.date = DPGlobal.parseDate(date, this.format, this.language);
+            
+            if(fromArgs) this.setValue();
             
 			if (this.date < this.startDate) {
 				this.viewDate = new Date(this.startDate);
