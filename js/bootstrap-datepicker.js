@@ -26,7 +26,9 @@
 
 	// Picker object
 
-	var Datepicker = function(element, options){
+	var Datepicker = function(element, options) {
+        var that = this;
+
 		this.element = $(element);
 		this.language = options.language||this.element.data('date-language')||"en";
 		this.language = this.language in dates ? this.language : "en";
@@ -34,8 +36,7 @@
 		this.picker = $(DPGlobal.template)
 							.appendTo('body')
 							.on({
-								click: $.proxy(this.click, this),
-								mousedown: $.proxy(this.mousedown, this)
+								click: $.proxy(this.click, this)								
 							});
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on') : false;
@@ -44,8 +45,7 @@
 
 		if (this.isInput) {
 			this.element.on({
-				focus: $.proxy(this.show, this),
-				blur: $.proxy(this._hide, this),
+				focus: $.proxy(this.show, this),				
 				keyup: $.proxy(this.update, this),
 				keydown: $.proxy(this.keydown, this)
 			});
@@ -53,21 +53,23 @@
 			if (this.component){
 				// For components that are not readonly, allow keyboard nav
 				this.element.find('input').on({
-					focus: $.proxy(this.show, this),
-					blur: $.proxy(this._hide, this),
+					focus: $.proxy(this.show, this),					
 					keyup: $.proxy(this.update, this),
 					keydown: $.proxy(this.keydown, this)
 				});
 
-				this.component.on('click', $.proxy(this.show, this));
-				var element = this.element.find('input');
-				element.on({
-					blur: $.proxy(this._hide, this)
-				})
+				this.component.on('click', $.proxy(this.show, this));				
 			} else {
 				this.element.on('click', $.proxy(this.show, this));
 			}
 		}
+
+        $(document).on('mousedown', function (e) {
+            // Clicked outside the datepicker, hide it
+            if ($(e.target).closest('.datepicker').length == 0) {                    
+                that.hide();
+            }
+        });
 
 		this.autoclose = false;
 		if ('autoclose' in options) {
@@ -121,7 +123,6 @@
 			this.place();
 			$(window).on('resize', $.proxy(this.place, this));
 			if (e ) {
-				e.stopPropagation();
 				e.preventDefault();
 			}
 			if (!this.isInput) {
@@ -131,31 +132,6 @@
 				type: 'show',
 				date: this.date
 			});
-		},
-
-		_hide: function(e){
-			// When going from the input to the picker, IE handles the blur/click
-			// events differently than other browsers, in such a way that the blur
-			// event triggers a hide before the click event can stop propagation.
-			if ($.browser.msie) {
-				var t = this, args = arguments;
-
-				function cancel_hide(){
-					clearTimeout(hide_timeout);
-					e.target.focus();
-					t.picker.off('click', cancel_hide);
-				}
-
-				function do_hide(){
-					t.hide.apply(t, args);
-					t.picker.off('click', cancel_hide);
-				}
-
-				this.picker.on('click', cancel_hide);
-				var hide_timeout = setTimeout(do_hide, 100);
-			} else {
-				return this.hide.apply(this, arguments);
-			}
 		},
 
 		hide: function(e){
@@ -364,7 +340,6 @@
 		},
 
 		click: function(e) {
-			e.stopPropagation();
 			e.preventDefault();
 			var target = $(e.target).closest('span, td, th');
 			if (target.length == 1) {
@@ -449,18 +424,13 @@
 							if (element) {
 								element.change();
 								if (this.autoclose) {
-									element.blur();
+									this.hide();
 								}
 							}
 						}
 						break;
 				}
 			}
-		},
-
-		mousedown: function(e){
-			e.stopPropagation();
-			e.preventDefault();
 		},
 
 		moveMonth: function(date, dir){
@@ -579,6 +549,9 @@
 					this.hide();
 					e.preventDefault();
 					break;
+                case 9: // tab                    
+                    this.hide();
+                    break;
 			}
 			if (dateChanged){
 				this.element.trigger({

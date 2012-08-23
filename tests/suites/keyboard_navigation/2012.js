@@ -408,10 +408,3 @@ test('Toggle hide/show (escape); navigation while hidden is suppressed', functio
     datesEqual(this.dp.date, UTCDate(2012, 2, 31));
 });
 
-test('Blur hides picker', function(){
-    var target;
-
-    ok(this.picker.is(':visible'), 'Picker is visible');
-    this.input.blur();
-    ok(this.picker.is(':not(:visible)'), 'Picker is hidden');
-});
