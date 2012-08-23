@@ -28,8 +28,8 @@ test('Selecting a year from decade view triggers pickYear', function(){
     ok(this.picker.find('.datepicker-months').is(':visible'), 'Month picker is visible');
     equal(this.dp.viewMode, 1);
     // Not modified when switching modes
-    datesEqual(this.dp.viewDate, new Date(2011, 2, 31));
-    datesEqual(this.dp.date, new Date(2011, 2, 31));
+    datesEqual(this.dp.viewDate, UTCDate(2011, 2, 31));
+    datesEqual(this.dp.date, UTCDate(2011, 2, 31));
 
     target = this.picker.find('.datepicker-months thead th.switch');
     ok(target.is(':visible'), 'View switcher is visible');
@@ -38,16 +38,16 @@ test('Selecting a year from decade view triggers pickYear', function(){
     ok(this.picker.find('.datepicker-years').is(':visible'), 'Year picker is visible');
     equal(this.dp.viewMode, 2);
     // Not modified when switching modes
-    datesEqual(this.dp.viewDate, new Date(2011, 2, 31));
-    datesEqual(this.dp.date, new Date(2011, 2, 31));
+    datesEqual(this.dp.viewDate, UTCDate(2011, 2, 31));
+    datesEqual(this.dp.date, UTCDate(2011, 2, 31));
 
     // Change years to test internal state changes
     target = this.picker.find('.datepicker-years tbody span:contains(2010)');
     target.click();
     equal(this.dp.viewMode, 1);
     // Only viewDate modified
-    datesEqual(this.dp.viewDate, new Date(2010, 2, 1));
-    datesEqual(this.dp.date, new Date(2011, 2, 31));
+    datesEqual(this.dp.viewDate, UTCDate(2010, 2, 1));
+    datesEqual(this.dp.date, UTCDate(2011, 2, 31));
     equal(triggered, 1);
 });
 
@@ -67,14 +67,14 @@ test('Selecting a month from year view triggers pickMonth', function(){
     ok(this.picker.find('.datepicker-months').is(':visible'), 'Month picker is visible');
     equal(this.dp.viewMode, 1);
     // Not modified when switching modes
-    datesEqual(this.dp.viewDate, new Date(2011, 2, 31));
-    datesEqual(this.dp.date, new Date(2011, 2, 31));
+    datesEqual(this.dp.viewDate, UTCDate(2011, 2, 31));
+    datesEqual(this.dp.date, UTCDate(2011, 2, 31));
 
     target = this.picker.find('.datepicker-months tbody span:contains(Apr)');
     target.click();
     equal(this.dp.viewMode, 0);
     // Only viewDate modified
-    datesEqual(this.dp.viewDate, new Date(2011, 3, 1));
-    datesEqual(this.dp.date, new Date(2011, 2, 31));
+    datesEqual(this.dp.viewDate, UTCDate(2011, 3, 1));
+    datesEqual(this.dp.date, UTCDate(2011, 2, 31));
     equal(triggered, 1);
 });
