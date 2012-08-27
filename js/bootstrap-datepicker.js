@@ -27,7 +27,7 @@
 	// Picker object
 
 	var Datepicker = function(element, options) {
-        var that = this;
+		var that = this;
 
 		this.element = $(element);
 		this.language = options.language||this.element.data('date-language')||"en";
@@ -36,7 +36,7 @@
 		this.picker = $(DPGlobal.template)
 							.appendTo('body')
 							.on({
-								click: $.proxy(this.click, this)								
+								click: $.proxy(this.click, this)
 							});
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on') : false;
@@ -45,7 +45,7 @@
 
 		if (this.isInput) {
 			this.element.on({
-				focus: $.proxy(this.show, this),				
+				focus: $.proxy(this.show, this),
 				keyup: $.proxy(this.update, this),
 				keydown: $.proxy(this.keydown, this)
 			});
@@ -53,23 +53,23 @@
 			if (this.component){
 				// For components that are not readonly, allow keyboard nav
 				this.element.find('input').on({
-					focus: $.proxy(this.show, this),					
+					focus: $.proxy(this.show, this),
 					keyup: $.proxy(this.update, this),
 					keydown: $.proxy(this.keydown, this)
 				});
 
-				this.component.on('click', $.proxy(this.show, this));				
+				this.component.on('click', $.proxy(this.show, this));
 			} else {
 				this.element.on('click', $.proxy(this.show, this));
 			}
 		}
 
-        $(document).on('mousedown', function (e) {
-            // Clicked outside the datepicker, hide it
-            if ($(e.target).closest('.datepicker').length == 0) {                    
-                that.hide();
-            }
-        });
+		$(document).on('mousedown', function (e) {
+			// Clicked outside the datepicker, hide it
+			if ($(e.target).closest('.datepicker').length == 0) {
+				that.hide();
+			}
+		});
 
 		this.autoclose = false;
 		if ('autoclose' in options) {
@@ -77,13 +77,13 @@
 		} else if ('dateAutoclose' in this.element.data()) {
 			this.autoclose = this.element.data('date-autoclose');
 		}
-        
-        this.keyboardNavigation = true;
-        if ('keyboardNavigation' in options) {
-            this.keyboardNavigation = options.keyboardNavigation;
-        } else if ('dateKeyboardNavigation' in this.element.data()) {
-            this.keyboardNavigation = this.element.data('date-keyboard-navigation');
-        }
+
+		this.keyboardNavigation = true;
+		if ('keyboardNavigation' in options) {
+			this.keyboardNavigation = options.keyboardNavigation;
+		} else if ('dateKeyboardNavigation' in this.element.data()) {
+			this.keyboardNavigation = this.element.data('date-keyboard-navigation');
+		}
 
 		switch(options.startView || this.element.data('date-start-view')){
 			case 2:
@@ -182,8 +182,8 @@
 
 		place: function(){
 			var zIndex = parseInt(this.element.parents().filter(function() {
-                          	return $(this).css('z-index') != 'auto';
-                        }).first().css('z-index'))+10;		
+							return $(this).css('z-index') != 'auto';
+						}).first().css('z-index'))+10;
 			var offset = this.component ? this.component.offset() : this.element.offset();
 			this.picker.css({
 				top: offset.top + this.height,
@@ -497,7 +497,7 @@
 					break;
 				case 37: // left
 				case 39: // right
-                    if (!this.keyboardNavigation) break;
+					if (!this.keyboardNavigation) break;
 					dir = e.keyCode == 37 ? -1 : 1;
 					if (e.ctrlKey){
 						newDate = this.moveYear(this.date, dir);
@@ -522,7 +522,7 @@
 					break;
 				case 38: // up
 				case 40: // down
-                    if (!this.keyboardNavigation) break;
+					if (!this.keyboardNavigation) break;
 					dir = e.keyCode == 38 ? -1 : 1;
 					if (e.ctrlKey){
 						newDate = this.moveYear(this.date, dir);
@@ -549,9 +549,9 @@
 					this.hide();
 					e.preventDefault();
 					break;
-                case 9: // tab                    
-                    this.hide();
-                    break;
+				case 9: // tab
+					this.hide();
+					break;
 			}
 			if (dateChanged){
 				this.element.trigger({
