@@ -182,7 +182,9 @@
 
 		place: function(){
 			var zIndex = parseInt(this.element.parents().filter(function() {
-							return $(this).css('z-index') != 'auto';
+							var itemZIndex = $(this).css('z-index');
+							// > ie7 incorrectly returns 0 instead of auto
+							return itemZIndex != 'auto' && itemZIndex !== 0;
 						}).first().css('z-index'))+10;
 			var offset = this.component ? this.component.offset() : this.element.offset();
 			this.picker.css({
