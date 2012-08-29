@@ -291,7 +291,7 @@
 				months.slice(endMonth+1).addClass('disabled');
 			}
 
-			html = '';
+			var html = '';
 			year = parseInt(year/10, 10) * 10;
 			var yearCont = this.picker.find('.datepicker-years')
 								.find('th:eq(1)')
