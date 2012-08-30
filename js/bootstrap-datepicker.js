@@ -40,6 +40,7 @@
 							});
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on') : false;
+		this.hasInput = this.component && this.element.find('input').length;
 		if(this.component && this.component.length === 0)
 			this.component = false;
 
@@ -50,7 +51,7 @@
 				keydown: $.proxy(this.keydown, this)
 			});
 		} else {
-			if (this.component){
+			if (this.component && this.hasInput){
 				// For components that are not readonly, allow keyboard nav
 				this.element.find('input').on({
 					focus: $.proxy(this.show, this),
@@ -125,7 +126,7 @@
 			if (e ) {
 				e.preventDefault();
 			}
-			if (!this.isInput) {
+			if (!this.isInput && this.hasInput) {
 				$(document).on('mousedown', $.proxy(this.hide, this));
 			}
 			this.element.trigger({
