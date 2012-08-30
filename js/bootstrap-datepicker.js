@@ -124,6 +124,7 @@
 			this.place();
 			$(window).on('resize', $.proxy(this.place, this));
 			if (e ) {
+				e.stopPropagation();
 				e.preventDefault();
 			}
 			if (!this.isInput && this.hasInput) {
@@ -341,6 +342,7 @@
 		},
 
 		click: function(e) {
+			e.stopPropagation();
 			e.preventDefault();
 			var target = $(e.target).closest('span, td, th');
 			if (target.length == 1) {
