@@ -132,11 +132,11 @@
 }
 .datepicker td span {
   display: block;
-  width: 47px;
+  width: 23%;
   height: 54px;
   line-height: 54px;
   float: left;
-  margin: 2px;
+  margin: 1%;
   cursor: pointer;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
