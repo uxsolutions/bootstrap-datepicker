@@ -127,9 +127,6 @@
 				e.stopPropagation();
 				e.preventDefault();
 			}
-			if (!this.isInput && this.hasInput) {
-				$(document).on('mousedown', $.proxy(this.hide, this));
-			}
 			this.element.trigger({
 				type: 'show',
 				date: this.date
