@@ -149,8 +149,13 @@
 			});
 		},
 
+		getFormattedDate: function()
+		{
+			return DPGlobal.formatDate(this.date, this.format, this.language);
+		},
+        
 		setValue: function() {
-			var formatted = DPGlobal.formatDate(this.date, this.format, this.language);
+			var formatted = this.getFormattedDate();
 			if (!this.isInput) {
 				if (this.component){
 					this.element.find('input').prop('value', formatted);
@@ -413,7 +418,8 @@
 							this.setValue();
 							this.element.trigger({
 								type: 'changeDate',
-								date: this.date
+								date: this.date,
+								dateText: this.getFormattedDate()
 							});
 							var element;
 							if (this.isInput) {
@@ -556,7 +562,8 @@
 			if (dateChanged){
 				this.element.trigger({
 					type: 'changeDate',
-					date: this.date
+					date: this.date,
+					dateText: this.getFormattedDate()
 				});
 				var element;
 				if (this.isInput) {
