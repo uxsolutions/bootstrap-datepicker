@@ -8,8 +8,6 @@
  *
  */
 .datepicker {
-  top: 0;
-  left: 0;
   padding: 4px;
   margin-top: 1px;
   -webkit-border-radius: 4px;
@@ -22,10 +20,15 @@
 
 .datepicker-inline {
   width: 220px; 
-  height: 220px;  
+/*  height: 220px;  */
 }
 
-.datepicker:before {
+.datepicker-float {
+  top: 0;
+  left: 0;    
+}
+
+.datepicker-float:before {
   content: '';
   display: inline-block;
   border-left: 7px solid transparent;
@@ -36,7 +39,7 @@
   top: -7px;
   left: 6px;
 }
-.datepicker:after {
+.datepicker-float:after {
   content: '';
   display: inline-block;
   border-left: 6px solid transparent;

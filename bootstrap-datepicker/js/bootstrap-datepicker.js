@@ -58,28 +58,28 @@
             this.isInline = true;
         } else {
             this.element.on('click', $.proxy(this.show, this));
-        }            
-        
+        }
+
         this.picker = $(DPGlobal.template)
                             .appendTo(this.isInline ? this.element : 'body')
                             .on({
                                 click: $.proxy(this.click, this),
                                 mousedown: $.proxy(this.mousedown, this)
-                            });        
-                            
+                            });
+
         if(this.isInline) {
-            this.picker.addClass('datepicker-inline');                           
+            this.picker.addClass('datepicker-inline');
         } else {
-            this.picker.addClass('dropdown-menu');                           
+            this.picker.addClass('dropdown-menu');
         }
-            
+
 		this.autoclose = false;
 		if ('autoclose' in options) {
 			this.autoclose = options.autoclose;
 		} else if ('dateAutoclose' in this.element.data()) {
 			this.autoclose = this.element.data('date-autoclose');
 		}
-        
+
         this.keyboardNavigation = true;
         if ('keyboardNavigation' in options) {
             this.keyboardNavigation = options.keyboardNavigation;
@@ -113,7 +113,7 @@
 		this.fillMonths();
 		this.update();
 		this.showMode();
-        
+
         if(this.isInline) {
             this.show();
         }
@@ -184,7 +184,7 @@
 		},
 
 		setValue: function() {
-			var formatted = DPGlobal.formatDate(this.date, this.format, this.language);
+			var formatted = this.getFormattedDate();
 			if (!this.isInput) {
 				if (this.component){
 					this.element.find('input').prop('value', formatted);
@@ -194,6 +194,11 @@
 				this.element.prop('value', formatted);
 			}
 		},
+
+        getFormattedDate: function(format) {
+            if(format == undefined) format = this.format;
+            return DPGlobal.formatDate(this.date, format, this.language);
+        },
 
 		setStartDate: function(startDate){
 			this.startDate = startDate||-Infinity;
@@ -217,7 +222,7 @@
             if(this.isInline) return;
 			var zIndex = parseInt(this.element.parents().filter(function() {
                           	return $(this).css('z-index') != 'auto';
-                        }).first().css('z-index'))+10;		
+                        }).first().css('z-index'))+10;
 			var offset = this.component ? this.component.offset() : this.element.offset();
 			this.picker.css({
 				top: offset.top + this.height,
@@ -225,7 +230,7 @@
 				zIndex: zIndex
 			});
 		},
-           
+
 		update: function(){
             var date, fromArgs = false;
             if(arguments && arguments.length && (typeof arguments[0] === 'string' || arguments[0] instanceof Date)) {
@@ -234,11 +239,11 @@
             } else {
                 date = this.isInput ? this.element.prop('value') : this.element.data('date') || this.element.find('input').prop('value');
             }
-             
+
 			this.date = DPGlobal.parseDate(date, this.format, this.language);
-            
+
             if(fromArgs) this.setValue();
-            
+
 			if (this.date < this.startDate) {
 				this.viewDate = new Date(this.startDate);
 			} else if (this.date > this.endDate) {
@@ -495,7 +500,7 @@
 								element = this.element;
 							} else if (this.component){
 								element = this.element.find('input');
-							} 
+							}
 							if (element) {
 								element.change();
 								if (this.autoclose) {
@@ -852,5 +857,7 @@
 								'</table>'+
 							'</div>'+
 						'</div>';
-
+                        
+    $.fn.datepicker.DPGlobal = DPGlobal;
+    
 }( window.jQuery );
