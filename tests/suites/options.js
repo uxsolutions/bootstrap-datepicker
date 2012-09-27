@@ -30,8 +30,8 @@ test('Autoclose', function(){
 
     target.click();
     ok(picker.is(':not(:visible)'), 'Picker is hidden');
-    datesEqual(dp.date, new Date(2012, 2, 4));
-    datesEqual(dp.viewDate, new Date(2012, 2, 4));
+    datesEqual(dp.date, UTCDate(2012, 2, 4));
+    datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
 });
 
 test('Startview: year view (integer)', function(){

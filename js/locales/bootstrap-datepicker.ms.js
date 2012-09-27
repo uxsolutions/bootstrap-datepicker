@@ -3,7 +3,7 @@
  * Ateman Faiz <noorulfaiz@gmail.com>
  */
 ;(function($){
-	$.fn.datepicker.dates['de'] = {
+	$.fn.datepicker.dates['ms'] = {
 		days: ["Ahad", "Isnin", "Selasa", "Rabu", "Khamis", "Jumaat", "Sabtu", "Ahad"],
 		daysShort: ["Aha", "Isn", "Sel", "Rab", "Kha", "Jum", "Sab", "Aha"],
 		daysMin: ["Ah", "Is", "Se", "Ra", "Kh", "Ju", "Sa", "Ah"],

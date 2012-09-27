@@ -1,6 +1,10 @@
 # Home
 
-http://www.eyecon.ro/bootstrap-datepicker/
+This is a fork of Stefan Petre's [original code](http://www.eyecon.ro/bootstrap-datepicker/);
+thanks go to him for getting this thing started!
+
+Please note that this fork is not used on Stefan's page at this time, nor is it maintained or
+contributed to by him (yet?)
 
 # Example
 
@@ -104,7 +108,7 @@ All options that take a "Date" can handle a `Date` object; a String formatted ac
 
 String.  Default: 'mm/dd/yyyy'
 
-The date format, combination of d, dd, m, mm, M, MM, yy, yyy.
+The date format, combination of d, dd, m, mm, M, MM, yy, yyyy.
 
 ### weekStart
 
@@ -141,6 +145,12 @@ The view that the datepicker should show when it is opened.  Accepts values of 0
 Boolean.  Default: false
 
 If true, display a button at the bottom of the datepicker to select the current date.
+
+### keyboardNavigation
+
+Boolean.  Default: true
+
+Whether or not to allow date navigation by arrow keys.
 
 ### language
 
@@ -240,6 +250,14 @@ Fired when the date is changed.
                 ....
             }
         });
+
+### changeYear
+
+Fired when the *view* year is changed from decade view.
+
+### changeMonth
+
+Fired when the *view* month is changed from year view.
 
 ## Keyboard support
 
