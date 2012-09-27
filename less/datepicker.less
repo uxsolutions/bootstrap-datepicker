@@ -72,6 +72,13 @@
 			color: @grayLight;
 			cursor: default;
 		}
+		&.today,
+		&.today:hover,
+		&.today.disabled,
+		&.today.disabled:hover {
+			@todayBackground: lighten(@orange, 30%);
+			.buttonBackground(@todayBackground, spin(@todayBackground, 20));
+		}
 		&.active,
 		&.active:hover,
 		&.active.disabled,

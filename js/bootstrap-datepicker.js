@@ -23,6 +23,10 @@
 	function UTCDate(){
 		return new Date(Date.UTC.apply(Date, arguments));
 	}
+	function UTCToday(){
+		var today = new Date();
+		return UTCDate(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
+	}
 
 	// Picker object
 
@@ -235,12 +239,13 @@
 				startMonth = this.startDate !== -Infinity ? this.startDate.getUTCMonth() : -Infinity,
 				endYear = this.endDate !== Infinity ? this.endDate.getUTCFullYear() : Infinity,
 				endMonth = this.endDate !== Infinity ? this.endDate.getUTCMonth() : Infinity,
-				currentDate = this.date.valueOf();
+				currentDate = this.date.valueOf(),
+				today = UTCToday().valueOf();
 			this.picker.find('.datepicker-days thead th:eq(1)')
 						.text(dates[this.language].months[month]+' '+year);
 			this.picker.find('tfoot th.today')
 						.text(dates[this.language].today)
-						.toggle(!!this.todayBtn);
+						.toggle(this.todayBtn);
 			this.updateNavArrows();
 			this.fillMonths();
 			var prevMonth = UTCDate(year, month-1, 28,0,0,0,0),
@@ -261,6 +266,9 @@
 					clsName += ' old';
 				} else if (prevMonth.getUTCFullYear() > year || (prevMonth.getUTCFullYear() == year && prevMonth.getUTCMonth() > month)) {
 					clsName += ' new';
+				}
+				if (prevMonth.valueOf() == today) {
+					clsName += ' today';
 				}
 				if (prevMonth.valueOf() == currentDate) {
 					clsName += ' active';
