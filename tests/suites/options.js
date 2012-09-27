@@ -163,7 +163,7 @@ test('Today Button: data-api', function(){
         ok(picker.find('.datepicker-days tfoot .today').is(':visible'), 'Today button visible');
 });
 
-test('Today Button: selects today\'s date', function(){
+test('Today Button: moves to today\'s date', function(){
     var input = $('<input />')
                 .appendTo('#qunit-fixture')
                 .val('2012-03-05')
@@ -183,7 +183,33 @@ test('Today Button: selects today\'s date', function(){
         target.click();
 
         var d = new Date(),
-            today = UTCDate(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())
+            today = UTCDate(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+        datesEqual(dp.viewDate, today);
+        datesEqual(dp.date, UTCDate(2012, 2, 5));
+});
+
+test('Today Button: "linked" selects today\'s date', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    todayBtn: "linked"
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+        input.focus();
+        ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
+        ok(picker.find('.datepicker-days tfoot .today').is(':visible'), 'Today button visible');
+
+        target = picker.find('.datepicker-days tfoot .today');
+        target.click();
+
+        var d = new Date(),
+            today = UTCDate(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
         datesEqual(dp.viewDate, today);
         datesEqual(dp.date, today);
 });
+

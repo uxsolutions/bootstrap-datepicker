@@ -240,7 +240,7 @@
 						.text(dates[this.language].months[month]+' '+year);
 			this.picker.find('tfoot th.today')
 						.text(dates[this.language].today)
-						.toggle(this.todayBtn);
+						.toggle(!!this.todayBtn);
 			this.updateNavArrows();
 			this.fillMonths();
 			var prevMonth = UTCDate(year, month-1, 28,0,0,0,0),
@@ -376,7 +376,8 @@
 								date.setUTCMilliseconds(0);
 
 								this.showMode(-2);
-								this._setDate(date);
+								var which = this.todayBtn == 'linked' ? null : 'view';
+								this._setDate(date, which);
 								break;
 						}
 						break;
@@ -429,9 +430,11 @@
 			}
 		},
 
-		_setDate: function( date ){
-			this.date = date;
-			this.viewDate = date;
+		_setDate: function(date, which){
+			if (!which || which == 'date')
+				this.date = date;
+			if (!which || which  == 'view')
+				this.viewDate = date;
 			this.fill();
 			this.setValue();
 			this.element.trigger({

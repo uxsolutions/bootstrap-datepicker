@@ -142,9 +142,9 @@ The view that the datepicker should show when it is opened.  Accepts values of 0
 
 ### todayBtn
 
-Boolean.  Default: false
+Boolean, "linked".  Default: false
 
-If true, display a button at the bottom of the datepicker to select the current date.
+If true or "linked", displays a "Today" button at the bottom of the datepicker to select the current date.  If true, the "Today" button will only move the current date into view; if "linked", the current date will also be selected.
 
 ### keyboardNavigation
 
