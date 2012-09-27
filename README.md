@@ -1,3 +1,7 @@
+# Option Selected
+
+I added the option `selected`. It accept an array of objects with dates that should be selected in the datepicker. See **demo.html** for example and implementation.
+
 # Home
 
 This is a fork of Stefan Petre's [original code](http://www.eyecon.ro/bootstrap-datepicker/);
