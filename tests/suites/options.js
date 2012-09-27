@@ -213,13 +213,38 @@ test('Today Button: "linked" selects today\'s date', function(){
         datesEqual(dp.date, today);
 });
 
-test('Today: today\'s date is highlighted when not active', patch_date(function(Date){
+test('Today Highlight: today\'s date is not highlighted by default', patch_date(function(Date){
     Date.now = UTCDate(2012, 2, 15);
     var input = $('<input />')
                 .appendTo('#qunit-fixture')
                 .val('2012-03-05')
                 .datepicker({
                     format: 'yyyy-mm-dd'
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+        input.focus();
+        ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
+        equal(picker.find('.datepicker-days thead .switch').text(), 'March 2012', 'Title is "March 2012"');
+
+        target = picker.find('.datepicker-days tbody td:contains(15)');
+        ok(!target.hasClass('today'), 'Today is not marked with "today" class');
+        target = picker.find('.datepicker-days tbody td:contains(14)');
+        ok(!target.hasClass('today'), 'Yesterday is not marked with "today" class');
+        target = picker.find('.datepicker-days tbody td:contains(16)');
+        ok(!target.hasClass('today'), 'Tomorrow is not marked with "today" class');
+}));
+
+test('Today Highlight: today\'s date is highlighted when not active', patch_date(function(Date){
+    Date.now = UTCDate(2012, 2, 15);
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    todayHighlight: true
                 }),
         dp = input.data('datepicker'),
         picker = dp.picker,

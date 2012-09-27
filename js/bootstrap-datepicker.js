@@ -107,6 +107,7 @@
 		}
 
 		this.todayBtn = (options.todayBtn||this.element.data('date-today-btn')||false);
+		this.todayHighlight = (options.todayHighlight||this.element.data('date-today-highlight')||false);
 
 		this.weekStart = ((options.weekStart||this.element.data('date-weekstart')||dates[this.language].weekStart||0) % 7);
 		this.weekEnd = ((this.weekStart + 6) % 7);
@@ -267,7 +268,7 @@
 				} else if (prevMonth.getUTCFullYear() > year || (prevMonth.getUTCFullYear() == year && prevMonth.getUTCMonth() > month)) {
 					clsName += ' new';
 				}
-				if (prevMonth.valueOf() == today) {
+				if (prevMonth.valueOf() == today && this.todayHighlight) {
 					clsName += ' today';
 				}
 				if (prevMonth.valueOf() == currentDate) {
