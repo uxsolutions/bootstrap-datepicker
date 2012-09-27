@@ -72,6 +72,17 @@
 			}
 		});
 
+		this.selected = false;
+		if('selected' in options) {
+			this.selected = [];
+			for(i in options.selected) {
+				this.selected.push({
+					timestamp: new Date(options.selected[i].date).valueOf(),
+					tooltip: options.selected[i].tooltip || true
+				});
+			}
+		}
+
 		this.autoclose = false;
 		if ('autoclose' in options) {
 			this.autoclose = options.autoclose;
@@ -247,7 +258,9 @@
 			nextMonth = nextMonth.valueOf();
 			var html = [];
 			var clsName;
+			var td_attr;
 			while(prevMonth.valueOf() < nextMonth) {
+				td_attr = '';
 				if (prevMonth.getUTCDay() == this.weekStart) {
 					html.push('<tr>');
 				}
@@ -263,13 +276,27 @@
 				if (prevMonth.valueOf() < this.startDate || prevMonth.valueOf() > this.endDate) {
 					clsName += ' disabled';
 				}
-				html.push('<td class="day'+clsName+'">'+prevMonth.getUTCDate() + '</td>');
+				if(this.selected) {
+					var selected = this.isSelected(prevMonth.valueOf());
+					if(selected) {
+						clsName += ' selected';
+						if(typeof selected == 'string') {
+							clsName += ' hasTooltip';
+							td_attr = ' title="'+selected+'"';
+						}
+					}
+				}
+				html.push('<td'+td_attr+' class="day'+clsName+'">'+prevMonth.getUTCDate()+'</td>');
 				if (prevMonth.getUTCDay() == this.weekEnd) {
 					html.push('</tr>');
 				}
 				prevMonth.setUTCDate(prevMonth.getUTCDate()+1);
 			}
 			this.picker.find('.datepicker-days tbody').empty().append(html.join(''));
+			if(typeof this.picker.find('td.hasTooltip').tooltip == 'function') {
+				this.picker.find('td.hasTooltip').tooltip();
+			}
+
 			var currentYear = this.date.getUTCFullYear();
 
 			var months = this.picker.find('.datepicker-months')
@@ -303,6 +330,16 @@
 				year += 1;
 			}
 			yearCont.html(html);
+		},
+
+		isSelected: function(current) {
+			//var date = new Date(current);
+			for(i in this.selected) {
+				if(Math.abs(current - this.selected[i].timestamp) <= 8640000) {
+					return this.selected[i].tooltip || true;
+				}
+			}
+			return false;
 		},
 
 		updateNavArrows: function() {
@@ -388,6 +425,9 @@
 						}
 						break;
 					case 'td':
+						if(target.is('.hasTooltip')) {
+							target.tooltip('toggle');
+						}
 						if (target.is('.day') && !target.is('.disabled')){
 							var day = parseInt(target.text(), 10)||1;
 							var year = this.viewDate.getUTCFullYear(),

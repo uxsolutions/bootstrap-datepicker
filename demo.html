@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Selected Dates Demo</title>
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
+    <script>
+    	jQuery(function() {
+    		$('.datepicker').datepicker({
+    			selected: [
+	    			{
+	    				date: '2012-09-12'
+	    			},
+	    			{ 
+	    				date: '2012-09-03',
+	    				tooltip: '1 Entry'
+	    			},
+	    			{ 
+	    				date: '2012-09-17',
+	    				tooltip: '4 Entries'
+	    			},
+	    			{ 
+	    				date: '2012-09-01',
+	    				tooltip: '3 Entries'
+	    			},
+	    			{ 
+	    				date: '2012-08-30',
+	    				tooltip: '1 Entry'
+	    			},
+	    			{ 
+	    				date: '2012-10-15',
+	    				tooltip: '1 Entry'
+	    			}
+	    		]
+    		});
+    	});
+    </script>
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="css/datepicker.css"/>
+  </head>
+  <body>
+  	<div class="container">
+  		<div class="row">
+  			<div class="span12">
+  				<br>
+  				<div class="well">
+	  				<h1>Datepicker with Selected Option</h1>
+	  				<p>This modified version of the bootstrap datepicker accept an array of objects with dates and tooltips, highlighted in the datepicker.</p>
+	  			</div>
+  			</div>
+  			<div class="span12">
+  				<div class="well">
+  					<form action="#" class="form-horizontal">
+  						<fieldset>
+  							<legend>Demo</legend>
+	  						<div class="control-group">
+	  							<label for="datepicker" class="control-label">Datepicker</label>
+	  							<div class="controls">
+	  								<input type="text" class="datepicker">
+	  							</div>
+	  						</div>
+	  					</fieldset>
+  					</form>
+  				</div>
+  			</div>
+  			<div class="span12">
+  				<pre class="prettyprint">
+$('.datepicker').datepicker({
+	selected: [
+		{
+			date: '2012-09-12'
+		},
+		{ 
+			date: '2012-09-03',
+			tooltip: '1 Entry'
+		},
+		{ 
+			date: '2012-09-17',
+			tooltip: '4 Entries'
+		},
+		{ 
+			date: '2012-09-01',
+			tooltip: '3 Entries'
+		},
+		{ 
+			date: '2012-08-30',
+			tooltip: '1 Entry'
+		},
+		{ 
+			date: '2012-10-15',
+			tooltip: '1 Entry'
+		}
+	]
+});
+  				</pre>
+  			</div>
+  		</div>
+  	</div>
+  	
+  </body>
+</html>
