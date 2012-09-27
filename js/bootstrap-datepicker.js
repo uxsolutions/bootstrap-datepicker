@@ -129,7 +129,8 @@
 			}
 			this.element.trigger({
 				type: 'show',
-				date: this.date
+				date: this.date,
+				picker: this.picker
 			});
 		},
 
@@ -145,7 +146,8 @@
 				this.setValue();
 			this.element.trigger({
 				type: 'hide',
-				date: this.date
+				date: this.date,
+				picker: this.picker
 			});
 		},
 
