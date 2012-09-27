@@ -370,10 +370,10 @@
 								break;
 							case 'today':
 								var date = new Date();
-								date.setHours(0);
-								date.setMinutes(0);
-								date.setSeconds(0);
-								date.setMilliseconds(0);
+								date.setUTCHours(0);
+								date.setUTCMinutes(0);
+								date.setUTCSeconds(0);
+								date.setUTCMilliseconds(0);
 
 								this.showMode(-2);
 								this._setDate(date);

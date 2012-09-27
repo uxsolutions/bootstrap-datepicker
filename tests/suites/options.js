@@ -183,7 +183,7 @@ test('Today Button: selects today\'s date', function(){
         target.click();
 
         var d = new Date(),
-            today = new Date(d.getFullYear(), d.getMonth(), d.getDate())
+            today = UTCDate(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())
         datesEqual(dp.viewDate, today);
         datesEqual(dp.date, today);
 });
