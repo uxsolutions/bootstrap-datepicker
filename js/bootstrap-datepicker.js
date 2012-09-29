@@ -241,7 +241,7 @@
 				endYear = this.endDate !== Infinity ? this.endDate.getUTCFullYear() : Infinity,
 				endMonth = this.endDate !== Infinity ? this.endDate.getUTCMonth() : Infinity,
 				currentDate = this.date.valueOf(),
-				today = UTCToday().valueOf();
+				today = new Date();
 			this.picker.find('.datepicker-days thead th:eq(1)')
 						.text(dates[this.language].months[month]+' '+year);
 			this.picker.find('tfoot th.today')
@@ -268,7 +268,11 @@
 				} else if (prevMonth.getUTCFullYear() > year || (prevMonth.getUTCFullYear() == year && prevMonth.getUTCMonth() > month)) {
 					clsName += ' new';
 				}
-				if (prevMonth.valueOf() == today && this.todayHighlight) {
+				// Compare internal UTC date with local today, not UTC today
+				if (this.todayHighlight &&
+					prevMonth.getUTCFullYear() == today.getFullYear() &&
+					prevMonth.getUTCMonth() == today.getMonth() &&
+					prevMonth.getUTCDate() == today.getDate()) {
 					clsName += ' today';
 				}
 				if (prevMonth.valueOf() == currentDate) {
