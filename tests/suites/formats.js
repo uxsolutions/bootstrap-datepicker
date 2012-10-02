@@ -1,7 +1,7 @@
 module('Formats', {
     setup: function(){
         this.input = $('<input type="text">').appendTo('#qunit-fixture');
-        this.date = new Date(2012, 2, 15, 0, 0, 0, 0); // March 15, 2012
+        this.date = UTCDate(2012, 2, 15, 0, 0, 0, 0); // March 15, 2012
     },
     teardown: function(){
         this.input.data('datepicker').picker.remove();
@@ -105,7 +105,7 @@ test('yyyy-MM-dd: Regression: Infinite loop when numbers used for month', functi
 });
 
 test('+1d: Tomorrow', patch_date(function(Date){
-    Date.now = new Date(2012, 2, 15);
+    Date.now = UTCDate(2012, 2, 15);
     this.input
         .val('+1d')
         .datepicker({format: 'dd-mm-yyyy'})
@@ -114,7 +114,7 @@ test('+1d: Tomorrow', patch_date(function(Date){
 }));
 
 test('-1d: Yesterday', patch_date(function(Date){
-    Date.now = new Date(2012, 2, 15);
+    Date.now = UTCDate(2012, 2, 15);
     this.input
         .val('-1d')
         .datepicker({format: 'dd-mm-yyyy'})
@@ -123,7 +123,7 @@ test('-1d: Yesterday', patch_date(function(Date){
 }));
 
 test('+1w: Next week', patch_date(function(Date){
-    Date.now = new Date(2012, 2, 15);
+    Date.now = UTCDate(2012, 2, 15);
     this.input
         .val('+1w')
         .datepicker({format: 'dd-mm-yyyy'})
@@ -132,7 +132,7 @@ test('+1w: Next week', patch_date(function(Date){
 }));
 
 test('-1w: Last week', patch_date(function(Date){
-    Date.now = new Date(2012, 2, 15);
+    Date.now = UTCDate(2012, 2, 15);
     this.input
         .val('-1w')
         .datepicker({format: 'dd-mm-yyyy'})
@@ -141,7 +141,7 @@ test('-1w: Last week', patch_date(function(Date){
 }));
 
 test('+1m: Next month', patch_date(function(Date){
-    Date.now = new Date(2012, 2, 15);
+    Date.now = UTCDate(2012, 2, 15);
     this.input
         .val('+1m')
         .datepicker({format: 'dd-mm-yyyy'})
@@ -150,7 +150,7 @@ test('+1m: Next month', patch_date(function(Date){
 }));
 
 test('-1m: Last month', patch_date(function(Date){
-    Date.now = new Date(2012, 2, 15);
+    Date.now = UTCDate(2012, 2, 15);
     this.input
         .val('-1m')
         .datepicker({format: 'dd-mm-yyyy'})
@@ -159,7 +159,7 @@ test('-1m: Last month', patch_date(function(Date){
 }));
 
 test('+1y: Next year', patch_date(function(Date){
-    Date.now = new Date(2012, 2, 15);
+    Date.now = UTCDate(2012, 2, 15);
     this.input
         .val('+1y')
         .datepicker({format: 'dd-mm-yyyy'})
@@ -168,7 +168,7 @@ test('+1y: Next year', patch_date(function(Date){
 }));
 
 test('-1y: Last year', patch_date(function(Date){
-    Date.now = new Date(2012, 2, 15);
+    Date.now = UTCDate(2012, 2, 15);
     this.input
         .val('-1y')
         .datepicker({format: 'dd-mm-yyyy'})
@@ -177,7 +177,7 @@ test('-1y: Last year', patch_date(function(Date){
 }));
 
 test('-1y +2m: Multiformat', patch_date(function(Date){
-    Date.now = new Date(2012, 2, 15);
+    Date.now = UTCDate(2012, 2, 15);
     this.input
         .val('-1y +2m')
         .datepicker({format: 'dd-mm-yyyy'})
@@ -186,7 +186,7 @@ test('-1y +2m: Multiformat', patch_date(function(Date){
 }));
 
 test('Regression: End-of-month bug', patch_date(function(Date){
-    Date.now = new Date(2012, 4, 31);
+    Date.now = UTCDate(2012, 4, 31);
     this.input
         .val('29-02-2012')
         .datepicker({format: 'dd-mm-yyyy'})

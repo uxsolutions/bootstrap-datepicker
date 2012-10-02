@@ -14,6 +14,7 @@ window.patch_date = function patch(f){
             case 7: return new NativeDate(y,y,m,d,h,i,s,j);
         }
     };
+    date.UTC = NativeDate.UTC;
     return function(){
         Array.prototype.push.call(arguments, date);
         window.Date = date;
