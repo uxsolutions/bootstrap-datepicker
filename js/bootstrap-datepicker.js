@@ -124,9 +124,13 @@
 	Datepicker.prototype = {
 		constructor: Datepicker,
 
+    calcHeight: function(el) {
+      return el.height() + parseInt(el.css('padding-top')) + parseInt(el.css('padding-bottom'));
+    },
+
 		show: function(e) {
 			this.picker.show();
-			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
+			this.height = this.component ? this.calcHeight(this.component) : this.calcHeight(this.element);
 			this.update();
 			this.place();
 			$(window).on('resize', $.proxy(this.place, this));
