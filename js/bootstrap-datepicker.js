@@ -191,8 +191,9 @@
 							return $(this).css('z-index') != 'auto';
 						}).first().css('z-index'))+10;
 			var offset = this.component ? this.component.offset() : this.element.offset();
+			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(true);
 			this.picker.css({
-				top: offset.top + this.height,
+				top: offset.top + height,
 				left: offset.left,
 				zIndex: zIndex
 			});
