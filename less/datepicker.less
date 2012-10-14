@@ -48,7 +48,6 @@
 		display: block;
 	}
 	table{
-		width: 100%;
 		margin: 0;
 	}
 	td,
@@ -73,6 +72,13 @@
 			color: @grayLight;
 			cursor: default;
 		}
+		&.today,
+		&.today:hover,
+		&.today.disabled,
+		&.today.disabled:hover {
+			@todayBackground: lighten(@orange, 30%);
+			.buttonBackground(@todayBackground, spin(@todayBackground, 20));
+		}
 		&.active,
 		&.active:hover,
 		&.active.disabled,
@@ -83,11 +89,11 @@
 		}
 		span {
 			display: block;
-			width: 47px;
+			width: 23%;
 			height: 54px;
 			line-height: 54px;
 			float: left;
-			margin: 2px;
+			margin: 1%;
 			cursor: pointer;
 			.border-radius(4px);
 			&:hover {
@@ -117,7 +123,8 @@
 		width: 145px;
 	}
 
-	thead tr:first-child th {
+	thead tr:first-child th,
+	tfoot tr:first-child th {
 		cursor: pointer;
 		&:hover{
 			background: @grayLighter;
