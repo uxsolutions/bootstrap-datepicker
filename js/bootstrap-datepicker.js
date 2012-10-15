@@ -156,6 +156,24 @@
 			});
 		},
 
+		getDate: function() {
+			var d = this.getUTCDate();
+			return new Date(d.getTime() + (d.getTimezoneOffset()*60000))
+		},
+
+		getUTCDate: function() {
+			return this.date;
+		},
+
+		setDate: function(d) {
+			this.setUTCDate(new Date(d.getTime() - (d.getTimezoneOffset()*60000)));
+		},
+
+		setUTCDate: function(d) {
+			this.date = d;
+			this.setValue();
+		},
+
 		setValue: function() {
 			var formatted = DPGlobal.formatDate(this.date, this.format, this.language);
 			if (!this.isInput) {
