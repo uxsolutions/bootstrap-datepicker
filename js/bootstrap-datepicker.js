@@ -833,4 +833,23 @@
 								'</table>'+
 							'</div>'+
 						'</div>';
+    $(function () {
+        if (Globalize) {
+            var culture = Globalize.culture();
+            dates[culture.name] = $.fn.datepicker.dates[culture.name] = {
+                days: culture.calendar.days.names,
+                daysShort: culture.calendar.days.namesAbbr,
+                daysMin: culture.calendar.days.namesShort,
+                months: culture.calendar.months.names,
+                monthsShort: culture.calendar.months.namesAbbr,
+                today: "Today",
+            }
+            $.fn.datepicker.defaults = {
+                language: culture.name
+            };
+            DPGlobal.parseFormat = function () { return "d"; }
+            DPGlobal.formatDate = function (date, format) { return Globalize.format(date, format); }
+            DPGlobal.parseDate = function (date, format) { return date ? Globalize.parseDate(date, format) : new Date(); }
+        }
+    });
 }( window.jQuery );
