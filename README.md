@@ -90,7 +90,7 @@ Attached to non-field element, using events to work with the date values.
 
 Call the datepicker via javascript:
 
-    $('.datepicker').datepicker()
+    $('#datepicker').datepicker()
 
 ## Dependencies
 
