@@ -303,3 +303,5 @@ The plugin supports i18n for the month and weekday names and the `weekStart` opt
 If your browser (or those of your users) is displaying characters wrong, chances are the browser is loading the javascript file with a non-unicode encoding.  Simply add `charset="UTF-8"` to your `script` tag:
 
     <script type="text/javascript" src="bootstrap-datepicker.de.js" charset="UTF-8"></script>
+
+Note on Hebrew (and other RTL languages): You'll have to change the stylesheet so that the calendar is displayed correctly on Right-to-left layouts.
