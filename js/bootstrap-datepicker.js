@@ -32,40 +32,32 @@
 
 	var Datepicker = function(element, options) {
 		var that = this;
-
 		this.element = $(element);
 		this.language = options.language||this.element.data('date-language')||"en";
 		this.language = this.language in dates ? this.language : "en";
 		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'mm/dd/yyyy');
-		this.picker = $(DPGlobal.template)
-							.appendTo('body')
-							.on({
-								click: $.proxy(this.click, this)
-							});
+		
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on') : false;
 		this.hasInput = this.component && this.element.find('input').length;
 		if(this.component && this.component.length === 0)
 			this.component = false;
 
+		var elementHandlers = {
+			focus: function (e) { DPGlobal.activePicker = that; DPGlobal.activePicker.show(e); },
+			keyup: function (e) { DPGlobal.activePicker = that; DPGlobal.activePicker.update(e); },
+			keydown: function (e) { DPGlobal.activePicker = that; DPGlobal.activePicker.keydown(e); }
+		};
+
 		if (this.isInput) {
-			this.element.on({
-				focus: $.proxy(this.show, this),
-				keyup: $.proxy(this.update, this),
-				keydown: $.proxy(this.keydown, this)
-			});
+			this.element.on(elementHandlers);
 		} else {
 			if (this.component && this.hasInput){
 				// For components that are not readonly, allow keyboard nav
-				this.element.find('input').on({
-					focus: $.proxy(this.show, this),
-					keyup: $.proxy(this.update, this),
-					keydown: $.proxy(this.keydown, this)
-				});
-
-				this.component.on('click', $.proxy(this.show, this));
+				this.element.find('input').on(elementHandlers);
+				this.component.on('click', function (e) { DPGlobal.activePicker = that; DPGlobal.activePicker.show(e); });
 			} else {
-				this.element.on('click', $.proxy(this.show, this));
+				this.element.on('click', function (e) { DPGlobal.activePicker = that; DPGlobal.activePicker.show(e); });
 			}
 		}
 
@@ -113,10 +105,23 @@
 		this.weekEnd = ((this.weekStart + 6) % 7);
 		this.startDate = -Infinity;
 		this.endDate = Infinity;
-		this.setStartDate(options.startDate||this.element.data('date-startdate'));
-		this.setEndDate(options.endDate||this.element.data('date-enddate'));
-		this.fillDow();
-		this.fillMonths();
+
+
+		this.picker = $('body > div.datepicker.dropdown-menu');
+
+		if (this.picker.length == 0) {
+			this.picker = $(DPGlobal.template).appendTo('body');
+			this.setStartDate(options.startDate || this.element.data('date-startdate'));
+			this.setEndDate(options.endDate || this.element.data('date-enddate'));
+			this.fillDow();
+			this.fillMonths();
+
+			this.picker.on(
+			{
+				click: function (e) { DPGlobal.activePicker.click(e); }
+			});
+		}
+
 		this.update();
 		this.showMode();
 	};
@@ -129,7 +134,7 @@
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			this.update();
 			this.place();
-			$(window).on('resize', $.proxy(this.place, this));
+			$(window).on('resize', function (e) { DPGlobal.activePicker.place(e); });
 			if (e ) {
 				e.stopPropagation();
 				e.preventDefault();
@@ -810,6 +815,7 @@
 		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',
 		footTemplate: '<tfoot><tr><th colspan="7" class="today"></th></tr></tfoot>'
 	};
+	DPGlobal.activePicker = null;
 	DPGlobal.template = '<div class="datepicker dropdown-menu">'+
 							'<div class="datepicker-days">'+
 								'<table class=" table-condensed">'+
