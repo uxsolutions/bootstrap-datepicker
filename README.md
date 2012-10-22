@@ -195,6 +195,15 @@ Hide the datepicker.
 
     $('#datepicker').datepicker('hide');
 
+### remove
+
+Arguments: None
+
+Remove the datepicker, cleaning up events, html & data.
+
+    $('#datepicker').datepicker('remove');
+
+
 ### update
 
 Arguments: None

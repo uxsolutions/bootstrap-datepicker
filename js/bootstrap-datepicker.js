@@ -34,13 +34,13 @@
 		var that = this;
 
 		this.element = $(element);
-		this.language = options.language||this.element.data('date-language')||"en";
+		this.language = options.language||this.element.data('date-language.datepicker')||"en";
 		this.language = this.language in dates ? this.language : "en";
-		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'mm/dd/yyyy');
+		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format.datepicker')||'mm/dd/yyyy');
 		this.picker = $(DPGlobal.template)
 							.appendTo('body')
 							.on({
-								click: $.proxy(this.click, this)
+								'click.datepicker': $.proxy(this.click, this)
 							});
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on') : false;
@@ -50,22 +50,22 @@
 
 		if (this.isInput) {
 			this.element.on({
-				focus: $.proxy(this.show, this),
-				keyup: $.proxy(this.update, this),
-				keydown: $.proxy(this.keydown, this)
+				'focus.datepicker': $.proxy(this.show, this),
+				'keyup.datepicker': $.proxy(this.update, this),
+				'keydown.datepicker': $.proxy(this.keydown, this)
 			});
 		} else {
 			if (this.component && this.hasInput){
 				// For components that are not readonly, allow keyboard nav
 				this.element.find('input').on({
-					focus: $.proxy(this.show, this),
-					keyup: $.proxy(this.update, this),
-					keydown: $.proxy(this.keydown, this)
+					'focus.datepicker': $.proxy(this.show, this),
+					'keyup.datepicker': $.proxy(this.update, this),
+					'keydown.datepicker': $.proxy(this.keydown, this)
 				});
 
-				this.component.on('click', $.proxy(this.show, this));
+				this.component.on('click.datepicker', $.proxy(this.show, this));
 			} else {
-				this.element.on('click', $.proxy(this.show, this));
+				this.element.on('click.datepicker', $.proxy(this.show, this));
 			}
 		}
 
@@ -80,17 +80,17 @@
 		if ('autoclose' in options) {
 			this.autoclose = options.autoclose;
 		} else if ('dateAutoclose' in this.element.data()) {
-			this.autoclose = this.element.data('date-autoclose');
+			this.autoclose = this.element.data('date-autoclose.datepicker');
 		}
 
 		this.keyboardNavigation = true;
 		if ('keyboardNavigation' in options) {
 			this.keyboardNavigation = options.keyboardNavigation;
 		} else if ('dateKeyboardNavigation' in this.element.data()) {
-			this.keyboardNavigation = this.element.data('date-keyboard-navigation');
+			this.keyboardNavigation = this.element.data('date-keyboard-navigation.datepicker');
 		}
 
-		switch(options.startView || this.element.data('date-start-view')){
+		switch(options.startView || this.element.data('date-start-view.datepicker')){
 			case 2:
 			case 'decade':
 				this.viewMode = this.startViewMode = 2;
@@ -106,15 +106,15 @@
 				break;
 		}
 
-		this.todayBtn = (options.todayBtn||this.element.data('date-today-btn')||false);
-		this.todayHighlight = (options.todayHighlight||this.element.data('date-today-highlight')||false);
+		this.todayBtn = (options.todayBtn||this.element.data('date-today-btn.datepicker')||false);
+		this.todayHighlight = (options.todayHighlight||this.element.data('date-today-highlight.datepicker')||false);
 
-		this.weekStart = ((options.weekStart||this.element.data('date-weekstart')||dates[this.language].weekStart||0) % 7);
+		this.weekStart = ((options.weekStart||this.element.data('date-weekstart.datepicker')||dates[this.language].weekStart||0) % 7);
 		this.weekEnd = ((this.weekStart + 6) % 7);
 		this.startDate = -Infinity;
 		this.endDate = Infinity;
-		this.setStartDate(options.startDate||this.element.data('date-startdate'));
-		this.setEndDate(options.endDate||this.element.data('date-enddate'));
+		this.setStartDate(options.startDate||this.element.data('date-startdate.datepicker'));
+		this.setEndDate(options.endDate||this.element.data('date-enddate.datepicker'));
 		this.fillDow();
 		this.fillMonths();
 		this.update();
@@ -180,7 +180,7 @@
 				if (this.component){
 					this.element.find('input').prop('value', formatted);
 				}
-				this.element.data('date', formatted);
+				this.element.data('date.datepicker', formatted);
 			} else {
 				this.element.prop('value', formatted);
 			}
@@ -218,7 +218,7 @@
 
 		update: function(){
 			this.date = DPGlobal.parseDate(
-				this.isInput ? this.element.prop('value') : this.element.data('date') || this.element.find('input').prop('value'),
+				this.isInput ? this.element.prop('value') : this.element.data('date.datepicker') || this.element.find('input').prop('value'),
 				this.format, this.language
 			);
 			if (this.date < this.startDate) {
@@ -629,6 +629,14 @@
 			}
 			this.picker.find('>div').hide().filter('.datepicker-'+DPGlobal.modes[this.viewMode].clsName).show();
 			this.updateNavArrows();
+		},
+
+		remove: function () {
+			this.hide();
+      this.picker.remove();
+      this.element.removeData('.datepicker');
+      this.element.removeData('datepicker');
+			this.element.off('.datepicker');
 		}
 	};
 
@@ -639,7 +647,7 @@
 			var $this = $(this),
 				data = $this.data('datepicker'),
 				options = typeof option == 'object' && option;
-			if (!data) {
+			if (!data && option !== 'remove') {
 				$this.data('datepicker', (data = new Datepicker(this, $.extend({}, $.fn.datepicker.defaults,options))));
 			}
 			if (typeof option == 'string' && typeof data[option] == 'function') {
