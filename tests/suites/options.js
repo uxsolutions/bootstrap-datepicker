@@ -262,3 +262,16 @@ test('Today Highlight: today\'s date is highlighted when not active', patch_date
         ok(!target.hasClass('today'), 'Tomorrow is not marked with "today" class');
 }));
 
+
+test('Remove', function(){
+    var input = $('<input />').appendTo('#qunit-fixture').datepicker(),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+        
+    input.datepicker('remove');
+    input.focus();
+
+    ok(picker.not(':visible'), 'Picker is removed');
+    equal(input.data('datepicker'), undefined, 'Datepicker data is removed');
+});
