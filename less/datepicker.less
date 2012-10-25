@@ -14,6 +14,7 @@
 	padding: 4px;
 	margin-top: 1px;
 	.border-radius(4px);
+
 	&:before {
 		content: '';
 		display: inline-block;
@@ -35,6 +36,12 @@
 		top: -6px;
 		left: 7px;
 	}
+	&.left:before,
+	&.left:after {
+		right: 7px;
+		left: auto;
+	}
+
 	>div {
 		display: none;
 	}
