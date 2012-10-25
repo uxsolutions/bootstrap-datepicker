@@ -205,10 +205,21 @@
 		},
 
 		place: function(){
+			var calendarWidth = 225,
+			windowPadding = 20,
+			windowWidth = $(window).width(),
+			offset = this.component ? this.component.offset() : this.element.offset();
+
 			var zIndex = parseInt(this.element.parents().filter(function() {
 							return $(this).css('z-index') != 'auto';
 						}).first().css('z-index'))+10;
-			var offset = this.component ? this.component.offset() : this.element.offset();
+
+			// if the calendar popup will be close to the right bound, it will be repositioned
+			if (offset.left + calendarWidth > windowWidth) {
+				offset.left = windowWidth - calendarWidth - windowPadding;
+				this.picker.addClass('left');
+			}
+
 			this.picker.css({
 				top: offset.top + this.height,
 				left: offset.left,
