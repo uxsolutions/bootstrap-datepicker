@@ -205,12 +205,14 @@
 		},
 
 		place: function(){
-			var calendarWidth = 225,
+			var offset,
+			zIndex,
+			calendarWidth = 225,
 			windowPadding = 20,
-			windowWidth = $(window).width(),
-			offset = this.component ? this.component.offset() : this.element.offset();
+			windowWidth = $(window).width();
 
-			var zIndex = parseInt(this.element.parents().filter(function() {
+			offset = this.component ? this.component.offset() : this.element.offset();
+			zIndex = parseInt(this.element.parents().filter(function() {
 							return $(this).css('z-index') != 'auto';
 						}).first().css('z-index'))+10;
 
