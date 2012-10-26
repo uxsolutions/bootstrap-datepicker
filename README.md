@@ -251,8 +251,8 @@ Sets the days of week that should be disabled.
 
 Omit daysOfWeekDisabled (or provide an otherwise falsey value) to unset the disabled days.
 
-    $('#datepicker').datepicker('daysOfWeekDisabled');
-    $('#datepicker').datepicker('daysOfWeekDisabled', null);
+    $('#datepicker').datepicker('setDaysOfWeekDisabled');
+    $('#datepicker').datepicker('setDaysOfWeekDisabled', null);
 
 ## Events
 
