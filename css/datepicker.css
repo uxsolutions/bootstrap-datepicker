@@ -321,3 +321,9 @@
 .datepicker-dark:after {
   border-bottom: 6px solid #333;
 }
+.datepicker-no-arrow:before {
+  border: none;
+}
+.datepicker-no-arrow:after {
+  border: none;
+}

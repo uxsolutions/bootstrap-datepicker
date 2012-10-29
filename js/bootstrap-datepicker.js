@@ -36,6 +36,7 @@
 		this.element = $(element);
 		this.language = options.language||this.element.data('date-language')||"en";
 		this.language = this.language in dates ? this.language : "en";
+		this.arrow = options.arrow === undefined ? true : options.arrow;
 		this.dark = options.dark === undefined ? false : options.dark;
 		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'mm/dd/yyyy');
 		this.picker = $(DPGlobal.template)
@@ -43,6 +44,7 @@
 							.on({
 								click: $.proxy(this.click, this)
 							}).
+							addClass(this.arrow === true ? '' : 'datepicker-no-arrow').
 							addClass(this.dark === true ? 'datepicker-dark' : '');
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on') : false;
