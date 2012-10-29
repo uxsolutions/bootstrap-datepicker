@@ -36,12 +36,21 @@
 		this.element = $(element);
 		this.language = options.language||this.element.data('date-language')||"en";
 		this.language = this.language in dates ? this.language : "en";
+		this.arrow = options.arrow === undefined ? true : options.arrow;
+		this.aio = options.aio === undefined ? false : options.aio;
+		this.dark = options.dark === undefined ? false : options.dark;
 		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'mm/dd/yyyy');
 		this.picker = $(DPGlobal.template)
 							.appendTo('body')
 							.on({
 								click: $.proxy(this.click, this)
-							});
+							}).
+							addClass(this.arrow === true ? '' : 'datepicker-no-arrow').
+							addClass(this.dark === true ? 'datepicker-dark' : '');
+		if (this.aio) {
+			this.picker.find('thead tr:first-of-type').replaceWith(DPGlobal.aioHeadTemplate);
+			this.picker.find('thead tr:first-of-type i').addClass('icon-white');
+		}
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on') : false;
 		this.hasInput = this.component && this.element.find('input').length;
@@ -260,8 +269,14 @@
 				endMonth = this.endDate !== Infinity ? this.endDate.getUTCMonth() : Infinity,
 				currentDate = this.date.valueOf(),
 				today = new Date();
-			this.picker.find('.datepicker-days thead th:eq(1)')
-						.text(dates[this.language].months[month]+' '+year);
+			if (this.aio) {
+				this.picker.find('.datepicker-days th.month-name').text(dates[this.language].months[month]);
+				this.picker.find('.datepicker-days th.year-name').text(year);
+			} else {
+				this.picker.find('.datepicker-days th:eq(1)')
+							.text(dates[this.language].months[month]+' '+year);
+			}
+
 			this.picker.find('tfoot th.today')
 						.text(dates[this.language].today)
 						.toggle(this.todayBtn);
@@ -384,6 +399,18 @@
 						switch(target[0].className) {
 							case 'switch':
 								this.showMode(1);
+								break;
+							case 'prev-month':
+							case 'next-month':
+								var monthDir = DPGlobal.modes[this.viewMode].navStep * (target[0].className == 'prev-month' ? -1 : 1);
+								this.viewDate = this.moveMonth(this.viewDate, monthDir);
+								this.fill();
+								break;
+							case 'prev-year':
+							case 'next-year':
+								var yearDir = DPGlobal.modes[this.viewMode].navStep * (target[0].className == 'prev-year' ? -1 : 1);
+								this.viewDate = this.moveYear(this.viewDate, yearDir);
+								this.fill();
 								break;
 							case 'prev':
 							case 'next':
@@ -807,6 +834,14 @@
 								'<th class="next"><i class="icon-arrow-right"/></th>'+
 							'</tr>'+
 						'</thead>',
+		aioHeadTemplate: '<tr>' +
+							'<th class="prev-month"><i class="icon-arrow-left"></i></th>' +
+							'<th colspan="2" class="month-name"></th>' +
+							'<th class="next-month"><i class="icon-arrow-right"></i></th>' +
+							'<th class="prev-year"><i class="icon-arrow-left"></i></th>' +
+							'<th colspan="1" class="year-name"></th>' +
+							'<th class="next-year"><i class="icon-arrow-right"></i></th>' +
+						'</tr>',
 		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',
 		footTemplate: '<tfoot><tr><th colspan="7" class="today"></th></tr></tfoot>'
 	};

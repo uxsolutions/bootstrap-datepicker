@@ -272,3 +272,58 @@
   width: 16px;
   height: 16px;
 }
+.datepicker-dark {
+  padding: 2px;
+}
+.datepicker-dark.dropdown-menu {
+  background-color: #333;
+}
+.datepicker-dark > div {
+  background-color: #fff;
+}
+.datepicker-dark thead {
+  background-color: #333;
+  color: #CCC;
+}
+.datepicker-dark td, .datepicker-dark th {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+.datepicker-dark thead tr:first-child th {
+  font-weight: normal;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #CCC;
+}
+.datepicker-dark thead tr:first-child th:hover {
+  background-color: #333;
+}
+.datepicker-dark table {
+  font-size: 12px;
+}
+.datepicker-dark .day {
+  border: 1px solid #e6e6e6;
+  border-right: none;
+}
+.datepicker-dark .dow {
+  background-color: whiteSmoke;
+  color: gray;
+}
+.datepicker-dark .old, .datepicker-dark .new {
+  color: #bbbbbb;
+}
+.datepicker-dark td.day.active,
+.datepicker-dark td span.month.active,
+.datepicker-dark td span.year.active {
+  background-color: #0074CC;
+  background-image: none;
+}
+.datepicker-dark:after {
+  border-bottom: 6px solid #333;
+}
+.datepicker-no-arrow:before {
+  border: none;
+}
+.datepicker-no-arrow:after {
+  border: none;
+}

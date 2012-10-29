@@ -164,6 +164,24 @@ String.  Default: 'en'
 
 The two-letter code of the language to use for month and day names.  These will also be used as the input's value (and subsequently sent to the server in the case of form submissions).  Currently ships with English ('en'), German ('de'), Brazilian ('br'), and Spanish ('es') translations, but others can be added (see I18N below).  If an unknown language code is given, English will be used.
 
+### arrow
+
+Boolean.  Default: true
+
+Whether or not to add an arrow to the datepicker
+
+### aio
+
+Boolean.  Default: false
+
+Whether or not to use a header that inline's the month and year selection. This removes the option to switch to the different selector types in favor of giving the user the explicit option of setting the date.
+
+### dark
+
+Boolean.  Default: false
+
+Whether or not to use a "dark" theme, as inspired by [Brickrouge](http://brickrouge.org/features/calendar/)
+
 ## Markup
 
 Format a component.
