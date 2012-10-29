@@ -36,12 +36,14 @@
 		this.element = $(element);
 		this.language = options.language||this.element.data('date-language')||"en";
 		this.language = this.language in dates ? this.language : "en";
+		this.dark = options.dark === undefined ? false : options.dark;
 		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'mm/dd/yyyy');
 		this.picker = $(DPGlobal.template)
 							.appendTo('body')
 							.on({
 								click: $.proxy(this.click, this)
-							});
+							}).
+							addClass(this.dark === true ? 'datepicker-dark' : '');
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on') : false;
 		this.hasInput = this.component && this.element.find('input').length;
