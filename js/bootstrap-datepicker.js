@@ -206,7 +206,7 @@
 
 		place: function(){
 			var zIndex = parseInt(this.element.parents().filter(function() {
-							return $(this).css('z-index') != 'auto';
+							return $(this).css('z-index') != 'auto' && 0 < $(this).css('z-index');
 						}).first().css('z-index'))+10;
 			var offset = this.component ? this.component.offset() : this.element.offset();
 			this.picker.css({
