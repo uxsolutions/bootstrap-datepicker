@@ -206,7 +206,7 @@
 
 		place: function(){
 			var zIndex = parseInt(this.element.parents().filter(function() {
-							return $(this).css('z-index') != 'auto';
+							return $(this).css('z-index') != 'auto' && 0 < $(this).css('z-index');
 						}).first().css('z-index'))+10;
 			var offset = this.component ? this.component.offset() : this.element.offset();
 			this.picker.css({
@@ -247,7 +247,7 @@
 			while (i < 12) {
 				html += '<span class="month">'+dates[this.language].monthsShort[i++]+'</span>';
 			}
-			this.picker.find('.datepicker-months td').html(html);
+			this.picker.find('.datepicker-months td').html(html).css('width', '100%');
 		},
 
 		fill: function() {
@@ -338,7 +338,7 @@
 				html += '<span class="year'+(i == -1 || i == 10 ? ' old' : '')+(currentYear == year ? ' active' : '')+(year < startYear || year > endYear ? ' disabled' : '')+'">'+year+'</span>';
 				year += 1;
 			}
-			yearCont.html(html);
+			yearCont.html(html).css('width', '100%');
 		},
 
 		updateNavArrows: function() {
