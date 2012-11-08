@@ -10,7 +10,7 @@ contributed to by him (yet?)
 
 Attached to a field with the format specified via options:
 
-    <input type="text" value="02-16-2012" id="datepicker">  
+    <input type="text" value="02-16-2012" id="datepicker">
 ######
     $('#datepicker').datepicker({
         format: 'mm-dd-yyyy'
@@ -139,6 +139,18 @@ Whether or not to close the datepicker immediately when a date is selected.
 Number, String.  Default: 0, 'month'
 
 The view that the datepicker should show when it is opened.  Accepts values of 0 or 'month' for month view (the default), 1 or 'year' for the 12-month overview, and 2 or 'decade' for the 10-year overview.  Useful for date-of-birth datepickers.
+
+### todayBtn
+
+Boolean, "linked".  Default: false
+
+If true or "linked", displays a "Today" button at the bottom of the datepicker to select the current date.  If true, the "Today" button will only move the current date into view; if "linked", the current date will also be selected.
+
+### todayHighlight
+
+Boolean.  Default: false
+
+If true, highlights the current date.
 
 ### keyboardNavigation
 
@@ -284,7 +296,8 @@ The plugin supports i18n for the month and weekday names and the `weekStart` opt
         daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
         daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
         months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-        monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        today: "Today"
     };
 
 If your browser (or those of your users) is displaying characters wrong, chances are the browser is loading the javascript file with a non-unicode encoding.  Simply add `charset="UTF-8"` to your `script` tag:
