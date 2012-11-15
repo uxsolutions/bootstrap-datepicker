@@ -662,7 +662,7 @@
 		}
 	}
 
-	var DPGlobal = window.dpg = {
+	var DPGlobal = {
 		modes: [
 			{
 				clsName: 'days',
