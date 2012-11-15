@@ -768,9 +768,6 @@
 								});
 								val = $.inArray(filtered[0], dates[language].monthsShort) + 1;
 								break;
-							default:
-								val = 0;
-								break;
 						}
 					}
 					parsed[part] = val;
