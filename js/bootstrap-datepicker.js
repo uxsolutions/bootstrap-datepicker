@@ -662,7 +662,7 @@
 		}
 	}
 
-	var DPGlobal = {
+	var DPGlobal = window.dpg = {
 		modes: [
 			{
 				clsName: 'days',
@@ -774,7 +774,7 @@
 				}
 				for (var i=0, s; i<setters_order.length; i++){
 					s = setters_order[i];
-					if (s in parsed)
+					if (s in parsed && !isNaN(parsed[s]))
 						setters_map[s](date, parsed[s])
 				}
 			}
