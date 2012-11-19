@@ -27,7 +27,13 @@
 		var today = new Date();
 		return UTCDate(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
 	}
-
+	function _objectify(list) {
+		var obj = {};
+		for (var i = 0, len = list.length; i < len; i++) {
+			obj[list[i]] = '';
+		}
+		return obj;
+	}
 	// Picker object
 
 	var Datepicker = function(element, options) {
@@ -115,6 +121,7 @@
 		this.endDate = Infinity;
 		this.setStartDate(options.startDate||this.element.data('date-startdate'));
 		this.setEndDate(options.endDate||this.element.data('date-enddate'));
+		this.only = (options.only && _objectify(options.only)) || null;
 		this.fillDow();
 		this.fillMonths();
 		this.update();
@@ -296,7 +303,9 @@
 				if (prevMonth.valueOf() == currentDate) {
 					clsName += ' active';
 				}
-				if (prevMonth.valueOf() < this.startDate || prevMonth.valueOf() > this.endDate) {
+				if (prevMonth.valueOf() < this.startDate ||
+						prevMonth.valueOf() > this.endDate ||
+						(this.only && !(prevMonth.getUTCDay() in this.only))) {
 					clsName += ' disabled';
 				}
 				html.push('<td class="day'+clsName+'">'+prevMonth.getUTCDate() + '</td>');
