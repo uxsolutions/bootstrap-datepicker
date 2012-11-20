@@ -148,7 +148,9 @@
 			if (!this.isInput) {
 				$(document).off('mousedown', this.hide);
 			}
-			if (e && e.currentTarget.value)
+
+			if (this.isInput && this.element.val() ||
+				this.hasInput && this.element.find('input').val())
 				this.setValue();
 			this.element.trigger({
 				type: 'hide',
