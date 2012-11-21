@@ -169,6 +169,10 @@
 				date: this.date
 			});
 		},
+		
+		remove: function() {
+			this.picker.remove();
+		},
 
 		getDate: function() {
 			var d = this.getUTCDate();
