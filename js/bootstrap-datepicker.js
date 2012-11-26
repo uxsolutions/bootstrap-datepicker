@@ -653,7 +653,7 @@
 			var $this = $(this),
 				data = $this.data('datepicker'),
 				options = typeof option == 'object' && option;
-			if (!data) {
+			if (typeof data !== 'object') {
 				$this.data('datepicker', (data = new Datepicker(this, $.extend({}, $.fn.datepicker.defaults,options))));
 			}
 			if (typeof option == 'string' && typeof data[option] == 'function') {
