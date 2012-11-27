@@ -49,7 +49,7 @@
 			this.component = false;
 
 		this._attachEvents();
-		
+
 		this.forceParse = true;
 		if ('forceParse' in options) {
 			this.forceParse = options.forceParse;
@@ -197,7 +197,7 @@
 				date: this.date
 			});
 		},
-		
+
 		remove: function() {
 			this._detachEvents();
 			this.picker.remove();
