@@ -195,7 +195,9 @@
 		},
 		
 		remove: function() {
+			this._detachEvents();
 			this.picker.remove();
+			delete this.element.data().datepicker;
 		},
 
 		setValue: function() {
