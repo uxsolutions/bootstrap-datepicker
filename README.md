@@ -167,6 +167,15 @@ Format a component.
 
 Initializes an datepicker.
 
+### remove
+
+Arguments: None
+
+Remove the datepicker.  Removes attached events, internal attached objects, and
+added HTML elements.
+
+    $('#datepicker').datepicker('remove');
+
 ### show
 
 Arguments: None
