@@ -57,9 +57,10 @@
 			this.forceParse = this.element.data('date-force-parse');
 		}
 
-		$(document).on('mousedown', function (e) {
+		$(document).on('mousedown touchstart', function (e) {
 			// Clicked outside the datepicker, hide it
-			if ($(e.target).closest('.datepicker').length == 0) {
+			var closest = $(e.target).closest('.datepicker');
+			if (closest.length === 0 || closest[0] !== that.element) {
 				that.hide();
 			}
 		});
