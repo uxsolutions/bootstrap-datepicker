@@ -130,7 +130,7 @@
 					[this.element.find('input'), {
 						focus: $.proxy(this.show, this),
 						keyup: $.proxy(this.update, this),
-						keydown: $.proxy(this.keydown, this),
+						keydown: $.proxy(this.keydown, this)
 					}],
 					[this.component, {
 						click: $.proxy(this.show, this)
