@@ -48,25 +48,13 @@
 		if(this.component && this.component.length === 0)
 			this.component = false;
 
-		if (this.isInput) {
-			this.element.on({
-				focus: $.proxy(this.show, this),
-				keyup: $.proxy(this.update, this),
-				keydown: $.proxy(this.keydown, this)
-			});
-		} else {
-			if (this.component && this.hasInput){
-				// For components that are not readonly, allow keyboard nav
-				this.element.find('input').on({
-					focus: $.proxy(this.show, this),
-					keyup: $.proxy(this.update, this),
-					keydown: $.proxy(this.keydown, this)
-				});
+		this._attachEvents();
 
-				this.component.on('click', $.proxy(this.show, this));
-			} else {
-				this.element.on('click', $.proxy(this.show, this));
-			}
+		this.forceParse = true;
+		if ('forceParse' in options) {
+			this.forceParse = options.forceParse;
+		} else if ('dateForceParse' in this.element.data()) {
+			this.forceParse = this.element.data('date-force-parse');
 		}
 
 		$(document).on('mousedown', function (e) {
@@ -126,6 +114,53 @@
 	Datepicker.prototype = {
 		constructor: Datepicker,
 
+		_events: [],
+		_attachEvents: function(){
+			this._detachEvents();
+			if (this.isInput) {
+				this._events = [
+					[this.element, {
+						focus: $.proxy(this.show, this),
+						keyup: $.proxy(this.update, this),
+						keydown: $.proxy(this.keydown, this)
+					}]
+				];
+			}
+			else if (this.component && this.hasInput){
+				this._events = [
+					// For components that are not readonly, allow keyboard nav
+					[this.element.find('input'), {
+						focus: $.proxy(this.show, this),
+						keyup: $.proxy(this.update, this),
+						keydown: $.proxy(this.keydown, this)
+					}],
+					[this.component, {
+						click: $.proxy(this.show, this)
+					}]
+				];
+			}
+			else {
+				this._events = [
+					[this.element, {
+						click: $.proxy(this.show, this)
+					}]
+				];
+			}
+			for (var i=0, el, ev; i<this._events.length; i++){
+				el = this._events[i][0];
+				ev = this._events[i][1];
+				el.on(ev);
+			}
+		},
+		_detachEvents: function(){
+			for (var i=0, el, ev; i<this._events.length; i++){
+				el = this._events[i][0];
+				ev = this._events[i][1];
+				el.off(ev);
+			}
+			this._events = [];
+		},
+
 		show: function(e) {
 			this.picker.show();
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
@@ -150,12 +185,25 @@
 			if (!this.isInput) {
 				$(document).off('mousedown', this.hide);
 			}
-			if (e && e.currentTarget.value)
+
+			if (
+				this.forceParse &&
+				(
+					this.isInput && this.element.val() ||
+					this.hasInput && this.element.find('input').val()
+				)
+			)
 				this.setValue();
 			this.element.trigger({
 				type: 'hide',
 				date: this.date
 			});
+		},
+
+		remove: function() {
+			this._detachEvents();
+			this.picker.remove();
+			delete this.element.data().datepicker;
 		},
 
 		getDate: function() {
@@ -760,7 +808,7 @@
 				val, filtered, part;
 			setters_map['M'] = setters_map['MM'] = setters_map['mm'] = setters_map['m'];
 			setters_map['dd'] = setters_map['d'];
-			date = UTCDate(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 0, 0, 0);
+			date = UTCDate(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
 			if (parts.length == format.parts.length) {
 				for (var i=0, cnt = format.parts.length; i < cnt; i++) {
 					val = parseInt(parts[i], 10);
@@ -789,7 +837,7 @@
 				}
 				for (var i=0, s; i<setters_order.length; i++){
 					s = setters_order[i];
-					if (s in parsed)
+					if (s in parsed && !isNaN(parsed[s]))
 						setters_map[s](date, parsed[s])
 				}
 			}

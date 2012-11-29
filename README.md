@@ -170,6 +170,12 @@ String.  Default: 'en'
 
 The two-letter code of the language to use for month and day names.  These will also be used as the input's value (and subsequently sent to the server in the case of form submissions).  Currently ships with English ('en'), German ('de'), Brazilian ('br'), and Spanish ('es') translations, but others can be added (see I18N below).  If an unknown language code is given, English will be used.
 
+### forceParse
+
+Boolean.  Default: true
+
+Whether or not to force parsing of the input value when the picker is closed.  That is, when an invalid date is left in the input field by the user, the picker will forcibly parse that value, and set the input's value to the new, valid date, conforming to the given `format`.
+
 ## Markup
 
 Format a component.
@@ -184,6 +190,15 @@ Format a component.
 ### .datepicker(options)
 
 Initializes an datepicker.
+
+### remove
+
+Arguments: None
+
+Remove the datepicker.  Removes attached events, internal attached objects, and
+added HTML elements.
+
+    $('#datepicker').datepicker('remove');
 
 ### show
 
