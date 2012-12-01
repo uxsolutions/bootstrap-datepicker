@@ -407,7 +407,7 @@
 								date.setUTCMilliseconds(0);
 
 								this.showMode(-2);
-								var which = this.todayBtn == 'linked' ? null : 'view';
+								var which = this.todayBtn !== false ? null : 'view';
 								this._setDate(date, which);
 								break;
 						}
