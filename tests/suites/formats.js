@@ -193,3 +193,18 @@ test('Regression: End-of-month bug', patch_date(function(Date){
         .datepicker('setValue');
     equal(this.input.val(), '29-02-2012');
 }));
+
+test('Invalid formats are force-parsed into a valid date on tab', patch_date(function(Date){
+    Date.now = UTCDate(2012, 4, 31);
+    this.input
+        .val('44-44-4444')
+        .datepicker({format: 'yyyy-MM-dd'})
+        .focus();
+
+    this.input.trigger({
+        type: 'keydown',
+        keyCode: 9
+    });
+
+    equal(this.input.val(), '56-September-30');
+}));

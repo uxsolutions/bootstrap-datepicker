@@ -136,6 +136,12 @@ Date.  Default: End of time
 
 The latest date that may be selected; all later dates will be disabled.
 
+### daysOfWeekDisabled
+
+String, Array.  Default: '', []
+
+Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday). Multiple values should be comma-separated. Example: disable weekends: `'0,6'` or `[0,6]`.
+
 ### autoclose
 
 Boolean.  Default: false
@@ -172,6 +178,12 @@ String.  Default: 'en'
 
 The two-letter code of the language to use for month and day names.  These will also be used as the input's value (and subsequently sent to the server in the case of form submissions).  Currently ships with English ('en'), German ('de'), Brazilian ('br'), and Spanish ('es') translations, but others can be added (see I18N below).  If an unknown language code is given, English will be used.
 
+### forceParse
+
+Boolean.  Default: true
+
+Whether or not to force parsing of the input value when the picker is closed.  That is, when an invalid date is left in the input field by the user, the picker will forcibly parse that value, and set the input's value to the new, valid date, conforming to the given `format`.
+
 ## Markup
 
 Format a component.
@@ -186,6 +198,15 @@ Format a component.
 ### .datepicker(options)
 
 Initializes an datepicker.
+
+### remove
+
+Arguments: None
+
+Remove the datepicker.  Removes attached events, internal attached objects, and
+added HTML elements.
+
+    $('#datepicker').datepicker('remove');
 
 ### show
 
@@ -240,6 +261,21 @@ Omit endDate (or provide an otherwise falsey value) to unset the limit.
 
     $('#datepicker').datepicker('setEndDate');
     $('#datepicker').datepicker('setEndDate', null);
+
+### setDaysOfWeekDisabled
+
+Arguments:
+
+* daysOfWeekDisabled (String|Array)
+
+Sets the days of week that should be disabled.
+
+    $('#datepicker').datepicker('setDaysOfWeekDisabled', [0,6]);
+
+Omit daysOfWeekDisabled (or provide an otherwise falsey value) to unset the disabled days.
+
+    $('#datepicker').datepicker('setDaysOfWeekDisabled');
+    $('#datepicker').datepicker('setDaysOfWeekDisabled', null);
 
 ## Events
 

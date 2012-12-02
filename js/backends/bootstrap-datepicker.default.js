@@ -83,7 +83,7 @@
 				val, filtered, part;
 				setters_map['M'] = setters_map['MM'] = setters_map['mm'] = setters_map['m'];
 				setters_map['dd'] = setters_map['d'];
-				date = UTCDate(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 0, 0, 0);
+				date = UTCDate(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
 				if (parts.length == format.parts.length) {
 					for (var i=0, cnt = format.parts.length; i < cnt; i++) {
 						val = parseInt(parts[i], 10);

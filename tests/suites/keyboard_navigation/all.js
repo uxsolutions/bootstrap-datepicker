@@ -16,7 +16,7 @@ test('TAB hides picker', function(){
     var target;
 
     ok(this.picker.is(':visible'), 'Picker is visible');
-    
+
     this.input.trigger({
         type: 'keydown',
         keyCode: 9

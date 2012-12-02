@@ -263,3 +263,24 @@ test('Today Highlight: today\'s date is highlighted when not active', patch_date
         ok(!target.hasClass('today'), 'Tomorrow is not marked with "today" class');
 }));
 
+test('DaysOfWeekDisabled', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-10-26')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    daysOfWeekDisabled: '1,5'
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+
+    input.focus();
+    target = picker.find('.datepicker-days tbody td:nth(22)');
+    ok(target.hasClass('disabled'), 'Day of week is disabled');
+    target = picker.find('.datepicker-days tbody td:nth(24)');
+    ok(!target.hasClass('disabled'), 'Day of week is enabled');
+    target = picker.find('.datepicker-days tbody td:nth(26)');
+    ok(target.hasClass('disabled'), 'Day of week is disabled');
+});

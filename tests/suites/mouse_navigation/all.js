@@ -13,18 +13,18 @@ module('Mouse Navigation (All)', {
 });
 
 test('Clicking datepicker does not hide datepicker', function(){
-    ok(this.picker.is(':visible'), 'Picker is visible');    
+    ok(this.picker.is(':visible'), 'Picker is visible');
     this.picker.trigger('mousedown');
     ok(this.picker.is(':visible'), 'Picker is still visible');
 });
 
-test('Clicking outside datepicker hides datepicker', function(){   
+test('Clicking outside datepicker hides datepicker', function(){
     var $otherelement = $('<div />');
-    $('body').append($otherelement); 
+    $('body').append($otherelement);
 
-    ok(this.picker.is(':visible'), 'Picker is visible');   
-    this.input.trigger('click');         
-    ok(this.picker.is(':visible'), 'Picker is still visible');    
+    ok(this.picker.is(':visible'), 'Picker is visible');
+    this.input.trigger('click');
+    ok(this.picker.is(':visible'), 'Picker is still visible');
 
     $otherelement.trigger('mousedown');
     ok(this.picker.is(':not(:visible)'), 'Picker is hidden');
