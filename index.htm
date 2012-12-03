@@ -287,7 +287,8 @@ $(&#039;#dp5&#039;).datepicker()
 		$(function(){
 			window.prettyPrint && prettyPrint();
 			$('#dp1').datepicker({
-				format: 'mm-dd-yyyy'
+				format: 'mm-dd-yyyy',
+                todayBtn: 'linked'
 			});
             
 			$('#dp2').datepicker();
@@ -324,8 +325,10 @@ $(&#039;#dp5&#039;).datepicker()
 					$('#dp5').datepicker('hide');
 				});
                 
-                
-            $('#dp6').datepicker();    
+            //inline    
+            $('#dp6').datepicker({
+                todayBtn: 'linked'
+            });    
             $('#btn6').click(function(){
                 $('#dp6').datepicker('update', '15-05-1984');
             });            
