@@ -57,13 +57,6 @@
 			this.forceParse = this.element.data('date-force-parse');
 		}
 
-		$(document).on('mousedown', function (e) {
-			// Clicked outside the datepicker, hide it
-			if ($(e.target).closest('.datepicker').length == 0) {
-				that.hide();
-			}
-		});
-
 		this.autoclose = false;
 		if ('autoclose' in options) {
 			this.autoclose = options.autoclose;
@@ -162,6 +155,7 @@
 		},
 
 		show: function(e) {
+			var that = this;
 			this.picker.show();
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			this.update();
@@ -175,6 +169,14 @@
 				type: 'show',
 				date: this.date
 			});
+			$(document).on('mousedown.datepicker touchstart.datepicker', function (e) {
+				// Clicked outside the datepicker, hide it
+				var closest = $(e.target).closest('.datepicker');
+				if (closest.length === 0 || (closest[0] !== that.element[0] &&
+					(that.picker.length === 0 || closest[0] !== that.picker[0]))) {
+					that.hide();
+				}
+			});
 		},
 
 		hide: function(e){
@@ -182,9 +184,7 @@
 			$(window).off('resize', this.place);
 			this.viewMode = this.startViewMode;
 			this.showMode();
-			if (!this.isInput) {
-				$(document).off('mousedown', this.hide);
-			}
+			$(document).off('mousedown.datepicker touchstart.datepicker');
 
 			if (
 				this.forceParse &&
