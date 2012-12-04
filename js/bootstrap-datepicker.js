@@ -175,6 +175,7 @@
 				type: 'show',
 				date: this.date
 			});
+			return this;
 		},
 
 		hide: function(e){
@@ -198,6 +199,7 @@
 				type: 'hide',
 				date: this.date
 			});
+			return this;
 		},
 
 		remove: function() {
@@ -217,11 +219,13 @@
 
 		setDate: function(d) {
 			this.setUTCDate(new Date(d.getTime() - (d.getTimezoneOffset()*60000)));
+			return this;
 		},
 
 		setUTCDate: function(d) {
 			this.date = d;
 			this.setValue();
+			return this;
 		},
 
 		setValue: function() {
@@ -234,6 +238,7 @@
 			} else {
 				this.element.prop('value', formatted);
 			}
+			return this;
 		},
 
 		setStartDate: function(startDate){
@@ -243,6 +248,7 @@
 			}
 			this.update();
 			this.updateNavArrows();
+			return this;
 		},
 
 		setEndDate: function(endDate){
@@ -252,6 +258,7 @@
 			}
 			this.update();
 			this.updateNavArrows();
+			return this;
 		},
 
 		setDaysOfWeekDisabled: function(daysOfWeekDisabled){
@@ -276,6 +283,7 @@
 				left: offset.left,
 				zIndex: zIndex
 			});
+			return this;
 		},
 
 		update: function(){
@@ -291,6 +299,7 @@
 				this.viewDate = new Date(this.date);
 			}
 			this.fill();
+			return this;
 		},
 
 		fillDow: function(){
