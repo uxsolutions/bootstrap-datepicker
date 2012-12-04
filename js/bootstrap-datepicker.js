@@ -57,7 +57,7 @@
 			this.forceParse = this.element.data('date-force-parse');
 		}
 
-		$(document).on('mousedown', function (e) {
+		$(document).on('mousedown touchstart', function (e) {
 			// Clicked outside the datepicker, hide it
 			if ($(e.target).closest('.datepicker').length == 0) {
 				that.hide();
