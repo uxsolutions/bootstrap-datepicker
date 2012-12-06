@@ -44,6 +44,13 @@
 		if(this.component && this.component.length === 0)
 			this.component = false;
 
+		this.forceParse = true;
+		if ('forceParse' in options) {
+			this.forceParse = options.forceParse;
+		} else if ('dateForceParse' in this.element.data()) {
+			this.forceParse = this.element.data('date-force-parse');
+		}
+
        if (this.isInput) {   //single input
             this.element.on({
                 focus: $.proxy(this.show, this),
@@ -162,7 +169,14 @@
 			if (!this.isInput) {
 				$(document).off('mousedown', this.hide);
 			}
-			if (e && e.currentTarget.value)
+
+			if (
+				this.forceParse &&
+				(
+					this.isInput && this.element.val() ||
+					this.hasInput && this.element.find('input').val()
+				)
+			)
 				this.setValue();
 			this.element.trigger({
 				type: 'hide',
@@ -809,7 +823,7 @@
 				}
 				for (var i=0, s; i<setters_order.length; i++){
 					s = setters_order[i];
-					if (s in parsed)
+					if (s in parsed && !isNaN(parsed[s]))
 						setters_map[s](date, parsed[s])
 				}
 			}
