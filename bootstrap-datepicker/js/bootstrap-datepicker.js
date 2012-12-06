@@ -429,10 +429,7 @@
 								break;
 							case 'today':
 								var date = new Date();
-								date.setUTCHours(0);
-								date.setUTCMinutes(0);
-								date.setUTCSeconds(0);
-								date.setUTCMilliseconds(0);
+								date = UTCDate(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
 
 								this.showMode(-2);
 								var which = this.todayBtn == 'linked' ? null : 'view';
@@ -655,7 +652,17 @@
 			if (dir) {
 				this.viewMode = Math.max(0, Math.min(2, this.viewMode + dir));
 			}
-			this.picker.find('>div').hide().filter('.datepicker-'+DPGlobal.modes[this.viewMode].clsName).show();
+            /*
+              vitalets: fixing bug of very special conditions:
+              jquery 1.7.1 + webkit + show inline datepicker in bootstrap popover.
+              Method show() does not set display css correctly and datepicker is not shown.
+              Changed to .css('display', 'block') solve the problem.
+              See https://github.com/vitalets/x-editable/issues/37
+              
+              In jquery 1.7.2+ everything works fine.
+            */
+            //this.picker.find('>div').hide().filter('.datepicker-'+DPGlobal.modes[this.viewMode].clsName).show();
+			this.picker.find('>div').hide().filter('.datepicker-'+DPGlobal.modes[this.viewMode].clsName).css('display', 'block');
 			this.updateNavArrows();
 		}
 	};
@@ -773,7 +780,7 @@
 				val, filtered, part;
 			setters_map['M'] = setters_map['MM'] = setters_map['mm'] = setters_map['m'];
 			setters_map['dd'] = setters_map['d'];
-			date = UTCDate(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 0, 0, 0);
+			date = UTCDate(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
 			if (parts.length == format.parts.length) {
 				for (var i=0, cnt = format.parts.length; i < cnt; i++) {
 					val = parseInt(parts[i], 10);
