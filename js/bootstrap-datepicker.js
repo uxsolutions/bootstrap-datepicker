@@ -68,7 +68,7 @@
         }
 		$(document).on('mousedown', function (e) {
 			// Clicked outside the datepicker, hide it
-			if ($(e.target).closest('.datepicker').length == 0) {
+			if ($(e.target).closest('.datepicker').length === 0) {
 				that.hide();
 			}
 		});
@@ -87,6 +87,7 @@
 			this.keyboardNavigation = this.element.data('date-keyboard-navigation');
 		}
 
+		this.viewMode = this.startViewMode = 0;
 		switch(options.startView || this.element.data('date-start-view')){
 			case 2:
 			case 'decade':
@@ -95,11 +96,6 @@
 			case 1:
 			case 'year':
 				this.viewMode = this.startViewMode = 1;
-				break;
-			case 0:
-			case 'month':
-			default:
-				this.viewMode = this.startViewMode = 0;
 				break;
 		}
 
@@ -110,8 +106,10 @@
 		this.weekEnd = ((this.weekStart + 6) % 7);
 		this.startDate = -Infinity;
 		this.endDate = Infinity;
+		this.daysOfWeekDisabled = [];
 		this.setStartDate(options.startDate||this.element.data('date-startdate'));
 		this.setEndDate(options.endDate||this.element.data('date-enddate'));
+		this.setDaysOfWeekDisabled(options.daysOfWeekDisabled||this.element.data('date-days-of-week-disabled'));
 		this.fillDow();
 		this.fillMonths();
 		this.update();
@@ -223,7 +221,7 @@
 
 		getDate: function() {
 			var d = this.getUTCDate();
-			return new Date(d.getTime() + (d.getTimezoneOffset()*60000))
+			return new Date(d.getTime() + (d.getTimezoneOffset()*60000));
 		},
 
 		getUTCDate: function() {
@@ -274,6 +272,18 @@
 			this.updateNavArrows();
 		},
 
+		setDaysOfWeekDisabled: function(daysOfWeekDisabled){
+			this.daysOfWeekDisabled = daysOfWeekDisabled||[];
+			if (!$.isArray(this.daysOfWeekDisabled)) {
+				this.daysOfWeekDisabled = this.daysOfWeekDisabled.split(/,\s*/);
+			}
+			this.daysOfWeekDisabled = $.map(this.daysOfWeekDisabled, function (d) {
+				return parseInt(d, 10);
+			});
+			this.update();
+			this.updateNavArrows();
+		},
+
 		place: function(){
                         if(this.isInline) return;
 			var zIndex = parseInt(this.element.parents().filter(function() {
@@ -311,8 +321,8 @@
 		},
 
 		fillDow: function(){
-			var dowCnt = this.weekStart;
-			var html = '<tr>';
+			var dowCnt = this.weekStart,
+			html = '<tr>';
 			while (dowCnt < this.weekStart + 7) {
 				html += '<th class="dow">'+dates[this.language].daysMin[(dowCnt++)%7]+'</th>';
 			}
@@ -321,8 +331,8 @@
 		},
 
 		fillMonths: function(){
-			var html = '';
-			var i = 0
+			var html = '',
+			i = 0;
 			while (i < 12) {
 				html += '<span class="month">'+dates[this.language].monthsShort[i++]+'</span>';
 			}
@@ -375,7 +385,8 @@
 				if (prevMonth.valueOf() == currentDate) {
 					clsName += ' active';
 				}
-				if (prevMonth.valueOf() < this.startDate || prevMonth.valueOf() > this.endDate) {
+				if (prevMonth.valueOf() < this.startDate || prevMonth.valueOf() > this.endDate ||
+					$.inArray(prevMonth.getUTCDay(), this.daysOfWeekDisabled) !== -1) {
 					clsName += ' disabled';
 				}
 				html.push('<td class="day'+clsName+'">'+prevMonth.getUTCDate() + '</td>');
@@ -516,7 +527,7 @@
 							var year = this.viewDate.getUTCFullYear(),
 								month = this.viewDate.getUTCMonth();
 							if (target.is('.old')) {
-								if (month == 0) {
+								if (month === 0) {
 									month = 11;
 									year -= 1;
 								} else {
@@ -556,8 +567,8 @@
 			}
 			if (element) {
 				element.change();
-				if (this.autoclose) {
-									this.hide();
+				if (this.autoclose && (!which || which == 'date')) {
+					this.hide();
 				}
 			}
 		},
@@ -746,7 +757,7 @@
 			monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 			today: "Today"
 		}
-	}
+	};
 
 	var DPGlobal = {
 		modes: [

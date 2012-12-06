@@ -128,6 +128,12 @@ Date.  Default: End of time
 
 The latest date that may be selected; all later dates will be disabled.
 
+### daysOfWeekDisabled
+
+String, Array.  Default: '', []
+
+Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday). Multiple values should be comma-separated. Example: disable weekends: `'0,6'` or `[0,6]`.
+
 ### autoclose
 
 Boolean.  Default: false
@@ -247,6 +253,21 @@ Omit endDate (or provide an otherwise falsey value) to unset the limit.
 
     $('#datepicker').datepicker('setEndDate');
     $('#datepicker').datepicker('setEndDate', null);
+
+### setDaysOfWeekDisabled
+
+Arguments:
+
+* daysOfWeekDisabled (String|Array)
+
+Sets the days of week that should be disabled.
+
+    $('#datepicker').datepicker('setDaysOfWeekDisabled', [0,6]);
+
+Omit daysOfWeekDisabled (or provide an otherwise falsey value) to unset the disabled days.
+
+    $('#datepicker').datepicker('setDaysOfWeekDisabled');
+    $('#datepicker').datepicker('setDaysOfWeekDisabled', null);
 
 ## Events
 
