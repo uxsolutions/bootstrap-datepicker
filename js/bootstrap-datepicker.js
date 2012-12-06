@@ -64,7 +64,7 @@
         if(this.isInline) {
             this.picker.addClass('datepicker-inline');
         } else {
-            this.picker.addClass('dropdown-menu');
+            this.picker.addClass('datepicker-dropdown dropdown-menu');
         }
 		$(document).on('mousedown', function (e) {
 			// Clicked outside the datepicker, hide it
@@ -720,7 +720,7 @@
               Method show() does not set display css correctly and datepicker is not shown.
               Changed to .css('display', 'block') solve the problem.
               See https://github.com/vitalets/x-editable/issues/37
-              
+
               In jquery 1.7.2+ everything works fine.
             */
             //this.picker.find('>div').hide().filter('.datepicker-'+DPGlobal.modes[this.viewMode].clsName).show();
@@ -930,7 +930,7 @@
 								'</table>'+
 							'</div>'+
 						'</div>';
-                        
+
     $.fn.datepicker.DPGlobal = DPGlobal;
-    
+
 }( window.jQuery );

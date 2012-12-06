@@ -9,31 +9,36 @@
  */
 
 .datepicker {
-	top: 0;
-	left: 0;
 	padding: 4px;
 	margin-top: 1px;
 	.border-radius(4px);
-	&:before {
-		content: '';
-		display: inline-block;
-		border-left:   7px solid transparent;
-		border-right:  7px solid transparent;
-		border-bottom: 7px solid #ccc;
-		border-bottom-color: rgba(0,0,0,.2);
-		position: absolute;
-		top: -7px;
-		left: 6px;
+	&-inline {
+		width: 220px;
 	}
-	&:after {
-		content: '';
-		display: inline-block;
-		border-left:   6px solid transparent;
-		border-right:  6px solid transparent;
-		border-bottom: 6px solid @white;
-		position: absolute;
-		top: -6px;
-		left: 7px;
+	&-dropdown {
+		top: 0;
+		left: 0;
+		&:before {
+			content: '';
+			display: inline-block;
+			border-left:   7px solid transparent;
+			border-right:  7px solid transparent;
+			border-bottom: 7px solid #ccc;
+			border-bottom-color: rgba(0,0,0,.2);
+			position: absolute;
+			top: -7px;
+			left: 6px;
+		}
+		&:after {
+			content: '';
+			display: inline-block;
+			border-left:   6px solid transparent;
+			border-right:  6px solid transparent;
+			border-bottom: 6px solid @white;
+			position: absolute;
+			top: -6px;
+			left: 7px;
+		}
 	}
 	>div {
 		display: none;
@@ -56,8 +61,17 @@
 		width: 20px;
 		height: 20px;
 		.border-radius(4px);
+
+		border: none;
 	}
-	td {
+	// Inline display inside a table presents some problems with
+	// border and background colors.
+	.table-striped & table tr {
+		td, th {
+			background-color:transparent;
+		}
+	}
+	table tr td {
 		&.day:hover {
 			background: @grayLighter;
 			cursor: pointer;
