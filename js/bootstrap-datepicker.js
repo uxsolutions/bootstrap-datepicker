@@ -37,11 +37,16 @@
 		this.language = options.language||this.element.data('date-language')||"en";
 		this.language = this.language in dates ? this.language : "en";
 		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'mm/dd/yyyy');
-		this.picker = $(DPGlobal.template)
-							.appendTo('body')
-							.on({
-								click: $.proxy(this.click, this)
-							});
+		var datepickerElements = $('div.datepicker.dropdown-menu');
+		this.picker = datepickerElements.length > 0 ? 
+				$(datepickerElements[0]).on({
+					click: $.proxy(this.click, this)
+				}) : 
+				$(DPGlobal.template)
+					.appendTo('body')
+					.on({
+						click: $.proxy(this.click, this)
+					});
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on') : false;
 		this.hasInput = this.component && this.element.find('input').length;
@@ -252,7 +257,9 @@
 				html += '<th class="dow">'+dates[this.language].daysMin[(dowCnt++)%7]+'</th>';
 			}
 			html += '</tr>';
-			this.picker.find('.datepicker-days thead').append(html);
+			var header = $(this.picker.find('.datepicker-days thead tr:first-child'));
+			header.detach();
+			this.picker.find('.datepicker-days thead').empty().append(header).append(html);
 		},
 
 		fillMonths: function(){
