@@ -20,7 +20,7 @@
 	}*/
 
 }
-.datepicker:before {
+.datepicker.dropdown-menu:before {
   content: '';
   display: inline-block;
   border-left: 7px solid transparent;
@@ -31,7 +31,7 @@
   top: -7px;
   left: 6px;
 }
-.datepicker:after {
+.datepicker.dropdown-menu:after {
   content: '';
   display: inline-block;
   border-left: 6px solid transparent;
@@ -64,6 +64,15 @@
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
+}
+.datepicker.calendar td,
+.datepicker.calendar th {
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
 }
 .datepicker td.day:hover {
   background: #eeeeee;

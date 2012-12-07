@@ -37,11 +37,28 @@
 		this.language = options.language||this.element.data('date-language')||"en";
 		this.language = this.language in dates ? this.language : "en";
 		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'mm/dd/yyyy');
-		this.picker = $(DPGlobal.template)
-							.appendTo('body')
-							.on({
-								click: $.proxy(this.click, this)
-							});
+        this.isCalendar = false;
+        if('isCalendar' in options)
+            this.isCalendar = options.isCalendar;
+        else if('isCalendar' in this.element.data()){
+            this.isCalendar = this.element.data('isCalendar')
+        }
+        this.picker = $(DPGlobal.template)
+            .on({
+                click: $.proxy(this.click, this)
+            });
+        if(!this.isCalendar)
+            this.picker.appendTo('body');
+        else{
+            this.picker.removeClass('dropdown-menu');
+            this.picker.addClass('calendar');
+            this.picker.find('table').addClass("table").addClass("table-bordered");
+            if('container' in options)
+                options.container.append(this.picker);
+            else
+                this.picker.insertAfter(this.element);
+            this.picker.show();
+        }
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on') : false;
 		this.hasInput = this.component && this.element.find('input').length;
@@ -60,7 +77,8 @@
 		$(document).on('mousedown', function (e) {
 			// Clicked outside the datepicker, hide it
 			if ($(e.target).closest('.datepicker').length == 0) {
-				that.hide();
+                if(!that.isCalendar)
+				    that.hide();
 			}
 		});
 
@@ -540,7 +558,7 @@
 			}
 			if (element) {
 				element.change();
-				if (this.autoclose && (!which || which == 'date')) {
+				if (this.autoclose && (!which || which == 'date') && !this.isCalendar) {
 					this.hide();
 				}
 			}
@@ -605,7 +623,8 @@
 				newDate, newViewDate;
 			switch(e.keyCode){
 				case 27: // escape
-					this.hide();
+                    if(!this.isCalendar)
+					    this.hide();
 					e.preventDefault();
 					break;
 				case 37: // left
@@ -659,11 +678,13 @@
 					}
 					break;
 				case 13: // enter
-					this.hide();
+                    if(!this.isCalendar)
+					    this.hide();
 					e.preventDefault();
 					break;
 				case 9: // tab
-					this.hide();
+                    if(!this.isCalendar)
+					    this.hide();
 					break;
 			}
 			if (dateChanged){
