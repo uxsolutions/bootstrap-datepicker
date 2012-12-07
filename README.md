@@ -176,6 +176,18 @@ Boolean.  Default: true
 
 Whether or not to force parsing of the input value when the picker is closed.  That is, when an invalid date is left in the input field by the user, the picker will forcibly parse that value, and set the input's value to the new, valid date, conforming to the given `format`.
 
+### isCalendar
+
+Boolean.  Default: false
+
+Shows this plugin as a Calendar. This means that the calendar is always displayed (unless you call the 'hide' method).
+
+### container
+
+jQuery element.
+
+Displays the calendar in the 'container' element. If none, then, the calendar will appear next to the input element.
+
 ## Markup
 
 Format a component.
