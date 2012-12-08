@@ -99,7 +99,7 @@
           
           <p>Attached to <i>div</i> (inline)</p>
           <div class="well">
-              <button id="btn6" style="float: right">manual set to 15-05-1984</button>
+              <button id="btn6" style="float: right">manual set to 15-05-1984</button>&nbsp;<button id="btn7">clear</button>
               <div id="dp6" data-date="12-02-2012" data-date-format="dd-mm-yyyy"></div>
           </div>
           
@@ -328,9 +328,15 @@ $(&#039;#dp5&#039;).datepicker()
             //inline    
             $('#dp6').datepicker({
                 todayBtn: 'linked'
-            });    
+            });
+                
             $('#btn6').click(function(){
                 $('#dp6').datepicker('update', '15-05-1984');
+            });            
+            
+            $('#btn7').click(function(){
+                $('#dp6').data('datepicker').date = null;
+                $('#dp6').find('.active').removeClass('active');                
             });            
 		});
 	</script>
