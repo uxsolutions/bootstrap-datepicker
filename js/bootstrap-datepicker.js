@@ -255,7 +255,12 @@
         },
 
 		setStartDate: function(startDate){
-			this.startDate = startDate||-Infinity;
+			if (typeof startDate == 'number') {
+				this.startDate = new Date();
+				this.startDate.setDate(this.startDate.getDate() + startDate);
+			} else {
+				this.startDate = startDate||-Infinity;
+			}
 			if (this.startDate !== -Infinity) {
 				this.startDate = DPGlobal.parseDate(this.startDate, this.format, this.language);
 			}
@@ -264,7 +269,12 @@
 		},
 
 		setEndDate: function(endDate){
-			this.endDate = endDate||Infinity;
+			if (typeof endDate == 'number') {
+				this.endDate = new Date();
+				this.endDate.setDate(this.endDate.getDate() + endDate);
+			} else {
+				this.endDate = endDate||Infinity;
+			}
 			if (this.endDate !== Infinity) {
 				this.endDate = DPGlobal.parseDate(this.endDate, this.format, this.language);
 			}
