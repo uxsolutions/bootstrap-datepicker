@@ -66,7 +66,7 @@
         } else {
             this.picker.addClass('datepicker-dropdown dropdown-menu');
         }
-		$(document).on('mousedown', function (e) {
+		$(document).on('mousedown.datepicker', function (e) {
 			// Clicked outside the datepicker, hide it
 			if ($(e.target).closest('.datepicker').length === 0) {
 				that.hide();
@@ -171,6 +171,7 @@
 				el.off(ev);
 			}
 			this._events = [];
+			$(document).off('mousedown.datepicker');
 		},
 
 		show: function(e) {
