@@ -171,6 +171,10 @@
 				el.off(ev);
 			}
 			this._events = [];
+                        this.picker.off({
+                            click: this.click,
+                            mousedown: this.mousedown
+                        });
 		},
 
 		show: function(e) {
