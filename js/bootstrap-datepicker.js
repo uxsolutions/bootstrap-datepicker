@@ -213,9 +213,9 @@
 			windowWidth = $(window).width();
 
 			offset = this.component ? this.component.offset() : this.element.offset();
-			zIndex = parseInt(this.element.parents().filter(function() {
-							return $(this).css('z-index') != 'auto';
-						}).first().css('z-index'))+10;
+			zIndex = parseInt(this.element.parents().filter(function () {
+				return $(this).css('z-index') != 'auto';
+			}).first().css('z-index')) + 10;
 
 			if (this.direction === 'left') {
 				// direction override via option
