@@ -1,7 +1,9 @@
 # Home
 
-monobasic's note: I forked the fork and added a placement fix. If the calendar popup will overlap the right window bound, it will be repositioned including the pointer edge. It's also possible to set the position manually with the option "direction", which can be "left" or "right".
+monobasic's note: I forked the fork and added a placement fix. If the calendar popup will overlap the right or left window boundary, it will be repositioned. It's also possible to set the direction of the calendar popup manually with the option "direction" (left, right)
 -- André Abt
+TODO: Under certain circumstances, it can be confusing that the popup arrow is not really pointing to the clicked element.
+
 ___________
 
 This is a fork of Stefan Petre's [original code](http://www.eyecon.ro/bootstrap-datepicker/);
