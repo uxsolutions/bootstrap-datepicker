@@ -108,6 +108,12 @@ A standalone .css file (including necessary dropdown styles and alternative, tex
 
 All options that take a "Date" can handle a `Date` object; a String formatted according to the given `format`; or a timedelta relative to today, eg '-1d', '+6m +1y', etc, where valid units are 'd' (day), 'w' (week), 'm' (month), and 'y' (year).
 
+### direction
+
+String.  Default: 'right'
+
+Orientation of the Selector Popup, can be 'left' or 'right'
+
 ### format
 
 String.  Default: 'mm/dd/yyyy'
