@@ -192,7 +192,7 @@ Whether or not to allow date navigation by arrow keys.
 
 String.  Default: 'en'
 
-The two-letter code of the language to use for month and day names.  These will also be used as the input's value (and subsequently sent to the server in the case of form submissions).  Currently ships with English ('en'), German ('de'), Brazilian ('br'), and Spanish ('es') translations, but others can be added (see I18N below).  If an unknown language code is given, English will be used.
+The two-letter code of the language to use for month and day names.  These will also be used as the input's value (and subsequently sent to the server in the case of form submissions).  Currently ships with English ('en'), German ('de'), Brazilian ('pt-BR'), and Spanish ('es') translations, but others can be added (see I18N below).  If an unknown language code is given, English will be used.
 
 ### forceParse
 
