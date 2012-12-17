@@ -225,7 +225,7 @@
 
 			// calendar popup close the left bound, reposition
 			if (offset.left  < 0) {
-				offset.left = 0;
+				offset.left = windowPadding;
 			}
 
 			// calendar popup close to the right bound, reposition
