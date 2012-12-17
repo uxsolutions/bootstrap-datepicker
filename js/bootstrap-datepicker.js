@@ -217,10 +217,10 @@
 							return $(this).css('z-index') != 'auto';
 						}).first().css('z-index'))+10;
 
-
 			if (this.direction === 'left') {
 				// direction override via option
 				this.picker.addClass('left');
+				offset.left = offset.left - calendarWidth + windowPadding;
 			}
 
 			// calendar popup close the left bound, reposition
