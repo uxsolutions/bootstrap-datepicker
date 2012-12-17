@@ -34,6 +34,7 @@
 		var that = this;
 
 		this.element = $(element);
+		this.direction = options.direction || 'right';
 		this.language = options.language||this.element.data('date-language')||"en";
 		this.language = this.language in dates ? this.language : "en";
 		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'mm/dd/yyyy');
@@ -216,8 +217,12 @@
 							return $(this).css('z-index') != 'auto';
 						}).first().css('z-index'))+10;
 
-			// if the calendar popup will be close to the right bound, it will be repositioned
-			if (offset.left + calendarWidth > windowWidth) {
+			if (this.direction === 'left') {
+				// direction override via option
+				this.picker.addClass('left');
+				offset.left = offset.left - calendarWidth + windowPadding;
+			} else if (offset.left + calendarWidth > windowWidth) {
+				// calendar popup close to the right bound, it will be repositioned
 				offset.left = windowWidth - calendarWidth - windowPadding;
 				this.picker.addClass('left');
 			}
