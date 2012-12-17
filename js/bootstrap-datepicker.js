@@ -217,14 +217,20 @@
 							return $(this).css('z-index') != 'auto';
 						}).first().css('z-index'))+10;
 
+
 			if (this.direction === 'left') {
 				// direction override via option
 				this.picker.addClass('left');
-				offset.left = offset.left - calendarWidth + windowPadding;
-			} else if (offset.left + calendarWidth > windowWidth) {
-				// calendar popup close to the right bound, it will be repositioned
+			}
+
+			// calendar popup close the left bound, reposition
+			if (offset.left  < 0) {
+				offset.left = 0;
+			}
+
+			// calendar popup close to the right bound, reposition
+			if (offset.left + calendarWidth > windowWidth) {
 				offset.left = windowWidth - calendarWidth - windowPadding;
-				this.picker.addClass('left');
 			}
 
 			this.picker.css({
