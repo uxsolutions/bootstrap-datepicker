@@ -31,7 +31,7 @@ $('#datepicker').datepicker();
 As component:
 
 ```html
-<div class="input-append date" id="datepicker" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+<div class="input-append date" id="datepicker" data-date="12-02-2012" data-anchor="right" data-date-format="dd-mm-yyyy">
     <input size="16" type="text" value="12-02-2012" readonly>
     <span class="add-on"><i class="icon-th"></i></span>
 </div>
