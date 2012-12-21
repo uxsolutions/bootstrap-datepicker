@@ -310,8 +310,8 @@
             		}
             
 			this.picker.css({
-				top: offset.top + this.height,
-				left: offset.left,
+				top: offsetTop,
+				left: offsetLeft,
 				zIndex: zIndex
 			}).addClass(this.anchor);
 		},
