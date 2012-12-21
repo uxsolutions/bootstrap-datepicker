@@ -298,19 +298,16 @@
 							return $(this).css('z-index') != 'auto';
 						}).first().css('z-index'))+10,
 			    offset = this.component ? this.component.offset() : this.element.offset(),
-			    offsetTop,
 			    offsetLeft;
 			    
 			if (this.anchor == "left") {
-                		offsetTop = offset.top + this.height;
                 		offsetLeft = offset.left;
             		} else {
-                		offsetTop = offset.top + this.height;
                 		offsetLeft = offset.left - this.picker.outerWidth() + this.width;
             		}
             
 			this.picker.css({
-				top: offsetTop,
+				top: offset.top + this.height,
 				left: offsetLeft,
 				zIndex: zIndex
 			}).addClass(this.anchor);
