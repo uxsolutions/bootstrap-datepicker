@@ -51,16 +51,16 @@
   position: absolute;
   top: -6px;
 }
-.datepicker.right:before { 
+.datepicker-dropdown.right:before { 
   right: 6px;
 }
-.datepicker.right:after { 
+.datepicker-dropdown.right:after { 
   right: 7px;
 }
-.datepicker.left:before { 
+.datepicker-dropdown.left:before { 
   left: 6px;
 }
-.datepicker.left:after { 
+.datepicker-dropdown.left:after { 
   left: 7px;
 }
 .datepicker > div {
