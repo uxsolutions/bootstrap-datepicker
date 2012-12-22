@@ -297,7 +297,7 @@
 						}).first().css('z-index'))+10;
 			var offset = this.component ? this.component.offset() : this.element.offset();
 			this.picker.css({
-				top: offset.top + this.height,
+				top: offset.top + this.element[0].offsetHeight,
 				left: offset.left,
 				zIndex: zIndex
 			});
