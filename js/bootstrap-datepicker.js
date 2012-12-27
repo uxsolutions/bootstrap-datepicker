@@ -263,7 +263,8 @@
 			if (
 				this.forceParse &&
 				(
-					this.isInput && this.element.val() ||
+					this.isInput && this.element.val() && 
+					(this.element.val() !== this.element.attr('placeholder')) ||
 					this.hasInput && this.element.find('input').val()
 				)
 			)
