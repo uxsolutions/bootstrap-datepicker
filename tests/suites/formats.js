@@ -24,6 +24,22 @@ test('dd: Day of month, leading zero.', function(){
     equal(this.input.val().split('-')[2], '05');
 });
 
+test('D: Day of week, short.', function(){
+    this.input
+        .val('2012-03-05')
+        .datepicker({format: 'yyyy-mm-dd-D'})
+        .datepicker('setValue');
+    equal(this.input.val().split('-')[3], 'Mon');
+});
+
+test('DD: Day of week, long.', function(){
+    this.input
+        .val('2012-03-05')
+        .datepicker({format: 'yyyy-mm-dd-DD'})
+        .datepicker('setValue');
+    equal(this.input.val().split('-')[3], 'Monday');
+});
+
 test('m: Month, no leading zero.', function(){
     this.input
         .val('2012-03-05')
