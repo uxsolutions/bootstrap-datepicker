@@ -134,6 +134,11 @@ String.  Default: 'mm/dd/yyyy'
 
 The date format, combination of d, dd, m, mm, M, MM, yy, yyyy.
 
+* d, dd: Numeric date, no leading zero and leading zero, respectively.  Eg, 5, 05.
+* m, mm: Numeric month, no leading zero and leading zero, respectively.  Eg, 7, 07.
+* M, MM: Abbreviated and full month names, respectively.  Eg, Jan, January
+* yy, yyyy: 2- and 4-digit years, respectively.  Eg, 12, 2012.
+
 ### weekStart
 
 Integer.  Default: 0
