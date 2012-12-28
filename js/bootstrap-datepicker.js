@@ -38,6 +38,7 @@
 		this.language = this.language in dates ? this.language : "en";
 		this.isRTL = dates[this.language].rtl||false;
 		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'mm/dd/yyyy');
+		this.anchor = options.anchor||this.element.data('anchor')||'left';
                 this.isInline = false;
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on') : false;
@@ -182,6 +183,7 @@
 		show: function(e) {
 			this.picker.show();
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
+			this.width = this.component ? this.component.outerWidth() : this.element.outerWidth();
 			this.update();
 			this.place();
 			$(window).on('resize', $.proxy(this.place, this));
@@ -294,13 +296,21 @@
                         if(this.isInline) return;
 			var zIndex = parseInt(this.element.parents().filter(function() {
 							return $(this).css('z-index') != 'auto';
-						}).first().css('z-index'))+10;
-			var offset = this.component ? this.component.offset() : this.element.offset();
+						}).first().css('z-index'))+10,
+			    offset = this.component ? this.component.offset() : this.element.offset(),
+			    offsetLeft;
+			    
+			if (this.anchor == "left") {
+                		offsetLeft = offset.left;
+            		} else {
+                		offsetLeft = offset.left - this.picker.outerWidth() + this.width;
+            		}
+            
 			this.picker.css({
 				top: offset.top + this.height,
-				left: offset.left,
+				left: offsetLeft,
 				zIndex: zIndex
-			});
+			}).addClass(this.anchor);
 		},
 
 		update: function(){

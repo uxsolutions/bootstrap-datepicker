@@ -34,7 +34,7 @@
 			border-bottom-color: rgba(0,0,0,.2);
 			position: absolute;
 			top: -7px;
-			left: 6px;
+			
 		}
 		&:after {
 			content: '';
@@ -44,9 +44,25 @@
 			border-bottom: 6px solid @white;
 			position: absolute;
 			top: -6px;
-			left: 7px;
+		}
+		&.left {
+			&:before {
+				left: 6px;
+			}
+			&:after {
+				left: 7px;
+			}
+		}
+		&.right {
+			&:before {
+				right: 6px;
+			}
+			&:after {
+				right: 7px;
+			}
 		}
 	}
+			
 	>div {
 		display: none;
 	}

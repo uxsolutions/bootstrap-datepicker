@@ -41,7 +41,6 @@
   border-bottom-color: rgba(0, 0, 0, 0.2);
   position: absolute;
   top: -7px;
-  left: 6px;
 }
 .datepicker-dropdown:after {
   content: '';
@@ -51,6 +50,17 @@
   border-bottom: 6px solid #ffffff;
   position: absolute;
   top: -6px;
+}
+.datepicker-dropdown.right:before { 
+  right: 6px;
+}
+.datepicker-dropdown.right:after { 
+  right: 7px;
+}
+.datepicker-dropdown.left:before { 
+  left: 6px;
+}
+.datepicker-dropdown.left:after { 
   left: 7px;
 }
 .datepicker > div {
