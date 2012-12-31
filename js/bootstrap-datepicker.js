@@ -38,7 +38,7 @@
 		this.language = this.language in dates ? this.language : "en";
 		this.isRTL = dates[this.language].rtl||false;
 		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'mm/dd/yyyy');
-                this.isInline = false;
+		this.isInline = false;
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on') : false;
 		this.hasInput = this.component && this.element.find('input').length;
@@ -53,20 +53,20 @@
 		} else if ('dateForceParse' in this.element.data()) {
 			this.forceParse = this.element.data('date-force-parse');
 		}
+		 
 
+		this.picker = $(DPGlobal.template)
+							.appendTo(this.isInline ? this.element : 'body')
+							.on({
+								click: $.proxy(this.click, this),
+								mousedown: $.proxy(this.mousedown, this)
+							});
 
-        this.picker = $(DPGlobal.template)
-                            .appendTo(this.isInline ? this.element : 'body')
-                            .on({
-                                click: $.proxy(this.click, this),
-                                mousedown: $.proxy(this.mousedown, this)
-                            });
-
-        if(this.isInline) {
-            this.picker.addClass('datepicker-inline');
-        } else {
-            this.picker.addClass('datepicker-dropdown dropdown-menu');
-        }
+		if(this.isInline) {
+			this.picker.addClass('datepicker-inline');
+		} else {
+			this.picker.addClass('datepicker-dropdown dropdown-menu');
+		}
 		if (this.isRTL){
 			this.picker.addClass('datepicker-rtl');
 			this.picker.find('.prev i, .next i')
@@ -121,9 +121,9 @@
 		this.update();
 		this.showMode();
 
-        if(this.isInline) {
-            this.show();
-        }
+		if(this.isInline) {
+			this.show();
+		}
 	};
 
 	Datepicker.prototype = {
@@ -154,9 +154,9 @@
 					}]
 				];
 			}
-                        else if (this.element.is('div')) {  // inline datepicker
-                            this.isInline = true;
-                        }
+						else if (this.element.is('div')) {  // inline datepicker
+							this.isInline = true;
+						}
 			else {
 				this._events = [
 					[this.element, {
@@ -196,7 +196,7 @@
 		},
 
 		hide: function(e){
-            if(this.isInline) return;
+			if(this.isInline) return;
 			this.picker.hide();
 			$(window).off('resize', this.place);
 			this.viewMode = this.startViewMode;
@@ -255,10 +255,10 @@
 			}
 		},
 
-        getFormattedDate: function(format) {
-            if(format == undefined) format = this.format;
-            return DPGlobal.formatDate(this.date, format, this.language);
-        },
+		getFormattedDate: function(format) {
+			if(format == undefined) format = this.format;
+			return DPGlobal.formatDate(this.date, format, this.language);
+		},
 
 		setStartDate: function(startDate){
 			this.startDate = startDate||-Infinity;
@@ -291,7 +291,7 @@
 		},
 
 		place: function(){
-                        if(this.isInline) return;
+						if(this.isInline) return;
 			var zIndex = parseInt(this.element.parents().filter(function() {
 							return $(this).css('z-index') != 'auto';
 						}).first().css('z-index'))+10;
@@ -304,17 +304,17 @@
 		},
 
 		update: function(){
-            var date, fromArgs = false;
-            if(arguments && arguments.length && (typeof arguments[0] === 'string' || arguments[0] instanceof Date)) {
-                date = arguments[0];
-                fromArgs = true;
-            } else {
-                date = this.isInput ? this.element.prop('value') : this.element.data('date') || this.element.find('input').prop('value');
-            }
+			var date, fromArgs = false;
+			if(arguments && arguments.length && (typeof arguments[0] === 'string' || arguments[0] instanceof Date)) {
+				date = arguments[0];
+				fromArgs = true;
+			} else {
+				date = this.isInput ? this.element.prop('value') : this.element.data('date') || this.element.find('input').prop('value');
+			}
 
 			this.date = DPGlobal.parseDate(date, this.format, this.language);
 
-            if(fromArgs) this.setValue();
+			if(fromArgs) this.setValue();
 
 			var oldViewDate = this.viewDate;
 			if (this.date < this.startDate) {
@@ -361,7 +361,7 @@
 				startMonth = this.startDate !== -Infinity ? this.startDate.getUTCMonth() : -Infinity,
 				endYear = this.endDate !== Infinity ? this.endDate.getUTCFullYear() : Infinity,
 				endMonth = this.endDate !== Infinity ? this.endDate.getUTCMonth() : Infinity,
-				currentDate = this.date.valueOf(),
+				currentDate = this.date && this.date.valueOf(),
 				today = new Date();
 			this.picker.find('.datepicker-days thead th:eq(1)')
 						.text(dates[this.language].months[month]+' '+year);
@@ -396,7 +396,7 @@
 					prevMonth.getUTCDate() == today.getDate()) {
 					clsName += ' today';
 				}
-				if (prevMonth.valueOf() == currentDate) {
+				if (currentDate && prevMonth.valueOf() == currentDate) {
 					clsName += ' active';
 				}
 				if (prevMonth.valueOf() < this.startDate || prevMonth.valueOf() > this.endDate ||
@@ -410,14 +410,14 @@
 				prevMonth.setUTCDate(prevMonth.getUTCDate()+1);
 			}
 			this.picker.find('.datepicker-days tbody').empty().append(html.join(''));
-			var currentYear = this.date.getUTCFullYear();
+			var currentYear = this.date && this.date.getUTCFullYear();
 
 			var months = this.picker.find('.datepicker-months')
 						.find('th:eq(1)')
 							.text(year)
 							.end()
 						.find('span').removeClass('active');
-			if (currentYear == year) {
+			if (currentYear && currentYear == year) {
 				months.eq(this.date.getUTCMonth()).addClass('active');
 			}
 			if (year < startYear || year > endYear) {
@@ -728,16 +728,16 @@
 			if (dir) {
 				this.viewMode = Math.max(0, Math.min(2, this.viewMode + dir));
 			}
-            /*
-              vitalets: fixing bug of very special conditions:
-              jquery 1.7.1 + webkit + show inline datepicker in bootstrap popover.
-              Method show() does not set display css correctly and datepicker is not shown.
-              Changed to .css('display', 'block') solve the problem.
-              See https://github.com/vitalets/x-editable/issues/37
+			/*
+			  vitalets: fixing bug of very special conditions:
+			  jquery 1.7.1 + webkit + show inline datepicker in bootstrap popover.
+			  Method show() does not set display css correctly and datepicker is not shown.
+			  Changed to .css('display', 'block') solve the problem.
+			  See https://github.com/vitalets/x-editable/issues/37
 
-              In jquery 1.7.2+ everything works fine.
-            */
-            //this.picker.find('>div').hide().filter('.datepicker-'+DPGlobal.modes[this.viewMode].clsName).show();
+			  In jquery 1.7.2+ everything works fine.
+			*/
+			//this.picker.find('>div').hide().filter('.datepicker-'+DPGlobal.modes[this.viewMode].clsName).show();
 			this.picker.find('>div').hide().filter('.datepicker-'+DPGlobal.modes[this.viewMode].clsName).css('display', 'block');
 			this.updateNavArrows();
 		}
@@ -955,6 +955,6 @@
 							'</div>'+
 						'</div>';
 
-    $.fn.datepicker.DPGlobal = DPGlobal;
+	$.fn.datepicker.DPGlobal = DPGlobal;
 
 }( window.jQuery );
