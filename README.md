@@ -111,7 +111,7 @@ $('#datepicker').datepicker();
 Call the datepicker via javascript:
 
 ```javascript
-$('.datepicker').datepicker()
+$('#datepicker').datepicker()
 ```
 
 ## Dependencies

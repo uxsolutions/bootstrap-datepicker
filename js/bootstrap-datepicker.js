@@ -247,16 +247,17 @@
 			var formatted = this.getFormattedDate();
 			if (!this.isInput) {
 				if (this.component){
-					this.element.find('input').prop('value', formatted);
+					this.element.find('input').val(formatted);
 				}
 				this.element.data('date', formatted);
 			} else {
-				this.element.prop('value', formatted);
+				this.element.val(formatted);
 			}
 		},
 
 		getFormattedDate: function(format) {
-			if(format == undefined) format = this.format;
+			if (format === undefined)
+				format = this.format;
 			return DPGlobal.formatDate(this.date, format, this.language);
 		},
 
@@ -296,8 +297,9 @@
 							return $(this).css('z-index') != 'auto';
 						}).first().css('z-index'))+10;
 			var offset = this.component ? this.component.offset() : this.element.offset();
+			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(true);
 			this.picker.css({
-				top: offset.top + this.height,
+				top: offset.top + height,
 				left: offset.left,
 				zIndex: zIndex
 			});
@@ -309,7 +311,7 @@
 				date = arguments[0];
 				fromArgs = true;
 			} else {
-				date = this.isInput ? this.element.prop('value') : this.element.data('date') || this.element.find('input').prop('value');
+				date = this.isInput ? this.element.val() : this.element.data('date') || this.element.find('input').val();
 			}
 
 			this.date = DPGlobal.parseDate(date, this.format, this.language);
@@ -729,13 +731,13 @@
 				this.viewMode = Math.max(0, Math.min(2, this.viewMode + dir));
 			}
 			/*
-			  vitalets: fixing bug of very special conditions:
-			  jquery 1.7.1 + webkit + show inline datepicker in bootstrap popover.
-			  Method show() does not set display css correctly and datepicker is not shown.
-			  Changed to .css('display', 'block') solve the problem.
-			  See https://github.com/vitalets/x-editable/issues/37
+				vitalets: fixing bug of very special conditions:
+				jquery 1.7.1 + webkit + show inline datepicker in bootstrap popover.
+				Method show() does not set display css correctly and datepicker is not shown.
+				Changed to .css('display', 'block') solve the problem.
+				See https://github.com/vitalets/x-editable/issues/37
 
-			  In jquery 1.7.2+ everything works fine.
+				In jquery 1.7.2+ everything works fine.
 			*/
 			//this.picker.find('>div').hide().filter('.datepicker-'+DPGlobal.modes[this.viewMode].clsName).show();
 			this.picker.find('>div').hide().filter('.datepicker-'+DPGlobal.modes[this.viewMode].clsName).css('display', 'block');
@@ -791,10 +793,10 @@
 				navStep: 10
 		}],
 		isLeapYear: function (year) {
-			return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0))
+			return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0));
 		},
 		getDaysInMonth: function (year, month) {
-			return [31, (DPGlobal.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month]
+			return [31, (DPGlobal.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
 		},
 		validParts: /dd?|DD?|mm?|MM?|yy(?:yy)?/g,
 		nonpunctuation: /[^ -\/:-@\[\u3400-\u9fff-`{-~\t\n\r]+/g,
@@ -803,16 +805,16 @@
 			// so it's a bad format delimiter, anyway
 			var separators = format.replace(this.validParts, '\0').split('\0'),
 				parts = format.match(this.validParts);
-			if (!separators || !separators.length || !parts || parts.length == 0){
+			if (!separators || !separators.length || !parts || parts.length === 0){
 				throw new Error("Invalid date format.");
 			}
 			return {separators: separators, parts: parts};
 		},
 		parseDate: function(date, format, language) {
 			if (date instanceof Date) return date;
-			if (/^[-+]\d+[dmwy]([\s,]+[-+]\d+[dmwy])*$/.test(date)) {
-				var part_re = /([-+]\d+)([dmwy])/,
-					parts = date.match(/([-+]\d+)([dmwy])/g),
+			if (/^[\-+]\d+[dmwy]([\s,]+[\-+]\d+[dmwy])*$/.test(date)) {
+				var part_re = /([\-+]\d+)([dmwy])/,
+					parts = date.match(/([\-+]\d+)([dmwy])/g),
 					part, dir;
 				date = new Date();
 				for (var i=0; i<parts.length; i++) {
@@ -894,7 +896,7 @@
 				for (var i=0, s; i<setters_order.length; i++){
 					s = setters_order[i];
 					if (s in parsed && !isNaN(parsed[s]))
-						setters_map[s](date, parsed[s])
+						setters_map[s](date, parsed[s]);
 				}
 			}
 			return date;
@@ -916,7 +918,7 @@
 				seps = $.extend([], format.separators);
 			for (var i=0, cnt = format.parts.length; i < cnt; i++) {
 				if (seps.length)
-					date.push(seps.shift())
+					date.push(seps.shift());
 				date.push(val[format.parts[i]]);
 			}
 			return date.join('');
