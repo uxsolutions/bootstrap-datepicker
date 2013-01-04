@@ -310,7 +310,7 @@
 				date = arguments[0];
 				fromArgs = true;
 			} else {
-				date = this.isInput ? this.element.prop('value') : this.element.data('date') || this.element.find('input').prop('value');
+				date = this.isInput ? this.element.val() : this.element.data('date') || this.element.find('input').val();
 			}
 
 			this.date = DPGlobal.parseDate(date, this.format, this.language);
