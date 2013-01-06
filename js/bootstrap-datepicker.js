@@ -960,3 +960,5 @@
 	$.fn.datepicker.DPGlobal = DPGlobal;
 
 }( window.jQuery );
+
+$(document).ready( function(){ $(".datepicker-auto").datepicker(); } );
