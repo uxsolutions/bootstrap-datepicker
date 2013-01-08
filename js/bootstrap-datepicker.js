@@ -78,7 +78,12 @@
 				that.hide();
 			}
 		});
-
+		
+		this.singleWindow = false;
+		if ('singleWindow' in options) {
+			this.singleWindow = options.singleWindow;
+		}
+		
 		this.autoclose = false;
 		if ('autoclose' in options) {
 			this.autoclose = options.autoclose;
@@ -180,6 +185,11 @@
 		},
 
 		show: function(e) {
+			if (this.singleWindow &&
+			    this.picker.is(':not(:visible)')) {
+				$(".datepicker-inline:visible, .datepicker-dropdown:visible").hide();
+			}
+			
 			this.picker.show();
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			this.update();
