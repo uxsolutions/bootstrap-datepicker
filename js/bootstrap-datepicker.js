@@ -180,10 +180,11 @@
 		},
 
 		show: function(e) {
-			this.picker.show();
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			this.update();
 			this.place();
+			// In the original code, this.picker.show() comes first.  However, we need to place the element before showing!
+			this.picker.show();
 			$(window).on('resize', $.proxy(this.place, this));
 			if (e ) {
 				e.stopPropagation();
@@ -212,7 +213,8 @@
 					this.hasInput && this.element.find('input').val()
 				)
 			)
-				this.setValue();
+			// Removing line: 'this.setValue();' as a click/keyboard will already have triggered this.
+			// When this line is in, it's impossible to set the datepicker to start off with a date other than today.
 			this.element.trigger({
 				type: 'hide',
 				date: this.date
