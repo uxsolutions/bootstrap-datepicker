@@ -113,6 +113,7 @@
 		this.startDate = -Infinity;
 		this.endDate = Infinity;
 		this.daysOfWeekDisabled = [];
+		this.beforeShowDay = options.beforeShowDay;
 		this.setStartDate(options.startDate||this.element.data('date-startdate'));
 		this.setEndDate(options.endDate||this.element.data('date-enddate'));
 		this.setDaysOfWeekDisabled(options.daysOfWeekDisabled||this.element.data('date-days-of-week-disabled'));
@@ -405,6 +406,19 @@
 					$.inArray(prevMonth.getUTCDay(), this.daysOfWeekDisabled) !== -1) {
 					clsName += ' disabled';
 				}
+
+				if (!!this.beforeShowDay) {
+					var beforeShowDay = this.beforeShowDay(prevMonth);
+					if (!!beforeShowDay) {
+						if (!beforeShowDay[0]) {
+							clsName += ' disabled';
+						}
+						if (!!beforeShowDay[1] && beforeShowDay[1] != '') {
+							clsName += ' ' + beforeShowDay[1];
+						}
+					}
+				}
+
 				html.push('<td class="day'+clsName+'">'+prevMonth.getUTCDate() + '</td>');
 				if (prevMonth.getUTCDay() == this.weekEnd) {
 					html.push('</tr>');

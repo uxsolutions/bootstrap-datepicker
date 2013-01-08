@@ -206,6 +206,12 @@ Boolean.  Default: true
 
 Whether or not to force parsing of the input value when the picker is closed.  That is, when an invalid date is left in the input field by the user, the picker will forcibly parse that value, and set the input's value to the new, valid date, conforming to the given `format`.
 
+### beforeShowDay
+
+Function.  Default: null
+
+A function takes a date as a parameter and must return an array with [0] equal to true/false indicating whether or not this date is selectable, [1] equal to a CSS class name or  null for the default presentation.
+
 ## Markup
 
 Format a component.
