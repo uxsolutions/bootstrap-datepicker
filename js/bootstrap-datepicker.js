@@ -109,6 +109,12 @@
 		this.todayHighlight = (options.todayHighlight||this.element.data('date-today-highlight')||false);
 
 		this.calendarWeeks = !!options.calendarWeeks;
+		if (this.calendarWeeks)
+			this.picker.find('tfoot th.today')
+						.attr('colspan', function(i, val){
+							return parseInt(val) + 1;
+						});
+
 		this.weekStart = ((options.weekStart||this.element.data('date-weekstart')||dates[this.language].weekStart||0) % 7);
 		this.weekEnd = ((this.weekStart + 6) % 7);
 		this.startDate = -Infinity;
