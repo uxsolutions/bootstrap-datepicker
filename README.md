@@ -146,6 +146,12 @@ Integer.  Default: 0
 
 Day of the week start. 0 (Sunday) to 6 (Saturday)
 
+### calendarWeeks
+
+Boolean. Default: false
+
+Whether or not to show week numbers to the left of week rows.
+
 ### startDate
 
 Date.  Default: Beginning of time
