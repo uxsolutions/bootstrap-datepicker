@@ -15,6 +15,13 @@
 	&-inline {
 		width: 220px;
 	}
+	direction: ltr;
+	&&-rtl {
+		direction: rtl;
+		table tr td span {
+			float: right;
+		}
+	}
 	&-dropdown {
 		top: 0;
 		left: 0;
@@ -147,6 +154,18 @@
 	/*.dow {
 		border-top: 1px solid #ddd !important;
 	}*/
+
+	// Basic styling for calendar-week cells
+	.cw {
+		font-size: 10px;
+		width: 12px;
+		padding: 0 2px 0 5px;
+		vertical-align: middle;
+	}
+	thead tr:first-child th.cw {
+		cursor: default;
+		background-color: transparent;
+	}
 }
 .input-append,
 .input-prepend {

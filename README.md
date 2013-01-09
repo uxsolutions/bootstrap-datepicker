@@ -119,7 +119,7 @@ Load datepicker, the desired backend, and any locales after jquery:
 Call the datepicker via javascript:
 
 ```javascript
-$('.datepicker').datepicker()
+$('#datepicker').datepicker()
 ```
 
 ## Dependencies
@@ -140,13 +140,25 @@ All options that take a "Date" can handle `Date` objects and Strings formatted a
 
 String.  Default: 'mm/dd/yyyy'
 
-The date format, combination of d, dd, m, mm, M, MM, yy, yyyy.
+The date format, combination of d, dd, D, DD, m, mm, M, MM, yy, yyyy.
+
+* d, dd: Numeric date, no leading zero and leading zero, respectively.  Eg, 5, 05.
+* D, DD: Abbreviated and full weekday names, respectively.  Eg, Mon, Monday.
+* m, mm: Numeric month, no leading zero and leading zero, respectively.  Eg, 7, 07.
+* M, MM: Abbreviated and full month names, respectively.  Eg, Jan, January
+* yy, yyyy: 2- and 4-digit years, respectively.  Eg, 12, 2012.
 
 ### weekStart
 
 Integer.  Default: 0
 
 Day of the week start. 0 (Sunday) to 6 (Saturday)
+
+### calendarWeeks
+
+Boolean. Default: false
+
+Whether or not to show week numbers to the left of week rows.
 
 ### startDate
 
@@ -200,7 +212,7 @@ Whether or not to allow date navigation by arrow keys.
 
 String.  Default: 'en'
 
-The two-letter code of the language to use for month and day names.  These will also be used as the input's value (and subsequently sent to the server in the case of form submissions).  Currently ships with English ('en'), German ('de'), Brazilian ('br'), and Spanish ('es') translations, but others can be added (see I18N below).  If an unknown language code is given, English will be used.
+The two-letter code of the language to use for month and day names.  These will also be used as the input's value (and subsequently sent to the server in the case of form submissions).  If an unknown language code is given, English will be used.  See I18N below.
 
 ### forceParse
 
@@ -392,10 +404,12 @@ $.fn.datepicker.dates['en'] = {
 };
 ```
 
+Right-to-left languages may also include `rtl: true` to make the calendar display appropriately.
+
 If your browser (or those of your users) is displaying characters wrong, chances are the browser is loading the javascript file with a non-unicode encoding.  Simply add `charset="UTF-8"` to your `script` tag:
 
 ```html
-<script type="text/javascript" src="bootstrap-datepicker.de.js" charset="UTF-8"></script>
+<script type="text/javascript" src="bootstrap-datepicker.XX.js" charset="UTF-8"></script>
 ```
 
 # Backends

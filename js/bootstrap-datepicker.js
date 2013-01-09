@@ -36,8 +36,9 @@
 		this.element = $(element);
 		this.language = options.language||this.element.data('date-language')||"en";
 		this.language = this.language in dates ? this.language : "en";
-		this.format = options.format||this.element.data('date-format')||'mm/dd/yyyy';
-                this.isInline = false;
+		this.isRTL = dates[this.language].rtl||false;
+		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'mm/dd/yyyy');
+		this.isInline = false;
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on') : false;
 		this.hasInput = this.component && this.element.find('input').length;
@@ -55,17 +56,22 @@
 
 
         this.picker = $(template)
-                            .appendTo(this.isInline ? this.element : 'body')
-                            .on({
-                                click: $.proxy(this.click, this),
-                                mousedown: $.proxy(this.mousedown, this)
-                            });
+							.appendTo(this.isInline ? this.element : 'body')
+							.on({
+								click: $.proxy(this.click, this),
+								mousedown: $.proxy(this.mousedown, this)
+							});
 
-        if(this.isInline) {
-            this.picker.addClass('datepicker-inline');
-        } else {
-            this.picker.addClass('datepicker-dropdown dropdown-menu');
-        }
+		if(this.isInline) {
+			this.picker.addClass('datepicker-inline');
+		} else {
+			this.picker.addClass('datepicker-dropdown dropdown-menu');
+		}
+		if (this.isRTL){
+			this.picker.addClass('datepicker-rtl');
+			this.picker.find('.prev i, .next i')
+						.toggleClass('icon-arrow-left icon-arrow-right');
+		}
 		$(document).on('mousedown', function (e) {
 			// Clicked outside the datepicker, hide it
 			if ($(e.target).closest('.datepicker').length === 0) {
@@ -103,6 +109,18 @@
 		this.todayBtn = (options.todayBtn||this.element.data('date-today-btn')||false);
 		this.todayHighlight = (options.todayHighlight||this.element.data('date-today-highlight')||false);
 
+		this.calendarWeeks = false;
+		if ('calendarWeeks' in options) {
+			this.calendarWeeks = options.calendarWeeks;
+		} else if ('dateCalendarWeeks' in this.element.data()) {
+			this.calendarWeeks = this.element.data('date-calendar-weeks');
+		}
+		if (this.calendarWeeks)
+			this.picker.find('tfoot th.today')
+						.attr('colspan', function(i, val){
+							return parseInt(val) + 1;
+						});
+
 		this.weekEnd = ((this.weekStart + 6) % 7);
 		this.startDate = -Infinity;
 		this.endDate = Infinity;
@@ -115,9 +133,9 @@
 		this.update();
 		this.showMode();
 
-        if(this.isInline) {
-            this.show();
-        }
+		if(this.isInline) {
+			this.show();
+		}
 	};
 
 	Datepicker.prototype = {
@@ -148,9 +166,9 @@
 					}]
 				];
 			}
-                        else if (this.element.is('div')) {  // inline datepicker
-                            this.isInline = true;
-                        }
+						else if (this.element.is('div')) {  // inline datepicker
+							this.isInline = true;
+						}
 			else {
 				this._events = [
 					[this.element, {
@@ -190,7 +208,7 @@
 		},
 
 		hide: function(e){
-            if(this.isInline) return;
+			if(this.isInline) return;
 			this.picker.hide();
 			$(window).off('resize', this.place);
 			this.viewMode = this.startViewMode;
@@ -241,18 +259,19 @@
 			var formatted = this.getFormattedDate();
 			if (!this.isInput) {
 				if (this.component){
-					this.element.find('input').prop('value', formatted);
+					this.element.find('input').val(formatted);
 				}
 				this.element.data('date', formatted);
 			} else {
-				this.element.prop('value', formatted);
+				this.element.val(formatted);
 			}
 		},
 
-        getFormattedDate: function(format) {
-            if(format == undefined) format = this.format;
-            return DPGlobal.formatDate(this.date, format, this.language);
-        },
+		getFormattedDate: function(format) {
+			if (format === undefined)
+				format = this.format;
+			return DPGlobal.formatDate(this.date, format, this.language);
+		},
 
 		setStartDate: function(startDate){
 			this.startDate = startDate||-Infinity;
@@ -285,31 +304,33 @@
 		},
 
 		place: function(){
-                        if(this.isInline) return;
+						if(this.isInline) return;
 			var zIndex = parseInt(this.element.parents().filter(function() {
 							return $(this).css('z-index') != 'auto';
 						}).first().css('z-index'))+10;
 			var offset = this.component ? this.component.offset() : this.element.offset();
+			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(true);
 			this.picker.css({
-				top: offset.top + this.height,
+				top: offset.top + height,
 				left: offset.left,
 				zIndex: zIndex
 			});
 		},
 
 		update: function(){
-            var date, fromArgs = false;
-            if(arguments && arguments.length && (typeof arguments[0] === 'string' || arguments[0] instanceof Date)) {
-                date = arguments[0];
-                fromArgs = true;
-            } else {
-                date = this.isInput ? this.element.prop('value') : this.element.data('date') || this.element.find('input').prop('value');
-            }
+			var date, fromArgs = false;
+			if(arguments && arguments.length && (typeof arguments[0] === 'string' || arguments[0] instanceof Date)) {
+				date = arguments[0];
+				fromArgs = true;
+			} else {
+				date = this.isInput ? this.element.val() : this.element.data('date') || this.element.find('input').val();
+			}
 
 			this.date = DPGlobal.parseDate(date, this.format, this.language);
 
-            if(fromArgs) this.setValue();
+			if(fromArgs) this.setValue();
 
+			var oldViewDate = this.viewDate;
 			if (this.date < this.startDate) {
 				this.viewDate = new Date(this.startDate);
 			} else if (this.date > this.endDate) {
@@ -317,15 +338,26 @@
 			} else {
 				this.viewDate = new Date(this.date);
 			}
+
+			if (oldViewDate && oldViewDate.getTime() != this.viewDate.getTime()){
+				this.element.trigger({
+					type: 'changeDate',
+					date: this.viewDate
+				});
+			}
 			this.fill();
 		},
 
 		fillDow: function(){
 			var dowCnt = this.weekStart,
 			html = '<tr>';
-			var days = DPGlobal.getDaysMin(this.language);
+			if(this.calendarWeeks){
+				var cell = '<th class="cw">&nbsp;</th>';
+				html += cell;
+				this.picker.find('.datepicker-days thead tr:first-child').prepend(cell);
+			}
 			while (dowCnt < this.weekStart + 7) {
-				html += '<th class="dow">'+days[(dowCnt++)%7]+'</th>';
+				html += '<th class="dow">'+dates[this.language].daysMin[(dowCnt++)%7]+'</th>';
 			}
 			html += '</tr>';
 			this.picker.find('.datepicker-days thead').append(html);
@@ -349,9 +381,9 @@
 				startMonth = this.startDate !== -Infinity ? this.startDate.getUTCMonth() : -Infinity,
 				endYear = this.endDate !== Infinity ? this.endDate.getUTCFullYear() : Infinity,
 				endMonth = this.endDate !== Infinity ? this.endDate.getUTCMonth() : Infinity,
-				currentDate = this.date.valueOf(),
+				currentDate = this.date && this.date.valueOf(),
 				today = new Date();
-			this.picker.find('.datepicker-days thead th:eq(1)')
+			this.picker.find('.datepicker-days thead th.switch')
 						.text(DPGlobal.getMonths(this.language)[month]+' '+year);
 			this.picker.find('tfoot th.today')
 						.text(dates[this.language].today)
@@ -359,7 +391,7 @@
 			this.updateNavArrows();
 			this.fillMonths();
 			var prevMonth = UTCDate(year, month-1, 28,0,0,0,0),
-				day = DPGlobal.getDaysInMonth(prevMonth);
+				day = DPGlobal.getDaysInMonth(prevMonth.getUTCFullYear(), prevMonth.getUTCMonth());
 			prevMonth.setUTCDate(day);
 			prevMonth.setUTCDate(day - (prevMonth.getUTCDay() - this.weekStart + 7)%7);
 			var nextMonth = new Date(prevMonth);
@@ -370,6 +402,13 @@
 			while(prevMonth.valueOf() < nextMonth) {
 				if (prevMonth.getUTCDay() == this.weekStart) {
 					html.push('<tr>');
+					if(this.calendarWeeks){
+						// adapted from https://github.com/timrwood/moment/blob/master/moment.js#L128
+						var a = new Date(prevMonth.getUTCFullYear(), prevMonth.getUTCMonth(), prevMonth.getUTCDate() - prevMonth.getDay() + 10 - (this.weekStart && this.weekStart%7 < 5 && 7)),
+							b = new Date(a.getFullYear(), 0, 4),
+							calWeek =  ~~((a - b) / 864e5 / 7 + 1.5);
+						html.push('<td class="cw">'+ calWeek +'</td>');
+					}
 				}
 				clsName = '';
 				if (prevMonth.getUTCFullYear() < year || (prevMonth.getUTCFullYear() == year && prevMonth.getUTCMonth() < month)) {
@@ -384,7 +423,7 @@
 					prevMonth.getUTCDate() == today.getDate()) {
 					clsName += ' today';
 				}
-				if (prevMonth.valueOf() == currentDate) {
+				if (currentDate && prevMonth.valueOf() == currentDate) {
 					clsName += ' active';
 				}
 				if (prevMonth.valueOf() < this.startDate || prevMonth.valueOf() > this.endDate ||
@@ -398,14 +437,14 @@
 				prevMonth.setUTCDate(prevMonth.getUTCDate()+1);
 			}
 			this.picker.find('.datepicker-days tbody').empty().append(html.join(''));
-			var currentYear = this.date.getUTCFullYear();
+			var currentYear = this.date && this.date.getUTCFullYear();
 
 			var months = this.picker.find('.datepicker-months')
 						.find('th:eq(1)')
 							.text(year)
 							.end()
 						.find('span').removeClass('active');
-			if (currentYear == year) {
+			if (currentYear && currentYear == year) {
 				months.eq(this.date.getUTCMonth()).addClass('active');
 			}
 			if (year < startYear || year > endYear) {
@@ -672,15 +711,15 @@
 			if (dir) {
 				this.viewMode = Math.max(0, Math.min(2, this.viewMode + dir));
 			}
-            /*
-              vitalets: fixing bug of very special conditions:
-              jquery 1.7.1 + webkit + show inline datepicker in bootstrap popover.
-              Method show() does not set display css correctly and datepicker is not shown.
-              Changed to .css('display', 'block') solve the problem.
-              See https://github.com/vitalets/x-editable/issues/37
+			/*
+				vitalets: fixing bug of very special conditions:
+				jquery 1.7.1 + webkit + show inline datepicker in bootstrap popover.
+				Method show() does not set display css correctly and datepicker is not shown.
+				Changed to .css('display', 'block') solve the problem.
+				See https://github.com/vitalets/x-editable/issues/37
 
-              In jquery 1.7.2+ everything works fine.
-            */
+				In jquery 1.7.2+ everything works fine.
+			*/
             //this.picker.find('>div').hide().filter('.datepicker-'+modes[this.viewMode].clsName).show();
 			this.picker.find('>div').hide().filter('.datepicker-'+modes[this.viewMode].clsName).css('display', 'block');
 			this.updateNavArrows();
@@ -794,6 +833,6 @@
 				'</div>'+
 			'</div>';
 
-    $.fn.datepicker.DPGlobal = DPGlobal;
+	$.fn.datepicker.DPGlobal = DPGlobal;
 
 }( window.jQuery );
