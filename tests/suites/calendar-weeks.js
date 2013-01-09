@@ -16,10 +16,6 @@ module('Calendar Weeks', {
     }
 });
 
-test('weekStart defaults to monday', function(){
-    equal(this.dp.weekStart, 1, 'Week start defaults to monday');
-});
-
 test('adds cw header column', function(){
     var target = this.picker.find('.datepicker-days thead th:first-child');
     ok(target.hasClass('cw'), 'First column heading is from cw column');

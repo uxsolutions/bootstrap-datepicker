@@ -109,7 +109,7 @@
 		this.todayHighlight = (options.todayHighlight||this.element.data('date-today-highlight')||false);
 
 		this.calendarWeeks = !!options.calendarWeeks;
-		this.weekStart = ((options.weekStart||this.element.data('date-weekstart')||this.calendarWeeks||dates[this.language].weekStart||0) % 7);
+		this.weekStart = ((options.weekStart||this.element.data('date-weekstart')||dates[this.language].weekStart||0) % 7);
 		this.weekEnd = ((this.weekStart + 6) % 7);
 		this.startDate = -Infinity;
 		this.endDate = Infinity;
@@ -391,11 +391,11 @@
 				if (prevMonth.getUTCDay() == this.weekStart) {
 					html.push('<tr>');
 					if(this.calendarWeeks){
-                        // from https://github.com/timrwood/moment/blob/master/moment.js#L128
-						var a = new Date(prevMonth.getYear(), prevMonth.getMonth(), prevMonth.getDate() - prevMonth.getDay() + 5),
+						// adapted from https://github.com/timrwood/moment/blob/master/moment.js#L128
+						var a = new Date(prevMonth.getUTCFullYear(), prevMonth.getUTCMonth(), prevMonth.getUTCDate() - prevMonth.getDay() + 10 - (this.weekStart && this.weekStart%7 < 5 && 7)),
 							b = new Date(a.getFullYear(), 0, 4),
 							calWeek =  ~~((a - b) / 864e5 / 7 + 1.5);
-						html.push('<td class="cw">'+ calWeek +'</td>')
+						html.push('<td class="cw">'+ calWeek +'</td>');
 					}
 				}
 				clsName = '';
