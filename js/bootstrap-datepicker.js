@@ -37,11 +37,7 @@
 		this.language = options.language||this.element.data('date-language')||"en";
 		this.language = this.language in dates ? this.language : "en";
 		this.format = options.format||this.element.data('date-format')||'mm/dd/yyyy';
-		this.picker = $(template)
-							.appendTo('body')
-							.on({
-								click: $.proxy(this.click, this)
-							});
+                this.isInline = false;
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on') : false;
 		this.hasInput = this.component && this.element.find('input').length;
@@ -57,9 +53,22 @@
 			this.forceParse = this.element.data('date-force-parse');
 		}
 
+
+        this.picker = $(template)
+                            .appendTo(this.isInline ? this.element : 'body')
+                            .on({
+                                click: $.proxy(this.click, this),
+                                mousedown: $.proxy(this.mousedown, this)
+                            });
+
+        if(this.isInline) {
+            this.picker.addClass('datepicker-inline');
+        } else {
+            this.picker.addClass('datepicker-dropdown dropdown-menu');
+        }
 		$(document).on('mousedown', function (e) {
 			// Clicked outside the datepicker, hide it
-			if ($(e.target).closest('.datepicker').length == 0) {
+			if ($(e.target).closest('.datepicker').length === 0) {
 				that.hide();
 			}
 		});
@@ -78,6 +87,7 @@
 			this.keyboardNavigation = this.element.data('date-keyboard-navigation');
 		}
 
+		this.viewMode = this.startViewMode = 0;
 		switch(options.startView || this.element.data('date-start-view')){
 			case 2:
 			case 'decade':
@@ -86,11 +96,6 @@
 			case 1:
 			case 'year':
 				this.viewMode = this.startViewMode = 1;
-				break;
-			case 0:
-			case 'month':
-			default:
-				this.viewMode = this.startViewMode = 0;
 				break;
 		}
 
@@ -109,6 +114,10 @@
 		this.fillMonths();
 		this.update();
 		this.showMode();
+
+        if(this.isInline) {
+            this.show();
+        }
 	};
 
 	Datepicker.prototype = {
@@ -117,7 +126,7 @@
 		_events: [],
 		_attachEvents: function(){
 			this._detachEvents();
-			if (this.isInput) {
+			if (this.isInput) { // single input
 				this._events = [
 					[this.element, {
 						focus: $.proxy(this.show, this),
@@ -126,7 +135,7 @@
 					}]
 				];
 			}
-			else if (this.component && this.hasInput){
+			else if (this.component && this.hasInput){ // component: input + button
 				this._events = [
 					// For components that are not readonly, allow keyboard nav
 					[this.element.find('input'), {
@@ -139,6 +148,9 @@
 					}]
 				];
 			}
+                        else if (this.element.is('div')) {  // inline datepicker
+                            this.isInline = true;
+                        }
 			else {
 				this._events = [
 					[this.element, {
@@ -178,6 +190,7 @@
 		},
 
 		hide: function(e){
+            if(this.isInline) return;
 			this.picker.hide();
 			$(window).off('resize', this.place);
 			this.viewMode = this.startViewMode;
@@ -208,7 +221,7 @@
 
 		getDate: function() {
 			var d = this.getUTCDate();
-			return new Date(d.getTime() + (d.getTimezoneOffset()*60000))
+			return new Date(d.getTime() + (d.getTimezoneOffset()*60000));
 		},
 
 		getUTCDate: function() {
@@ -225,7 +238,7 @@
 		},
 
 		setValue: function() {
-			var formatted = DPGlobal.formatDate(this.date, this.format, this.language);
+			var formatted = this.getFormattedDate();
 			if (!this.isInput) {
 				if (this.component){
 					this.element.find('input').prop('value', formatted);
@@ -235,6 +248,11 @@
 				this.element.prop('value', formatted);
 			}
 		},
+
+        getFormattedDate: function(format) {
+            if(format == undefined) format = this.format;
+            return DPGlobal.formatDate(this.date, format, this.language);
+        },
 
 		setStartDate: function(startDate){
 			this.startDate = startDate||-Infinity;
@@ -267,6 +285,7 @@
 		},
 
 		place: function(){
+                        if(this.isInline) return;
 			var zIndex = parseInt(this.element.parents().filter(function() {
 							return $(this).css('z-index') != 'auto';
 						}).first().css('z-index'))+10;
@@ -279,10 +298,18 @@
 		},
 
 		update: function(){
-			this.date = DPGlobal.parseDate(
-				this.isInput ? this.element.prop('value') : this.element.data('date') || this.element.find('input').prop('value'),
-				this.format, this.language
-			);
+            var date, fromArgs = false;
+            if(arguments && arguments.length && (typeof arguments[0] === 'string' || arguments[0] instanceof Date)) {
+                date = arguments[0];
+                fromArgs = true;
+            } else {
+                date = this.isInput ? this.element.prop('value') : this.element.data('date') || this.element.find('input').prop('value');
+            }
+
+			this.date = DPGlobal.parseDate(date, this.format, this.language);
+
+            if(fromArgs) this.setValue();
+
 			if (this.date < this.startDate) {
 				this.viewDate = new Date(this.startDate);
 			} else if (this.date > this.endDate) {
@@ -294,8 +321,8 @@
 		},
 
 		fillDow: function(){
-			var dowCnt = this.weekStart;
-			var html = '<tr>';
+			var dowCnt = this.weekStart,
+			html = '<tr>';
 			var days = DPGlobal.getDaysMin(this.language);
 			while (dowCnt < this.weekStart + 7) {
 				html += '<th class="dow">'+days[(dowCnt++)%7]+'</th>';
@@ -305,8 +332,8 @@
 		},
 
 		fillMonths: function(){
-			var html = '';
-			var i = 0
+			var html = '',
+			i = 0;
 			var months = DPGlobal.getMonthsShort(this.language);
 			while (i < 12) {
 				html += '<span class="month">'+months[i++]+'</span>';
@@ -466,10 +493,7 @@
 								break;
 							case 'today':
 								var date = new Date();
-								date.setUTCHours(0);
-								date.setUTCMinutes(0);
-								date.setUTCSeconds(0);
-								date.setUTCMilliseconds(0);
+								date = UTCDate(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
 
 								this.showMode(-2);
 								var which = this.todayBtn == 'linked' ? null : 'view';
@@ -505,7 +529,7 @@
 							var year = this.viewDate.getUTCFullYear(),
 								month = this.viewDate.getUTCMonth();
 							if (target.is('.old')) {
-								if (month == 0) {
+								if (month === 0) {
 									month = 11;
 									year -= 1;
 								} else {
@@ -545,8 +569,8 @@
 			}
 			if (element) {
 				element.change();
-				if (this.autoclose) {
-									this.hide();
+				if (this.autoclose && (!which || which == 'date')) {
+					this.hide();
 				}
 			}
 		},
@@ -648,7 +672,17 @@
 			if (dir) {
 				this.viewMode = Math.max(0, Math.min(2, this.viewMode + dir));
 			}
-			this.picker.find('>div').hide().filter('.datepicker-'+modes[this.viewMode].clsName).show();
+            /*
+              vitalets: fixing bug of very special conditions:
+              jquery 1.7.1 + webkit + show inline datepicker in bootstrap popover.
+              Method show() does not set display css correctly and datepicker is not shown.
+              Changed to .css('display', 'block') solve the problem.
+              See https://github.com/vitalets/x-editable/issues/37
+
+              In jquery 1.7.2+ everything works fine.
+            */
+            //this.picker.find('>div').hide().filter('.datepicker-'+modes[this.viewMode].clsName).show();
+			this.picker.find('>div').hide().filter('.datepicker-'+modes[this.viewMode].clsName).css('display', 'block');
 			this.updateNavArrows();
 		}
 	};
@@ -681,7 +715,7 @@
 			monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 			today: "Today"
 		}
-	}
+	};
 
 	var DPGlobal = {};
 	$.fn.datepicker.setBackend = function(backend){
@@ -727,7 +761,6 @@
 
 	var headTemplate =
 			'<thead>'+
-	
 				'<tr>'+
 					'<th class="prev"><i class="icon-arrow-left"/></th>'+
 					'<th colspan="5" class="switch"></th>'+
@@ -737,7 +770,7 @@
 		contTemplate = '<tbody><tr><td colspan="7"></td></tr></tbody>',
 		footTemplate = '<tfoot><tr><th colspan="7" class="today"></th></tr></tfoot>',
 		template =
-			'<div class="datepicker dropdown-menu">'+
+			'<div class="datepicker">'+
 				'<div class="datepicker-days">'+
 					'<table class=" table-condensed">'+
 						headTemplate+
@@ -760,4 +793,7 @@
 					'</table>'+
 				'</div>'+
 			'</div>';
+
+    $.fn.datepicker.DPGlobal = DPGlobal;
+
 }( window.jQuery );

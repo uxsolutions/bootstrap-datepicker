@@ -183,7 +183,7 @@ test('Today Button: moves to today\'s date', function(){
         target.click();
 
         var d = new Date(),
-            today = UTCDate(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+            today = UTCDate(d.getFullYear(), d.getMonth(), d.getDate());
         datesEqual(dp.viewDate, today);
         datesEqual(dp.date, UTCDate(2012, 2, 5));
 });
@@ -208,7 +208,7 @@ test('Today Button: "linked" selects today\'s date', function(){
         target.click();
 
         var d = new Date(),
-            today = UTCDate(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+            today = UTCDate(d.getFullYear(), d.getMonth(), d.getDate());
         datesEqual(dp.viewDate, today);
         datesEqual(dp.date, today);
 });

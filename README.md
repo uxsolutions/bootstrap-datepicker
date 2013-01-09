@@ -85,6 +85,12 @@ Attached to non-field element, using events to work with the date values.
         });
     });
 
+As inline datepicker:
+
+    <div id="datepicker"></div>
+######
+    $('#datepicker').datepicker();
+
 
 # Using bootstrap-datepicker.js
 
