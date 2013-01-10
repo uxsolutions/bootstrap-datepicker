@@ -209,6 +209,7 @@
 
 		hide: function(e){
 			if(this.isInline) return;
+			if (!this.picker.is(':visible')) return;
 			this.picker.hide();
 			$(window).off('resize', this.place);
 			this.viewMode = this.startViewMode;
