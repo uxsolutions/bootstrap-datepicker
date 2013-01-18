@@ -403,3 +403,9 @@ If your browser (or those of your users) is displaying characters wrong, chances
 ```html
 <script type="text/javascript" src="bootstrap-datepicker.XX.js" charset="UTF-8"></script>
 ```
+
+```javascript
+$('#datepicker').datepicker({
+    language: XX    //as you defined in bootstrap-datepicker.XX.js
+});
+```
