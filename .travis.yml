@@ -1,0 +1,2 @@
+before_script: cd ./tests
+script: phantomjs run-qunit.js tests.html
