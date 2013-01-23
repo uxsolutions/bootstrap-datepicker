@@ -93,6 +93,21 @@
 		} else if ('dateKeyboardNavigation' in this.element.data()) {
 			this.keyboardNavigation = this.element.data('date-keyboard-navigation');
 		}
+		
+		this.minViewMode = options.minViewMode||this.element.data('date-minviewmode')||0;
+	        if (typeof this.minViewMode === 'string') {
+	            switch (this.minViewMode) {
+	                case 'months':
+	                    this.minViewMode = 1;
+	                    break;
+	                case 'years':
+	                    this.minViewMode = 2;
+	                    break;
+	                default:
+	                    this.minViewMode = 0;
+	                    break;
+	            }
+	        }
 
 		this.viewMode = this.startViewMode = 0;
 		switch(options.startView || this.element.data('date-start-view')){
@@ -553,6 +568,8 @@
 							}
 							this.showMode(-1);
 							this.fill();
+							if(this.minViewMode==1 && target.is('.month'))  this._setDate(UTCDate(this.viewDate.getUTCFullYear(),month,1,0,0,0,0));
+                            				if(this.minViewMode==2) this._setDate(UTCDate(year,1,1,0,0,0,0));
 						}
 						break;
 					case 'td':
@@ -746,8 +763,7 @@
 
 		showMode: function(dir) {
 			if (dir) {
-				this.viewMode = Math.max(0, Math.min(2, this.viewMode + dir));
-			}
+				this.viewMode = Math.max(this.minViewMode, Math.min(2, this.viewMode + dir));			}
 			/*
 				vitalets: fixing bug of very special conditions:
 				jquery 1.7.1 + webkit + show inline datepicker in bootstrap popover.
