@@ -16,7 +16,7 @@ test('Selecting a year from decade view triggers pickYear', function(){
     var target,
         triggered = 0;
 
-    this.input.on('changeYear', function(){
+    this.input.on('changeYear.datepicker', function(){
         triggered++;
     });
 
@@ -55,7 +55,7 @@ test('Selecting a month from year view triggers pickMonth', function(){
     var target,
         triggered = 0;
 
-    this.input.on('changeMonth', function(){
+    this.input.on('changeMonth.datepicker', function(){
         triggered++;
     });
 
