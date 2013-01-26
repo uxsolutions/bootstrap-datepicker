@@ -203,7 +203,7 @@
 				e.preventDefault();
 			}
 			this.element.trigger({
-				type: 'show',
+				type: 'show.datepicker',
 				date: this.date
 			});
 		},
@@ -228,7 +228,7 @@
 			)
 				this.setValue();
 			this.element.trigger({
-				type: 'hide',
+				type: 'hide.datepicker',
 				date: this.date
 			});
 		},
@@ -540,14 +540,14 @@
 								var month = target.parent().find('span').index(target);
 								this.viewDate.setUTCMonth(month);
 								this.element.trigger({
-									type: 'changeMonth',
+									type: 'changeMonth.datepicker',
 									date: this.viewDate
 								});
 							} else {
 								var year = parseInt(target.text(), 10)||0;
 								this.viewDate.setUTCFullYear(year);
 								this.element.trigger({
-									type: 'changeYear',
+									type: 'changeYear.datepicker',
 									date: this.viewDate
 								});
 							}
@@ -590,7 +590,7 @@
 			this.fill();
 			this.setValue();
 			this.element.trigger({
-				type: 'changeDate',
+				type: 'changeDate.datepicker',
 				date: this.date
 			});
 			var element;
@@ -729,7 +729,7 @@
 			}
 			if (dateChanged){
 				this.element.trigger({
-					type: 'changeDate',
+					type: 'changeDate.datepicker',
 					date: this.date
 				});
 				var element;

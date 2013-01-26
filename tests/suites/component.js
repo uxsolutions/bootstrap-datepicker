@@ -155,10 +155,3 @@ test('Selecting date resets viewDate and date', function(){
     target = this.picker.find('.datepicker-days tbody td:first');
     equal(target.text(), '29'); // Should be Jan 29
 });
-
-test('"remove" removes associated HTML', function(){
-	//there should be one datepicker initiated so that means one hidden .datepicker div
-	equal(document.querySelectorAll('.datepicker').length, 1);
-	this.component.datepicker('remove');
-	equal(document.querySelectorAll('.datepicker').length, 0);//hidden HTML should be gone
-});
