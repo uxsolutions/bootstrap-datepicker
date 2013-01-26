@@ -1,4 +1,4 @@
-# Home
+# Bootstrap-datepicker [![Build Status](https://travis-ci.org/eternicode/bootstrap-datepicker.png?branch=automate-unit-tests-with-travis)](https://travis-ci.org/adam-lynch/bootstrap-datepicker)
 
 This is a fork of Stefan Petre's [original code](http://www.eyecon.ro/bootstrap-datepicker/);
 thanks go to him for getting this thing started!
