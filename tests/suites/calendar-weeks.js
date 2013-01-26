@@ -1,4 +1,4 @@
-/*module('Calendar Weeks', {
+module('Calendar Weeks', {
     setup: function(){
         this.input = $('<input type="text">')
             .appendTo('#qunit-fixture')
@@ -45,4 +45,4 @@ test('it prepends column to switcher thead row', function(){
     var target = this.picker.find('.datepicker-days thead tr:first-child');
     equal(target.children().length, 4, 'first row has 4 columns');
     ok(target.children().first().hasClass('cw'), 'cw column is prepended');
-});*/
+});
