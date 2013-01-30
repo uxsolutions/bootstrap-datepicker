@@ -226,7 +226,6 @@
 					this.hasInput && this.element.find('input').val()
 				)
 			)
-				this.setValue();
 			this.element.trigger({
 				type: 'hide',
 				date: this.date
