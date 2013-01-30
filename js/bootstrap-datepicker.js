@@ -722,6 +722,7 @@
 				case 13: // enter
 					this.hide();
 					e.preventDefault();
+                    dateChanged = true;
 					break;
 				case 9: // tab
 					this.hide();
