@@ -1,3 +1,6 @@
+## This fork was created for *inline* version of datepicker and currently merged into upstream https://github.com/eternicode/bootstrap-datepicker.
+Please use original repo for pull requests, thanks!
+
 # Home
 
 This is a fork of Stefan Petre's [original code](http://www.eyecon.ro/bootstrap-datepicker/);
