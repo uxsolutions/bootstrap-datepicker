@@ -700,12 +700,23 @@
 					} else {
 						newDate = new Date(this.date);
 						newDate.setUTCDate(this.date.getUTCDate() + dir);
-						for(var i = 0; i < this.disabledDates.length; i++) {
-							if (newDate.getUTCFullYear() == this.disabledDates[i].getFullYear() &&
-							    newDate.getUTCMonth() == this.disabledDates[i].getMonth() &&
-							    newDate.getUTCDate() == this.disabledDates[i].getDate()) {
-								e.keyCode == 37 ? dir-- : dir++;
-								newDate.setUTCDate(this.date.getUTCDate() + dir);
+						if (e.keyCode == 37) {
+							for(var i = this.disabledDates.length - 1; i >= 0; i--) {
+								if (newDate.getUTCFullYear() == this.disabledDates[i].getFullYear() &&
+								    newDate.getUTCMonth() == this.disabledDates[i].getMonth() &&
+								    newDate.getUTCDate() == this.disabledDates[i].getDate()) {
+									dir--;
+									newDate.setUTCDate(newDate.getUTCDate() - 1);
+								}
+							}
+						} else {
+							for(var i = 0; i < this.disabledDates.length; i++) {
+								if (newDate.getUTCFullYear() == this.disabledDates[i].getFullYear() &&
+								    newDate.getUTCMonth() == this.disabledDates[i].getMonth() &&
+								    newDate.getUTCDate() == this.disabledDates[i].getDate()) {
+									dir++;
+									newDate.setUTCDate(newDate.getUTCDate() + 1);
+								}
 							}
 						}
 						newViewDate = new Date(this.viewDate);
@@ -733,12 +744,23 @@
 					} else {
 						newDate = new Date(this.date);
 						newDate.setUTCDate(this.date.getUTCDate() + dir * 7);
-						for(var i = 0; i < this.disabledDates.length; i++) {
-							if (newDate.getUTCFullYear() == this.disabledDates[i].getFullYear() &&
-							    newDate.getUTCMonth() == this.disabledDates[i].getMonth() &&
-							    newDate.getUTCDate() == this.disabledDates[i].getDate()) {
-								e.keyCode == 38 ? dir-- : dir++;
-								newDate.setUTCDate(this.date.getUTCDate() + dir * 7);
+						if (e.keyCode == 38) {
+							for(var i = this.disabledDates.length - 1; i >= 0; i--) {
+								if (newDate.getUTCFullYear() == this.disabledDates[i].getFullYear() &&
+								    newDate.getUTCMonth() == this.disabledDates[i].getMonth() &&
+								    newDate.getUTCDate() == this.disabledDates[i].getDate()) {
+									dir--;
+									newDate.setUTCDate(newDate.getUTCDate() - 7);
+								}
+							}
+						} else {
+							for(var i = 0; i < this.disabledDates.length; i++) {
+								if (newDate.getUTCFullYear() == this.disabledDates[i].getFullYear() &&
+								    newDate.getUTCMonth() == this.disabledDates[i].getMonth() &&
+								    newDate.getUTCDate() == this.disabledDates[i].getDate()) {
+									dir++;
+									newDate.setUTCDate(newDate.getUTCDate() + 7);
+								}
 							}
 						}
 						newViewDate = new Date(this.viewDate);
