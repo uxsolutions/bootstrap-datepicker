@@ -134,6 +134,9 @@
   font-weight:bold;
   text-decoration:underline;
 }
+.datepicker td.selected.hasTooltip {
+	display: inline-block;
+}
 .datepicker td span {
   display: block;
   width: 23%;

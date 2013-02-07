@@ -425,7 +425,7 @@
 						}
 						break;
 					case 'td':
-						if(target.is('.hasTooltip')) {
+						if(target.hasClass('.hasTooltip')){
 							target.tooltip('toggle');
 						}
 						if (target.is('.day') && !target.is('.disabled')){
