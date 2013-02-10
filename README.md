@@ -186,8 +186,8 @@ The view that the datepicker should show when it is opened.  Accepts values of 0
 
 Number, String.  Default: 0, 'days'
 
-Set a limit for the view mode. Accepts: 'days' (default), 'months', 'years', 0 for days, 1 for months and 2 for years.
-Gives the ability to pick only a month or an year. The default day is set to the 1st and the default month is January when the minViewMode is set to months and years.
+Set a limit for the view mode.  Accepts: 'days' or 0, 'months' or 1, and 'years' or 2.
+Gives the ability to pick only a month or an year.  The day is set to the 1st for 'months', and the month is set to January for 'years'.
 
 ### todayBtn
 
