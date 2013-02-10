@@ -119,7 +119,9 @@
 					this.minViewMode = 0;
 					break;
 			}
-		}		
+		}
+
+		this.viewMode = this.startViewMode = Math.max(this.startViewMode, this.minViewMode);
 
 		this.todayBtn = (options.todayBtn||this.element.data('date-today-btn')||false);
 		this.todayHighlight = (options.todayHighlight||this.element.data('date-today-highlight')||false);
@@ -562,7 +564,7 @@
 								});
 								if ( this.minViewMode == 1 ) {
 									this._setDate(UTCDate(year, month, day,0,0,0,0));
-								}								
+								}
 							} else {
 								var year = parseInt(target.text(), 10)||0;
 								var day = 1;
