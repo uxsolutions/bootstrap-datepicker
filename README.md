@@ -182,6 +182,13 @@ Number, String.  Default: 0, 'month'
 
 The view that the datepicker should show when it is opened.  Accepts values of 0 or 'month' for month view (the default), 1 or 'year' for the 12-month overview, and 2 or 'decade' for the 10-year overview.  Useful for date-of-birth datepickers.
 
+### minViewMode
+
+Number, String.  Default: 0, 'days'
+
+Set a limit for the view mode. Accepts: 'days' (default), 'months', 'years', 0 for days, 1 for months and 2 for years.
+Gives the ability to pick only a month or an year. The default day is set to the 1st and the default month is January when the minViewMode is set to months and years.
+
 ### todayBtn
 
 Boolean, "linked".  Default: false
