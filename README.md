@@ -6,6 +6,15 @@ thanks go to him for getting this thing started!
 Please note that this fork is not used on Stefan's page at this time, nor is it maintained or
 contributed to by him (yet?)
 
+Versions are incremented according to [semver](http://semver.org/).
+
+# Requirements
+
+* [Bootstrap](http://twitter.github.com/bootstrap/) [2.0.4](https://github.com/twitter/bootstrap/tree/v2.0.4)
+* [jQuery](http://jquery.com/) [1.7.1](https://github.com/jquery/jquery/tree/1.7.1)
+
+These are the specific versions bootstrap-datpicker is tested against (`js` files) and built against (`css` files).  Use other versions at your own risk.
+
 # Example
 
 Attached to a field with the format specified via options:
