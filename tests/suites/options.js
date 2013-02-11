@@ -183,7 +183,7 @@ test('Today Button: moves to today\'s date', function(){
         target.click();
 
         var d = new Date(),
-            today = UTCDate(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+            today = UTCDate(d.getFullYear(), d.getMonth(), d.getDate());
         datesEqual(dp.viewDate, today);
         datesEqual(dp.date, UTCDate(2012, 2, 5));
 });
@@ -208,7 +208,7 @@ test('Today Button: "linked" selects today\'s date', function(){
         target.click();
 
         var d = new Date(),
-            today = UTCDate(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+            today = UTCDate(d.getFullYear(), d.getMonth(), d.getDate());
         datesEqual(dp.viewDate, today);
         datesEqual(dp.date, today);
 });
@@ -238,7 +238,7 @@ test('Today Highlight: today\'s date is not highlighted by default', patch_date(
 }));
 
 test('Today Highlight: today\'s date is highlighted when not active', patch_date(function(Date){
-    Date.now = UTCDate(2012, 2, 15);
+    Date.now = new Date(2012, 2, 15);
     var input = $('<input />')
                 .appendTo('#qunit-fixture')
                 .val('2012-03-05')
@@ -262,3 +262,24 @@ test('Today Highlight: today\'s date is highlighted when not active', patch_date
         ok(!target.hasClass('today'), 'Tomorrow is not marked with "today" class');
 }));
 
+test('DaysOfWeekDisabled', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-10-26')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    daysOfWeekDisabled: '1,5'
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+
+    input.focus();
+    target = picker.find('.datepicker-days tbody td:nth(22)');
+    ok(target.hasClass('disabled'), 'Day of week is disabled');
+    target = picker.find('.datepicker-days tbody td:nth(24)');
+    ok(!target.hasClass('disabled'), 'Day of week is enabled');
+    target = picker.find('.datepicker-days tbody td:nth(26)');
+    ok(target.hasClass('disabled'), 'Day of week is disabled');
+});
