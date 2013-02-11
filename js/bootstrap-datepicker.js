@@ -143,9 +143,11 @@
 		this.startDate = -Infinity;
 		this.endDate = Infinity;
 		this.daysOfWeekDisabled = [];
+		this.datesEnabled = {};
 		this.setStartDate(options.startDate||this.element.data('date-startdate'));
 		this.setEndDate(options.endDate||this.element.data('date-enddate'));
 		this.setDaysOfWeekDisabled(options.daysOfWeekDisabled||this.element.data('date-days-of-week-disabled'));
+		this.setDatesEnabled(options.datesEnabled||this.element.data('date-date-enabled'));
 		this.fillDow();
 		this.fillMonths();
 		this.update();
@@ -322,6 +324,23 @@
 			this.updateNavArrows();
 		},
 
+		setDatesEnabled: function(datesEnabled){
+                    this.datesEnabled = datesEnabled||[];
+		},
+                
+                dateTooltip: function() {
+                    if($(this.element).find('.tooltip')){
+                        $(this.element).find('.tooltip').remove();
+                    }
+                    if($('.datepicker-days *[rel=tooltip]')){
+                        $('.datepicker-days *[rel=tooltip]').tooltip({
+                            container: this.element
+                        });
+                    }
+                    console.log(this.datesEnabled);
+                    
+		},
+
 		place: function(){
 						if(this.isInline) return;
 			var zIndex = parseInt(this.element.parents().filter(function() {
@@ -441,14 +460,34 @@
 					prevMonth.getUTCDate() == today.getDate()) {
 					clsName += ' today';
 				}
-				if (currentDate && prevMonth.valueOf() == currentDate) {
+                                //Explicitly Enable Dates
+                                if(this.datesEnabled){
+                                    var thisDate = new Date(prevMonth.valueOf());
+                                    thisDate = thisDate.getFullYear()+'-'+(thisDate.getMonth() < 9 ? '0'+(thisDate.getMonth()+1) : thisDate.getMonth()+1)+'-'+(thisDate.getDate() < 10 ? '0'+thisDate.getDate() : thisDate.getDate());
+
+                                    var dateTitle = '';
+                                    if(this.datesEnabled[thisDate]){
+                                        clsName = this.datesEnabled[thisDate].clsName;
+                                        dateTitle = this.datesEnabled[thisDate].tooltipText;
+                                    }
+                                    else{
+                                        clsName = ' disabled';
+                                        dateTitle = null;
+                                    }
+                                }
+				if (currentDate && prevMonth.valueOf() == currentDate && this.todayHighlight == true) {
 					clsName += ' active';
 				}
 				if (prevMonth.valueOf() < this.startDate || prevMonth.valueOf() > this.endDate ||
 					$.inArray(prevMonth.getUTCDay(), this.daysOfWeekDisabled) !== -1) {
 					clsName += ' disabled';
 				}
-				html.push('<td class="day'+clsName+'">'+prevMonth.getUTCDate() + '</td>');
+                                if(!this.datesEnabled){
+                                    html.push('<td class="day'+clsName+'">'+prevMonth.getUTCDate() + '</td>');
+                                }
+                                else{
+                                    html.push('<td class="day '+clsName+'"'+(dateTitle ? ' rel="tooltip" data-original-title="'+dateTitle+'"' : '' )+'>'+prevMonth.getUTCDate() + '</td>');
+                                }
 				if (prevMonth.getUTCDay() == this.weekEnd) {
 					html.push('</tr>');
 				}
@@ -488,6 +527,7 @@
 				year += 1;
 			}
 			yearCont.html(html);
+                        this.dateTooltip();
 		},
 
 		updateNavArrows: function() {
