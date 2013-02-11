@@ -1,0 +1,42 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
+        <script src="./js/bootstrap-datepicker.js"></script>
+        <link href="./css/datepicker.css" type="text/css" rel="stylesheet">
+        <style>
+            .datepicker table tr td.day:hover{
+                color: inherit;
+            }
+            .datepicker table tr td.day.disabled{
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="datepicker"></div>
+        <script>
+            $('#datepicker').datepicker({
+                'todayHighlight': true,
+                'datesEnabled': {
+                    '2013-02-09': {
+                        clsName: 'btn-success',
+                        tooltipText: "$120\n$150"
+                    },
+                    '2013-02-08': {
+                        clsName: 'btn-warning',
+                        tooltipText: '$120'
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
