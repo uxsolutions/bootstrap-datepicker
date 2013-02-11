@@ -424,7 +424,7 @@
 					prevMonth.getUTCDate() == today.getDate()) {
 					clsName += ' today';
 				}
-				if (currentDate && prevMonth.valueOf() == currentDate) {
+				if (currentDate && prevMonth.valueOf() == currentDate && this.todayHighlight == true) {
 					clsName += ' active';
 				}
 				if (prevMonth.valueOf() < this.startDate || prevMonth.valueOf() > this.endDate ||
