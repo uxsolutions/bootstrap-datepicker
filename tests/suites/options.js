@@ -255,7 +255,6 @@ test('Today Highlight: today\'s date is highlighted when not active', patch_date
         equal(picker.find('.datepicker-days thead .switch').text(), 'March 2012', 'Title is "March 2012"');
 
         target = picker.find('.datepicker-days tbody td:contains(15)');
-        console.log(target)
         ok(target.hasClass('today'), 'Today is marked with "today" class');
         target = picker.find('.datepicker-days tbody td:contains(14)');
         ok(!target.hasClass('today'), 'Yesterday is not marked with "today" class');

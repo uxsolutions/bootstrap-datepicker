@@ -1,4 +1,4 @@
-# Home
+# bootstrap-datepicker [![Build Status](https://travis-ci.org/eternicode/bootstrap-datepicker.png?branch=master)](https://travis-ci.org/eternicode/bootstrap-datepicker)
 
 This is a fork of Stefan Petre's [original code](http://www.eyecon.ro/bootstrap-datepicker/);
 thanks go to him for getting this thing started!
@@ -190,6 +190,13 @@ Number, String.  Default: 0, 'month'
 
 The view that the datepicker should show when it is opened.  Accepts values of 0 or 'month' for month view (the default), 1 or 'year' for the 12-month overview, and 2 or 'decade' for the 10-year overview.  Useful for date-of-birth datepickers.
 
+### minViewMode
+
+Number, String.  Default: 0, 'days'
+
+Set a limit for the view mode.  Accepts: 'days' or 0, 'months' or 1, and 'years' or 2.
+Gives the ability to pick only a month or an year.  The day is set to the 1st for 'months', and the month is set to January for 'years'.
+
 ### todayBtn
 
 Boolean, "linked".  Default: false
@@ -212,7 +219,7 @@ Whether or not to allow date navigation by arrow keys.
 
 String.  Default: 'en'
 
-The two-letter code of the language to use for month and day names.  These will also be used as the input's value (and subsequently sent to the server in the case of form submissions).  If an unknown language code is given, English will be used.  See I18N below.
+The IETF code (eg  "en" for English, "pt-BR" for Brazilian Portuguese) of the language to use for month and day names.  These will also be used as the input's value (and subsequently sent to the server in the case of form submissions).  If a full code (eg "de-DE") is supplied the picker will first check for an "de-DE" language and if not found will fallback and check for a "de" language.  If an unknown language code is given, English will be used.  See I18N below.
 
 ### forceParse
 
@@ -244,7 +251,9 @@ Arguments: None
 Remove the datepicker.  Removes attached events, internal attached objects, and
 added HTML elements.
 
-    $('#datepicker').datepicker('remove');
+```javascript
+$('#datepicker').datepicker('remove');
+```
 
 ### show
 
