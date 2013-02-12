@@ -255,34 +255,68 @@ $('#dp5').datepicker();
 &lt;div data-date=&quot;12-02-2012&quot; data-date-format=&quot;dd-mm-yyyy&quot;&gt;&lt;/div&gt;
 </pre>
 
-            <h2>Methods</h2>
-            <h4>.datepicker(options)</h4>
-            <p>Initializes an datepicker.</p>
-
-            <h4>show</h4>
-            <p>Arguments: None. <br> Show the datepicker.</p>
-            <pre class="prettyprint">$('#datepicker').datepicker('show');</pre>
-
-            <h4>hide</h4>
-            <p>Arguments: None. <br> Hide the datepicker..</p>
-            <pre class="prettyprint">$('#datepicker').datepicker('hide');</pre>
-
-            <h4>update</h4>
-            <p>Arguments: <ul><li>date (string, optional)</li></ul><br> Update the datepicker with the current input value or given date as argument. In second case input will be updated as well.</p>
-            <pre class="prettyprint">$('#datepicker').datepicker('update');</pre>
-            <pre class="prettyprint">$('#datepicker').datepicker('update', '15-05-1984');</pre>
-
-            <h4>setStartDate</h4>
-            <p>Arguments: <ul><li>startDate (string, optional)</li></ul><br> Sets a new lower date limit on the datepicker.</p>
-            <pre class="prettyprint">$('#datepicker').datepicker('setStartDate', '2012-01-01');</pre>
-            <p>Omit startDate (or provide an otherwise falsey value) to unset the limit.</p>
-            <pre class="prettyprint">$('#datepicker').datepicker('setStartDate');</pre>
-
-            <h4>setEndDate</h4>
-            <p>Arguments: <ul><li>endDate (string, optional)</li></ul><br>Sets a new upper date limit on the datepicker.</p>
-            <pre class="prettyprint">$('#datepicker').datepicker('setEndDate', '2012-01-01');</pre>
-            <p>Omit endDate (or provide an otherwise falsey value) to unset the limit.</p>
-            <pre class="prettyprint">$('#datepicker').datepicker('setEndDate');</pre>
+            <h2 id="methods">Methods</h2>
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>Args</th>
+                  <th>Type</th>
+                  <th title="Argument optional">?</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td id="method-main">.datepicker(options)</td>
+                  <td colspan="3"></td>
+                  <td>Initializes an datepicker.</td>
+                </tr>
+                <tr>
+                  <td id="method-remove">remove</td>
+                  <td colspan="3"></td>
+                  <td>Remove the datepicker.  Removes attached events, internal attached objects, and added HTML elements.</td>
+                </tr>
+                <tr>
+                  <td id="method-show">show</td>
+                  <td colspan="3"></td>
+                  <td>Show the datepicker.</td>
+                </tr>
+                <tr>
+                  <td id="method-hide">hide</td>
+                  <td colspan="3"></td>
+                  <td>Hide the datepicker.</td>
+                </tr>
+                <tr>
+                  <td id="method-update">update</td>
+                  <td>date</td>
+                  <td>string</td>
+                  <td><i class="icon-ok">&#x2714;</i></td>
+                  <td>Update the datepicker with the current input value or given date as argument. In second case input will be updated as well.</td>
+                </tr>
+                <tr>
+                  <td id="method-setstartdate">setStartDate</td>
+                  <td>date</td>
+                  <td>string</td>
+                  <td><i class="icon-ok">&#x2714;</i></td>
+                  <td>Sets a new lower date limit on the datepicker.  Omit date (or provide an otherwise falsey value) to unset the limit.</td>
+                </tr>
+                <tr>
+                  <td id="method-setenddate">setEndDate</td>
+                  <td>date</td>
+                  <td>string</td>
+                  <td><i class="icon-ok">&#x2714;</i></td>
+                  <td>Sets a new upper date limit on the datepicker.  Omit date (or provide an otherwise falsey value) to unset the limit.</td>
+                </tr>
+                <tr>
+                  <td id="method-setdaysofweekdisabled">setDaysOfWeekDisabled</td>
+                  <td>dates</td>
+                  <td>string, array</td>
+                  <td><i class="icon-remove">&#x2716;</i></td>
+                  <td>Sets the days of week that should be disabled.  Omit dates (or provide an otherwise falsey value) to unset the disabled days.</td>
+                </tr>
+              </tbody>
+            </table>
 
             <h2>Events</h2>
             <p>Datepicker class exposes a few events for manipulating the dates.</p>
