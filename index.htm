@@ -320,28 +320,44 @@ $('#dp5').datepicker();
 
             <h2>Events</h2>
             <p>Datepicker class exposes a few events for manipulating the dates.</p>
-            <h4>show</h4>
-            <p>This event fires immediately when the date picker is displayed.</p>
-
-            <h4>hide</h4>
-            <p>This event is fired immediately when the date picker is hidden.</p>
-
-            <h4>changeDate</h4>
-            <p>This event is fired when the date is changed.</p>
-            <pre class="prettyprint linenums">
-$('#dp5').datepicker()
-  .on('changeDate', function(ev){
-    if (ev.date.valueOf() &lt; startDate.valueOf()){
-      ....
-    }
-  });
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>Event</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td id="event-show">show</td>
+                  <td>Fired immediately when the date picker is displayed.</td>
+                </tr>
+                <tr>
+                  <td id="event-hide">hide</td>
+                  <td>Fired immediately when the date picker is hidden.</td>
+                </tr>
+                <tr>
+                  <td id="event-changedate">changeDate</td>
+                  <td>
+                    Fired when the date is changed.
+                    <pre class="prettyprint linenums">
+$('.datepicker').datepicker()
+    .on('changeDate', function(e){
+        alert(e.date.toString());
+    });
 </pre>
-
-            <h4>changeYear</h4>
-            <p>Fired when the view year is changed from decade view.</p>
-
-            <h4>changeMonth</h4>
-            <p>Fired when the view month is changed from year view.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td id="event-changeyear">changeYear</td>
+                  <td>Fired when the view year is changed from decade view.</td>
+                </tr>
+                <tr>
+                  <td id="event-changemonth">changeMonth</td>
+                  <td>Fired when the view month is changed from year view.</td>
+                </tr>
+              </tbody>
+            </table>
 
             <h2>Keyboard support</h2>
             <p>The datepicker includes some keyboard navigation:</p>
