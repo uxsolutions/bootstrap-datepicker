@@ -241,18 +241,18 @@ $('#dp5').datepicker();
               </tbody>
             </table>
 
-            <h2>Markup</h2>
+            <h2>Markup <small>data-attributes</small></h2>
+            <p>Any option can be specified as a data-attribute by taking the option name, replacing each uppercase letter with a corresponding lowercase letter prepended by a dash, and prepending the whole name with <code>data-date-</code>.  For example, <code>autoclose</code> would become <code>data-date-autoclose</code> and <code>daysOfWeekDisabled</code> would become <code>data-date-days-of-week-disabled</code>.</p>
             <p>Format a component.</p>
             <pre class="prettyprint linenums">
-&lt;div class=&quot;input-append date&quot; id=&quot;dp3&quot; data-date=&quot;12-02-2012&quot; data-date-format=&quot;dd-mm-yyyy&quot;&gt;
-  &lt;input class=&quot;span2&quot; size=&quot;16&quot; type=&quot;text&quot; value=&quot;12-02-2012&quot;&gt;
-  &lt;span class=&quot;add-on&quot;&gt;&lt;i class=&quot;icon-th&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+&lt;div class=&quot;input-append&quot; id="datepicker" data-date-format=&quot;dd-mm-yyyy&quot;&gt;
+  &lt;input type=&quot;text&quot; value=&quot;12-02-2013&quot;&gt;&lt;span class=&quot;add-on&quot;&gt;&lt;i class=&quot;icon-th&quot;&gt;&lt;/i&gt;&lt;/span&gt;
 &lt;/div&gt;
 </pre>
 
             <p>Format inline.</p>
             <pre class="prettyprint linenums">
-&lt;div id=&quot;dp6&quot; data-date=&quot;12-02-2012&quot; data-date-format=&quot;dd-mm-yyyy&quot;&gt;&lt;/div&gt;
+&lt;div data-date=&quot;12-02-2012&quot; data-date-format=&quot;dd-mm-yyyy&quot;&gt;&lt;/div&gt;
 </pre>
 
             <h2>Methods</h2>
