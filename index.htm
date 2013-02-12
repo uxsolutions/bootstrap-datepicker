@@ -143,64 +143,100 @@ $('#dp5').datepicker();
             <p>Call the datepicker via javascript:</p>
             <pre class="prettyprint linenums">$('.datepicker').datepicker()</pre>
 
-            <h2>Options</h2>
+            <h2 id="options">Options</h2>
             <table class="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th style="width: 100px;">Name</th>
-                  <th style="width: 50px;">type</th>
-                  <th style="width: 100px;">default</th>
-                  <th>description</th>
+                  <th>Name</th>
+                  <th>Type</th>
+                  <th>Default</th>
+                  <th>Description</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>format</td>
+                  <td id="option-format">format</td>
                   <td>string</td>
                   <td>'mm/dd/yyyy'</td>
-                  <td>the date format, combination of  d, dd, m, mm, yy, yyy.</td>
+                  <td>The date format, combination of d, dd, D, DD, m, mm, M, MM, yy, yyyy.</td>
                 </tr>
                 <tr>
-                  <td>weekStart</td>
-                  <td>integer</td>
+                  <td id="option-week-start">weekStart</td>
+                  <td>number</td>
                   <td>0</td>
-                  <td>day of the week start. 0 for Sunday -  6 for Saturday</td>
+                  <td>Day of the week start. 0 (Sunday) to 6 (Saturday)</td>
                 </tr>
                 <tr>
-                  <td>startDate</td>
-                  <td>date</td>
-                  <td>null</td>
-                  <td>The earliest date that may be selected; all earlier dates will be disabled</td>
-                </tr>
-                <tr>
-                  <td>endDate</td>
-                  <td>date</td>
-                  <td>null</td>
-                  <td>The latest date that may be selected; all later dates will be disabled</td>
-                </tr>
-                <tr>
-                  <td>autoclose</td>
+                  <td id="option-calendar-weeks">calendarWeeks</td>
                   <td>boolean</td>
                   <td>false</td>
-                  <td>Whether or not to close the datepicker immediately when a date is selected</td>
+                  <td>Whether or not to show week numbers to the left of week rows.</td>
                 </tr>
                 <tr>
-                  <td>startView</td>
-                  <td>string</td>
+                  <td id="option-start-date">startDate</td>
+                  <td>date</td>
+                  <td>-Infinity</td>
+                  <td>The earliest date that may be selected; all earlier dates will be disabled.</td>
+                </tr>
+                <tr>
+                  <td id="option-end-date">endDate</td>
+                  <td>date</td>
+                  <td>Infinity</td>
+                  <td>The latest date that may be selected; all later dates will be disabled.</td>
+                </tr>
+                <tr>
+                  <td id="option-days-of-week-disabled">daysOfWeekDisabled</td>
+                  <td>string, array</td>
+                  <td>[]</td>
+                  <td>Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday). Multiple values should be comma-separated. Example: disable weekends: <code>'0,6'</code> or <code>[0,6]</code>.</td>
+                </tr>
+                <tr>
+                  <td id="option-autoclose">autoclose</td>
+                  <td>boolean</td>
+                  <td>false</td>
+                  <td>Whether or not to close the datepicker immediately when a date is selected.</td>
+                </tr>
+                <tr>
+                  <td id="option-start-view">startView</td>
+                  <td>number, string</td>
                   <td>0, 'month'</td>
-                  <td>The view that the datepicker should show when it is opened. Accepts values of 0 or 'month' for month view (the default), 1 or 'year' for the 12-month overview, and 2 or 'decade' for the 10-year overview. Useful for date-of-birth datepickers</td>
+                  <td>The view that the datepicker should show when it is opened.  Accepts values of 0 or 'month' for month view (the default), 1 or 'year' for the 12-month overview, and 2 or 'decade' for the 10-year overview.  Useful for date-of-birth datepickers.</td>
                 </tr>
                 <tr>
-                  <td>keyboardNavigation</td>
+                  <td id="option-min-view-mode">minViewMode</td>
+                  <td>number, string</td>
+                  <td>0, 'days'</td>
+                  <td>Set a limit for the view mode.  Accepts: 'days' or 0, 'months' or 1, and 'years' or 2.  Gives the ability to pick only a month or an year.  The day is set to the 1st for 'months', and the month is set to January for 'years'.</td>
+                </tr>
+                <tr>
+                  <td id="option-today-btn">todayBtn</td>
+                  <td>boolean, <code>"linked"</code></td>
+                  <td>false</td>
+                  <td>If true or "linked", displays a "Today" button at the bottom of the datepicker to select the current date.  If true, the "Today" button will only move the current date into view; if "linked", the current date will also be selected.</td>
+                </tr>
+                <tr>
+                  <td id="option-today-highlight">todayHighlight</td>
+                  <td>boolean</td>
+                  <td>false</td>
+                  <td>If true, highlights the current date.</td>
+                </tr>
+                <tr>
+                  <td id="option-keyboard-navigation">keyboardNavigation</td>
                   <td>boolean</td>
                   <td>true</td>
-                  <td>Whether or not to allow date navigation by arrow keys</td>
+                  <td>Whether or not to allow date navigation by arrow keys.</td>
                 </tr>
                 <tr>
-                  <td>language</td>
+                  <td id="option-language">language</td>
                   <td>string</td>
-                  <td>en</td>
-                  <td>The two-letter code of the language to use for month and day names. These will also be used as the input's value (and subsequently sent to the server in the case of form submissions). Currently ships with English ('en'), German ('de'), Brazilian ('br'), and Spanish ('es') translations, but others can be added (see I18N below). If an unknown language code is given, English will be used</td>
+                  <td><code>"en"</code></td>
+                  <td>The IETF code (eg  "en" for English, "pt-BR" for Brazilian Portuguese) of the language to use for month and day names.  These will also be used as the input's value (and subsequently sent to the server in the case of form submissions).  If a full code (eg "de-DE") is supplied the picker will first check for an "de-DE" language and if not found will fallback and check for a "de" language.  If an unknown language code is given, English will be used.  See I18N below.</td>
+                </tr>
+                <tr>
+                  <td id="option-force-parse">forceParse</td>
+                  <td>boolean</td>
+                  <td>true</td>
+                  <td>Whether or not to force parsing of the input value when the picker is closed.  That is, when an invalid date is left in the input field by the user, the picker will forcibly parse that value, and set the input's value to the new, valid date, conforming to the given <code>format</code>.</td>
                 </tr>
               </tbody>
             </table>
