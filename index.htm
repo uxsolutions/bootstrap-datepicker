@@ -46,7 +46,7 @@
         </div>
 
         <div class="row">
-          <div class="span3 columns">
+          <div class="span3">
             <h3>About</h3>
             <p>Add datepicker picker to field or to any other element.</p>
             <ul>
@@ -57,58 +57,92 @@
             <p><a href="https://github.com/eternicode/bootstrap-datepicker/zipball/v1.0.0" class="btn">Download v1.0.0</a></p>
             <p><a href="https://github.com/eternicode/bootstrap-datepicker/zipball/master" class="btn">Download Development</a></p>
           </div>
-          <div class="span9 columns">
-            <h2>Example</h2>
+          <div class="span9">
+            <h2>Examples</h2>
+
             <p>Attached to a field with the format specified via options.</p>
-            <div class="well">
-              <input type="text" class="span2" value="02-16-2012" id="dp1" >
+            <div class="row">
+              <div class="span3" id="dp1-container"></div>
+              <div class="span6">
+                <pre class="well prettyprint linenums" id="dp1-html">
+&lt;input type="text" id="dp1"&gt;
+</pre>
+                <pre class="well prettyprint linenums" id="dp1-js">
+$('#dp1').datepicker({
+  format: 'mm-dd-yyyy'
+});
+</pre>
+              </div>
             </div>
+
             <p>Attached to a field with the format specified via data tag.</p>
-            <div class="well">
-              <!--<button id="btn2" style="float: right">manual set to 03/17/12</button>-->
-              <input type="text" class="span2" value="02/16/12" data-date-format="mm/dd/yy" id="dp2" >
+            <div class="row">
+              <div class="span3" id="dp2-container"></div>
+              <div class="span6">
+                <pre class="well prettyprint linenums" id="dp2-html">
+&lt;input type="text" value="02/16/13" data-date-format="mm/dd/yy" id="dp2"&gt;
+</pre>
+                <pre class="well prettyprint linenums" id="dp2-js">
+$('#dp2').datepicker();
+</pre>
+              </div>
             </div>
+
             <p>As component.</p>
-            <div class="well">
-              <div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-                <input class="span2" size="16" type="text" value="12-02-2012" readonly>
-                <span class="add-on"><i class="icon-th"></i></span>
+            <div class="row">
+              <div class="span3" id="dp3-container"></div>
+              <div class="span6">
+                <pre class="well prettyprint linenums" id="dp3-html">
+&lt;div class="input-append date" id="dp3" data-date-format="dd-mm-yyyy"&gt;
+    &lt;input class="span2" size="16" type="text" value="12-02-2013" readonly&gt;&lt;span class="add-on"&gt;&lt;i class="icon-th"&gt;&lt;/i&gt;&lt;/span&gt;
+&lt;/div&gt;
+</pre>
+                <pre class="well prettyprint linenums" id="dp3-js">
+$('#dp3').datepicker();
+</pre>
               </div>
             </div>
-            <p>Attached to other elment then field and using events to work with the date values.</p>
-            <div class="well">
 
-
-              <div class="alert alert-error" id="alert">
-                <strong>Oh snap!</strong>
+            <p>Attached to non-field element, using events to work with the date values.</p>
+            <div class="row">
+              <div class="span3" id="dp4-container"></div>
+              <div class="span6">
+                <pre class="well prettyprint linenums" id="dp4-html">
+&lt;a href="#" class="btn small" id="dp4" data-date-format="yyyy-mm-dd" data-date="2013-02-20"&gt;Change&lt;/a&gt;
+</pre>
+                <pre class="well prettyprint linenums" id="dp4-js">
+$('#dp4').datepicker()
+    .on('changeDate', function(e){
+        var y = e.date.getFullYear(),
+            _m = e.date.getMonth() + 1,
+            m = (_m > 9 ? _m : '0'+_m),
+            _d = e.date.getDate(),
+            d = (_d > 9 ? _d : '0'+_d);
+        $(this).text(y + '-' + m + '-' + d);
+    });
+</pre>
               </div>
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>Start date<a href="#" class="btn small" id="dp4" data-date-format="yyyy-mm-dd" data-date="2012-02-20">Change</a></th>
-                    <th>End date<a href="#" class="btn small" id="dp5" data-date-format="yyyy-mm-dd" data-date="2012-02-25">Change</a></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td id="startDate">2012-02-20</td>
-                    <td id="endDate">2012-02-25</td>
-                  </tr>
-                </tbody>
-              </table>
             </div>
 
-            <p>Attached to <i>div</i> (inline)</p>
-            <div class="well">
-              <button id="btn6" style="float: right">manual set to 15-05-1984</button>
-              <button id="btn7" style="float: right; margin-right: 10px">clear</button>
-              <div id="dp6" data-date="12-02-2012" data-date-format="dd-mm-yyyy"></div>
+            <p>Inline/embedded picker</p>
+            <div class="row">
+              <div class="span3" id="dp5-container"></div>
+              <div class="span6">
+                <pre class="well prettyprint linenums" id="dp5-html">
+&lt;div id="dp5" data-date="12-02-2013" data-date-format="dd-mm-yyyy"&gt;&lt;/div&gt;
+</pre>
+                <pre class="well prettyprint linenums" id="dp5-js">
+$('#dp5').datepicker();
+</pre>
+              </div>
             </div>
 
             <hr>
+
             <h2>Using bootstrap-datepicker.js</h2>
             <p>Call the datepicker via javascript:</p>
             <pre class="prettyprint linenums">$('.datepicker').datepicker()</pre>
+
             <h2>Options</h2>
             <table class="table table-bordered table-striped">
               <thead>
@@ -291,57 +325,14 @@ $.fn.datepicker.dates['en'] = {
     <script>
       $(function(){
         window.prettyPrint && prettyPrint();
-        $('#dp1').datepicker({
-          format: 'mm-dd-yyyy',
-                  todayBtn: 'linked'
-        });
 
-        $('#dp2').datepicker();
-              $('#btn2').click(function(e){
-                  e.stopPropagation();
-                  $('#dp2').datepicker('update', '03/17/12');
-              });
-
-        $('#dp3').datepicker();
-
-
-        var startDate = new Date(2012,1,20);
-        var endDate = new Date(2012,1,25);
-        $('#dp4').datepicker()
-          .on('changeDate', function(ev){
-            if (ev.date.valueOf() > endDate.valueOf()){
-              $('#alert').show().find('strong').text('The start date can not be greater then the end date');
-            } else {
-              $('#alert').hide();
-              startDate = new Date(ev.date);
-              $('#startDate').text($('#dp4').data('date'));
-            }
-            $('#dp4').datepicker('hide');
-          });
-        $('#dp5').datepicker()
-          .on('changeDate', function(ev){
-            if (ev.date.valueOf() < startDate.valueOf()){
-              $('#alert').show().find('strong').text('The end date can not be less then the start date');
-            } else {
-              $('#alert').hide();
-              endDate = new Date(ev.date);
-              $('#endDate').text($('#dp5').data('date'));
-            }
-            $('#dp5').datepicker('hide');
-          });
-
-        //inline
-        $('#dp6').datepicker({
-            todayBtn: 'linked'
-        });
-
-        $('#btn6').click(function(){
-            $('#dp6').datepicker('update', '15-05-1984');
-        });
-
-        $('#btn7').click(function(){
-            $('#dp6').data('datepicker').date = null;
-            $('#dp6').find('.active').removeClass('active');
+        $('[id$=-container]').each(function(){
+          // Use js to extract and run examples html & js from code blocks.
+          // Kids, don't try this at home!
+          // And certainly don't use in production...
+          var prefix = $(this).attr('id').split('-')[0];
+          $('#' + prefix + '-container').html($('#' + prefix + '-html').text());
+          eval($('#' + prefix + '-js').text());
         });
       });
     </script>
