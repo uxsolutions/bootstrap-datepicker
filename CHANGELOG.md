@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v1.0.1
+---------
+
+* Support for [Bower](http://twitter.github.com/bower/)
+
 v1.0.0
 ------
 
