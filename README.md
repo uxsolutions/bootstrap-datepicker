@@ -278,9 +278,11 @@ $('#datepicker').datepicker('hide');
 
 ### update
 
-Arguments: None
+Arguments:
 
-Update the datepicker with the current input value.
+* date (String|Date)
+
+Update the datepicker with given argument or the current input value.
 
 ```javascript
 $('#datepicker').datepicker('update');
