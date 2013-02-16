@@ -157,8 +157,10 @@ test('Selecting date resets viewDate and date', function(){
 });
 
 test('"remove" removes associated HTML', function(){
+	var datepickerDivSelector = '.datepicker';
+
 	//there should be one datepicker initiated so that means one hidden .datepicker div
-	equal(document.querySelectorAll('.datepicker').length, 1);
+	equal($(datepickerDivSelector).length, 1);
 	this.component.datepicker('remove');
-	equal(document.querySelectorAll('.datepicker').length, 0);//hidden HTML should be gone
+	equal($(datepickerDivSelector).length, 0);//hidden HTML should be gone
 });
