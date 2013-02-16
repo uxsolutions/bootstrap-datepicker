@@ -81,7 +81,7 @@ var startDate = new Date(2012,1,20);
 var endDate = new Date(2012,1,25);
 $('#date-start')
     .datepicker()
-    .on('changeDate', function(ev){
+    .on('changeDate.datepicker', function(ev){
         if (ev.date.valueOf() > endDate.valueOf()){
             $('#alert').show().find('strong').text('The start date must be before the end date.');
         } else {
@@ -93,7 +93,7 @@ $('#date-start')
     });
 $('#date-end')
     .datepicker()
-    .on('changeDate', function(ev){
+    .on('changeDate.datepicker', function(ev){
         if (ev.date.valueOf() < startDate.valueOf()){
             $('#alert').show().find('strong').text('The end date must be after the start date.');
         } else {
@@ -364,7 +364,7 @@ Fired when the date is changed.
 ```javascript
 $('#date-end')
     .datepicker()
-    .on('changeDate', function(ev){
+    .on('changeDate.datepicker', function(ev){
         if (ev.date.valueOf() < date-start-display.valueOf()){
             ....
         }
