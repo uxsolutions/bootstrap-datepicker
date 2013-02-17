@@ -14,6 +14,7 @@
       }
     </style>
     <link href="google-code-prettify/prettify.css" rel="stylesheet">
+    <link href="docs.css" rel="stylesheet">
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -21,11 +22,13 @@
 
     <script src="google-code-prettify/prettify.js"></script>
     <script src="jquery/jquery.js"></script>
+    <script src="bootstrap/js/bootstrap.js"></script>
+    <script src="bootstrap/js/bootstrap-affix.js"></script>
     <script src="bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 
   </head>
 
-  <body>
+  <body data-spy="scroll">
 
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
@@ -56,9 +59,20 @@
             </ul>
             <p><a href="https://github.com/eternicode/bootstrap-datepicker/zipball/v1.0.0" class="btn">Download v1.0.0</a></p>
             <p><a href="https://github.com/eternicode/bootstrap-datepicker/zipball/master" class="btn">Download Development</a></p>
+
+            <ul class="nav nav-list sidenav">
+              <li><a href="#examples"><i class="icon-chevron-right"></i> Examples</a></li>
+              <li><a href="#using"><i class="icon-chevron-right"></i> Using bootstrap-datepicker.js</a></li>
+              <li><a href="#options"><i class="icon-chevron-right"></i> Options</a></li>
+              <li><a href="#markup"><i class="icon-chevron-right"></i> Markup</a></li>
+              <li><a href="#methods"><i class="icon-chevron-right"></i> Methods</a></li>
+              <li><a href="#events"><i class="icon-chevron-right"></i> Events</a></li>
+              <li><a href="#keyboard"><i class="icon-chevron-right"></i> Keyboard support</a></li>
+              <li><a href="#i18n"><i class="icon-chevron-right"></i> I18N</a></li>
+            </ul>
           </div>
           <div class="span9">
-            <h2>Examples</h2>
+            <h2 id="examples">Examples</h2>
 
             <p>Attached to a field with the format specified via options.</p>
             <div class="row">
@@ -139,7 +153,7 @@ $('#dp5').datepicker();
 
             <hr>
 
-            <h2>Using bootstrap-datepicker.js</h2>
+            <h2 id="using">Using bootstrap-datepicker.js</h2>
             <p>Call the datepicker via javascript:</p>
             <pre class="prettyprint linenums">$('.datepicker').datepicker()</pre>
 
@@ -241,7 +255,7 @@ $('#dp5').datepicker();
               </tbody>
             </table>
 
-            <h2>Markup <small>data-attributes</small></h2>
+            <h2 id="markup">Markup <small>data-attributes</small></h2>
             <p>Any option can be specified as a data-attribute by taking the option name, replacing each uppercase letter with a corresponding lowercase letter prepended by a dash, and prepending the whole name with <code>data-date-</code>.  For example, <code>autoclose</code> would become <code>data-date-autoclose</code> and <code>daysOfWeekDisabled</code> would become <code>data-date-days-of-week-disabled</code>.</p>
             <p>Format a component.</p>
             <pre class="prettyprint linenums">
@@ -318,7 +332,7 @@ $('#dp5').datepicker();
               </tbody>
             </table>
 
-            <h2>Events</h2>
+            <h2 id="events">Events</h2>
             <p>Datepicker class exposes a few events for manipulating the dates.</p>
             <table class="table table-bordered table-striped">
               <thead>
@@ -359,7 +373,7 @@ $('.datepicker').datepicker()
               </tbody>
             </table>
 
-            <h2>Keyboard support</h2>
+            <h2 id="keyboard">Keyboard support</h2>
             <p>The datepicker includes some keyboard navigation:</p>
             <h4>up, down, left, right arrow keys</h4>
             <p>By themselves, left/right will move backward/forward one day, up/down will move back/forward one week. </p>
@@ -371,7 +385,7 @@ $('.datepicker').datepicker()
             <h4>enter</h4>
             <p>When the picker is visible, enter will simply hide it. When the picker is not visible, enter will have normal effects -- submitting the current form, etc.</p>
 
-            <h2>I18N</h2>
+            <h2 id="i18n">I18N</h2>
             <p>The plugin supports i18n for the month and weekday names and the
                 <code>weekStart</code>
                 option. The default is English ('en'); other available translations are avilable in the
@@ -420,6 +434,12 @@ $.fn.datepicker.dates['en'] = {
           $('#' + prefix + '-container').html($('#' + prefix + '-html').text());
           eval($('#' + prefix + '-js').text());
         });
+
+        $('.sidenav').affix({
+          offset: {
+            top: 270
+          }
+        })
       });
     </script>
   </body>
