@@ -580,6 +580,10 @@ $.fn.datepicker.dates['en'] = {
                   <input id="forceParse" name="forceParse" type="checkbox" checked>
                   Force parse
                 </label>
+
+                <br></br>
+
+                <button class="btn btn-danger" type="reset">Reset to defaults</button>
               </div>
             </form>
             <script>
@@ -672,7 +676,19 @@ $.fn.datepicker.dates['en'] = {
                   .submit(function(){ return false; })
                   .keydown(update_all)
                   .keyup(update_all)
-                  .click(update_all);
+                  .click(function(e){
+                    update_code();
+                    update_sandbox();
+                    if (!$(e.target).is('button[type=reset]'))
+                      update_url();
+                  });
+
+                $('.sandbox-form button[type=reset]').click(function(){
+                  $('.sandbox-form')[0].reset();
+                  update_code();
+                  update_sandbox();
+                  history.replaceState && history.replaceState(null, null, '?#sandbox');
+                });
 
                 setTimeout(function(){
                   // Load form state from url if possible
