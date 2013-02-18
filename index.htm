@@ -530,6 +530,13 @@ $.fn.datepicker.dates['en'] = {
                     <option value="2">2 / years</option>
                   </select>
                 </label>
+                <label for="todayBtn" class="inline checkbox">Today button
+                  <select class="span2" id="todayBtn" name="todayBtn">
+                    <option value="false">disabled</option>
+                    <option value="true">enabled (unlinked)</option>
+                    <option value="linked">linked</option>
+                  </select>
+                </label>
                 <label for="language">Language
                   <select class="span1" id="language" name="language">
                     <option value="en">en</option>
@@ -565,10 +572,6 @@ $.fn.datepicker.dates['en'] = {
                 <label for="autoclose" class="inline checkbox">
                   <input id="autoclose" name="autoclose" type="checkbox">
                   Autoclose
-                </label>
-                <label for="todayBtn" class="inline checkbox">
-                  <input id="todayBtn" name="todayBtn" type="checkbox">
-                  Today button
                 </label>
                 <label for="todayHighlight" class="inline checkbox">
                   <input id="todayHighlight" name="todayHighlight" type="checkbox">
@@ -631,8 +634,8 @@ $.fn.datepicker.dates['en'] = {
                     if (values[opt] != defaults[opt]){
                       val = values[opt];
                       if (opt == 'daysOfWeekDisabled') val = '"'+val+'"'
-                      else if (val == 'on') val = 'true';
-                      else if (val === void 0) val = 'false';
+                      else if (val == 'on' || val == 'true') val = 'true';
+                      else if (val === void 0 || val == 'false') val = 'false';
                       else if (parseInt(val) == val) val = val;
                       else val = '"'+val+'"'
                       js += "    " + opt + ": " + val + ",\n"
