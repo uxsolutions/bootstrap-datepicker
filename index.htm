@@ -20,11 +20,50 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <script src="google-code-prettify/prettify.js"></script>
+    <script src="google-code-prettify/prettify.min.js"></script>
     <script src="jquery/jquery.js"></script>
     <script src="bootstrap/js/bootstrap.js"></script>
     <script src="bootstrap/js/bootstrap-affix.js"></script>
+
     <script src="bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.bg.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.ca.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.cs.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.da.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.de.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.el.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.es.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.fi.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.fr.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.he.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.hr.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.hu.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.id.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.is.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.it.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.ja.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.kr.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.lt.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.lv.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.ms.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.nb.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.nl.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.pl.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.pt-BR.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.pt.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.ro.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.rs.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.rs-latin.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.ru.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.sk.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.sl.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.sv.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.sw.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.th.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.tr.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.uk.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-TW.js" charset="UTF-8"></script>
 
   </head>
 
@@ -69,6 +108,7 @@
               <li><a href="#events"><i class="icon-chevron-right"></i> Events</a></li>
               <li><a href="#keyboard"><i class="icon-chevron-right"></i> Keyboard support</a></li>
               <li><a href="#i18n"><i class="icon-chevron-right"></i> I18N</a></li>
+              <li><a href="#sandbox"><i class="icon-chevron-right"></i> Sandbox</a></li>
             </ul>
           </div>
           <div class="span9">
@@ -413,6 +453,230 @@ $.fn.datepicker.dates['en'] = {
 &lt;script type="text/javascript" src="bootstrap-datepicker.de.js" charset="UTF-8"&gt;&lt;/script&gt;
 </pre>
 
+
+            <h2 id="sandbox">Sandbox <small>&alpha;lph&alpha;</small></h2>
+            <style>
+              .sandbox-form label {
+                display: inline-block;
+                margin: .25em .5em;
+                vertical-align: middle;
+              }
+              .sandbox-form label label {
+                vertical-align: baseline !important;
+              }
+            </style>
+            <form class="form-inline sandbox-form">
+              <div class="well">
+                Type:<br>
+
+                <label for="markup" class="inline radio">
+                  <input name="markup" value="input" type="radio">
+                  Text input
+                  <script type="text/html" class="html">
+                    <input type="text">
+                  </script>
+                  <script type="text/plain" class="selector">
+                    input
+                  </script>
+                </label>
+                <label for="markup" class="inline radio">
+                  <input name="markup" value="component" type="radio" checked>
+                  Component
+                  <script type="text/html" class="html">
+                    <div class="input-append date">
+                      <input type="text" class="span2"><span class="add-on"><i class="icon-th"></i></span>
+                    </div>
+                  </script>
+                  <script type="text/plain" class="selector">
+                    .input-append.date
+                  </script>
+                </label>
+                <label for="markup" class="inline radio">
+                  <input name="markup" value="embedded" type="radio">
+                  Embedded / inline
+                  <script type="text/html" class="html">
+                    <div></div>
+                  </script>
+                  <script type="text/plain" class="selector">
+                    div
+                  </script>
+                </label>
+
+                <br><br>
+
+                Options:<br>
+
+                <label for="format">Format
+                  <input class="span2" id="format" name="format" type="text" placeholder="mm/dd/yyyy"></label>
+                <label for="weekStart">Week start
+                  <input class="span1" id="weekStart" name="weekStart" type="text" placeholder="0"></label>
+                <label for="startDate">Start date
+                  <input class="span2" id="startDate" name="startDate" type="text" placeholder="-Infinity"></label>
+                <label for="endDate">End date
+                  <input class="span2" id="endDate" name="endDate" type="text" placeholder="+Infinity"></label>
+                <label for="startView">Start view
+                  <select class="span2" id="startView" name="startView">
+                    <option value="0">0 / month</option>
+                    <option value="1">1 / year</option>
+                    <option value="2">2 / decade</option>
+                  </select>
+                </label>
+                <label for="minViewMode">Min view mode
+                  <select class="span2" id="minViewMode" name="minViewMode">
+                    <option value="0">0 / days</option>
+                    <option value="1">1 / months</option>
+                    <option value="2">2 / years</option>
+                  </select>
+                </label>
+                <label for="language">Language
+                  <select class="span1" id="language" name="language">
+                    <option value="en">en</option>
+                  </select>
+                  <script>
+                    $(function(){
+                      for (var lang in $.fn.datepicker.dates) {
+                        if (!$('#language option[value='+lang+']').length)
+                          $('<option value="'+lang+'">'+lang+'</option>').appendTo('#language')
+                      }
+                    });
+                  </script>
+                </label>
+
+                <br>
+
+                <label class="inline">Days of week disabled:
+                  <label class="checkbox"><input type="checkbox" name="daysOfWeekDisabled" value="0"> 0</label>
+                  <label class="checkbox"><input type="checkbox" name="daysOfWeekDisabled" value="1"> 1</label>
+                  <label class="checkbox"><input type="checkbox" name="daysOfWeekDisabled" value="2"> 2</label>
+                  <label class="checkbox"><input type="checkbox" name="daysOfWeekDisabled" value="3"> 3</label>
+                  <label class="checkbox"><input type="checkbox" name="daysOfWeekDisabled" value="4"> 4</label>
+                  <label class="checkbox"><input type="checkbox" name="daysOfWeekDisabled" value="5"> 5</label>
+                  <label class="checkbox"><input type="checkbox" name="daysOfWeekDisabled" value="6"> 6</label>
+                </label>
+
+                <br>
+
+                <label for="calendarWeeks" class="inline checkbox">
+                  <input id="calendarWeeks" name="calendarWeeks" type="checkbox">
+                  Calendar weeks
+                </label>
+                <label for="autoclose" class="inline checkbox">
+                  <input id="autoclose" name="autoclose" type="checkbox">
+                  Autoclose
+                </label>
+                <label for="todayBtn" class="inline checkbox">
+                  <input id="todayBtn" name="todayBtn" type="checkbox">
+                  Today button
+                </label>
+                <label for="todayHighlight" class="inline checkbox">
+                  <input id="todayHighlight" name="todayHighlight" type="checkbox">
+                  Today highlight
+                </label>
+                <label for="keyboardNavigation" class="inline checkbox">
+                  <input id="keyboardNavigation" name="keyboardNavigation" type="checkbox" checked>
+                  Keyboard navigation
+                </label>
+                <label for="forceParse" class="inline checkbox">
+                  <input id="forceParse" name="forceParse" type="checkbox" checked>
+                  Force parse
+                </label>
+              </div>
+            </form>
+            <script>
+              $(function(){
+                var defaults = {},
+                    defaults_form = $('<form>', {html: $('.sandbox-form').html()})
+                $.each(defaults_form.serializeArray(), function(i,e){
+                  if (e.name in defaults)
+                    defaults[e.name] += ',' + e.value;
+                  else
+                    defaults[e.name] = e.value;
+                });
+                delete defaults.markup;
+
+                function fix_indent(s){
+                  var lines = s.split(/\r?\n/g);
+                  while (/^\s*$/.test(lines[0])) lines.shift();
+                  while (/^\s*$/.test(lines[lines.length-1])) lines.pop();
+                  var indent = /^\s*/.exec(lines[0])[0],
+                      deindent = new RegExp('^' + indent);
+                  for (var i=0; i<lines.length; i++)
+                    lines[i] = lines[i].replace(deindent, '');
+                  return lines.join('\n');
+                }
+
+                function build_code(){
+                  var form = $('.sandbox-form'),
+                      values = {};
+                  $.each(form.serializeArray(), function(i,e){
+                    if (e.name in values)
+                      values[e.name] += ',' + e.value;
+                    else
+                      values[e.name] = e.value;
+                  });
+
+                  var html = fix_indent($('[name=markup][value='+values.markup+']').siblings('script.html').html());
+                  var selector = $('[name=markup][value='+values.markup+']').siblings('script.selector').html().replace(/^\s+|\s+$/g, '');
+                  delete values.markup;
+
+                  var js = "$('#sandbox-container "+selector+"').datepicker({\n",
+                      val;
+                  for (var opt in $.extend({}, defaults, values)){
+                    if (values[opt] != defaults[opt]){
+                      val = values[opt];
+                      if (opt == 'daysOfWeekDisabled') val = '"'+val+'"'
+                      else if (val == 'on') val = 'true';
+                      else if (val === void 0) val = 'false';
+                      else if (parseInt(val) == val) val = val;
+                      else val = '"'+val+'"'
+                      js += "    " + opt + ": " + val + ",\n"
+                    }
+                  }
+                  if (js.slice(-2) == ",\n")
+                    js = js.slice(0,-2) + "\n";
+                  js += "});";
+
+                  return [html, js];
+                }
+                function update_code(){
+                  var code = build_code(),
+                      html = code[0],
+                      js = code[1];
+
+                  var print_html = html.replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                  $('#sandbox-html').html(prettyPrintOne(print_html, 'html', true));
+                  $('#sandbox-js').html(prettyPrintOne(js, 'js', true));
+                }
+                function update_sandbox(){
+                  var code = build_code(),
+                      html = code[0],
+                      js = code[1];
+
+                  $('#sandbox-container > :first-child').datepicker('remove');
+                  $('#sandbox-container').html(html);
+                  eval(js);
+                }
+                function update_all(){
+                  update_code();
+                  update_sandbox();
+                }
+
+                $('.sandbox-form')
+                  .submit(function(){ return false; })
+                  .keydown(update_all)
+                  .keyup(update_all)
+                  .click(update_all);
+
+                setTimeout(update_all, 300);
+              });
+            </script>
+            <div class="row">
+              <div class="span3" id="sandbox-container"></div>
+              <div class="span6">
+                <pre class="prettyprint linenums" id="sandbox-html"></pre>
+                <pre class="prettyprint linenums" id="sandbox-js"></pre>
+              </div>
+            </div>
           </div>
         </div>
       </section>
