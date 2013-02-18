@@ -656,9 +656,16 @@ $.fn.datepicker.dates['en'] = {
                   $('#sandbox-container').html(html);
                   eval(js);
                 }
+                function update_url(){
+                  if (history.replaceState){
+                    var query = '?' + $('.sandbox-form').serialize();
+                    history.replaceState(null, null, query + '#sandbox');
+                  }
+                }
                 function update_all(){
                   update_code();
                   update_sandbox();
+                  update_url();
                 }
 
                 $('.sandbox-form')
@@ -667,7 +674,48 @@ $.fn.datepicker.dates['en'] = {
                   .keyup(update_all)
                   .click(update_all);
 
-                setTimeout(update_all, 300);
+                setTimeout(function(){
+                  // Load form state from url if possible
+                  var search = document.location.search.replace(/^\?/, '');
+                  if (search){
+                    search = search.split('&');
+                    var values = {};
+                    for (var i=0, opt, val; i<search.length; i++){
+                      opt = search[i].split('=')[0];
+                      val = search[i].split('=')[1];
+                      if (opt in values)
+                        values[opt] += ',' + val;
+                      else
+                        values[opt] = val;
+                    }
+
+                    for (var opt in $.extend({}, defaults, values)){
+                      var el = $('[name='+opt+']'),
+                          val = unescape(values[opt]);
+                      if (el.is(':checkbox')){
+                        if (el.length > 1){
+                          var vals = val.split(',');
+                          $('[name='+opt+']').prop('checked', false);
+                          for (var i=0; i<vals.length; i++)
+                            $('[name='+opt+'][value='+vals[i]+']').prop('checked', true);
+                        }
+                        else if (val === 'undefined')
+                          el.prop('checked', false);
+                        else
+                          el.prop('checked', true);
+                      }
+                      else if (el.is(':radio')){
+                        el.filter('[value='+val+']').prop('checked', true);
+                      }
+                      else
+                        el.val(val);
+                    }
+                  }
+
+                  // Don't replaceState the url on pageload
+                  update_code();
+                  update_sandbox();
+                }, 300);
               });
             </script>
             <div class="row">
