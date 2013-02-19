@@ -143,9 +143,9 @@
 		this.startDate = -Infinity;
 		this.endDate = Infinity;
 		this.daysOfWeekDisabled = [];
-		this.setStartDate(options.startDate||this.element.data('date-startdate'));
-		this.setEndDate(options.endDate||this.element.data('date-enddate'));
-		this.setDaysOfWeekDisabled(options.daysOfWeekDisabled||this.element.data('date-days-of-week-disabled'));
+		this.setStartDate(options.startDate||this.element.data('date-startdate'), true);
+		this.setEndDate(options.endDate||this.element.data('date-enddate'), true);
+		this.setDaysOfWeekDisabled(options.daysOfWeekDisabled||this.element.data('date-days-of-week-disabled'), true);
 		this.fillDow();
 		this.fillMonths();
 		this.update();
@@ -295,25 +295,31 @@
 			return DPGlobal.formatDate(this.date, format, this.language);
 		},
 
-		setStartDate: function(startDate){
+		setStartDate: function(startDate, init){
 			this.startDate = startDate||-Infinity;
 			if (this.startDate !== -Infinity) {
 				this.startDate = DPGlobal.parseDate(this.startDate, this.format, this.language);
 			}
-			this.update();
-			this.updateNavArrows();
+			var init = init || false;
+			if(!init) {
+				this.update();
+				this.updateNavArrows();
+			}
 		},
 
-		setEndDate: function(endDate){
+		setEndDate: function(endDate, init){
 			this.endDate = endDate||Infinity;
 			if (this.endDate !== Infinity) {
 				this.endDate = DPGlobal.parseDate(this.endDate, this.format, this.language);
 			}
-			this.update();
-			this.updateNavArrows();
+			var init = init || false;
+			if(!init) {
+				this.update();
+				this.updateNavArrows();
+			}
 		},
 
-		setDaysOfWeekDisabled: function(daysOfWeekDisabled){
+		setDaysOfWeekDisabled: function(daysOfWeekDisabled, init){
 			this.daysOfWeekDisabled = daysOfWeekDisabled||[];
 			if (!$.isArray(this.daysOfWeekDisabled)) {
 				this.daysOfWeekDisabled = this.daysOfWeekDisabled.split(/,\s*/);
@@ -321,8 +327,11 @@
 			this.daysOfWeekDisabled = $.map(this.daysOfWeekDisabled, function (d) {
 				return parseInt(d, 10);
 			});
-			this.update();
-			this.updateNavArrows();
+			var init = init || false;
+			if(!init) {
+				this.update();
+				this.updateNavArrows();
+			}
 		},
 
 		place: function(){
