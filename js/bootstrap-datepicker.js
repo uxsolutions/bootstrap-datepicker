@@ -126,6 +126,13 @@
 		this.todayBtn = (options.todayBtn||this.element.data('date-today-btn')||false);
 		this.todayHighlight = (options.todayHighlight||this.element.data('date-today-highlight')||false);
 
+	        this.todayShow = true;
+	        if ('todayShow' in options) {  
+	            this.todayShow = options.todayShow;
+	        } else if ('dateTodayShow' in this.element.data()) {
+	            this.todayShow = this.element.data('date-today-show');
+	        }
+
 		this.calendarWeeks = false;
 		if ('calendarWeeks' in options) {
 			this.calendarWeeks = options.calendarWeeks;
@@ -453,7 +460,7 @@
 					prevMonth.getUTCDate() == today.getDate()) {
 					clsName += ' today';
 				}
-				if (currentDate && prevMonth.valueOf() == currentDate) {
+				if (this.todayShow && currentDate && prevMonth.valueOf() == currentDate) {
 					clsName += ' active';
 				}
 				if (prevMonth.valueOf() < this.startDate || prevMonth.valueOf() > this.endDate ||
