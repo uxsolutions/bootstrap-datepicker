@@ -737,6 +737,67 @@ $.fn.datepicker.dates['en'] = {
                   update_code();
                   update_sandbox();
                 }, 300);
+
+                // Analytics event tracking
+                // What options are people interested in?
+                $('.sandbox-form input, .sandbox-form select').change(function(e){
+                  var $this = $(this),
+                      val, opt;
+                  opt = $this.attr('name');
+                  val = $this.val();
+                  if ($this.is(':checkbox') && val == 'on')
+                    val = $this.is(':checked') ? "on" : "off";
+                  _gaq.push(['_trackEvent', 'Sandbox', 'Option: ' + opt, val]);
+                });
+                // Do they even use the reset button?
+                $('.sandbox-form button[type=reset]').click(function(){
+                  _gaq.push(['_trackEvent', 'Sandbox', 'Reset']);
+                });
+
+                var flag=0, mousedown=false, delta=0, x=0, y=0, dx, dy;
+                // How do they interact with the HTML display?  Do they select
+                // the code, do they try to edit it (I'd want to!)?
+                $("#sandbox-html").mousedown(function(e){
+                  mousedown = true;
+                  delta = 0; x=e.clientX; y=e.clientY;
+                });
+                $("#sandbox-html").mousemove(function(e){
+                  if (mousedown){
+                    dx = Math.abs(e.clientX-x);
+                    dy = Math.abs(e.clientY-y);
+                    delta = Math.max(dx, dy);
+                  }
+                });
+                $("#sandbox-html").mouseup(function(){
+                  if(delta <= 10)
+                    _gaq.push(['_trackEvent', 'Sandbox', 'HTML Clicked']);
+                  else
+                    _gaq.push(['_trackEvent', 'Sandbox', 'HTML Selected']);
+                  delta = 0;
+                  mousedown = false;
+                });
+
+                // How do they interact with the JS display?  Do they select
+                // the code, do they try to edit it (I'd want to!)?
+                $("#sandbox-js").mousedown(function(e){
+                  mousedown = true;
+                  delta = 0; x=e.clientX; y=e.clientY;
+                });
+                $("#sandbox-js").mousemove(function(e){
+                  if (mousedown){
+                    dx = Math.abs(e.clientX-x);
+                    dy = Math.abs(e.clientY-y);
+                    delta = Math.max(dx, dy);
+                  }
+                });
+                $("#sandbox-js").mouseup(function(){
+                  if(delta <= 10)
+                    _gaq.push(['_trackEvent', 'Sandbox', 'JS Clicked']);
+                  else
+                    _gaq.push(['_trackEvent', 'Sandbox', 'JS Selected']);
+                  delta = 0;
+                  mousedown = false;
+                });
               });
             </script>
             <div class="row">
