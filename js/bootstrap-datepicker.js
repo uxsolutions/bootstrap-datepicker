@@ -146,6 +146,8 @@
 		this.setStartDate(options.startDate||this.element.data('date-startdate'));
 		this.setEndDate(options.endDate||this.element.data('date-enddate'));
 		this.setDaysOfWeekDisabled(options.daysOfWeekDisabled||this.element.data('date-days-of-week-disabled'));
+		this.disabledDates = [];
+		this.setDisabledDates(options.disabledDates||this.element.data('date-disabled-dates'));
 		this.fillDow();
 		this.fillMonths();
 		this.update();
@@ -325,6 +327,14 @@
 			this.updateNavArrows();
 		},
 
+		setDisabledDates: function(dates){
+			for(var i = 0; i < dates.length; i++) {
+				this.disabledDates[i] = DPGlobal.parseDate(dates[i], this.format, this.language);
+			}
+			this.update();
+			this.updateNavArrows();
+		},
+
 		place: function(){
 						if(this.isInline) return;
 			var zIndex = parseInt(this.element.parents().filter(function() {
@@ -450,6 +460,14 @@
 				if (prevMonth.valueOf() < this.startDate || prevMonth.valueOf() > this.endDate ||
 					$.inArray(prevMonth.getUTCDay(), this.daysOfWeekDisabled) !== -1) {
 					clsName += ' disabled';
+				}
+				var disabledDates = this.disabledDates || []
+				for(var i = 0; i < disabledDates.length; i++) {
+					if (prevMonth.getUTCFullYear() == disabledDates[i].getFullYear() &&
+					    prevMonth.getUTCMonth() == disabledDates[i].getMonth() &&
+					    prevMonth.getUTCDate() == disabledDates[i].getDate()) {
+						clsName += ' disabled';
+					}
 				}
 				html.push('<td class="day'+clsName+'">'+prevMonth.getUTCDate() + '</td>');
 				if (prevMonth.getUTCDay() == this.weekEnd) {
@@ -720,6 +738,25 @@
 					} else {
 						newDate = new Date(this.date);
 						newDate.setUTCDate(this.date.getUTCDate() + dir);
+						if (e.keyCode == 37) {
+							for(var i = this.disabledDates.length - 1; i >= 0; i--) {
+								if (newDate.getUTCFullYear() == this.disabledDates[i].getFullYear() &&
+								    newDate.getUTCMonth() == this.disabledDates[i].getMonth() &&
+								    newDate.getUTCDate() == this.disabledDates[i].getDate()) {
+									dir--;
+									newDate.setUTCDate(newDate.getUTCDate() - 1);
+								}
+							}
+						} else {
+							for(var i = 0; i < this.disabledDates.length; i++) {
+								if (newDate.getUTCFullYear() == this.disabledDates[i].getFullYear() &&
+								    newDate.getUTCMonth() == this.disabledDates[i].getMonth() &&
+								    newDate.getUTCDate() == this.disabledDates[i].getDate()) {
+									dir++;
+									newDate.setUTCDate(newDate.getUTCDate() + 1);
+								}
+							}
+						}
 						newViewDate = new Date(this.viewDate);
 						newViewDate.setUTCDate(this.viewDate.getUTCDate() + dir);
 					}
@@ -745,6 +782,25 @@
 					} else {
 						newDate = new Date(this.date);
 						newDate.setUTCDate(this.date.getUTCDate() + dir * 7);
+						if (e.keyCode == 38) {
+							for(var i = this.disabledDates.length - 1; i >= 0; i--) {
+								if (newDate.getUTCFullYear() == this.disabledDates[i].getFullYear() &&
+								    newDate.getUTCMonth() == this.disabledDates[i].getMonth() &&
+								    newDate.getUTCDate() == this.disabledDates[i].getDate()) {
+									dir--;
+									newDate.setUTCDate(newDate.getUTCDate() - 7);
+								}
+							}
+						} else {
+							for(var i = 0; i < this.disabledDates.length; i++) {
+								if (newDate.getUTCFullYear() == this.disabledDates[i].getFullYear() &&
+								    newDate.getUTCMonth() == this.disabledDates[i].getMonth() &&
+								    newDate.getUTCDate() == this.disabledDates[i].getDate()) {
+									dir++;
+									newDate.setUTCDate(newDate.getUTCDate() + 7);
+								}
+							}
+						}
 						newViewDate = new Date(this.viewDate);
 						newViewDate.setUTCDate(this.viewDate.getUTCDate() + dir * 7);
 					}
