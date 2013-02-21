@@ -49,6 +49,13 @@ As component:
 $('.datepicker').datepicker();
 ```
 
+Using the `datepicker-auto` class to automatically initialise the datepicker when the page
+has finished loading:
+
+```html
+<input type="text" value="16 02 2012" class="datepicker-auto" data-date-format="dd mm yyyy">
+```
+
 Attached to non-field element, using events to work with the date values.
 
 ```html
