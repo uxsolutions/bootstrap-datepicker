@@ -41,8 +41,7 @@ As component:
 
 ```html
 <div class="input-append date datepicker" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-    <input size="16" type="text" value="12-02-2012" readonly>
-    <span class="add-on"><i class="icon-th"></i></span>
+    <input size="16" type="text" value="12-02-2012" readonly><span class="add-on"><i class="icon-th"></i></span>
 </div>
 ```
 ```javascript
@@ -234,8 +233,7 @@ Format a component.
 
 ```html
 <div class="input-append date datepicker" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-    <input class="span2" size="16" type="text" value="12-02-2012">
-    <span class="add-on"><i class="icon-th"></i></span>
+    <input class="span2" size="16" type="text" value="12-02-2012"><span class="add-on"><i class="icon-th"></i></span>
 </div>
 ```
 
