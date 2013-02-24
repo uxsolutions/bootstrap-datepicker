@@ -10,7 +10,6 @@
 
 .datepicker {
 	padding: 4px;
-	margin-top: 1px;
 	.border-radius(4px);
 	&-inline {
 		width: 220px;
@@ -99,6 +98,7 @@
 		&.today.disabled:hover {
 			@todayBackground: lighten(@orange, 30%);
 			.buttonBackground(@todayBackground, spin(@todayBackground, 20));
+			color: #000 !important;
 		}
 		&.active,
 		&.active:hover,
