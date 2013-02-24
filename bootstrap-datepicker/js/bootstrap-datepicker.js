@@ -41,7 +41,7 @@
 		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||dates[this.language].format||'mm/dd/yyyy');
 		this.isInline = false;
 		this.isInput = this.element.is('input');
-		this.component = this.element.is('.date') ? this.element.find('.add-on') : false;
+		this.component = this.element.is('.date') ? this.element.find('.add-on, .btn') : false;
 		this.hasInput = this.component && this.element.find('input').length;
 		if(this.component && this.component.length === 0)
 			this.component = false;
@@ -215,8 +215,7 @@
 			this.update();
 			this.place();
 			$(window).on('resize', $.proxy(this.place, this));
-			if (e ) {
-				e.stopPropagation();
+			if (e) {
 				e.preventDefault();
 			}
 			this.element.trigger({
@@ -254,6 +253,9 @@
 			this._detachEvents();
 			this.picker.remove();
 			delete this.element.data().datepicker;
+			if (!this.isInput) {
+				delete this.element.data().date;
+			}
 		},
 
 		getDate: function() {
@@ -327,7 +329,7 @@
 			var zIndex = parseInt(this.element.parents().filter(function() {
 							return $(this).css('z-index') != 'auto';
 						}).first().css('z-index'))+10;
-			var offset = this.component ? this.component.offset() : this.element.offset();
+			var offset = this.component ? this.component.parent().offset() : this.element.offset();
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(true);
 			this.picker.css({
 				top: offset.top + height,
@@ -524,7 +526,6 @@
 		},
 
 		click: function(e) {
-			e.stopPropagation();
 			e.preventDefault();
 			var target = $(e.target).closest('span, td, th');
 			if (target.length == 1) {

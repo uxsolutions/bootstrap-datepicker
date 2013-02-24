@@ -96,7 +96,7 @@
               <li>formats: dd, d, mm, m, yyyy, yy</li>
               <li>separators: -, /, .</li>
             </ul>
-            <p><a href="https://github.com/eternicode/bootstrap-datepicker/zipball/v1.0.0" class="btn">Download v1.0.0</a></p>
+            <p><a href="https://github.com/eternicode/bootstrap-datepicker/zipball/v1.0.1" class="btn">Download v1.0.1</a></p>
             <p><a href="https://github.com/eternicode/bootstrap-datepicker/zipball/master" class="btn">Download Development</a></p>
 
             <ul class="nav nav-list sidenav">
@@ -345,21 +345,21 @@ $('#dp5').datepicker();
                   <td id="method-update">update</td>
                   <td>date</td>
                   <td>string</td>
-                  <td><i class="icon-ok">&#x2714;</i></td>
+                  <td><i class="icon-remove">&#x2716;</i></td>
                   <td>Update the datepicker with the current input value or given date as argument. In second case input will be updated as well.</td>
                 </tr>
                 <tr>
                   <td id="method-setstartdate">setStartDate</td>
                   <td>date</td>
                   <td>string</td>
-                  <td><i class="icon-ok">&#x2714;</i></td>
+                  <td><i class="icon-remove">&#x2716;</i></td>
                   <td>Sets a new lower date limit on the datepicker.  Omit date (or provide an otherwise falsey value) to unset the limit.</td>
                 </tr>
                 <tr>
                   <td id="method-setenddate">setEndDate</td>
                   <td>date</td>
                   <td>string</td>
-                  <td><i class="icon-ok">&#x2714;</i></td>
+                  <td><i class="icon-remove">&#x2716;</i></td>
                   <td>Sets a new upper date limit on the datepicker.  Omit date (or provide an otherwise falsey value) to unset the limit.</td>
                 </tr>
                 <tr>
@@ -450,7 +450,12 @@ $.fn.datepicker.dates['en'] = {
 
             <p>If your browser (or those of your users) is displaying characters wrong, chances are the browser is loading the javascript file with a non-unicode encoding.  Simply add <code>charset="UTF-8"</code> to your <code>script</code> tag:</p>
             <pre class="prettyprint">
-&lt;script type="text/javascript" src="bootstrap-datepicker.de.js" charset="UTF-8"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="bootstrap-datepicker.XX.js" charset="UTF-8"&gt;&lt;/script&gt;
+</pre>
+            <pre class="prettyprint">
+$('.datepicker').datepicker({
+    language: 'XX' // as defined in bootstrap-datepicker.XX.js
+});
 </pre>
 
 
