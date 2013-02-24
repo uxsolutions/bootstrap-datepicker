@@ -9,6 +9,7 @@ v1.0.1
 * Japanese locale now has "today" and "format".
 * "remove" method removes `.data().date` if the datepicker is on a non-input.
 * Events on initialized elements are no longer blocked from bubbling up the DOM (jQuery.live et al can now catch the events).
+* Component triggers now include `.btn` in addition to `.add-on`.
 * Updates to README contents.
 
 v1.0.0
