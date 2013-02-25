@@ -96,8 +96,19 @@
               <li>formats: dd, d, mm, m, yyyy, yy</li>
               <li>separators: -, /, .</li>
             </ul>
-            <p><a href="https://github.com/eternicode/bootstrap-datepicker/zipball/v1.0.1" class="btn">Download v1.0.1</a></p>
-            <p><a href="https://github.com/eternicode/bootstrap-datepicker/zipball/master" class="btn">Download Development</a></p>
+            <p><a id="download-release" href="https://github.com/eternicode/bootstrap-datepicker/zipball/v1.0.1" class="btn">Download v1.0.1</a></p>
+            <p><a id="download-master" href="https://github.com/eternicode/bootstrap-datepicker/zipball/master" class="btn">Download Development</a></p>
+            <script>
+            // Track downloads
+            $(function(){
+              $('#download-release').click(function(){
+                _gaq.push(['_trackEvent', 'Downloads', 'release', 'v1.0.1']);
+              });
+              $('#download-master').click(function(){
+                _gaq.push(['_trackEvent', 'Downloads', 'master']);
+              });
+            });
+            </script>
 
             <ul class="nav nav-list sidenav">
               <li><a href="#examples"><i class="icon-chevron-right"></i> Examples</a></li>
