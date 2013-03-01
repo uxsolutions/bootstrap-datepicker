@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.0.2-rc.1
+----------
+
+* Reduced the number of times `update` is called on initialization.
+* Datepicker now detaches the picker dropdown when it is hidden, and appends it when shown.  This removes the picker from the DOM when it is not in use.
+
 v1.0.1
 ------
 
