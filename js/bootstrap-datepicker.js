@@ -57,14 +57,13 @@
 
 
 		this.picker = $(DPGlobal.template)
-							.appendTo(this.isInline ? this.element : 'body')
 							.on({
 								click: $.proxy(this.click, this),
 								mousedown: $.proxy(this.mousedown, this)
 							});
 
 		if(this.isInline) {
-			this.picker.addClass('datepicker-inline');
+			this.picker.addClass('datepicker-inline').appendTo(this.element);
 		} else {
 			this.picker.addClass('datepicker-dropdown dropdown-menu');
 		}
@@ -215,6 +214,8 @@
 		},
 
 		show: function(e) {
+			if (!this.isInline)
+				this.picker.appendTo('body');
 			this.picker.show();
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			this.place();
@@ -231,7 +232,7 @@
 		hide: function(e){
 			if(this.isInline) return;
 			if (!this.picker.is(':visible')) return;
-			this.picker.hide();
+			this.picker.hide().detach();
 			$(window).off('resize', this.place);
 			this.viewMode = this.startViewMode;
 			this.showMode();
