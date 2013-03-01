@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0.2-rc.1
+1.0.2-rc.1.1
 ----------
 
 * Reduced the number of times `update` is called on initialization.
