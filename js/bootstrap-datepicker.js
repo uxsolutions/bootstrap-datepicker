@@ -985,6 +985,8 @@
 					date.push(seps.shift());
 				date.push(val[format.parts[i]]);
 			}
+			if (seps.length)
+				date.push(seps.shift());
 			return date.join('');
 		},
 		headTemplate: '<thead>'+
