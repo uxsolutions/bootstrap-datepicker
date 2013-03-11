@@ -55,12 +55,7 @@
 			this.forceParse = this.element.data('date-force-parse');
 		}
 
-
-		this.picker = $(DPGlobal.template)
-							.on({
-								click: $.proxy(this.click, this),
-								mousedown: $.proxy(this.mousedown, this)
-							});
+		this.picker = $(DPGlobal.template);
 
 		if(this.isInline) {
 			this.picker.addClass('datepicker-inline').appendTo(this.element);
@@ -72,12 +67,6 @@
 			this.picker.find('.prev i, .next i')
 						.toggleClass('icon-arrow-left icon-arrow-right');
 		}
-		$(document).on('mousedown', function (e) {
-			// Clicked outside the datepicker, hide it
-			if ($(e.target).closest('.datepicker.datepicker-inline, .datepicker.datepicker-dropdown').length === 0) {
-				that.hide();
-			}
-		});
 
 		this.autoclose = false;
 		if ('autoclose' in options) {
@@ -212,6 +201,12 @@
 			}
 			this._events = [];
 		},
+		_documentMousedown: function (e) {
+			// Clicked outside the datepicker, hide it
+			if ($(e.target).closest('.datepicker.datepicker-inline, .datepicker.datepicker-dropdown').length === 0) {
+				this.hide();
+			}
+		},
 
 		show: function(e) {
 			if (!this.isInline)
@@ -219,7 +214,9 @@
 			this.picker.show();
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			this.place();
-			$(window).on('resize', $.proxy(this.place, this));
+			this.picker.on('click.picker', $.proxy(this.click, this));
+			$(window).on('resize.picker', $.proxy(this.place, this));
+			$(document).on('mousedown.picker', $.proxy(this._documentMousedown, this));
 			if (e) {
 				e.preventDefault();
 			}
@@ -233,12 +230,11 @@
 			if(this.isInline) return;
 			if (!this.picker.is(':visible')) return;
 			this.picker.hide().detach();
-			$(window).off('resize', this.place);
+			this.picker.off('click.picker');
+			$(window).off('resize.picker');
+			$(document).off('mousedown.picker');
 			this.viewMode = this.startViewMode;
 			this.showMode();
-			if (!this.isInput) {
-				$(document).off('mousedown', this.hide);
-			}
 
 			if (
 				this.forceParse &&
@@ -255,6 +251,7 @@
 		},
 
 		remove: function() {
+			this.hide();
 			this._detachEvents();
 			this.picker.remove();
 			delete this.element.data().datepicker;
