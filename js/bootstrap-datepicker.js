@@ -153,6 +153,21 @@
 		constructor: Datepicker,
 
 		_events: [],
+		_secondaryEvents: [],
+		_applyEvents: function(evs){
+			for (var i=0, el, ev; i<evs.length; i++){
+				el = evs[i][0];
+				ev = evs[i][1];
+				el.on(ev);
+			}
+		},
+		_unapplyEvents: function(evs){
+			for (var i=0, el, ev; i<evs.length; i++){
+				el = evs[i][0];
+				ev = evs[i][1];
+				el.off(ev);
+			}
+		},
 		_attachEvents: function(){
 			this._detachEvents();
 			if (this.isInput) { // single input
@@ -177,9 +192,9 @@
 					}]
 				];
 			}
-						else if (this.element.is('div')) {  // inline datepicker
-							this.isInline = true;
-						}
+			else if (this.element.is('div')) {  // inline datepicker
+				this.isInline = true;
+			}
 			else {
 				this._events = [
 					[this.element, {
@@ -187,25 +202,35 @@
 					}]
 				];
 			}
-			for (var i=0, el, ev; i<this._events.length; i++){
-				el = this._events[i][0];
-				ev = this._events[i][1];
-				el.on(ev);
-			}
+			this._applyEvents(this._events);
 		},
 		_detachEvents: function(){
-			for (var i=0, el, ev; i<this._events.length; i++){
-				el = this._events[i][0];
-				ev = this._events[i][1];
-				el.off(ev);
-			}
+			this._unapplyEvents(this._events);
 			this._events = [];
 		},
-		_documentMousedown: function (e) {
-			// Clicked outside the datepicker, hide it
-			if ($(e.target).closest('.datepicker.datepicker-inline, .datepicker.datepicker-dropdown').length === 0) {
-				this.hide();
-			}
+		_attachSecondaryEvents: function(){
+			this._detachSecondaryEvents();
+			this._secondaryEvents = [
+				[this.picker, {
+					click: $.proxy(this.click, this)
+				}],
+				[$(window), {
+					resize: $.proxy(this.place, this)
+				}],
+				[$(document), {
+					mousedown: $.proxy(function (e) {
+						// Clicked outside the datepicker, hide it
+						if ($(e.target).closest('.datepicker.datepicker-inline, .datepicker.datepicker-dropdown').length === 0) {
+							this.hide();
+						}
+					}, this)
+				}]
+			];
+			this._applyEvents(this._secondaryEvents);
+		},
+		_detachSecondaryEvents: function(){
+			this._unapplyEvents(this._secondaryEvents);
+			this._secondaryEvents = [];
 		},
 
 		show: function(e) {
@@ -214,9 +239,7 @@
 			this.picker.show();
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			this.place();
-			this.picker.on('click.picker', $.proxy(this.click, this));
-			$(window).on('resize.picker', $.proxy(this.place, this));
-			$(document).on('mousedown.picker', $.proxy(this._documentMousedown, this));
+			this._attachSecondaryEvents();
 			if (e) {
 				e.preventDefault();
 			}
@@ -230,9 +253,7 @@
 			if(this.isInline) return;
 			if (!this.picker.is(':visible')) return;
 			this.picker.hide().detach();
-			this.picker.off('click.picker');
-			$(window).off('resize.picker');
-			$(document).off('mousedown.picker');
+			this._detachSecondaryEvents();
 			this.viewMode = this.startViewMode;
 			this.showMode();
 
@@ -253,6 +274,7 @@
 		remove: function() {
 			this.hide();
 			this._detachEvents();
+			this._detachSecondaryEvents();
 			this.picker.remove();
 			delete this.element.data().datepicker;
 			if (!this.isInput) {
