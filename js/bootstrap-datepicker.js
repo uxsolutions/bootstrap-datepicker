@@ -46,8 +46,6 @@
 		if(this.component && this.component.length === 0)
 			this.component = false;
 
-		this._attachEvents();
-
 		this.forceParse = true;
 		if ('forceParse' in options) {
 			this.forceParse = options.forceParse;
@@ -56,6 +54,8 @@
 		}
 
 		this.picker = $(DPGlobal.template);
+		this._buildEvents();
+		this._attachEvents();
 
 		if(this.isInline) {
 			this.picker.addClass('datepicker-inline').appendTo(this.element);
@@ -168,8 +168,7 @@
 				el.off(ev);
 			}
 		},
-		_attachEvents: function(){
-			this._detachEvents();
+		_buildEvents: function(){
 			if (this.isInput) { // single input
 				this._events = [
 					[this.element, {
@@ -202,14 +201,7 @@
 					}]
 				];
 			}
-			this._applyEvents(this._events);
-		},
-		_detachEvents: function(){
-			this._unapplyEvents(this._events);
-			this._events = [];
-		},
-		_attachSecondaryEvents: function(){
-			this._detachSecondaryEvents();
+
 			this._secondaryEvents = [
 				[this.picker, {
 					click: $.proxy(this.click, this)
@@ -226,11 +218,20 @@
 					}, this)
 				}]
 			];
+		},
+		_attachEvents: function(){
+			this._detachEvents();
+			this._applyEvents(this._events);
+		},
+		_detachEvents: function(){
+			this._unapplyEvents(this._events);
+		},
+		_attachSecondaryEvents: function(){
+			this._detachSecondaryEvents();
 			this._applyEvents(this._secondaryEvents);
 		},
 		_detachSecondaryEvents: function(){
 			this._unapplyEvents(this._secondaryEvents);
-			this._secondaryEvents = [];
 		},
 
 		show: function(e) {
