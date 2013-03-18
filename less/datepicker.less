@@ -61,15 +61,58 @@
 	}
 	table{
 		margin: 0;
+		border-collapse: separate; /* for border radius in tables */
+		border-spacing: 0;
 	}
 	td,
 	th{
 		text-align: center;
 		width: 20px;
-		height: 20px;
-		.border-radius(4px);
-
 		border: none;
+
+		&:first-child {
+			border-left: 1px solid #ccc;
+		}
+		&:last-child {
+			border-right: 1px solid #ccc;
+		}
+	}
+	tbody td {
+		border-left: 1px solid #ddd;
+		border-bottom: 1px solid #ddd;
+	}
+	tbody tr:last-child td {
+		border-bottom: 1px solid #ccc;
+
+		&:first-child {
+			border-bottom-left-radius: 4px;
+		}
+		&:last-child {
+			border-bottom-right-radius: 4px;
+		}
+	}
+	thead .controls {
+		th {
+			border-top: 1px solid #ccc;
+
+			&:first-child {
+				border-top-left-radius: 4px;
+			}
+			&:last-child {
+				border-top-right-radius: 4px;
+			}
+		}
+	}
+	th {
+		border-top: 1px solid rgba(255,255,255,0.25);
+		border-bottom: 1px solid #aaa;
+	}
+	tr.week-days th {
+		font-weight: normal;
+		font-size: 10px;
+		text-transform: uppercase;
+		.buttonBackground(#eee, #efefef);
+		line-height: 12px;
 	}
 	// Inline display inside a table presents some problems with
 	// border and background colors.
@@ -79,6 +122,8 @@
 		}
 	}
 	table tr td {
+		height: 20px;
+
 		&.day:hover {
 			background: @grayLighter;
 			cursor: pointer;
@@ -152,10 +197,6 @@
 			background: @grayLighter;
 		}
 	}
-	/*.dow {
-		border-top: 1px solid #ddd !important;
-	}*/
-
 	// Basic styling for calendar-week cells
 	.cw {
 		font-size: 10px;
