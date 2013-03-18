@@ -80,6 +80,8 @@
 	tbody td {
 		border-left: 1px solid #ddd;
 		border-bottom: 1px solid #ddd;
+		.buttonBackground(#ededed, #dedede);
+		color: #6c6c6c;
 	}
 	tbody tr:last-child td {
 		border-bottom: 1px solid #ccc;
@@ -93,7 +95,9 @@
 	}
 	thead .controls {
 		th {
-			border-top: 1px solid #ccc;
+			border-top: 1px solid #a6a6a6;
+			.buttonBackground(#d0d1d1, #b5b5b5);
+			color: #4d4d4d;
 
 			&:first-child {
 				border-top-left-radius: 4px;
@@ -111,7 +115,8 @@
 		font-weight: normal;
 		font-size: 10px;
 		text-transform: uppercase;
-		.buttonBackground(#eee, #efefef);
+		#gradient > .vertical(#fafbfb, #e8e9e9);
+		.reset-filter();
 		line-height: 12px;
 	}
 	// Inline display inside a table presents some problems with
@@ -125,16 +130,17 @@
 		height: 20px;
 
 		&.day:hover {
-			background: @grayLighter;
 			cursor: pointer;
+			#gradient > .vertical(#dedede, spin(#dedede, 15));
 		}
 		&.old,
 		&.new {
 			color: @grayLight;
+			.buttonBackground(#f4f4f4, #ececec);
 		}
 		&.disabled,
 		&.disabled:hover {
-			background: none;
+			background: #ededed;
 			color: @grayLight;
 			cursor: default;
 		}
@@ -143,15 +149,17 @@
 		&.today.disabled,
 		&.today.disabled:hover {
 			@todayBackground: lighten(@orange, 30%);
-			.buttonBackground(@todayBackground, spin(@todayBackground, 20));
+			.buttonBackground(@todayBackground, spin(@todayBackground, 10));
+			.box-shadow(inset 0 1px 5px rgba(0, 0, 0, .25));
 			color: #000 !important;
 		}
 		&.active,
 		&.active:hover,
 		&.active.disabled,
 		&.active.disabled:hover {
-			.buttonBackground(@btnPrimaryBackground, spin(@btnPrimaryBackground, 20));
-			color: #fff;
+			.buttonBackground(@btnPrimaryBackground, spin(@btnPrimaryBackground, 10));
+			.box-shadow(inset 0 1px 5px rgba(0, 0, 0, .25));
+			color: #e0e0e0;
 			text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 		}
 		span {
@@ -162,7 +170,6 @@
 			float: left;
 			margin: 1%;
 			cursor: pointer;
-			.border-radius(4px);
 			&:hover {
 				background: @grayLighter;
 			}
@@ -194,7 +201,7 @@
 	tfoot tr:first-child th {
 		cursor: pointer;
 		&:hover{
-			background: @grayLighter;
+			#gradient > .vertical(lighten(#d0d1d1, 10), lighten(#b5b5b5, 10));
 		}
 	}
 	// Basic styling for calendar-week cells
