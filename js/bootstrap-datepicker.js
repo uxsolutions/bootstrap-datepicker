@@ -293,7 +293,7 @@
 		},
 
 		setDate: function(d) {
-			this.setUTCDate(new Date(d.getTime() - (d.getTimezoneOffset()*60000)));
+			this.setUTCDate(new Date(d.getTime() + (d.getTimezoneOffset()*60000)));
 		},
 
 		setUTCDate: function(d) {
