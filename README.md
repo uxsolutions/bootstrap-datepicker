@@ -1,7 +1,9 @@
-# [bootstrap-datepicker](http://eternicode.github.com/bootstrap-datepicker/) [![Build Status](https://travis-ci.org/eternicode/bootstrap-datepicker.png?branch=master)](https://travis-ci.org/eternicode/bootstrap-datepicker)
+# [bootstrap-datepicker](http://yhnavein.github.com/bootstrap-datepicker/)
 
-This is a fork of Stefan Petre's [original code](http://www.eyecon.ro/bootstrap-datepicker/);
+This is a fork with visual improvement of a [eternicode's version](http://github.com/eternicode/bootstrap-datepicker) of Bootstrap Datepicker, which is a fork of Stefan Petre's [original code](http://www.eyecon.ro/bootstrap-datepicker/);
 thanks go to him for getting this thing started!
+
+Here is [DEMO](http://yhnavein.github.com/bootstrap-datepicker/).
 
 Please note that this fork is not used on Stefan's page at this time, nor is it maintained or
 contributed to by him (yet?)
