@@ -23,16 +23,19 @@
           border-radius: @radius;
 }
 
+// Drop shadows
+.box-shadow(@shadow) {
+  -webkit-box-shadow: @shadow;
+     -moz-box-shadow: @shadow;
+          box-shadow: @shadow;
+}
+
 // Button backgrounds
 .buttonBackground(@startColor, @endColor) {
   .gradientBar(@startColor, @endColor);
   .reset-filter();
   &:hover, &:active, &.active, &.disabled, &[disabled] {
     background-color: @endColor;
-  }
-  &:active,
-  &.active {
-    background-color: darken(@endColor, 10%) e("\9");
   }
 }
 
@@ -60,6 +63,14 @@
     background-image: linear-gradient(top, @startColor, @endColor); // The standard
     background-repeat: repeat-x;
     filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@startColor,@endColor)); // IE9 and down
+  }
+  .directional(@startColor: #555, @endColor: #333, @deg: 45deg) {
+    background-color: @endColor;
+    background-repeat: repeat-x;
+    background-image: -moz-linear-gradient(@deg, @startColor, @endColor); // FF 3.6+
+    background-image: -webkit-linear-gradient(@deg, @startColor, @endColor); // Safari 5.1+, Chrome 10+
+    background-image: -o-linear-gradient(@deg, @startColor, @endColor); // Opera 11.10
+    background-image: linear-gradient(@deg, @startColor, @endColor); // Standard, IE10
   }
 }
 
