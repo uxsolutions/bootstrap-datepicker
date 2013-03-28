@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0.2-rc.2
+1.0.2
 ----------
 
 Small optimizations release
