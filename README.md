@@ -1,4 +1,4 @@
-# bootstrap-datepicker [![Build Status](https://travis-ci.org/eternicode/bootstrap-datepicker.png?branch=master)](https://travis-ci.org/eternicode/bootstrap-datepicker)
+# [bootstrap-datepicker](http://eternicode.github.com/bootstrap-datepicker/) [![Build Status](https://travis-ci.org/eternicode/bootstrap-datepicker.png?branch=master)](https://travis-ci.org/eternicode/bootstrap-datepicker)
 
 This is a fork of Stefan Petre's [original code](http://www.eyecon.ro/bootstrap-datepicker/);
 thanks go to him for getting this thing started!
@@ -6,15 +6,24 @@ thanks go to him for getting this thing started!
 Please note that this fork is not used on Stefan's page at this time, nor is it maintained or
 contributed to by him (yet?)
 
+Versions are incremented according to [semver](http://semver.org/).
+
+# Requirements
+
+* [Bootstrap](http://twitter.github.com/bootstrap/) 2.0.4+
+* [jQuery](http://jquery.com/) 1.7.1+
+
+These are the specific versions bootstrap-datpicker is tested against (`js` files) and built against (`css` files).  Use other versions at your own risk.
+
 # Example
 
 Attached to a field with the format specified via options:
 
 ```html
-<input type="text" value="02-16-2012" id="datepicker">
+<input type="text" value="02-16-2012" class="datepicker">
 ```
 ```javascript
-$('#datepicker').datepicker({
+$('.datepicker').datepicker({
     format: 'mm-dd-yyyy'
 });
 ```
@@ -22,22 +31,21 @@ $('#datepicker').datepicker({
 Attached to a field with the format specified via data tag:
 
 ```html
-<input type="text" value="02/16/12" data-date-format="mm/dd/yy" id="datepicker" >
+<input type="text" value="02/16/12" data-date-format="mm/dd/yy" class="datepicker" >
 ```
 ```javascript
-$('#datepicker').datepicker();
+$('.datepicker').datepicker();
 ```
 
 As component:
 
 ```html
-<div class="input-append date" id="datepicker" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-    <input size="16" type="text" value="12-02-2012" readonly>
-    <span class="add-on"><i class="icon-th"></i></span>
+<div class="input-append date datepicker" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+    <input size="16" type="text" value="12-02-2012" readonly><span class="add-on"><i class="icon-th"></i></span>
 </div>
 ```
 ```javascript
-$('#datepicker').datepicker();
+$('.datepicker').datepicker();
 ```
 
 Attached to non-field element, using events to work with the date values.
@@ -99,10 +107,10 @@ $('#date-end')
 As inline datepicker:
 
 ```html
-<div id="datepicker"></div>
+<div class="datepicker"></div>
 ```
 ```javascript
-$('#datepicker').datepicker();
+$('.datepicker').datepicker();
 ```
 
 
@@ -119,7 +127,7 @@ Load datepicker, the desired backend, and any locales after jquery:
 Call the datepicker via javascript:
 
 ```javascript
-$('#datepicker').datepicker()
+$('.datepicker').datepicker()
 ```
 
 ## Dependencies
@@ -134,7 +142,7 @@ $ lessc build/build_standalone.less datepicker.css
 
 ## Options
 
-All options that take a "Date" can handle `Date` objects and Strings formatted according to the given `format`.  If the default backend is used, they can also handle a timedelta relative to today, eg '-1d', '+6m +1y', etc, where valid units are 'd' (day), 'w' (week), 'm' (month), and 'y' (year).
+All options that take a "Date" can handle a `Date` object or a String formatted according to the given `format`.  If the default backend is used, they can also handle a timedelta relative to today, eg '-1d', '+6m +1y', etc, where valid units are 'd' (day), 'w' (week), 'm' (month), and 'y' (year).
 
 ### format
 
@@ -232,9 +240,8 @@ Whether or not to force parsing of the input value when the picker is closed.  T
 Format a component.
 
 ```html
-<div class="input-append date" id="datepicker" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-    <input class="span2" size="16" type="text" value="12-02-2012">
-    <span class="add-on"><i class="icon-th"></i></span>
+<div class="input-append date datepicker" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+    <input class="span2" size="16" type="text" value="12-02-2012"><span class="add-on"><i class="icon-th"></i></span>
 </div>
 ```
 
@@ -252,7 +259,7 @@ Remove the datepicker.  Removes attached events, internal attached objects, and
 added HTML elements.
 
 ```javascript
-$('#datepicker').datepicker('remove');
+$('.datepicker').datepicker('remove');
 ```
 
 ### show
@@ -262,7 +269,7 @@ Arguments: None
 Show the datepicker.
 
 ```javascript
-$('#datepicker').datepicker('show');
+$('.datepicker').datepicker('show');
 ```
 
 ### hide
@@ -272,17 +279,19 @@ Arguments: None
 Hide the datepicker.
 
 ```javascript
-$('#datepicker').datepicker('hide');
+$('.datepicker').datepicker('hide');
 ```
 
 ### update
 
-Arguments: None
+Arguments:
 
-Update the datepicker with the current input value.
+* date (String|Date)
+
+Update the datepicker with given argument or the current input value.
 
 ```javascript
-$('#datepicker').datepicker('update');
+$('.datepicker').datepicker('update');
 ```
 
 ### setStartDate
@@ -294,14 +303,14 @@ Arguments:
 Sets a new lower date limit on the datepicker.
 
 ```javascript
-$('#datepicker').datepicker('setStartDate', '2012-01-01');
+$('.datepicker').datepicker('setStartDate', '2012-01-01');
 ```
 
 Omit startDate (or provide an otherwise falsey value) to unset the limit.
 
 ```javascript
-$('#datepicker').datepicker('setStartDate');
-$('#datepicker').datepicker('setStartDate', null);
+$('.datepicker').datepicker('setStartDate');
+$('.datepicker').datepicker('setStartDate', null);
 ```
 
 ### setEndDate
@@ -313,14 +322,14 @@ Arguments:
 Sets a new upper date limit on the datepicker.
 
 ```javascript
-$('#datepicker').datepicker('setEndDate', '2012-12-31');
+$('.datepicker').datepicker('setEndDate', '2012-12-31');
 ```
 
 Omit endDate (or provide an otherwise falsey value) to unset the limit.
 
 ```javascript
-$('#datepicker').datepicker('setEndDate');
-$('#datepicker').datepicker('setEndDate', null);
+$('.datepicker').datepicker('setEndDate');
+$('.datepicker').datepicker('setEndDate', null);
 ```
 
 ### setDaysOfWeekDisabled
@@ -332,14 +341,14 @@ Arguments:
 Sets the days of week that should be disabled.
 
 ```javascript
-$('#datepicker').datepicker('setDaysOfWeekDisabled', [0,6]);
+$('.datepicker').datepicker('setDaysOfWeekDisabled', [0,6]);
 ```
 
 Omit daysOfWeekDisabled (or provide an otherwise falsey value) to unset the disabled days.
 
 ```javascript
-$('#datepicker').datepicker('setDaysOfWeekDisabled');
-$('#datepicker').datepicker('setDaysOfWeekDisabled', null);
+$('.datepicker').datepicker('setDaysOfWeekDisabled');
+$('.datepicker').datepicker('setDaysOfWeekDisabled', null);
 ```
 
 ## Events
@@ -421,16 +430,24 @@ If your browser (or those of your users) is displaying characters wrong, chances
 <script type="text/javascript" src="bootstrap-datepicker.XX.js" charset="UTF-8"></script>
 ```
 
+```javascript
+$('.datepicker').datepicker({
+    language: XX    //as you defined in bootstrap-datepicker.XX.js
+});
+```
+
 # Backends
 
 Bootstrap-datepicker supports a generic backend interface for manipulating Date objects.  The default backend performs these operations manually, but if you are using a third-party Date library, it may be more efficient to use a backend that interfaces with that library instead.
 
 To create a backend, simply call the `setBackend` function with an object which provides the required functions:
 
-    $.fn.datepicker.setBackend({
-        name: 'my_backend',
-        // required functions
-    });
+```javascript
+$.fn.datepicker.setBackend({
+    name: 'my_backend',
+    // required functions
+});
+```
 
 ## Required functions
 
