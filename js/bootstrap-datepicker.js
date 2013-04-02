@@ -855,7 +855,8 @@
 		}
 	};
 
-	var DateRangePicker = function(options){
+	var DateRangePicker = function(element, options){
+		this.element = $(element);
 		this.inputs = $.map(options.inputs, function(i){ return i.jquery ? i[0] : i; });
 
 		$(this.inputs)
@@ -896,6 +897,10 @@
 				}
 			}
 			this.updateDates();
+		},
+		remove: function(){
+			$.map(this.pickers, function(p){ p.remove(); });
+			delete this.element.data().datepicker;
 		}
 	};
 
@@ -911,7 +916,7 @@
 					var opts = {
 						inputs: $this.find('input').toArray()
 					};
-					$this.data('datepicker', (data = new DateRangePicker($.extend(opts, $.fn.datepicker.defaults,options))));
+					$this.data('datepicker', (data = new DateRangePicker(this, $.extend(opts, $.fn.datepicker.defaults,options))));
 				}
 				else{
 					$this.data('datepicker', (data = new Datepicker(this, $.extend({}, $.fn.datepicker.defaults,options))));
