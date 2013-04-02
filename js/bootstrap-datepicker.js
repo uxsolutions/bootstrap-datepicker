@@ -41,12 +41,10 @@
 		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||dates[this.language].format||'mm/dd/yyyy');
 		this.isInline = false;
 		this.isInput = this.element.is('input');
-		this.component = this.element.is('.date') ? this.element.find('.add-on') : false;
+		this.component = this.element.is('.date') ? this.element.find('.add-on, .btn') : false;
 		this.hasInput = this.component && this.element.find('input').length;
 		if(this.component && this.component.length === 0)
 			this.component = false;
-
-		this._attachEvents();
 
 		this.forceParse = true;
 		if ('forceParse' in options) {
@@ -55,16 +53,12 @@
 			this.forceParse = this.element.data('date-force-parse');
 		}
 
-
-		this.picker = $(DPGlobal.template)
-							.appendTo(this.isInline ? this.element : 'body')
-							.on({
-								click: $.proxy(this.click, this),
-								mousedown: $.proxy(this.mousedown, this)
-							});
+		this.picker = $(DPGlobal.template);
+		this._buildEvents();
+		this._attachEvents();
 
 		if(this.isInline) {
-			this.picker.addClass('datepicker-inline');
+			this.picker.addClass('datepicker-inline').appendTo(this.element);
 		} else {
 			this.picker.addClass('datepicker-dropdown dropdown-menu');
 		}
@@ -73,12 +67,6 @@
 			this.picker.find('.prev i, .next i')
 						.toggleClass('icon-arrow-left icon-arrow-right');
 		}
-		$(document).on('mousedown', function (e) {
-			// Clicked outside the datepicker, hide it
-			if ($(e.target).closest('.datepicker.datepicker-inline, .datepicker.datepicker-dropdown').length === 0) {
-				that.hide();
-			}
-		});
 
 		this.autoclose = false;
 		if ('autoclose' in options) {
@@ -138,6 +126,8 @@
 							return parseInt(val) + 1;
 						});
 
+		this._allow_update = false;
+
 		this.weekStart = ((options.weekStart||this.element.data('date-weekstart')||dates[this.language].weekStart||0) % 7);
 		this.weekEnd = ((this.weekStart + 6) % 7);
 		this.startDate = -Infinity;
@@ -149,6 +139,9 @@
 		this.fillDow();
 		this.fillMonths();
 		this.setRange(options.range);
+
+		this._allow_update = true;
+
 		this.update();
 		this.showMode();
 
@@ -161,8 +154,22 @@
 		constructor: Datepicker,
 
 		_events: [],
-		_attachEvents: function(){
-			this._detachEvents();
+		_secondaryEvents: [],
+		_applyEvents: function(evs){
+			for (var i=0, el, ev; i<evs.length; i++){
+				el = evs[i][0];
+				ev = evs[i][1];
+				el.on(ev);
+			}
+		},
+		_unapplyEvents: function(evs){
+			for (var i=0, el, ev; i<evs.length; i++){
+				el = evs[i][0];
+				ev = evs[i][1];
+				el.off(ev);
+			}
+		},
+		_buildEvents: function(){
 			if (this.isInput) { // single input
 				this._events = [
 					[this.element, {
@@ -185,9 +192,9 @@
 					}]
 				];
 			}
-						else if (this.element.is('div')) {  // inline datepicker
-							this.isInline = true;
-						}
+			else if (this.element.is('div')) {  // inline datepicker
+				this.isInline = true;
+			}
 			else {
 				this._events = [
 					[this.element, {
@@ -195,29 +202,47 @@
 					}]
 				];
 			}
-			for (var i=0, el, ev; i<this._events.length; i++){
-				el = this._events[i][0];
-				ev = this._events[i][1];
-				el.on(ev);
-			}
+
+			this._secondaryEvents = [
+				[this.picker, {
+					click: $.proxy(this.click, this)
+				}],
+				[$(window), {
+					resize: $.proxy(this.place, this)
+				}],
+				[$(document), {
+					mousedown: $.proxy(function (e) {
+						// Clicked outside the datepicker, hide it
+						if ($(e.target).closest('.datepicker.datepicker-inline, .datepicker.datepicker-dropdown').length === 0) {
+							this.hide();
+						}
+					}, this)
+				}]
+			];
+		},
+		_attachEvents: function(){
+			this._detachEvents();
+			this._applyEvents(this._events);
 		},
 		_detachEvents: function(){
-			for (var i=0, el, ev; i<this._events.length; i++){
-				el = this._events[i][0];
-				ev = this._events[i][1];
-				el.off(ev);
-			}
-			this._events = [];
+			this._unapplyEvents(this._events);
+		},
+		_attachSecondaryEvents: function(){
+			this._detachSecondaryEvents();
+			this._applyEvents(this._secondaryEvents);
+		},
+		_detachSecondaryEvents: function(){
+			this._unapplyEvents(this._secondaryEvents);
 		},
 
 		show: function(e) {
+			if (!this.isInline)
+				this.picker.appendTo('body');
 			this.picker.show();
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
-			this.update();
 			this.place();
-			$(window).on('resize', $.proxy(this.place, this));
-			if (e ) {
-				e.stopPropagation();
+			this._attachSecondaryEvents();
+			if (e) {
 				e.preventDefault();
 			}
 			this.element.trigger({
@@ -229,13 +254,10 @@
 		hide: function(e){
 			if(this.isInline) return;
 			if (!this.picker.is(':visible')) return;
-			this.picker.hide();
-			$(window).off('resize', this.place);
+			this.picker.hide().detach();
+			this._detachSecondaryEvents();
 			this.viewMode = this.startViewMode;
 			this.showMode();
-			if (!this.isInput) {
-				$(document).off('mousedown', this.hide);
-			}
 
 			if (
 				this.forceParse &&
@@ -252,9 +274,14 @@
 		},
 
 		remove: function() {
+			this.hide();
 			this._detachEvents();
+			this._detachSecondaryEvents();
 			this.picker.remove();
 			delete this.element.data().datepicker;
+			if (!this.isInput) {
+				delete this.element.data().date;
+			}
 		},
 
 		getDate: function() {
@@ -277,7 +304,6 @@
 
 		setValue: function() {
 			var formatted = this.getFormattedDate();
-
 			if (!this.isInput) {
 				if (this.component){
 					this.element.find('input').val(formatted);
@@ -329,7 +355,7 @@
 			var zIndex = parseInt(this.element.parents().filter(function() {
 							return $(this).css('z-index') != 'auto';
 						}).first().css('z-index'))+10;
-			var offset = this.component ? this.component.offset() : this.element.offset();
+			var offset = this.component ? this.component.parent().offset() : this.element.offset();
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(true);
 			this.picker.css({
 				top: offset.top + height,
@@ -338,7 +364,10 @@
 			});
 		},
 
+		_allow_update: true,
 		update: function(){
+			if (!this._allow_update) return;
+
 			var date, fromArgs = false;
 			if(arguments && arguments.length && (typeof arguments[0] === 'string' || arguments[0] instanceof Date)) {
 				date = arguments[0];
@@ -518,6 +547,8 @@
 		},
 
 		updateNavArrows: function() {
+			if (!this._allow_update) return;
+
 			var d = new Date(this.viewDate),
 				year = d.getUTCFullYear(),
 				month = d.getUTCMonth();
@@ -551,7 +582,6 @@
 		},
 
 		click: function(e) {
-			e.stopPropagation();
 			e.preventDefault();
 			var target = $(e.target).closest('span, td, th');
 			if (target.length == 1) {
@@ -879,8 +909,8 @@
 			if (!data) {
 				if ($this.is('.input-daterange')){
 					var opts = {
-							inputs: $this.find('input').toArray()
-						};
+						inputs: $this.find('input').toArray()
+					};
 					$this.data('datepicker', (data = new DateRangePicker($.extend(opts, $.fn.datepicker.defaults,options))));
 				}
 				else{
