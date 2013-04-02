@@ -107,6 +107,14 @@
 			background:@grayLighter;
 			.border-radius(0);
 		}
+		&.range.today,
+		&.range.today:hover,
+		&.range.today.disabled,
+		&.range.today.disabled:hover {
+			@todayBackground: mix(@orange, @grayLighter);
+			.buttonBackground(@todayBackground, spin(@todayBackground, 20));
+			.border-radius(0);
+		}
 		&.selected,
 		&.selected:hover,
 		&.selected.disabled,
