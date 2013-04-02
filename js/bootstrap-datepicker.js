@@ -398,19 +398,24 @@
 				year = this.viewDate.getUTCFullYear(),
 				month = this.viewDate.getUTCMonth(),
 				currentDate = this.date.valueOf(),
-				today = UTCToday().valueOf();
-			if (date.getUTCFullYear() < year || (date.getUTCFullYear() == year && date.getMonth() < month)) {
+				today = new Date();
+			if (date.getUTCFullYear() < year || (date.getUTCFullYear() == year && date.getUTCMonth() < month)) {
 				cls.push('old');
 			} else if (date.getUTCFullYear() > year || (date.getUTCFullYear() == year && date.getUTCMonth() > month)) {
 				cls.push('new');
 			}
-			if (date.valueOf() == today && this.todayHighlight) {
+			// Compare internal UTC date with local today, not UTC today
+			if (this.todayHighlight &&
+				date.getUTCFullYear() == today.getFullYear() &&
+				date.getUTCMonth() == today.getMonth() &&
+				date.getUTCDate() == today.getDate()) {
 				cls.push('today');
 			}
-			if (date.valueOf() == currentDate) {
+			if (currentDate && date.valueOf() == currentDate) {
 				cls.push('active');
 			}
-			if (date.valueOf() < this.startDate || date.valueOf() > this.endDate) {
+			if (date.valueOf() < this.startDate || date.valueOf() > this.endDate ||
+				$.inArray(date.getUTCDay(), this.daysOfWeekDisabled) !== -1) {
 				cls.push('disabled');
 			}
 			if (this.range){
@@ -432,8 +437,7 @@
 				startMonth = this.startDate !== -Infinity ? this.startDate.getUTCMonth() : -Infinity,
 				endYear = this.endDate !== Infinity ? this.endDate.getUTCFullYear() : Infinity,
 				endMonth = this.endDate !== Infinity ? this.endDate.getUTCMonth() : Infinity,
-				currentDate = this.date && this.date.valueOf(),
-				today = new Date();
+				currentDate = this.date && this.date.valueOf();
 			this.picker.find('.datepicker-days thead th.switch')
 						.text(dates[this.language].months[month]+' '+year);
 			this.picker.find('tfoot th.today')
@@ -469,27 +473,9 @@
 
 					}
 				}
-				clsName = '';
-				if (prevMonth.getUTCFullYear() < year || (prevMonth.getUTCFullYear() == year && prevMonth.getUTCMonth() < month)) {
-					clsName += ' old';
-				} else if (prevMonth.getUTCFullYear() > year || (prevMonth.getUTCFullYear() == year && prevMonth.getUTCMonth() > month)) {
-					clsName += ' new';
-				}
-				// Compare internal UTC date with local today, not UTC today
-				if (this.todayHighlight &&
-					prevMonth.getUTCFullYear() == today.getFullYear() &&
-					prevMonth.getUTCMonth() == today.getMonth() &&
-					prevMonth.getUTCDate() == today.getDate()) {
-					clsName += ' today';
-				}
-				if (currentDate && prevMonth.valueOf() == currentDate) {
-					clsName += ' active';
-				}
-				if (prevMonth.valueOf() < this.startDate || prevMonth.valueOf() > this.endDate ||
-					$.inArray(prevMonth.getUTCDay(), this.daysOfWeekDisabled) !== -1) {
-					clsName += ' disabled';
-				}
-				html.push('<td class="day'+clsName+'">'+prevMonth.getUTCDate() + '</td>');
+				clsName = this.getClassNames(prevMonth);
+				clsName.push('day');
+				html.push('<td class="'+clsName.join(' ')+'">'+prevMonth.getUTCDate() + '</td>');
 				if (prevMonth.getUTCDay() == this.weekEnd) {
 					html.push('</tr>');
 				}
