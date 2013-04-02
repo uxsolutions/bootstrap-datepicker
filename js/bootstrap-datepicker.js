@@ -858,6 +858,7 @@
 	var DateRangePicker = function(element, options){
 		this.element = $(element);
 		this.inputs = $.map(options.inputs, function(i){ return i.jquery ? i[0] : i; });
+		delete options.inputs;
 
 		$(this.inputs)
 			.datepicker(options)
@@ -912,9 +913,9 @@
 				data = $this.data('datepicker'),
 				options = typeof option == 'object' && option;
 			if (!data) {
-				if ($this.is('.input-daterange')){
+				if ($this.is('.input-daterange') || options.inputs){
 					var opts = {
-						inputs: $this.find('input').toArray()
+						inputs: options.inputs || $this.find('input').toArray()
 					};
 					$this.data('datepicker', (data = new DateRangePicker(this, $.extend(opts, $.fn.datepicker.defaults,options))));
 				}
