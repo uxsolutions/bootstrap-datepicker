@@ -855,7 +855,7 @@
 
 			if (new_date < this.dates[i]){
 				// Date being moved earlier/left
-				while (i && new_date < this.dates[i]){
+				while (i>=0 && new_date < this.dates[i]){
 					this.pickers[i--].setUTCDate(new_date);
 				}
 			}
