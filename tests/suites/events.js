@@ -21,7 +21,7 @@ test('Selecting a year from decade view triggers pickYear', function(){
     });
 
     equal(this.dp.viewMode, 0);
-    target = this.picker.find('.datepicker-days thead th.switch');
+    target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     ok(target.is(':visible'), 'View switcher is visible');
 
     target.click();
@@ -31,7 +31,7 @@ test('Selecting a year from decade view triggers pickYear', function(){
     datesEqual(this.dp.viewDate, UTCDate(2011, 2, 31));
     datesEqual(this.dp.date, UTCDate(2011, 2, 31));
 
-    target = this.picker.find('.datepicker-months thead th.switch');
+    target = this.picker.find('.datepicker-months thead th.datepicker-switch');
     ok(target.is(':visible'), 'View switcher is visible');
 
     target.click();
@@ -60,7 +60,7 @@ test('Selecting a month from year view triggers pickMonth', function(){
     });
 
     equal(this.dp.viewMode, 0);
-    target = this.picker.find('.datepicker-days thead th.switch');
+    target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     ok(target.is(':visible'), 'View switcher is visible');
 
     target.click();
