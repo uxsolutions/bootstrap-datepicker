@@ -132,6 +132,23 @@ A standalone .css file (including necessary dropdown styles and alternative, tex
 $ lessc build/build_standalone.less datepicker.css
 ```
 
+## Data API
+
+As with bootstrap's own plugins, datepicker provides a data-api that can be used to instantiate datepickers without the need for custom javascript.  For most datepickers, simply set `data-provide="datepicker"` on the element you want to initialize, and it will be intialized lazily, in true bootstrap fashion.  For inline datepickers, this can alternatively be `data-provide="datepicker-inline"`; these will be immediately initialized on page load, and cannot be lazily loaded.
+
+You can disable datepicker's data-api in the same way as you would disable other bootstrap plugins:
+
+```javascript
+$(document).off('.datepicker.data-api');
+```
+
+## No Conflict
+
+```javascript
+var datepicker = $.fn.datepicker.noConflict(); // return $.fn.datepicker to previously assigned value
+$.fn.bootstrapDP = datepicker;                 // give $().bootstrapDP the bootstrap-datepicker functionality
+```
+
 ## Options
 
 All options that take a "Date" can handle a `Date` object; a String formatted according to the given `format`; or a timedelta relative to today, eg '-1d', '+6m +1y', etc, where valid units are 'd' (day), 'w' (week), 'm' (month), and 'y' (year).
