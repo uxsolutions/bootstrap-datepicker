@@ -283,3 +283,11 @@ test('DaysOfWeekDisabled', function(){
     target = picker.find('.datepicker-days tbody td:nth(26)');
     ok(target.hasClass('disabled'), 'Day of week is disabled');
 });
+
+test('DATA-API: data-provide="datepicker"', function(){
+    var input = $('<input data-provide="datepicker" />')
+                .appendTo('#qunit-fixture');
+        input.focus();
+        ok(input.data('datepicker'), 'datepicker is initialized by "focus" event');
+});
+
