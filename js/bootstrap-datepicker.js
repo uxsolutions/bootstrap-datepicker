@@ -1128,23 +1128,24 @@
 
 	$.fn.datepicker.DPGlobal = DPGlobal;
 
+
 	/* DATEPICKER NO CONFLICT
 	* =================== */
 
-	$.fn.datepicker.noConflict = function () {
+	$.fn.datepicker.noConflict = function(){
 		$.fn.datepicker = old;
 		return this;
-	}
+	};
 
 
 	/* DATEPICKER DATA-API
 	* ================== */
 
-	$(document).on('focus.datepicker.data-api', '[data-provide="datepicker"]', function (e) {
+	$(document).on('focus.datepicker.data-api', '[data-provide="datepicker"]', function(e){
 		var $this = $(this);
 		if ($this.data('datepicker')) return;
 		e.preventDefault();
 		$this.datepicker($this.data());
-	})
+	});
 
 }( window.jQuery );
