@@ -159,8 +159,21 @@ test('Selecting date resets viewDate and date', function(){
 test('"remove" removes associated HTML', function(){
     var datepickerDivSelector = '.datepicker';
 
+    $('#datepicker').datepicker('show');
+
     //there should be one datepicker initiated so that means one hidden .datepicker div
     equal($(datepickerDivSelector).length, 1);
     this.component.datepicker('remove');
     equal($(datepickerDivSelector).length, 0);//hidden HTML should be gone
+});
+
+test('Does not block events', function(){
+    var clicks = 0;
+    function handler(){
+        clicks++;
+    }
+    $('#qunit-fixture').on('click', '.add-on', handler);
+    this.addon.click();
+    equal(clicks, 1);
+    $('#qunit-fixture').off('click', '.add-on', handler);
 });

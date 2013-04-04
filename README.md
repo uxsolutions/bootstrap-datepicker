@@ -41,8 +41,7 @@ As component:
 
 ```html
 <div class="input-append date datepicker" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-    <input size="16" type="text" value="12-02-2012" readonly>
-    <span class="add-on"><i class="icon-th"></i></span>
+    <input size="16" type="text" value="12-02-2012" readonly><span class="add-on"><i class="icon-th"></i></span>
 </div>
 ```
 ```javascript
@@ -228,14 +227,29 @@ Boolean.  Default: true
 
 Whether or not to force parsing of the input value when the picker is closed.  That is, when an invalid date is left in the input field by the user, the picker will forcibly parse that value, and set the input's value to the new, valid date, conforming to the given `format`.
 
+### inputs
+
+Array.  Default: None
+
+A list of inputs to be used in a range picker, which will be attached to the selected element.  Allows for explicitly creating a range picker on a non-standard element.
+
 ## Markup
 
 Format a component.
 
 ```html
 <div class="input-append date datepicker" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-    <input class="span2" size="16" type="text" value="12-02-2012">
-    <span class="add-on"><i class="icon-th"></i></span>
+    <input class="span2" size="16" type="text" value="12-02-2012"><span class="add-on"><i class="icon-th"></i></span>
+</div>
+```
+
+Create a date-range picker:
+
+```html
+<div class="input-daterange" id="datepicker">
+    <input class="input-small" name="start" value="2012-04-05" />
+    <span class="add-on">to</span>
+    <input class="input-small" name="end" value="2012-04-07" />
 </div>
 ```
 
