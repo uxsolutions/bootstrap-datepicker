@@ -13,7 +13,7 @@ Versions are incremented according to [semver](http://semver.org/).
 * [Bootstrap](http://twitter.github.com/bootstrap/) 2.0.4+
 * [jQuery](http://jquery.com/) 1.7.1+
 
-These are the specific versions bootstrap-datpicker is tested against (`js` files) and built against (`css` files).  Use other versions at your own risk.
+These are the specific versions bootstrap-datepicker is tested against (`js` files) and built against (`css` files).  Use other versions at your own risk.
 
 # Example
 
