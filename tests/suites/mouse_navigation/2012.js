@@ -74,7 +74,7 @@ test('Navigating to/from year view', function(){
     var target;
 
     equal(this.dp.viewMode, 0);
-    target = this.picker.find('.datepicker-days thead th.switch');
+    target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     ok(target.is(':visible'), 'View switcher is visible');
 
     target.click();
@@ -97,7 +97,7 @@ test('Navigating to/from decade view', function(){
     var target;
 
     equal(this.dp.viewMode, 0);
-    target = this.picker.find('.datepicker-days thead th.switch');
+    target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     ok(target.is(':visible'), 'View switcher is visible');
 
     target.click();
@@ -107,7 +107,7 @@ test('Navigating to/from decade view', function(){
     datesEqual(this.dp.viewDate, UTCDate(2012, 2, 31));
     datesEqual(this.dp.date, UTCDate(2012, 2, 31));
 
-    target = this.picker.find('.datepicker-months thead th.switch');
+    target = this.picker.find('.datepicker-months thead th.datepicker-switch');
     ok(target.is(':visible'), 'View switcher is visible');
 
     target.click();
@@ -137,13 +137,13 @@ test('Navigating prev/next in year view', function(){
     var target;
 
     equal(this.dp.viewMode, 0);
-    target = this.picker.find('.datepicker-days thead th.switch');
+    target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     ok(target.is(':visible'), 'View switcher is visible');
 
     target.click();
     ok(this.picker.find('.datepicker-months').is(':visible'), 'Month picker is visible');
     equal(this.dp.viewMode, 1);
-    equal(this.picker.find('.datepicker-months thead th.switch').text(), '2012');
+    equal(this.picker.find('.datepicker-months thead th.datepicker-switch').text(), '2012');
     // Not modified when switching modes
     datesEqual(this.dp.viewDate, UTCDate(2012, 2, 31));
     datesEqual(this.dp.date, UTCDate(2012, 2, 31));
@@ -151,7 +151,7 @@ test('Navigating prev/next in year view', function(){
     // Go to next year (2013)
     target = this.picker.find('.datepicker-months thead th.next');
     target.click();
-    equal(this.picker.find('.datepicker-months thead th.switch').text(), '2013');
+    equal(this.picker.find('.datepicker-months thead th.datepicker-switch').text(), '2013');
     // Only viewDate modified
     datesEqual(this.dp.viewDate, UTCDate(2013, 2, 31));
     datesEqual(this.dp.date, UTCDate(2012, 2, 31));
@@ -159,7 +159,7 @@ test('Navigating prev/next in year view', function(){
     // Go to prev year (x2 == 2011)
     target = this.picker.find('.datepicker-months thead th.prev');
     target.click().click();
-    equal(this.picker.find('.datepicker-months thead th.switch').text(), '2011');
+    equal(this.picker.find('.datepicker-months thead th.datepicker-switch').text(), '2011');
     // Only viewDate modified
     datesEqual(this.dp.viewDate, UTCDate(2011, 2, 31));
     datesEqual(this.dp.date, UTCDate(2012, 2, 31));
@@ -169,7 +169,7 @@ test('Navigating prev/next in decade view', function(){
     var target;
 
     equal(this.dp.viewMode, 0);
-    target = this.picker.find('.datepicker-days thead th.switch');
+    target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     ok(target.is(':visible'), 'View switcher is visible');
 
     target.click();
@@ -179,13 +179,13 @@ test('Navigating prev/next in decade view', function(){
     datesEqual(this.dp.viewDate, UTCDate(2012, 2, 31));
     datesEqual(this.dp.date, UTCDate(2012, 2, 31));
 
-    target = this.picker.find('.datepicker-months thead th.switch');
+    target = this.picker.find('.datepicker-months thead th.datepicker-switch');
     ok(target.is(':visible'), 'View switcher is visible');
 
     target.click();
     ok(this.picker.find('.datepicker-years').is(':visible'), 'Year picker is visible');
     equal(this.dp.viewMode, 2);
-    equal(this.picker.find('.datepicker-years thead th.switch').text(), '2010-2019');
+    equal(this.picker.find('.datepicker-years thead th.datepicker-switch').text(), '2010-2019');
     // Not modified when switching modes
     datesEqual(this.dp.viewDate, UTCDate(2012, 2, 31));
     datesEqual(this.dp.date, UTCDate(2012, 2, 31));
@@ -193,7 +193,7 @@ test('Navigating prev/next in decade view', function(){
     // Go to next decade (2020-29)
     target = this.picker.find('.datepicker-years thead th.next');
     target.click();
-    equal(this.picker.find('.datepicker-years thead th.switch').text(), '2020-2029');
+    equal(this.picker.find('.datepicker-years thead th.datepicker-switch').text(), '2020-2029');
     // Only viewDate modified
     datesEqual(this.dp.viewDate, UTCDate(2022, 2, 31));
     datesEqual(this.dp.date, UTCDate(2012, 2, 31));
@@ -201,7 +201,7 @@ test('Navigating prev/next in decade view', function(){
     // Go to prev year (x2 == 2000-09)
     target = this.picker.find('.datepicker-years thead th.prev');
     target.click().click();
-    equal(this.picker.find('.datepicker-years thead th.switch').text(), '2000-2009');
+    equal(this.picker.find('.datepicker-years thead th.datepicker-switch').text(), '2000-2009');
     // Only viewDate modified
     datesEqual(this.dp.viewDate, UTCDate(2002, 2, 31));
     datesEqual(this.dp.date, UTCDate(2012, 2, 31));
@@ -214,11 +214,11 @@ test('Selecting date from previous month resets viewDate and date, changing mont
     equal(this.dp.viewMode, 0);
     target = this.picker.find('.datepicker-days tbody td:first');
     equal(target.text(), '26'); // Should be Feb 26
-    equal(this.picker.find('.datepicker-days thead th.switch').text(), 'March 2012');
+    equal(this.picker.find('.datepicker-days thead th.datepicker-switch').text(), 'March 2012');
 
     // Updated internally on click
     target.click();
-    equal(this.picker.find('.datepicker-days thead th.switch').text(), 'February 2012');
+    equal(this.picker.find('.datepicker-days thead th.datepicker-switch').text(), 'February 2012');
     datesEqual(this.dp.viewDate, UTCDate(2012, 1, 26))
     datesEqual(this.dp.date, UTCDate(2012, 1, 26))
 
@@ -237,11 +237,11 @@ test('Selecting date from next month resets viewDate and date, changing month di
     equal(this.dp.viewMode, 0);
     target = this.picker.find('.datepicker-days tbody td:last');
     equal(target.text(), '5'); // Should be May 5
-    equal(this.picker.find('.datepicker-days thead th.switch').text(), 'April 2012');
+    equal(this.picker.find('.datepicker-days thead th.datepicker-switch').text(), 'April 2012');
 
     // Updated internally on click
     target.click();
-    equal(this.picker.find('.datepicker-days thead th.switch').text(), 'May 2012');
+    equal(this.picker.find('.datepicker-days thead th.datepicker-switch').text(), 'May 2012');
     datesEqual(this.dp.viewDate, UTCDate(2012, 4, 5))
     datesEqual(this.dp.date, UTCDate(2012, 4, 5))
 

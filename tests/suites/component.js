@@ -35,7 +35,7 @@ test('simple keyboard nav test', function(){
     this.input.removeAttr('readonly');
 
     equal(this.dp.viewMode, 0);
-    target = this.picker.find('.datepicker-days thead th.switch');
+    target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     equal(target.text(), 'February 2012', 'Title is "February 2012"');
     datesEqual(this.dp.date, UTCDate(2012, 1, 12));
     datesEqual(this.dp.viewDate, UTCDate(2012, 1, 12));
@@ -51,7 +51,7 @@ test('simple keyboard nav test', function(){
     datesEqual(this.dp.viewDate, UTCDate(2012, 1, 11));
     datesEqual(this.dp.date, UTCDate(2012, 1, 11));
     // Month not changed
-    target = this.picker.find('.datepicker-days thead th.switch');
+    target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     equal(target.text(), 'February 2012', 'Title is "February 2012"');
 
     // Navigation: +1 month, shift + right arrow key
@@ -62,7 +62,7 @@ test('simple keyboard nav test', function(){
     });
     datesEqual(this.dp.viewDate, UTCDate(2012, 2, 11));
     datesEqual(this.dp.date, UTCDate(2012, 2, 11));
-    target = this.picker.find('.datepicker-days thead th.switch');
+    target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     equal(target.text(), 'March 2012', 'Title is "March 2012"');
 
     // Navigation: -1 year, ctrl + left arrow key
@@ -73,7 +73,7 @@ test('simple keyboard nav test', function(){
     });
     datesEqual(this.dp.viewDate, UTCDate(2011, 2, 11));
     datesEqual(this.dp.date, UTCDate(2011, 2, 11));
-    target = this.picker.find('.datepicker-days thead th.switch');
+    target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     equal(target.text(), 'March 2011', 'Title is "March 2011"');
 });
 
@@ -98,7 +98,7 @@ test('Navigating to/from decade view', function(){
     this.dp.update();
 
     equal(this.dp.viewMode, 0);
-    target = this.picker.find('.datepicker-days thead th.switch');
+    target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     ok(target.is(':visible'), 'View switcher is visible');
 
     target.click();
@@ -108,7 +108,7 @@ test('Navigating to/from decade view', function(){
     datesEqual(this.dp.viewDate, UTCDate(2012, 2, 31));
     datesEqual(this.dp.date, UTCDate(2012, 2, 31));
 
-    target = this.picker.find('.datepicker-months thead th.switch');
+    target = this.picker.find('.datepicker-months thead th.datepicker-switch');
     ok(target.is(':visible'), 'View switcher is visible');
 
     target.click();
