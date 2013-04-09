@@ -308,7 +308,6 @@
 				if (this.component){
 					this.element.find('input').val(formatted);
 				}
-				this.element.data('date', formatted);
 			} else {
 				this.element.val(formatted);
 			}
@@ -374,6 +373,7 @@
 				fromArgs = true;
 			} else {
 				date = this.isInput ? this.element.val() : this.element.data('date') || this.element.find('input').val();
+				delete this.element.data().date;
 			}
 
 			this.date = DPGlobal.parseDate(date, this.format, this.language);
