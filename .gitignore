@@ -1,2 +1,4 @@
 instrumented/
 tests/coverage.html
+
+.DS_Store
