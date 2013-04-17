@@ -113,7 +113,7 @@
 		this.startDate = -Infinity;
 		this.endDate = Infinity;
 		this.daysOfWeekDisabled = [];
-		this.beforeShowDay = options.beforeShowDay;
+		this.beforeShowDay = options.beforeShowDay || $.noop;
 		this.setStartDate(options.startDate||this.element.data('date-startdate'));
 		this.setEndDate(options.endDate||this.element.data('date-enddate'));
 		this.setDaysOfWeekDisabled(options.daysOfWeekDisabled||this.element.data('date-days-of-week-disabled'));
@@ -365,7 +365,8 @@
 				endYear = this.endDate !== Infinity ? this.endDate.getUTCFullYear() : Infinity,
 				endMonth = this.endDate !== Infinity ? this.endDate.getUTCMonth() : Infinity,
 				currentDate = this.date && this.date.valueOf(),
-				today = new Date();
+				today = new Date(),
+				tooltip;
 			this.picker.find('.datepicker-days thead th:eq(1)')
 						.text(dates[this.language].months[month]+' '+year);
 			this.picker.find('tfoot th.today')
@@ -407,19 +408,21 @@
 					clsName += ' disabled';
 				}
 
-				if (!!this.beforeShowDay) {
-					var beforeShowDay = this.beforeShowDay(prevMonth);
-					if (!!beforeShowDay) {
-						if (!beforeShowDay[0]) {
-							clsName += ' disabled';
-						}
-						if (!!beforeShowDay[1] && beforeShowDay[1] != '') {
-							clsName += ' ' + beforeShowDay[1];
-						}
-					}
-				}
+				var before = this.beforeShowDay(prevMonth);
+				if (before === undefined)
+					before = {};
+				if (typeof(before) === 'boolean')
+					before = {enabled: before};
+				else if (typeof(before) === 'string')
+					before = {classes: before};
+				if (before.enabled === false)
+					clsName += ' disabled';
+				if (before.classes)
+					clsName += ' ' + before.classes;
+				if (before.tooltip)
+					tooltip = before.tooltip;
 
-				html.push('<td class="day'+clsName+'">'+prevMonth.getUTCDate() + '</td>');
+				html.push('<td class="day'+clsName+'"' + (tooltip ? 'title="'+tooltip+'"' : '') + '>'+prevMonth.getUTCDate() + '</td>');
 				if (prevMonth.getUTCDay() == this.weekEnd) {
 					html.push('</tr>');
 				}
