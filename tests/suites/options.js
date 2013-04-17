@@ -283,3 +283,53 @@ test('DaysOfWeekDisabled', function(){
     target = picker.find('.datepicker-days tbody td:nth(26)');
     ok(target.hasClass('disabled'), 'Day of week is disabled');
 });
+
+test('BeforeShowDay', function(){
+
+    var beforeShowDay = function(date) {
+        var dateTime = UTCDate(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()).getTime();
+        var dateTime25th = UTCDate(2012, 9, 25).getTime();
+        var dateTime26th = UTCDate(2012, 9, 26).getTime();
+        var dateTime27th = UTCDate(2012, 9, 27).getTime();
+        var dateTime28th = UTCDate(2012, 9, 28).getTime();
+
+        if (dateTime == dateTime25th) {
+            return {tooltip: 'A tooltip'};
+        }
+        else if (dateTime == dateTime26th) {
+            return 'test26';
+        }
+        else if (dateTime == dateTime27th) {
+            return {enabled: false, classes:'test27'};
+        }
+        else if (dateTime == dateTime28th) {
+            return false;
+        }
+    };
+
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-10-26')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    beforeShowDay: beforeShowDay
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    target = picker.find('.datepicker-days tbody td:nth(25)');
+    equal(target.attr('title'), 'A tooltip', '25th has tooltip');
+    ok(!target.hasClass('disabled'), '25th is enabled');
+    target = picker.find('.datepicker-days tbody td:nth(26)');
+    ok(target.hasClass('test26'), '26th has test26 class');
+    ok(!target.hasClass('disabled'), '26th is enabled');
+    target = picker.find('.datepicker-days tbody td:nth(27)');
+    ok(target.hasClass('test27'), '27th has test27 class');
+    ok(target.hasClass('disabled'), '27th is disabled');
+    target = picker.find('.datepicker-days tbody td:nth(28)');
+    ok(target.hasClass('disabled'), '28th is disabled');
+    target = picker.find('.datepicker-days tbody td:nth(29)');
+    ok(!target.hasClass('disabled'), '29th is enabled');
+});
