@@ -15,6 +15,7 @@
 @orange:                #f89406;
 @baseLineHeight:        18px;
 
+@borderRadius:     4px;
 // Mixins
 
 // Border Radius
@@ -22,6 +23,13 @@
   -webkit-border-radius: @radius;
      -moz-border-radius: @radius;
           border-radius: @radius;
+}
+
+// Drop shadows
+.box-shadow(@shadow) {
+  -webkit-box-shadow: @shadow;
+     -moz-box-shadow: @shadow;
+          box-shadow: @shadow;
 }
 
 // Button backgrounds
