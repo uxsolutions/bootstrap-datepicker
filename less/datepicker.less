@@ -10,8 +10,9 @@
 
 
 .datepicker {
-	padding: 4px;
-	.border-radius(@borderRadius);
+	padding: 0;
+	.border-radius(4px);
+	border: 0 none;
 	&-inline {
 		width: 220px;
 	}
@@ -41,9 +42,9 @@
 			display: inline-block;
 			border-left:   6px solid transparent;
 			border-right:  6px solid transparent;
-			border-bottom: 6px solid @white;
+			border-bottom: 6px solid #c5c6c6;
 			position: absolute;
-			top: -6px;
+			top: -4px;
 			left: 7px;
 		}
 	}
@@ -87,23 +88,23 @@
 		border-bottom: 1px solid #ccc;
 
 		&:first-child {
-			border-bottom-left-radius: @borderRadius;
+			border-bottom-left-radius: 4px;
 		}
 		&:last-child {
-			border-bottom-right-radius: @borderRadius;
+			border-bottom-right-radius: 4px;
 		}
 	}
-	thead .controls {
+	thead .datepicker-controls {
 		th {
 			border-top: 1px solid #a6a6a6;
 			.buttonBackground(#d0d1d1, #b5b5b5);
 			color: #4d4d4d;
 
 			&:first-child {
-				border-top-left-radius: @borderRadius;
+				border-top-left-radius: 4px;
 			}
 			&:last-child {
-				border-top-right-radius: @borderRadius;
+				border-top-right-radius: 4px;
 			}
 		}
 	}
@@ -111,7 +112,7 @@
 		border-top: 1px solid rgba(255,255,255,0.25);
 		border-bottom: 1px solid #aaa;
 	}
-	tr.week-days th {
+	tr.datepicker-week-days th {
 		font-weight: normal;
 		font-size: 10px;
 		text-transform: uppercase;
@@ -131,7 +132,7 @@
 
 		&.day:hover {
 			cursor: pointer;
-			#gradient > .vertical(#dedede, darken(#dedede, 5));
+			#gradient > .vertical(#dedede, spin(#dedede, 15));
 		}
 		&.old,
 		&.new {
@@ -202,6 +203,14 @@
 		cursor: pointer;
 		&:hover{
 			#gradient > .vertical(lighten(#d0d1d1, 10), lighten(#b5b5b5, 10));
+		}
+		&.arrow-disabled {
+			i { visibility: hidden; }
+
+			&:hover {
+				#gradient > .vertical(#d0d1d1, #b5b5b5);
+				cursor: default;
+			}
 		}
 	}
 	// Basic styling for calendar-week cells
