@@ -226,6 +226,12 @@ Boolean.  Default: false
 
 If true, highlights the current date.
 
+### clearBtn
+
+Boolean.  Default: false
+
+If true, displays a "Clear" button at the bottom of the datepicker to clear the input value. If "autoclose" is also set to true, this button will also close the datepicker.
+
 ### keyboardNavigation
 
 Boolean.  Default: true
