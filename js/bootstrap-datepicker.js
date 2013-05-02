@@ -263,7 +263,8 @@
 			if (
 				this.forceParse &&
 				(
-					this.isInput && this.element.val() ||
+					this.isInput && this.element.val() && 
+					(this.element.val() !== this.element.attr('placeholder')) ||
 					this.hasInput && this.element.find('input').val()
 				)
 			)
@@ -457,8 +458,13 @@
 				}
 			}
 			return cls;
+
 		},
 
+                fillHead: function(month, year) {
+		    var text = dates[this.language].getHeader(month, year);
+		    this.picker.find('.datepicker-days th:eq(1)').text(text);
+		},
 		fill: function() {
 			var d = new Date(this.viewDate),
 				year = d.getUTCFullYear(),
@@ -468,12 +474,14 @@
 				endYear = this.endDate !== Infinity ? this.endDate.getUTCFullYear() : Infinity,
 				endMonth = this.endDate !== Infinity ? this.endDate.getUTCMonth() : Infinity,
 				currentDate = this.date && this.date.valueOf(),
-				tooltip;
+				tooltip,
+                                today = new Date();
 			this.picker.find('.datepicker-days thead th.datepicker-switch')
 						.text(dates[this.language].months[month]+' '+year);
 			this.picker.find('tfoot th.today')
 						.text(dates[this.language].today)
 						.toggle(this.todayBtn !== false);
+		        this.fillHead(month, year);
 			this.updateNavArrows();
 			this.fillMonths();
 			var prevMonth = UTCDate(year, month-1, 28,0,0,0,0),
@@ -950,15 +958,18 @@
 
 	$.fn.datepicker.defaults = {
 	};
-	$.fn.datepicker.Constructor = Datepicker;
+        $.fn.datepicker.Constructor = Datepicker;
 	var dates = $.fn.datepicker.dates = {
 		en: {
 			days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
 			daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
 			daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
 			months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-			monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-			today: "Today"
+		        monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+		        today: "Today", 
+		        getHeader: function(month, year) {
+			    return this.months[month] + ' ' + year; 
+			}
 		}
 	};
 
