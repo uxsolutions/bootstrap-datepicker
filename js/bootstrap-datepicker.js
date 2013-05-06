@@ -383,10 +383,13 @@
 
 			if (this.date < this.startDate) {
 				this.viewDate = new Date(this.startDate);
+				this.date = new Date(this.startDate);
 			} else if (this.date > this.endDate) {
 				this.viewDate = new Date(this.endDate);
+				this.date = new Date(this.endDate);
 			} else {
 				this.viewDate = new Date(this.date);
+				this.date = new Date(this.date);
 			}
 			this.fill();
 		},
