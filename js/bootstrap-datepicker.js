@@ -235,6 +235,21 @@
 		_detachSecondaryEvents: function(){
 			this._unapplyEvents(this._secondaryEvents);
 		},
+		_trigger: function(event, altdate){
+			var date = altdate || this.date;
+			date = new Date(date.getTime() + (date.getTimezoneOffset()*60000));
+
+			this.element.trigger({
+				type: event,
+				date: date,
+				format: $.proxy(function(altformat){
+					var format = this.format;
+					if (altformat)
+						format = DPGlobal.parseFormat(altformat);
+					return DPGlobal.formatDate(date, format, this.language);
+				}, this)
+			});
+		},
 
 		show: function(e) {
 			if (!this.isInline)
@@ -246,10 +261,7 @@
 			if (e) {
 				e.preventDefault();
 			}
-			this.element.trigger({
-				type: 'show',
-				date: this.date
-			});
+			this._trigger('show');
 		},
 
 		hide: function(e){
@@ -268,10 +280,7 @@
 				)
 			)
 				this.setValue();
-			this.element.trigger({
-				type: 'hide',
-				date: this.date
-			});
+			this._trigger('hide');
 		},
 
 		remove: function() {
@@ -641,10 +650,7 @@
 								var month = target.parent().find('span').index(target);
 								var year = this.viewDate.getUTCFullYear();
 								this.viewDate.setUTCMonth(month);
-								this.element.trigger({
-									type: 'changeMonth',
-									date: this.viewDate
-								});
+								this._trigger('changeMonth', this.viewDate);
 								if ( this.minViewMode == 1 ) {
 									this._setDate(UTCDate(year, month, day,0,0,0,0));
 								}
@@ -653,10 +659,7 @@
 								var day = 1;
 								var month = 0;
 								this.viewDate.setUTCFullYear(year);
-								this.element.trigger({
-									type: 'changeYear',
-									date: this.viewDate
-								});
+								this._trigger('changeYear', this.viewDate);
 								if ( this.minViewMode == 2 ) {
 									this._setDate(UTCDate(year, month, day,0,0,0,0));
 								}
@@ -699,10 +702,7 @@
 				this.viewDate = date;
 			this.fill();
 			this.setValue();
-			this.element.trigger({
-				type: 'changeDate',
-				date: this.date
-			});
+			this._trigger('changeDate');
 			var element;
 			if (this.isInput) {
 				element = this.element;
@@ -838,10 +838,7 @@
 					break;
 			}
 			if (dateChanged){
-				this.element.trigger({
-					type: 'changeDate',
-					date: this.date
-				});
+				this._trigger('changeDate');
 				var element;
 				if (this.isInput) {
 					element = this.element;
