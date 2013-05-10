@@ -392,7 +392,17 @@ $('.datepicker').datepicker('setDaysOfWeekDisabled', null);
 
 ## Events
 
-Datepicker class exposes a few events for manipulating the dates.
+Datepicker triggers a number of events in certain circumstances.  All events have extra data attached to the event object that is passed to any event handlers:
+
+```javascript
+$('.datepicker').datepicker()
+    .on(picker_event, function(e){
+        # `e` here contains the extra attributes
+    });
+```
+
+* `date`: the relevant Date object, in local timezone.
+* `format([format])`: a function to make formatting `date` easier.  `format` can be any format string that datepicker supports.  If `format` is not given, the format set on the datepicker will be used.
 
 ### show
 
@@ -405,16 +415,6 @@ Fired when the date picker is hidden.
 ### changeDate
 
 Fired when the date is changed.
-
-```javascript
-$('#date-end')
-    .datepicker()
-    .on('changeDate', function(ev){
-        if (ev.date.valueOf() < date-start-display.valueOf()){
-            ....
-        }
-    });
-```
 
 ### changeYear
 
