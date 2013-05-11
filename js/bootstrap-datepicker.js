@@ -390,6 +390,7 @@
 
 			if(fromArgs) this.setValue();
 
+			var oldViewDate = this.viewDate;
 			if (this.date < this.startDate) {
 				this.viewDate = new Date(this.startDate);
 			} else if (this.date > this.endDate) {
@@ -397,6 +398,13 @@
 			} else {
 				this.viewDate = new Date(this.date);
 			}
+			
+			if (oldViewDate && oldViewDate.getTime() != this.viewDate.getTime()) {
+                this.element.trigger({
+                    type: 'changeDate',
+                    date: this.viewDate
+                });
+            }
 			this.fill();
 		},
 
