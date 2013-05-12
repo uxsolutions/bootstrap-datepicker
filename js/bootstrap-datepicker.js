@@ -358,19 +358,28 @@
 			this.update();
 			this.updateNavArrows();
 		},
-
+		
 		place: function(){
 						if(this.isInline) return;
 			var zIndex = parseInt(this.element.parents().filter(function() {
 							return $(this).css('z-index') != 'auto';
 						}).first().css('z-index'))+10;
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
+			var offset_right = $(window).width() - (offset.left + this.component.parent().outerWidth());
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(true);
-			this.picker.css({
-				top: offset.top + height,
-				left: offset.left,
-				zIndex: zIndex
-			});
+			if (this.isRTL){
+				this.picker.css({
+					top: offset.top + height,
+					right: offset_right,
+					zIndex: zIndex
+				});
+			} else {
+				this.picker.css({
+					top: offset.top + height,
+					left: offset.left,
+					zIndex: zIndex
+				});
+			}
 		},
 
 		_allow_update: true,
