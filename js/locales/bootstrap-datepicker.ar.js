@@ -3,12 +3,12 @@
  * Mohammed Alshehri <alshehri866@gmail.com>
  */
 ;(function($){
-  $.fn.datepicker.dates['en'] = {
-	    days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-	    daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-	    daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
-	    months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-	    monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-	    today: "Today"
+	$.fn.datepicker.dates['ar'] = {
+      		days: ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت", "الأحد"],
+      		daysShort: ["أحد", "اثنين", "ثلاثاء", "أربعاء", "خميس", "جمعة", "سبت", "أحد"],
+      		daysMin: ["أح", "اث", "ثل", "أر", "خم", "جم", "سب", "أح"],
+      		months: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
+      		monthsShort: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
+		today: "اليوم"
 	};
 }(jQuery));
