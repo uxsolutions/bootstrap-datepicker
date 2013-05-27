@@ -236,12 +236,12 @@
 			this._unapplyEvents(this._secondaryEvents);
 		},
 		_trigger: function(event, altdate){
-			var date = altdate || this.date;
-			date = new Date(date.getTime() + (date.getTimezoneOffset()*60000));
+			var date = altdate || this.date,
+				local_date = new Date(date.getTime() + (date.getTimezoneOffset()*60000));
 
 			this.element.trigger({
 				type: event,
-				date: date,
+				date: local_date,
 				format: $.proxy(function(altformat){
 					var format = this.format;
 					if (altformat)
