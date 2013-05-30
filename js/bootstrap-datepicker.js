@@ -114,7 +114,7 @@
 		this.todayBtn = (options.todayBtn||this.element.data('date-today-btn')||false);
 		this.todayHighlight = (options.todayHighlight||this.element.data('date-today-highlight')||false);
 
-		this.clearBtn = (options.clearBtn||false);
+		this.clearBtn = (options.clearBtn||this.element.data('date-clear-btn')||false);
 
 		this.calendarWeeks = false;
 		if ('calendarWeeks' in options) {
