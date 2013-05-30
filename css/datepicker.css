@@ -111,7 +111,7 @@
   border-color: #fdf59a #fdf59a #fbed50;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-  color: #000 !important;
+  color: #000;
 }
 .datepicker table tr td.today:hover,
 .datepicker table tr td.today:hover:hover,
@@ -144,6 +144,9 @@
 .datepicker table tr td.today.disabled.active,
 .datepicker table tr td.today.disabled:hover.active {
   background-color: #fbf069 \9;
+}
+.datepicker table tr td.today:hover {
+  color: #000 !important;
 }
 .datepicker table tr td.range,
 .datepicker table tr td.range:hover,

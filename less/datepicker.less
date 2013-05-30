@@ -98,6 +98,10 @@
 		&.today.disabled:hover {
 			@todayBackground: lighten(@orange, 30%);
 			.buttonBackground(@todayBackground, spin(@todayBackground, 20));
+			color: #000;
+		}
+		&.today:hover {
+			// TODO: Bump min BS to 2.1, use @textColor in buttonBackground above
 			color: #000 !important;
 		}
 		&.range,
