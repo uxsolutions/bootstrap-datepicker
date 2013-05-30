@@ -100,9 +100,12 @@
 			.buttonBackground(@todayBackground, spin(@todayBackground, 20));
 			color: #000;
 		}
-		&.today:hover {
+		&.today:hover:hover { // Thank bootstrap 2.0 for this selector...
 			// TODO: Bump min BS to 2.1, use @textColor in buttonBackground above
-			color: #000 !important;
+			color: #000;
+		}
+		&.today.active:hover {
+			color: #fff;
 		}
 		&.range,
 		&.range:hover,
