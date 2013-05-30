@@ -1108,7 +1108,7 @@
 			val.mm = (val.m < 10 ? '0' : '') + val.m;
 			var date = [],
 				seps = $.extend([], format.separators);
-			for (var i=0, cnt = format.parts.length; i < cnt; i++) {
+			for (var i=0, cnt = format.parts.length; i <= cnt; i++) {
 				if (seps.length)
 					date.push(seps.shift());
 				date.push(val[format.parts[i]]);
