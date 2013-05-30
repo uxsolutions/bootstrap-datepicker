@@ -365,7 +365,7 @@ Returns the internal UTC date object, as-is and unconverted to local time, of th
 
 Arguments:
 
-* startDate (String)
+* startDate (Date)
 
 Sets a new lower date limit on the datepicker.
 
@@ -384,7 +384,7 @@ $('.datepicker').datepicker('setStartDate', null);
 
 Arguments:
 
-* endDate (String)
+* endDate (Date)
 
 Sets a new upper date limit on the datepicker.
 
