@@ -895,7 +895,7 @@
 		},
 		dateUpdated: function(e){
 			var dp = $(e.target).data('datepicker'),
-				new_date = e.date,
+				new_date = dp.getUTCDate(),
 				i = $.inArray(e.target, this.inputs),
 				l = this.inputs.length;
 			if (i == -1) return;
