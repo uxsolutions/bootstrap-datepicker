@@ -145,6 +145,9 @@
 .datepicker table tr td.today.disabled:hover.active {
   background-color: #fbf069 \9;
 }
+.datepicker table tr td.today:hover {
+  color: #000 !important;
+}
 .datepicker table tr td.active,
 .datepicker table tr td.active:hover,
 .datepicker table tr td.active.disabled,
