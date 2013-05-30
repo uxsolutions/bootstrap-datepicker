@@ -637,7 +637,11 @@
 								this._setDate(date, which);
 								break;
 							case 'clear':
-								this.element.val("");
+								if (this.isInput)
+									this.element.val("");
+								else
+									this.element.find('input').val("");
+								this.update();
 								if (this.autoclose)
 									this.hide();
 								break;
