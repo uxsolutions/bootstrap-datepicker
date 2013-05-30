@@ -262,6 +262,79 @@ test('Today Highlight: today\'s date is highlighted when not active', patch_date
         ok(!target.hasClass('today'), 'Tomorrow is not marked with "today" class');
 }));
 
+test('Clear Button: clear visibility when enabled', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    clearBtn: true
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+        input.focus();
+        ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
+        ok(picker.find('.datepicker-days tfoot .clear').is(':visible'), 'Clear button visible');
+
+        picker.find('.datepicker-days thead th.datepicker-switch').click();
+        ok(picker.find('.datepicker-months').is(':visible'), 'Months view visible');
+        ok(picker.find('.datepicker-months tfoot .clear').is(':visible'), 'Clear button visible');
+
+        picker.find('.datepicker-months thead th.datepicker-switch').click();
+        ok(picker.find('.datepicker-years').is(':visible'), 'Years view visible');
+        ok(picker.find('.datepicker-years tfoot .clear').is(':visible'), 'Clear button visible');
+});
+
+test('Clear Button: clears input value', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    clearBtn: true
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+        input.focus();
+        ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
+        ok(picker.find('.datepicker-days tfoot .clear').is(':visible'), 'Today button visible');
+
+        target = picker.find('.datepicker-days tfoot .clear');
+        target.click();
+
+        equal(input.val(),'',"Input value has been cleared.")
+        ok(picker.is(':visible'), 'Picker is visible');
+});
+
+test('Clear Button: hides datepicker if autoclose is on', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    clearBtn: true,
+                    autoclose: true
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+        input.focus();
+        ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
+        ok(picker.find('.datepicker-days tfoot .clear').is(':visible'), 'Today button visible');
+
+        target = picker.find('.datepicker-days tfoot .clear');
+        target.click();
+
+        equal(input.val(),'',"Input value has been cleared.");
+        ok(picker.is(':not(:visible)'), 'Picker is hidden');
+
+});
+
 test('DaysOfWeekDisabled', function(){
     var input = $('<input />')
                 .appendTo('#qunit-fixture')

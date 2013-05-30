@@ -394,11 +394,11 @@
   width: 145px;
 }
 .datepicker thead tr:first-child th,
-.datepicker tfoot tr:first-child th {
+.datepicker tfoot tr th {
   cursor: pointer;
 }
 .datepicker thead tr:first-child th:hover,
-.datepicker tfoot tr:first-child th:hover {
+.datepicker tfoot tr th:hover {
   background: #eeeeee;
 }
 .datepicker .cw {
