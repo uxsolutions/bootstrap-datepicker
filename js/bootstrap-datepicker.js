@@ -924,7 +924,9 @@
 	$.fn.datepicker = function ( option ) {
 		var args = Array.apply(null, arguments);
 		args.shift();
-		return this.each(function () {
+		var internal_return,
+			this_return;
+		this.each(function () {
 			var $this = $(this),
 				data = $this.data('datepicker'),
 				options = typeof option == 'object' && option;
@@ -940,9 +942,15 @@
 				}
 			}
 			if (typeof option == 'string' && typeof data[option] == 'function') {
-				data[option].apply(data, args);
+				internal_return = data[option].apply(data, args);
+				if (internal_return !== undefined)
+					return false;
 			}
 		});
+		if (internal_return !== undefined)
+			return internal_return;
+		else
+			return this;
 	};
 
 	$.fn.datepicker.defaults = {

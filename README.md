@@ -333,6 +333,34 @@ Update the datepicker with given argument or the current input value.
 $('.datepicker').datepicker('update');
 ```
 
+### setDate
+
+Arguments:
+
+* date (Date)
+
+Sets the internal date.  `date` is assumed to be a "local" date object, and will be converted to UTC for internal use.
+
+### setUTCDate
+
+Arguments:
+
+* date (Date)
+
+Sets the internal date.  `date` is assumed to be a UTC date object, and will not be converted.
+
+### getDate
+
+Arguments: None
+
+Returns a localized date object representing the internal date object of the first datepicker in the selection.
+
+### setUTCDate
+
+Arguments: None
+
+Returns the internal UTC date object, as-is and unconverted to local time, of the first datepicker in the selection.
+
 ### setStartDate
 
 Arguments:
