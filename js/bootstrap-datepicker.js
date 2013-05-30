@@ -114,7 +114,7 @@
 		this.todayBtn = (options.todayBtn||this.element.data('date-today-btn')||false);
 		this.todayHighlight = (options.todayHighlight||this.element.data('date-today-highlight')||false);
 
-        this.clearBtn = (options.clearBtn||false);
+		this.clearBtn = (options.clearBtn||false);
 
 		this.calendarWeeks = false;
 		if ('calendarWeeks' in options) {
@@ -476,9 +476,9 @@
 			this.picker.find('tfoot th.today')
 						.text(dates[this.language].today)
 						.toggle(this.todayBtn !== false);
-            this.picker.find('tfoot th.clear')
-                        .text(dates[this.language].clear)
-                        .toggle(this.clearBtn !== false);
+			this.picker.find('tfoot th.clear')
+						.text(dates[this.language].clear)
+						.toggle(this.clearBtn !== false);
 			this.updateNavArrows();
 			this.fillMonths();
 			var prevMonth = UTCDate(year, month-1, 28,0,0,0,0),
@@ -636,11 +636,11 @@
 								var which = this.todayBtn == 'linked' ? null : 'view';
 								this._setDate(date, which);
 								break;
-                            case 'clear':
-                                this.element.val("");
-                                if (this.autoclose)
-                                    this.hide();
-                                break;
+							case 'clear':
+								this.element.val("");
+								if (this.autoclose)
+									this.hide();
+								break;
 						}
 						break;
 					case 'span':
@@ -969,7 +969,7 @@
 			months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
 			monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 			today: "Today",
-            clear: "Clear"
+			clear: "Clear"
 		}
 	};
 
