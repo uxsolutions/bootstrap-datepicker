@@ -383,7 +383,8 @@
 .datepicker table tr td span.active.disabled:hover.active {
   background-color: #003399 \9;
 }
-.datepicker table tr td span.old {
+.datepicker table tr td span.old,
+.datepicker table tr td span.new {
   color: #999999;
 }
 .datepicker th.datepicker-switch {
