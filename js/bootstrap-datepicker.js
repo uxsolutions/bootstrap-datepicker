@@ -214,7 +214,12 @@
 				[$(document), {
 					mousedown: $.proxy(function (e) {
 						// Clicked outside the datepicker, hide it
-						if ($(e.target).closest('.datepicker.datepicker-inline, .datepicker.datepicker-dropdown').length === 0) {
+						if (!(
+							this.element.is(e.target) ||
+							this.element.find(e.target).size() ||
+							this.picker.is(e.target) ||
+							this.picker.find(e.target).size()
+						)) {
 							this.hide();
 						}
 					}, this)
