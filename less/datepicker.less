@@ -98,7 +98,14 @@
 		&.today.disabled:hover {
 			@todayBackground: lighten(@orange, 30%);
 			.buttonBackground(@todayBackground, spin(@todayBackground, 20));
-			color: #000 !important;
+			color: #000;
+		}
+		&.today:hover:hover { // Thank bootstrap 2.0 for this selector...
+			// TODO: Bump min BS to 2.1, use @textColor in buttonBackground above
+			color: #000;
+		}
+		&.today.active:hover {
+			color: #fff;
 		}
 		&.range,
 		&.range:hover,
@@ -157,7 +164,8 @@
 				color: #fff;
 				text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 			}
-			&.old {
+			&.old,
+			&.new {
 				color: @grayLight;
 			}
 		}
@@ -168,7 +176,7 @@
 	}
 
 	thead tr:first-child th,
-	tfoot tr:first-child th {
+	tfoot tr th {
 		cursor: pointer;
 		&:hover{
 			background: @grayLighter;
