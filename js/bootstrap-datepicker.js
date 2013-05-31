@@ -972,7 +972,6 @@
 					locopts = opts_from_locale(xopts.language),
 					// Options priority: js args, data-attrs, locales, defaults
 					opts = $.extend({}, $.fn.datepicker.defaults, locopts, elopts, options);
-				$this.data('datepicker', (data = new Datepicker(this, opts)));
 				if ($this.is('.input-daterange') || opts.inputs){
 					var ropts = {
 						inputs: opts.inputs || $this.find('input').toArray()
