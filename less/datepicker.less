@@ -98,7 +98,37 @@
 		&.today.disabled:hover {
 			@todayBackground: lighten(@orange, 30%);
 			.buttonBackground(@todayBackground, spin(@todayBackground, 20));
-			color: #000 !important;
+			color: #000;
+		}
+		&.today:hover:hover { // Thank bootstrap 2.0 for this selector...
+			// TODO: Bump min BS to 2.1, use @textColor in buttonBackground above
+			color: #000;
+		}
+		&.today.active:hover {
+			color: #fff;
+		}
+		&.range,
+		&.range:hover,
+		&.range.disabled,
+		&.range.disabled:hover {
+			background:@grayLighter;
+			.border-radius(0);
+		}
+		&.range.today,
+		&.range.today:hover,
+		&.range.today.disabled,
+		&.range.today.disabled:hover {
+			@todayBackground: mix(@orange, @grayLighter);
+			.buttonBackground(@todayBackground, spin(@todayBackground, 20));
+			.border-radius(0);
+		}
+		&.selected,
+		&.selected:hover,
+		&.selected.disabled,
+		&.selected.disabled:hover {
+			.buttonBackground(lighten(@grayLight, 10), darken(@grayLight, 10));
+			color: #fff;
+			text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 		}
 		&.active,
 		&.active:hover,
@@ -134,18 +164,19 @@
 				color: #fff;
 				text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 			}
-			&.old {
+			&.old,
+			&.new {
 				color: @grayLight;
 			}
 		}
 	}
 
-	th.switch {
+	th.datepicker-switch {
 		width: 145px;
 	}
 
 	thead tr:first-child th,
-	tfoot tr:first-child th {
+	tfoot tr th {
 		cursor: pointer;
 		&:hover{
 			background: @grayLighter;
@@ -176,5 +207,32 @@
 			width: 16px;
 			height: 16px;
 		}
+	}
+}
+.input-daterange {
+	input {
+		text-align:center;
+	}
+	input:first-child {
+		.border-radius(3px 0 0 3px);
+	}
+	input:last-child {
+		.border-radius(0 3px 3px 0);
+	}
+	.add-on {
+		display: inline-block;
+		width: auto;
+		min-width: 16px;
+		height: @baseLineHeight;
+		padding: 4px 5px;
+		font-weight: normal;
+		line-height: @baseLineHeight;
+		text-align: center;
+		text-shadow: 0 1px 0 @white;
+		vertical-align: middle;
+		background-color: @grayLighter;
+		border: 1px solid #ccc;
+		margin-left:-5px;
+		margin-right:-5px;
 	}
 }

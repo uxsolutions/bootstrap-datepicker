@@ -140,6 +140,23 @@ A standalone .css file (including necessary dropdown styles and alternative, tex
 $ lessc build/build_standalone.less datepicker.css
 ```
 
+## Data API
+
+As with bootstrap's own plugins, datepicker provides a data-api that can be used to instantiate datepickers without the need for custom javascript.  For most datepickers, simply set `data-provide="datepicker"` on the element you want to initialize, and it will be intialized lazily, in true bootstrap fashion.  For inline datepickers, this can alternatively be `data-provide="datepicker-inline"`; these will be immediately initialized on page load, and cannot be lazily loaded.
+
+You can disable datepicker's data-api in the same way as you would disable other bootstrap plugins:
+
+```javascript
+$(document).off('.datepicker.data-api');
+```
+
+## No Conflict
+
+```javascript
+var datepicker = $.fn.datepicker.noConflict(); // return $.fn.datepicker to previously assigned value
+$.fn.bootstrapDP = datepicker;                 // give $().bootstrapDP the bootstrap-datepicker functionality
+```
+
 ## Options
 
 All options that take a "Date" can handle a `Date` object or a String formatted according to the given `format`.  If the default backend is used, they can also handle a timedelta relative to today, eg '-1d', '+6m +1y', etc, where valid units are 'd' (day), 'w' (week), 'm' (month), and 'y' (year).
@@ -217,6 +234,12 @@ Boolean.  Default: false
 
 If true, highlights the current date.
 
+### clearBtn
+
+Boolean.  Default: false
+
+If true, displays a "Clear" button at the bottom of the datepicker to clear the input value. If "autoclose" is also set to true, this button will also close the datepicker.
+
 ### keyboardNavigation
 
 Boolean.  Default: true
@@ -235,6 +258,26 @@ Boolean.  Default: true
 
 Whether or not to force parsing of the input value when the picker is closed.  That is, when an invalid date is left in the input field by the user, the picker will forcibly parse that value, and set the input's value to the new, valid date, conforming to the given `format`.
 
+### inputs
+
+Array.  Default: None
+
+A list of inputs to be used in a range picker, which will be attached to the selected element.  Allows for explicitly creating a range picker on a non-standard element.
+
+### beforeShowDay
+
+Function(Date).  Default: $.noop
+
+A function that takes a date as a parameter and returns one of the following values:
+
+ * undefined to have no effect
+ * A Boolean, indicating whether or not this date is selectable
+ * A String representing additional CSS classes to apply to the date's cell
+ * An object with the following properties:
+   * `enabled`: same as the Boolean value above
+   * `classes`: same as the String value above
+   * `tooltip`: a tooltip to apply to this date, via the `title` HTML attribute
+
 ## Markup
 
 Format a component.
@@ -242,6 +285,16 @@ Format a component.
 ```html
 <div class="input-append date datepicker" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
     <input class="span2" size="16" type="text" value="12-02-2012"><span class="add-on"><i class="icon-th"></i></span>
+</div>
+```
+
+Create a date-range picker:
+
+```html
+<div class="input-daterange" id="datepicker">
+    <input class="input-small" name="start" value="2012-04-05" />
+    <span class="add-on">to</span>
+    <input class="input-small" name="end" value="2012-04-07" />
 </div>
 ```
 
@@ -294,11 +347,39 @@ Update the datepicker with given argument or the current input value.
 $('.datepicker').datepicker('update');
 ```
 
+### setDate
+
+Arguments:
+
+* date (Date)
+
+Sets the internal date.  `date` is assumed to be a "local" date object, and will be converted to UTC for internal use.
+
+### setUTCDate
+
+Arguments:
+
+* date (Date)
+
+Sets the internal date.  `date` is assumed to be a UTC date object, and will not be converted.
+
+### getDate
+
+Arguments: None
+
+Returns a localized date object representing the internal date object of the first datepicker in the selection.
+
+### setUTCDate
+
+Arguments: None
+
+Returns the internal UTC date object, as-is and unconverted to local time, of the first datepicker in the selection.
+
 ### setStartDate
 
 Arguments:
 
-* startDate (String)
+* startDate (Date)
 
 Sets a new lower date limit on the datepicker.
 
@@ -317,7 +398,7 @@ $('.datepicker').datepicker('setStartDate', null);
 
 Arguments:
 
-* endDate (String)
+* endDate (Date)
 
 Sets a new upper date limit on the datepicker.
 
@@ -353,7 +434,17 @@ $('.datepicker').datepicker('setDaysOfWeekDisabled', null);
 
 ## Events
 
-Datepicker class exposes a few events for manipulating the dates.
+Datepicker triggers a number of events in certain circumstances.  All events have extra data attached to the event object that is passed to any event handlers:
+
+```javascript
+$('.datepicker').datepicker()
+    .on(picker_event, function(e){
+        # `e` here contains the extra attributes
+    });
+```
+
+* `date`: the relevant Date object, in local timezone.
+* `format([format])`: a function to make formatting `date` easier.  `format` can be any format string that datepicker supports.  If `format` is not given, the format set on the datepicker will be used.
 
 ### show
 
@@ -366,16 +457,6 @@ Fired when the date picker is hidden.
 ### changeDate
 
 Fired when the date is changed.
-
-```javascript
-$('#date-end')
-    .datepicker()
-    .on('changeDate', function(ev){
-        if (ev.date.valueOf() < date-start-display.valueOf()){
-            ....
-        }
-    });
-```
 
 ### changeYear
 
