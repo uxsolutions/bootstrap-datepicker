@@ -18,7 +18,7 @@
  * limitations under the License.
  * ========================================================= */
 
-!function( $ ) {
+(function( $ ) {
 
 	function UTCDate(){
 		return new Date(Date.UTC.apply(Date, arguments));
@@ -1245,4 +1245,4 @@
 		$('[data-provide="datepicker-inline"]').datepicker();
 	});
 
-}( window.jQuery );
+}( window.jQuery ));
