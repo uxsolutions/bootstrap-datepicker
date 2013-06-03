@@ -138,11 +138,12 @@
 			o.weekStart %= 7;
 			o.weekEnd = ((o.weekStart + 6) % 7);
 
+			var format = DPGlobal.parseFormat(o.format)
 			if (o.startDate !== -Infinity) {
-				o.startDate = DPGlobal.parseDate(o.startDate, o.format, o.language);
+				o.startDate = DPGlobal.parseDate(o.startDate, format, o.language);
 			}
 			if (o.endDate !== Infinity) {
-				o.endDate = DPGlobal.parseDate(o.endDate, o.format, o.language);
+				o.endDate = DPGlobal.parseDate(o.endDate, format, o.language);
 			}
 
 			o.daysOfWeekDisabled = o.daysOfWeekDisabled||[];
