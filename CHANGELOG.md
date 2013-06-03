@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.1.1
+----------
+
+Fixes a bug when setting startDate or endDate during initialization.
+
+
 1.1.0
 ----------
 
