@@ -78,3 +78,49 @@ test('Selecting a month from year view triggers pickMonth', function(){
     datesEqual(this.dp.date, UTCDate(2011, 2, 31));
     equal(triggered, 1);
 });
+
+test('format() returns a formatted date string', function(){
+    var target,
+        error, out;
+
+    this.input.on('changeDate', function(e){
+        try{
+            out = e.format();
+        }
+        catch(e){
+            error = e;
+        }
+    });
+
+    equal(this.dp.viewMode, 0);
+    target = this.picker.find('.datepicker-days tbody td:nth(15)');
+    target.click();
+
+    datesEqual(this.dp.viewDate, UTCDate(2011, 2, 14));
+    datesEqual(this.dp.date, UTCDate(2011, 2, 14));
+    equal(error, undefined)
+    equal(out, '14-03-2011');
+});
+
+test('format(altformat) returns a formatted date string', function(){
+    var target,
+        error, out;
+
+    this.input.on('changeDate', function(e){
+        try{
+            out = e.format('m/d/yy');
+        }
+        catch(e){
+            error = e;
+        }
+    });
+
+    equal(this.dp.viewMode, 0);
+    target = this.picker.find('.datepicker-days tbody td:nth(15)');
+    target.click();
+
+    datesEqual(this.dp.viewDate, UTCDate(2011, 2, 14));
+    datesEqual(this.dp.date, UTCDate(2011, 2, 14));
+    equal(error, undefined)
+    equal(out, '3/14/11');
+});

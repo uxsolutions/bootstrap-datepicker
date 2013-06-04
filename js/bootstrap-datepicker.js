@@ -250,7 +250,7 @@
 					var format = this.format;
 					if (altformat)
 						format = DPGlobal.parseFormat(altformat);
-					return DPGlobal.formatDate(date, format, this.language);
+					return DPGlobal.formatDate(date, format, this.o.language);
 				}, this)
 			});
 		},
