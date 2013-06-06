@@ -425,7 +425,7 @@
 			var cls = [],
 				year = this.viewDate.getUTCFullYear(),
 				month = this.viewDate.getUTCMonth(),
-				currentDate = this.date.valueOf(),
+				currentDate = this.date,
 				today = new Date();
 			if (date.getUTCFullYear() < year || (date.getUTCFullYear() == year && date.getUTCMonth() < month)) {
 				cls.push('old');
@@ -439,7 +439,10 @@
 				date.getUTCDate() == today.getDate()) {
 				cls.push('today');
 			}
-			if (currentDate && date.valueOf() == currentDate) {
+			if (currentDate &&
+				date.getFullYear() == currentDate.getFullYear() &&
+				date.getMonth() == currentDate.getMonth() &&
+				date.getDate() == currentDate.getDate()) {
 				cls.push('active');
 			}
 			if (date.valueOf() < this.o.startDate || date.valueOf() > this.o.endDate ||
