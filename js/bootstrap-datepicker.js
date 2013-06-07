@@ -247,7 +247,7 @@
 				date: local_date,
 				format: $.proxy(function(altformat){
 					var format = altformat || this.o.format;
-					return DPGlobal.formatDate(date, format, this.language);
+					return DPGlobal.formatDate(date, format, this.o.language);
 				}, this)
 			});
 		},
@@ -633,10 +633,14 @@
 								this._setDate(date, which);
 								break;
 							case 'clear':
+								var element;
 								if (this.isInput)
-									this.element.val("");
-								else
-									this.element.find('input').val("");
+									element = this.element;
+								else if (this.component)
+									element = this.element.find('input');
+								if (element)
+									element.val("").change();
+								this._trigger('changeDate');
 								this.update();
 								if (this.o.autoclose)
 									this.hide();
