@@ -124,3 +124,38 @@ test('format(altformat) returns a formatted date string', function(){
     equal(error, undefined)
     equal(out, '3/14/11');
 });
+
+test('Clear button: triggers change and changeDate events', function(){
+    this.input = $('<input type="text" value="31-03-2011">')
+                    .appendTo('#qunit-fixture')
+                    .datepicker({
+                        format: "dd-mm-yyyy",
+                        clearBtn: true
+                    })
+                    .focus(); // Activate for visibility checks
+    this.dp = this.input.data('datepicker');
+    this.picker = this.dp.picker;
+
+    var target,
+        triggered_change = 0,
+        triggered_changeDate = 0;
+
+    this.input.on({
+        changeDate: function(){
+            triggered_changeDate++;
+        },
+        change: function(){
+            triggered_change++;
+        }
+    });
+
+    this.input.focus();
+    ok(this.picker.find('.datepicker-days').is(':visible'), 'Days view visible');
+    ok(this.picker.find('.datepicker-days tfoot .clear').is(':visible'), 'Clear button visible');
+
+    target = this.picker.find('.datepicker-days tfoot .clear');
+    target.click();
+
+    equal(triggered_change, 1);
+    equal(triggered_changeDate, 1);
+});
