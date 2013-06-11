@@ -563,6 +563,7 @@
 				year += 1;
 			}
 			yearCont.html(html);
+			this._trigger('fill');
 		},
 
 		updateNavArrows: function() {

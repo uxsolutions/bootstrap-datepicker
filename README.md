@@ -460,6 +460,10 @@ Fired when the *view* year is changed from decade view.
 
 Fired when the *view* month is changed from year view.
 
+### fill
+
+Fired every time the datepicker is redrawn.
+
 ## Keyboard support
 
 The datepicker includes some keyboard navigation:
