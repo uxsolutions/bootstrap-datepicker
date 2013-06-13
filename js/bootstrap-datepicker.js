@@ -137,12 +137,20 @@
 			o.weekStart %= 7;
 			o.weekEnd = ((o.weekStart + 6) % 7);
 
-			var format = DPGlobal.parseFormat(o.format)
+			var format = DPGlobal.parseFormat(o.format);
 			if (o.startDate !== -Infinity) {
-				o.startDate = DPGlobal.parseDate(o.startDate, format, o.language);
+                if (!!o.startDate) {
+				    o.startDate = DPGlobal.parseDate(o.startDate, format, o.language);
+                } else {
+                    o.startDate = -Infinity;
+                }
 			}
 			if (o.endDate !== Infinity) {
-				o.endDate = DPGlobal.parseDate(o.endDate, format, o.language);
+                if (!!o.endDate) {
+				    o.endDate = DPGlobal.parseDate(o.endDate, format, o.language);
+                } else {
+                    o.endDate = Infinity;
+                }
 			}
 
 			o.daysOfWeekDisabled = o.daysOfWeekDisabled||[];
