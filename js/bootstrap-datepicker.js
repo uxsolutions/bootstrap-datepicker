@@ -102,7 +102,7 @@
 			if (!dates[lang]) {
 				lang = lang.split('-')[0];
 				if (!dates[lang])
-					lang = $.fn.datepicker.defaults.language;
+					lang = defaults.language;
 			}
 			o.language = lang;
 
@@ -950,7 +950,7 @@
 				return;
 		}
 		var d = dates[lang];
-		$.each($.fn.datepicker.locale_opts, function(i,k){
+		$.each(locale_opts, function(i,k){
 			if (k in d)
 				out[k] = d[k];
 		});
@@ -970,10 +970,10 @@
 			if (!data) {
 				var elopts = opts_from_el(this, 'date'),
 					// Preliminary otions
-					xopts = $.extend({}, $.fn.datepicker.defaults, elopts, options),
+					xopts = $.extend({}, defaults, elopts, options),
 					locopts = opts_from_locale(xopts.language),
 					// Options priority: js args, data-attrs, locales, defaults
-					opts = $.extend({}, $.fn.datepicker.defaults, locopts, elopts, options);
+					opts = $.extend({}, defaults, locopts, elopts, options);
 				if ($this.is('.input-daterange') || opts.inputs){
 					var ropts = {
 						inputs: opts.inputs || $this.find('input').toArray()
@@ -996,7 +996,7 @@
 			return this;
 	};
 
-	$.fn.datepicker.defaults = {
+	var defaults = $.fn.datepicker.defaults = {
 		autoclose: false,
 		beforeShowDay: $.noop,
 		calendarWeeks: false,
@@ -1015,7 +1015,7 @@
 		todayHighlight: false,
 		weekStart: 0
 	};
-	$.fn.datepicker.locale_opts = [
+	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',
 		'rtl',
 		'weekStart'
