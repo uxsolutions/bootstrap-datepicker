@@ -403,6 +403,7 @@
                             ret.y = pinpoint;
                             ret.placement = placement;
                         }
+                        break;
                 }
                 return ret;
             };
