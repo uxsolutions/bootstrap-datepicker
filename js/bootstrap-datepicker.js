@@ -27,6 +27,7 @@
 		var today = new Date();
 		return UTCDate(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
 	}
+    var $window = $(window);
 
 	// Picker object
 
@@ -355,11 +356,63 @@
 						}).first().css('z-index'))+10;
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(true);
+            var scrll = {
+                top : $window.scrollTop()
+            };
+            var maxPinpoint  = {
+                top : scrll.top + $window.height() - this.picker.height()
+            };
+            var minPinpoint = {
+                top : scrll.top
+            };
+            var oppositePlacement = function(placement) {
+                switch (placement) {
+                    case "bottom" :
+                        return "top";
+                    case "top" :
+                        return "bottom";
+                }
+            };
+            var that = this;
+            var pinpointForPlacement = function(placement, i) {
+                var ret = {};
+                var pinpoint;
+                if (typeof i === 'number') { // counter to keep track of the recursion, we don't want to get more than 1 recursive call here
+                    i++;
+                }
+                else {
+                    i = 0;
+                }
+                switch (placement) {
+                    case "bottom" :
+                        pinpoint = offset.top + height;
+                        if (pinpoint > maxPinpoint.top && i <= 1) {
+                            ret = pinpointForPlacement(oppositePlacement(placement), i);
+                        }
+                        else {
+                            ret.y = pinpoint;
+                            ret.placement = placement;
+                        }
+                        break;
+                    case "top" :
+                        pinpoint = offset.top - that.picker.outerHeight();
+                        if (pinpoint < minPinpoint.top && i <= 1) {
+                            ret = pinpointForPlacement(oppositePlacement(placement), i);
+                        }
+                        else {
+                            ret.y = pinpoint;
+                            ret.placement = placement;
+                        }
+                }
+                return ret;
+            };
+            var placement = pinpointForPlacement(this.o.placement);
+
 			this.picker.css({
-				top: offset.top + height,
+				top: placement.y,
 				left: offset.left,
 				zIndex: zIndex
-			});
+			}).addClass('datepicker-placement-' + placement.placement);
 		},
 
 		_allow_update: true,
@@ -1013,7 +1066,9 @@
 		startView: 0,
 		todayBtn: false,
 		todayHighlight: false,
-		weekStart: 0
+		weekStart: 0,
+//      currently only "bottom" and "top" supported
+        placement: "bottom"
 	};
 	$.fn.datepicker.locale_opts = [
 		'format',

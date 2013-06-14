@@ -27,30 +27,40 @@
 .datepicker.datepicker-rtl table tr td span {
   float: right;
 }
-.datepicker-dropdown {
-  top: 0;
-  left: 0;
-}
+.datepicker-dropdown:after,
 .datepicker-dropdown:before {
   content: '';
   display: inline-block;
+  position: absolute;
+}
+.datepicker-dropdown:after {
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+}
+.datepicker-dropdown:before {
+  border-bottom-color: rgba(0, 0, 0, 0.2);
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
+}
+.datepicker-dropdown.datepicker-placement-bottom:after {
+  border-bottom: 6px solid #ffffff;
+  top: -6px;
+  left: 7px;
+}
+.datepicker-dropdown.datepicker-placement-bottom:before {
   border-bottom: 7px solid #ccc;
-  border-bottom-color: rgba(0, 0, 0, 0.2);
-  position: absolute;
   top: -7px;
   left: 6px;
 }
-.datepicker-dropdown:after {
-  content: '';
-  display: inline-block;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-bottom: 6px solid #ffffff;
-  position: absolute;
-  top: -6px;
+.datepicker-dropdown.datepicker-placement-top:after {
+  border-top: 6px solid #ffffff;
+  bottom: -6px;
   left: 7px;
+}
+.datepicker-dropdown.datepicker-placement-top:before {
+  border-top: 7px solid #ccc;
+  bottom: -7px;
+  left: 6px;
 }
 .datepicker > div {
   display: none;
@@ -446,4 +456,46 @@
   border: 1px solid #ccc;
   margin-left: -5px;
   margin-right: -5px;
+}
+.datepicker.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  float: left;
+  display: none;
+  min-width: 160px;
+  list-style: none;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+  color: #333333;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+.datepicker.dropdown-menu th,
+.datepicker.dropdown-menu td {
+  padding: 4px 5px;
+}
+.datepicker .prev,
+.datepicker .next {
+  font-style: normal;
+}
+.datepicker .prev:after {
+  content: "«";
+}
+.datepicker .next:after {
+  content: "»";
 }
