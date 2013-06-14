@@ -139,18 +139,18 @@
 
 			var format = DPGlobal.parseFormat(o.format);
 			if (o.startDate !== -Infinity) {
-                if (!!o.startDate) {
-				    o.startDate = DPGlobal.parseDate(o.startDate, format, o.language);
-                } else {
-                    o.startDate = -Infinity;
-                }
+				if (!!o.startDate) {
+					o.startDate = DPGlobal.parseDate(o.startDate, format, o.language);
+				} else {
+					o.startDate = -Infinity;
+				}
 			}
 			if (o.endDate !== Infinity) {
-                if (!!o.endDate) {
-				    o.endDate = DPGlobal.parseDate(o.endDate, format, o.language);
-                } else {
-                    o.endDate = Infinity;
-                }
+				if (!!o.endDate) {
+					o.endDate = DPGlobal.parseDate(o.endDate, format, o.language);
+				} else {
+					o.endDate = Infinity;
+				}
 			}
 
 			o.daysOfWeekDisabled = o.daysOfWeekDisabled||[];
