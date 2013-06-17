@@ -406,3 +406,79 @@ test('BeforeShowDay', function(){
     target = picker.find('.datepicker-days tbody td:nth(29)');
     ok(!target.hasClass('disabled'), '29th is enabled');
 });
+
+var moveFixtureIntoViewport;
+var revertFixture;
+(function() {
+    var originalCssProps;
+    moveFixtureIntoViewport = function() {
+        // some functionality tested is solely about fitting the picker into the viewport - it makes no sense to account for elements being shot out of the visible portion of the document, since the user won't be able to activate the picker that way, and the picker itself doesn't update it's location to follow the triggering element should that element change position
+        // the qunit fixture element has large negative top and left css properties, so it makes it impossible to place the picker next to the input AND fitted into the viewport
+        // therefore we have to temporarily move the fixture into the viewport, and move it back after the tests
+        var props = ['left', 'top', 'opacity'];
+        originalCssProps = props.reduce(function(cssProps, propName) {
+            cssProps[propName] = $("#qunit-fixture").css(propName);
+            return cssProps;
+        }, {});
+        $("#qunit-fixture").css(props.reduce(function(cssProps, propName) { //zeroing left, top and opacity
+            cssProps[propName] = 0;
+            return cssProps;
+        }, {}));
+    };
+    revertFixture = function() {
+        $("#qunit-fixture").css(originalCssProps);
+    };
+}());
+
+asyncTest("Placement: bottom", 1, function() {
+    var datePickerStyle = $("<link />").attr({
+        rel: 'stylesheet',
+        href : '../css/datepicker.css'
+    }).appendTo('head');
+    moveFixtureIntoViewport();
+    datePickerStyle.on('load', function() {
+        var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .val('2012-10-26')
+            .css({
+                position: "absolute",
+                top: 0
+            })
+            .datepicker({
+                placement: "bottom"
+            });
+        var picker = input.data('datepicker').picker;
+        input.focus();
+        ok(picker.offset().top > input.offset().top, 'picker is displayed below triggering element');
+        datePickerStyle.remove();
+        revertFixture();
+        picker.remove();
+        start();
+    });
+});
+
+asyncTest("Placement: top", 1, function() {
+    var datePickerStyle = $("<link />").attr({
+        rel: 'stylesheet',
+        href : '../css/datepicker.css'
+    }).appendTo('head');
+    moveFixtureIntoViewport();
+    datePickerStyle.on('load', function() {
+        var input = $('<input />');
+        input.appendTo('#qunit-fixture')
+            .val('2012-10-26')
+            .css({
+                position: "absolute",
+                top: input.parent().height() / 2 // place it somewhere in the middle
+            }).datepicker({
+                placement: "top"
+            });
+        var picker = input.data('datepicker').picker;
+        input.focus();
+        ok(picker.offset().top + picker.outerHeight() < input.offset().top + input.outerHeight(), 'picker is displayed above triggering element');
+        datePickerStyle.remove();
+        revertFixture();
+        picker.remove();
+        start();
+    });
+});

@@ -354,16 +354,16 @@
 			var zIndex = parseInt(this.element.parents().filter(function() {
 							return $(this).css('z-index') != 'auto';
 						}).first().css('z-index'))+10;
-			var offset = this.component ? this.component.parent().offset() : this.element.offset();
-			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(true);
-            var scrll = {
+            var positionElement = this.component ? this.component.parent() : this.element; // the datepicker will be positioned so it visually points to this element
+			var height = positionElement.outerHeight();
+            var windowScroll = {
                 top : $window.scrollTop()
             };
             var maxPinpoint  = {
-                top : scrll.top + $window.height() - this.picker.height()
+                top : windowScroll.top + $window.height() - this.picker.outerHeight()
             };
             var minPinpoint = {
-                top : scrll.top
+                top : windowScroll.top
             };
             var oppositePlacement = function(placement) {
                 switch (placement) {
@@ -385,7 +385,7 @@
                 }
                 switch (placement) {
                     case "bottom" :
-                        pinpoint = offset.top + height;
+                        pinpoint = positionElement.offset().top + height - parseFloat(that.picker.css("margin-top"));
                         if (pinpoint > maxPinpoint.top && i <= 1) {
                             ret = pinpointForPlacement(oppositePlacement(placement), i);
                         }
@@ -395,7 +395,7 @@
                         }
                         break;
                     case "top" :
-                        pinpoint = offset.top - that.picker.outerHeight();
+                        pinpoint = positionElement.offset().top - that.picker.outerHeight() + parseFloat(that.picker.css("margin-bottom"));
                         if (pinpoint < minPinpoint.top && i <= 1) {
                             ret = pinpointForPlacement(oppositePlacement(placement), i);
                         }
@@ -411,7 +411,7 @@
 
 			this.picker.css({
 				top: placement.y,
-				left: offset.left,
+				left: positionElement.offset().left,
 				zIndex: zIndex
 			}).addClass('datepicker-placement-' + placement.placement);
 		},
