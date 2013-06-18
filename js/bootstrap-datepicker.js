@@ -27,6 +27,11 @@
 		var today = new Date();
 		return UTCDate(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
 	}
+	function isUTCEquals(date1, date2) {
+		return (	date1.getUTCFullYear() === date2.getUTCFullYear() && 
+					date1.getUTCMonth() === date2.getUTCMonth() && 
+					date1.getUTCDate() === date2.getUTCDate() );
+	}
 
 	// Picker object
 
@@ -150,6 +155,15 @@
 				o.daysOfWeekDisabled = o.daysOfWeekDisabled.split(/[,\s]*/);
 			o.daysOfWeekDisabled = $.map(o.daysOfWeekDisabled, function (d) {
 				return parseInt(d, 10);
+			});
+
+			o.datesDisabled = o.datesDisabled||[];
+			if (!$.isArray(o.datesDisabled)) {
+				o.datesDisabled = [];
+				o.datesDisabled.push( DPGlobal.parseDate(o.datesDisabled, format, o.language) );
+			}
+			o.datesDisabled = $.map(o.datesDisabled, function (d) {
+				return DPGlobal.parseDate(d, format, o.language);
 			});
 		},
 		_events: [],
@@ -348,6 +362,12 @@
 			this.updateNavArrows();
 		},
 
+		setDatesDisabled: function(datesDisabled){
+			this._process_options({datesDisabled: datesDisabled});
+			this.update();
+			this.updateNavArrows();
+		},
+
 		place: function(){
 						if(this.isInline) return;
 			var zIndex = parseInt(this.element.parents().filter(function() {
@@ -446,6 +466,11 @@
 				$.inArray(date.getUTCDay(), this.o.daysOfWeekDisabled) !== -1) {
 				cls.push('disabled');
 			}
+			if ( this.o.datesDisabled.length > 0 && 
+				 $.grep(this.o.datesDisabled, function(d) { return isUTCEquals(date, d); }).length > 0 ) {
+				cls.push('disabled');
+			}
+
 			if (this.range){
 				if (date > this.range[0] && date < this.range[this.range.length-1]){
 					cls.push('range');
