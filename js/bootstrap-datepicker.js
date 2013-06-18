@@ -78,6 +78,7 @@
 		this.setStartDate(this.o.startDate);
 		this.setEndDate(this.o.endDate);
 		this.setDaysOfWeekDisabled(this.o.daysOfWeekDisabled);
+		this.setDatesDisabled(this.o.datesDisabled);
 
 		this.fillDow();
 		this.fillMonths();
@@ -468,7 +469,7 @@
 			}
 			if ( this.o.datesDisabled.length > 0 && 
 				 $.grep(this.o.datesDisabled, function(d) { return isUTCEquals(date, d); }).length > 0 ) {
-				cls.push('disabled');
+				cls.push('disabled', 'disabled-date');
 			}
 
 			if (this.range){
@@ -1027,6 +1028,7 @@
 		calendarWeeks: false,
 		clearBtn: false,
 		daysOfWeekDisabled: [],
+		datesDisabled: [],
 		endDate: Infinity,
 		forceParse: true,
 		format: 'mm/dd/yyyy',
