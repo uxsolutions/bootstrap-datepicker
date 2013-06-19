@@ -8,6 +8,8 @@ contributed to by him (yet?)
 
 Versions are incremented according to [semver](http://semver.org/).
 
+[Online Demo](http://eternicode.github.com/bootstrap-datepicker/)
+
 # Requirements
 
 * [Bootstrap](http://twitter.github.com/bootstrap/) 2.0.4+
