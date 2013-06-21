@@ -811,7 +811,7 @@
 			for (var i = 0; i < this.date.length; i++) {
 				if (this.date[i].getFullYear() == date.getFullYear()
                     && this.date[i].getMonth() == date.getMonth()
-                    && this.date[i].getDay() == date.getDay()) {
+                    && this.date[i].getDate() == date.getDate()) {
 					isAdd = false;
 					itemIndex = i;
 					break;
