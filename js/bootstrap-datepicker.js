@@ -44,6 +44,9 @@
 		if(this.component && this.component.length === 0)
 			this.component = false;
 
+		this.dateSelected={}
+		this.multidate = this.element.is('.multidate')
+		
 		this.picker = $(DPGlobal.template);
 		this._buildEvents();
 		this._attachEvents();
@@ -330,7 +333,19 @@
 		getFormattedDate: function(format) {
 			if (format === undefined)
 				format = this.format;
-			return DPGlobal.formatDate(this.date, format, this.o.language);
+				
+			if ( this.multidate != true )
+				return DPGlobal.formatDate(this.date, format, this.o.language);
+			
+			
+			// Here we could sort them or have them in any order. I guess it should be option if they are chronological or first-selected -order
+			// Now i guess they are more or less random.
+			var selected_dates_list=[];
+			for ( var seldate_key in this.dateSelected )
+			{
+				selected_dates_list.push( DPGlobal.formatDate( this.dateSelected[seldate_key] , format, this.o.language) )
+			}
+			return selected_dates_list.join(",");
 		},
 
 		setStartDate: function(startDate){
@@ -442,8 +457,12 @@
 				date.getUTCDate() == today.getDate()) {
 				cls.push('today');
 			}
-			if (currentDate && date.valueOf() == currentDate) {
-				cls.push('active');
+			if ( currentDate ) 
+			{
+				if ( this.multidate != true && date.valueOf() == currentDate) 
+					cls.push('active');
+				else if ( this.multidate == true && this.dateSelected[ date.valueOf() ] )
+					cls.push('active');
 			}
 			if (date.valueOf() < this.o.startDate || date.valueOf() > this.o.endDate ||
 				$.inArray(date.getUTCDay(), this.o.daysOfWeekDisabled) !== -1) {
@@ -699,11 +718,29 @@
 			}
 		},
 
+		_toggle_multidate: function( date ) {
+			var found = this.dateSelected[date.valueOf()];
+			if ( found )
+			{
+				console.log("DELETE: " + date );
+				delete this.dateSelected[date.valueOf()];
+			}
+			else
+			{
+				console.log("ADD: " + date );
+				this.dateSelected[date.valueOf()] = date;
+			}
+		},
+		
 		_setDate: function(date, which){
 			if (!which || which == 'date')
 				this.date = new Date(date);
 			if (!which || which  == 'view')
 				this.viewDate = new Date(date);
+			
+			if ( this.multidate == true )
+				this._toggle_multidate( date );
+			
 			this.fill();
 			this.setValue();
 			this._trigger('changeDate');
