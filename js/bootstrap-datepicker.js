@@ -59,6 +59,7 @@
 						.toggleClass('icon-arrow-left icon-arrow-right');
 		}
 
+		this.picker.addClass('placement-' + this.o.placement);
 
 		this.viewMode = this.o.startView;
 
@@ -355,11 +356,34 @@
 						}).first().css('z-index'))+10;
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(true);
-			this.picker.css({
-				top: offset.top + height,
-				left: offset.left,
-				zIndex: zIndex
-			});
+			var width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(true);
+			switch(this.o.placement)
+			{
+				case "top":
+					this.picker.css({
+						top: offset.top - this.picker.outerHeight(),
+						left: offset.left,
+						zIndex: zIndex
+				}); break;
+				case "bottom":
+					this.picker.css({
+						top: offset.top + height,
+						left: offset.left,
+						zIndex: zIndex
+				}); break;
+				case "left":
+					this.picker.css({
+						top: offset.top,
+						left: offset.left - this.picker.outerWidth(),
+						zIndex: zIndex
+				}); break;
+				case "right":
+					this.picker.css({
+						top: offset.top,
+						left: offset.left + width,
+						zIndex: zIndex
+				}); break;
+			}
 		},
 
 		_allow_update: true,
@@ -1008,6 +1032,7 @@
 		keyboardNavigation: true,
 		language: 'en',
 		minViewMode: 0,
+		placement: "auto",
 		rtl: false,
 		startDate: -Infinity,
 		startView: 0,
