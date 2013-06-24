@@ -58,8 +58,10 @@
 			this.picker.find('.prev i, .next i')
 						.toggleClass('icon-arrow-left icon-arrow-right');
 		}
-
-		this.picker.addClass('placement-' + this.o.placement);
+		if (this.o.placement == 'auto')
+			this.picker.addClass('placement-bottom');
+		else
+			this.picker.addClass('placement-' + this.o.placement);
 
 		this.viewMode = this.o.startView;
 
@@ -359,30 +361,52 @@
 			var width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(true);
 			switch(this.o.placement)
 			{
-				case "top":
+				case 'top':
 					this.picker.css({
 						top: offset.top - this.picker.outerHeight(),
 						left: offset.left,
-						zIndex: zIndex
 				}); break;
-				case "bottom":
+				case 'bottom':
 					this.picker.css({
 						top: offset.top + height,
 						left: offset.left,
-						zIndex: zIndex
 				}); break;
-				case "left":
+				case 'left':
 					this.picker.css({
 						top: offset.top,
 						left: offset.left - this.picker.outerWidth(),
-						zIndex: zIndex
 				}); break;
-				case "right":
+				case 'right':
 					this.picker.css({
 						top: offset.top,
 						left: offset.left + width,
-						zIndex: zIndex
 				}); break;
+				case 'auto':
+					if ($(window).height() > offset.top + height + this.picker.outerHeight() - $(window).scrollTop())
+						this.picker.removeClass("placement-top placement-left placement-right").addClass("placement-bottom")
+							.css({
+						top: offset.top + height,
+						left: offset.left,
+					});
+					else if (offset.top - $(window).scrollTop() > this.picker.outerHeight()	)
+						this.picker.removeClass("placement-bottom placement-left placement-right").addClass("placement-top")
+							.css({
+						top: offset.top - this.picker.outerHeight(),
+						left: offset.left,
+					});
+					else if ($(window).width() > offset.left + width + this.picker.outerWidth() - $(window).scrollLeft())
+						this.picker.removeClass("placement-top placement-bottom placement-left").addClass("placement-right")
+							.css({
+						top: offset.top,
+						left: offset.left + width,
+					});
+					else // if (offset.left - $(window).scrollLeft() > this.picker.outerWidth())
+						this.picker.removeClass("placement-top placement-bottom placement-right").addClass("placement-left")
+							.css({
+						top: offset.top,
+						left: offset.left - this.picker.outerWidth(),
+					});		
+				break;					
 			}
 		},
 
