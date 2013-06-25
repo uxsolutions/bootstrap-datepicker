@@ -1090,7 +1090,7 @@
 		keyboardNavigation: true,
 		language: 'en',
 		minViewMode: 0,
-		placement: "auto",
+		placement: "auto bottom",
 		rtl: false,
 		startDate: -Infinity,
 		startView: 0,
