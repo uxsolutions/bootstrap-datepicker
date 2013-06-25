@@ -213,7 +213,8 @@
 					click: $.proxy(this.click, this)
 				}],
 				[$(window), {
-					resize: $.proxy(this.place, this)
+					resize: $.proxy(this.check_boundaries, this),
+					scroll: $.proxy(this.check_boundaries, this)
 				}],
 				[$(document), {
 					mousedown: $.proxy(function (e) {
@@ -261,7 +262,10 @@
 		show: function(e) {
 			if (!this.isInline)
 				this.picker.appendTo('body');
-			this.place();
+			if (this.o.placement[0] == 'auto')
+				this.check_boundaries();
+			else
+				this.place();
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			this.picker.show();
 			this._attachSecondaryEvents();
@@ -363,85 +367,87 @@
 			var height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			var width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(true);
 
-			var check_boundaries = function (obj) {
-				var horizontal_done = false;
-				var vertical_done = false;
-				if ($(window).width() > offset.left + width + obj.picker.outerWidth(true) - $(window).scrollLeft()) {
-					obj.picker.removeClass("placement-left").addClass("placement-right")
-						.css({
-					left: offset.left + width
-				});
-					if ($.inArray('right', obj.o.placement) > -1) horizontal_done = true;
-				}
-				if (offset.left - $(window).scrollLeft() > obj.picker.outerWidth(true) && !horizontal_done) {
-					obj.picker.removeClass("placement-right").addClass("placement-left")
-						.css({
-					left: offset.left - obj.picker.outerWidth(true)
-				});
-					if ($.inArray('left', obj.o.placement) > -1) horizontal_done = true;
-				}
-				if ($(window).width() + $(window).scrollLeft() - offset.left > (width + obj.picker.outerWidth(true)) /2 && !horizontal_done)
-					obj.picker.removeClass("placement-left placement-right")
-						.css({
-						left: offset.left + (width - obj.picker.outerWidth(true)) /2
-					});
-
-				if ($(window).height() + $(window).scrollTop() - offset.top > height + obj.picker.outerHeight(true) ) {
-					obj.picker.removeClass("placement-top").addClass("placement-bottom")
-						.css({
-							top: offset.top	+ (horizontal_done ? 0 : height)
-						});
-					if ($.inArray('bottom', obj.o.placement) > -1) vertical_done = true;
-				}
-				if ((offset.top - $(window).scrollTop() > obj.picker.outerHeight(true) && !vertical_done)) {
-					obj.picker.removeClass("placement-bottom").addClass("placement-top")
-						.css({
-							top: offset.top - obj.picker.outerHeight(true) + (horizontal_done ? height : 0)
-					});
-					if ($.inArray('top', obj.o.placement) > -1) vertical_done = true;
-				}
-				if ($(window).height() + $(window).scrollTop() - offset.top > (height + obj.picker.outerHeight(true)) /2 && !vertical_done)
-					obj.picker.removeClass("placement-top placement-bottom")
-						.css({
-						top: offset.top + (height - obj.picker.outerHeight(true)) /2
-					});
-			}
-
-			if  (this.o.placement[0] != 'auto') {
-				var to_one_side = true;
-				if ($.inArray('left', this.o.placement) > -1)
-					this.picker.css({
-						left: offset.left - this.picker.outerWidth(true)
-				});
-				else if ($.inArray('right', this.o.placement) > -1)
-					this.picker.css({
-						left: offset.left + width,
-				});
-				else {
-					this.picker.css({
-						left: offset.left + (width - this.picker.outerWidth(true)) /2,
-				});
-					to_one_side = false;
-				}
-
-				if ($.inArray('top', this.o.placement) > -1)
-					this.picker.css({
-						top: offset.top - this.picker.outerHeight(true)	+ (to_one_side ? height : 0)
-					});
-				else if ($.inArray('bottom', this.o.placement) > -1)
-					this.picker.css({
-						top: offset.top	+ (to_one_side ? 0 : height)
-					});
-				else
-					this.picker.css({
-						top: offset.top + (height - this.picker.outerHeight(true)) /2,
-					});
-			}
+			var to_one_side = true;
+			if ($.inArray('left', this.o.placement) > -1)
+				this.picker.css({
+					left: offset.left - this.picker.outerWidth(true)
+			});
+			else if ($.inArray('right', this.o.placement) > -1)
+				this.picker.css({
+					left: offset.left + width,
+			});
 			else {
-				check_boundaries(this);
-				$(window).on("resize", check_boundaries(this))
-						.on("scroll", check_boundaries(this));
+				this.picker.css({
+					left: offset.left + (width - this.picker.outerWidth(true)) /2,
+			});
+				to_one_side = false;
 			}
+
+			if ($.inArray('top', this.o.placement) > -1)
+				this.picker.css({
+					top: offset.top - this.picker.outerHeight(true)	+ (to_one_side ? height : 0)
+				});
+			else if ($.inArray('bottom', this.o.placement) > -1)
+				this.picker.css({
+					top: offset.top	+ (to_one_side ? 0 : height)
+				});
+			else
+				this.picker.css({
+					top: offset.top + (height - this.picker.outerHeight(true)) /2,
+				});
+			this.picker.css({zIndex: zIndex})
+		},
+
+		check_boundaries : function () { console.log("fired!");
+			var zIndex = parseInt(this.element.parents().filter(function() {
+						return $(this).css('z-index') != 'auto';
+					}).first().css('z-index'))+10;
+			var offset = this.component ? this.component.parent().offset() : this.element.offset();
+			var height = this.component ? this.component.outerHeight() : this.element.outerHeight();
+			var width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(true);
+
+			var horizontal_done = false;
+			var vertical_done = false;
+			if ($(window).width() > offset.left + width + this.picker.outerWidth(true) - $(window).scrollLeft()) {
+				this.picker.removeClass("placement-left").addClass("placement-right")
+					.css({
+				left: offset.left + width
+			});
+				if ($.inArray('right', this.o.placement) > -1) horizontal_done = true;
+			}
+			if (offset.left - $(window).scrollLeft() > this.picker.outerWidth(true) && !horizontal_done) {
+				this.picker.removeClass("placement-right").addClass("placement-left")
+					.css({
+				left: offset.left - this.picker.outerWidth(true)
+			});
+				if ($.inArray('left', this.o.placement) > -1) horizontal_done = true;
+			}
+			if ($(window).width() + $(window).scrollLeft() - offset.left > (width + this.picker.outerWidth(true)) /2 && !horizontal_done)
+				this.picker.removeClass("placement-left placement-right")
+					.css({
+					left: offset.left + (width - this.picker.outerWidth(true)) /2
+				});
+
+			if ($(window).height() + $(window).scrollTop() - offset.top > height + this.picker.outerHeight(true) ) {
+				this.picker.removeClass("placement-top").addClass("placement-bottom")
+					.css({
+						top: offset.top	+ (horizontal_done ? 0 : height)
+					});
+				if ($.inArray('bottom', this.o.placement) > -1) vertical_done = true;
+			}
+			if ((offset.top - $(window).scrollTop() > this.picker.outerHeight(true) && !vertical_done)) {
+				this.picker.removeClass("placement-bottom").addClass("placement-top")
+					.css({
+						top: offset.top - this.picker.outerHeight(true) + (horizontal_done ? height : 0)
+				});
+				if ($.inArray('top', this.o.placement) > -1) vertical_done = true;
+			}
+			if ($(window).height() + $(window).scrollTop() - offset.top > (height + this.picker.outerHeight(true)) /2 && !vertical_done)
+				this.picker.removeClass("placement-top placement-bottom")
+					.css({
+					top: offset.top + (height - this.picker.outerHeight(true)) /2
+				});
+			this.picker.css({zIndex: zIndex})
 		},
 
 		_allow_update: true,
