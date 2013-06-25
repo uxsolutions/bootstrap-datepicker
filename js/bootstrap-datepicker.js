@@ -398,7 +398,7 @@
 			this.picker.css({zIndex: zIndex})
 		},
 
-		check_boundaries : function () { console.log("fired!");
+		check_boundaries : function () {
 			var zIndex = parseInt(this.element.parents().filter(function() {
 						return $(this).css('z-index') != 'auto';
 					}).first().css('z-index'))+10;
