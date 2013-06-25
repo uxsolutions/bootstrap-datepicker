@@ -35,8 +35,8 @@
   content: '';
   display: inline-block;
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 46.5%;
+  left: 46.5%;
 }
 .datepicker-dropdown.placement-bottom:before {
   border-left: 7px solid transparent;
@@ -82,8 +82,8 @@
   content: '';
   display: inline-block;
   position: absolute;
-  top: 50.5%;
-  left: 50.5%;
+  top: 47%;
+  left: 47%;
 }
 .datepicker-dropdown.placement-bottom:after {
   border-left: 6px solid transparent;
@@ -104,7 +104,7 @@
   border-bottom: 6px solid transparent;
   border-top: 6px solid transparent;
   left: auto;
-  right: -5px;
+  right: -6px;
 }
 .datepicker-dropdown.placement-right:after {
   border-left-style: none;

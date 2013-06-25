@@ -261,9 +261,9 @@
 		show: function(e) {
 			if (!this.isInline)
 				this.picker.appendTo('body');
-			this.picker.show();
-			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			this.place();
+			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
+			this.picker.show();
 			this._attachSecondaryEvents();
 			if (e) {
 				e.preventDefault();
@@ -362,60 +362,86 @@
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
 			var height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			var width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(true);
-			if ($.inArray('top', this.o.placement) > -1)
-				this.picker.css({
-					top: offset.top - this.picker.outerHeight(true)
-						+ (($.inArray('left', this.o.placement) > -1)
-							|| ($.inArray('right', this.o.placement) > -1) ? height : 0)
-				});
-			else if ($.inArray('bottom', this.o.placement) > -1)
-				this.picker.css({
-					top: offset.top
-						+ (($.inArray('left', this.o.placement) > -1)
-							|| ($.inArray('right', this.o.placement) > -1) ? 0 : height)
-				});
-			else
-				this.picker.css({
-					top: offset.top + (height - this.picker.outerHeight(true)) /2,
-				});
 
-			if ($.inArray('left', this.o.placement) > -1)
-				this.picker.css({
-					left: offset.left - this.picker.outerWidth(true)
-			});
-			else if ($.inArray('right', this.o.placement) > -1)
-				this.picker.css({
-					left: offset.left + width,
-			});
-			else
-				this.picker.css({
-					left: offset.left + (width - this.picker.outerWidth(true)) /2,
-			});
-			if (this.o.placement[0] == 'auto')
-				if ($(window).height() > offset.top + height + this.picker.outerHeight() - $(window).scrollTop())
-					this.picker.removeClass("placement-top placement-left placement-right").addClass("placement-bottom")
+			var check_boundaries = function (obj) {
+				var horizontal_done = false;
+				var vertical_done = false;
+				if ($(window).width() > offset.left + width + obj.picker.outerWidth(true) - $(window).scrollLeft()) {
+					obj.picker.removeClass("placement-left").addClass("placement-right")
 						.css({
-					top: offset.top + height,
-					left: offset.left,
+					left: offset.left + width
 				});
-				else if (offset.top - $(window).scrollTop() > this.picker.outerHeight()	)
-					this.picker.removeClass("placement-bottom placement-left placement-right").addClass("placement-top")
+					if ($.inArray('right', obj.o.placement) > -1) horizontal_done = true;
+				}
+				if (offset.left - $(window).scrollLeft() > obj.picker.outerWidth(true) && !horizontal_done) {
+					obj.picker.removeClass("placement-right").addClass("placement-left")
 						.css({
-					top: offset.top - this.picker.outerHeight(),
-					left: offset.left,
+					left: offset.left - obj.picker.outerWidth(true)
 				});
-				else if ($(window).width() > offset.left + width + this.picker.outerWidth() - $(window).scrollLeft())
-					this.picker.removeClass("placement-top placement-bottom placement-left").addClass("placement-right")
+					if ($.inArray('left', obj.o.placement) > -1) horizontal_done = true;
+				}
+				if ($(window).width() + $(window).scrollLeft() - offset.left > (width + obj.picker.outerWidth(true)) /2 && !horizontal_done)
+					obj.picker.removeClass("placement-left placement-right")
 						.css({
-					top: offset.top,
-					left: offset.left + width,
+						left: offset.left + (width - obj.picker.outerWidth(true)) /2
+					});
+
+				if ($(window).height() + $(window).scrollTop() - offset.top > height + obj.picker.outerHeight(true) ) {
+					obj.picker.removeClass("placement-top").addClass("placement-bottom")
+						.css({
+							top: offset.top	+ (horizontal_done ? 0 : height)
+						});
+					if ($.inArray('bottom', obj.o.placement) > -1) vertical_done = true;
+				}
+				if ((offset.top - $(window).scrollTop() > obj.picker.outerHeight(true) && !vertical_done)) {
+					obj.picker.removeClass("placement-bottom").addClass("placement-top")
+						.css({
+							top: offset.top - obj.picker.outerHeight(true) + (horizontal_done ? height : 0)
+					});
+					if ($.inArray('top', obj.o.placement) > -1) vertical_done = true;
+				}
+				if ($(window).height() + $(window).scrollTop() - offset.top > (height + obj.picker.outerHeight(true)) /2 && !vertical_done)
+					obj.picker.removeClass("placement-top placement-bottom")
+						.css({
+						top: offset.top + (height - obj.picker.outerHeight(true)) /2
+					});
+			}
+
+			if  (this.o.placement[0] != 'auto') {
+				var to_one_side = true;
+				if ($.inArray('left', this.o.placement) > -1)
+					this.picker.css({
+						left: offset.left - this.picker.outerWidth(true)
 				});
-				else // if (offset.left - $(window).scrollLeft() > this.picker.outerWidth())
-					this.picker.removeClass("placement-top placement-bottom placement-right").addClass("placement-left")
-						.css({
-					top: offset.top,
-					left: offset.left - this.picker.outerWidth(),
-				});	
+				else if ($.inArray('right', this.o.placement) > -1)
+					this.picker.css({
+						left: offset.left + width,
+				});
+				else {
+					this.picker.css({
+						left: offset.left + (width - this.picker.outerWidth(true)) /2,
+				});
+					to_one_side = false;
+				}
+
+				if ($.inArray('top', this.o.placement) > -1)
+					this.picker.css({
+						top: offset.top - this.picker.outerHeight(true)	+ (to_one_side ? height : 0)
+					});
+				else if ($.inArray('bottom', this.o.placement) > -1)
+					this.picker.css({
+						top: offset.top	+ (to_one_side ? 0 : height)
+					});
+				else
+					this.picker.css({
+						top: offset.top + (height - this.picker.outerHeight(true)) /2,
+					});
+			}
+			else {
+				check_boundaries(this);
+				$(window).on("resize", check_boundaries(this))
+						.on("scroll", check_boundaries(this));
+			}
 		},
 
 		_allow_update: true,
