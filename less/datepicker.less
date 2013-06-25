@@ -22,30 +22,46 @@
 		}
 	}
 	&-dropdown {
-		top: 0;
-		left: 0;
-		&:before {
-			content: '';
-			display: inline-block;
-			border-left:   7px solid transparent;
-			border-right:  7px solid transparent;
-			border-bottom: 7px solid #ccc;
-			border-bottom-color: rgba(0,0,0,.2);
-			position: absolute;
-			top: -7px;
-			left: 6px;
-		}
-		&:after {
-			content: '';
-			display: inline-block;
-			border-left:   6px solid transparent;
-			border-right:  6px solid transparent;
-			border-bottom: 6px solid @white;
-			position: absolute;
-			top: -6px;
-			left: 7px;
-		}
-	}
+		&:after,
+    &:before {
+      content: '';
+      display: inline-block;
+      position: absolute;
+    }
+    &:after {
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+    }
+    &:before {
+      border-bottom-color: rgba(0, 0, 0, 0.2);
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+    }
+    &.datepicker-placement-bottom {
+      &:after {
+        border-bottom: 6px solid #ffffff;
+        top: -6px;
+        left: 7px;
+      }
+      &:before {
+        border-bottom: 7px solid #ccc;
+        top: -7px;
+        left: 6px;
+      }
+    }
+    &.datepicker-placement-top {
+      &:after {
+        border-top: 6px solid #ffffff;
+        bottom: -6px;
+        left: 7px;
+      }
+      &:before {
+        border-top: 7px solid #ccc;
+        bottom: -7px;
+        left: 6px;
+      }
+    }
+  }
 	>div {
 		display: none;
 	}
