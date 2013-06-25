@@ -44,13 +44,19 @@
 			this.component = false;
 
 		this.picker = $(DPGlobal.template);
+		this.isDropup = this.component.hasClass('dropup') || this.element.hasClass('dropup');
+		
 		this._buildEvents();
 		this._attachEvents();
 
 		if(this.isInline) {
 			this.picker.addClass('datepicker-inline').appendTo(this.element);
 		} else {
-			this.picker.addClass('datepicker-dropdown dropdown-menu');
+			if(this.isDropup) {
+				this.picker.addClass('datepicker-dropup dropdown-menu');				
+			} else {
+				this.picker.addClass('datepicker-dropdown dropdown-menu');
+			}
 		}
 
 		if (this.o.rtl){
@@ -355,11 +361,22 @@
 						}).first().css('z-index'))+10;
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(true);
-			this.picker.css({
-				top: offset.top + height,
-				left: offset.left,
-				zIndex: zIndex
-			});
+			
+			if(this.isDropup) {
+				height = this.picker.outerHeight(true);
+
+				this.picker.css({
+					top: offset.top - height,
+					left: offset.left,
+					zIndex: zIndex
+				});
+			} else {
+				this.picker.css({
+					top: offset.top + height,
+					left: offset.left,
+					zIndex: zIndex
+				});
+			}
 		},
 
 		_allow_update: true,
