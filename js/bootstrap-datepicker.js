@@ -453,7 +453,6 @@
 					.css({
 					top: offset.top + (height - this.picker.outerHeight(true)) /2
 				});
-										console.log(this.picker.offset().left);
 			if (this.element.is('.input-append')) 
 				this.picker.css({
 					left: this.picker.offset().left + this.element.children('input:eq(0)').outerWidth(true)
