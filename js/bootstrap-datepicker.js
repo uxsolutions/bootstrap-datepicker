@@ -59,6 +59,11 @@
 						.toggleClass('icon-arrow-left icon-arrow-right');
 		}
 
+		if ($.inArray('auto', this.o.placement) == -1)
+			$.each(this.o.placement, function(index, value) {
+				that.picker.addClass('placement-' + value);
+		});
+
 
 		this.viewMode = this.o.startView;
 
@@ -105,6 +110,7 @@
 					lang = defaults.language;
 			}
 			o.language = lang;
+			o.placement = this.o.placement.split(' ');
 
 			switch(o.startView){
 				case 2:
@@ -207,7 +213,8 @@
 					click: $.proxy(this.click, this)
 				}],
 				[$(window), {
-					resize: $.proxy(this.place, this)
+					resize: $.proxy(this.check_boundaries, this),
+					scroll: $.proxy(this.check_boundaries, this)
 				}],
 				[$(document), {
 					mousedown: $.proxy(function (e) {
@@ -256,8 +263,11 @@
 			if (!this.isInline)
 				this.picker.appendTo('body');
 			this.picker.show();
+			if (this.o.placement[0] == 'auto')
+				this.check_boundaries();
+			else
+				this.place();
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
-			this.place();
 			this._attachSecondaryEvents();
 			if (e) {
 				e.preventDefault();
@@ -354,12 +364,101 @@
 							return $(this).css('z-index') != 'auto';
 						}).first().css('z-index'))+10;
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
-			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(true);
-			this.picker.css({
-				top: offset.top + height,
-				left: offset.left,
-				zIndex: zIndex
+			var height = this.component ? this.component.outerHeight() : this.element.outerHeight();
+			var width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(true);
+
+			var to_one_side = true;
+			if ($.inArray('left', this.o.placement) > -1)
+				this.picker.css({
+					left: offset.left - this.picker.outerWidth(true)
 			});
+			else if ($.inArray('right', this.o.placement) > -1)
+				this.picker.css({
+					left: offset.left + width,
+			});
+			else {
+				this.picker.css({
+					left: offset.left + (width - this.picker.outerWidth(true)) /2,
+			});
+				to_one_side = false;
+			}
+
+			if ($.inArray('top', this.o.placement) > -1)
+				this.picker.css({
+					top: offset.top - this.picker.outerHeight(true)	+ (to_one_side ? height : 0)
+				});
+			else if ($.inArray('bottom', this.o.placement) > -1)
+				this.picker.css({
+					top: offset.top	+ (to_one_side ? 0 : height)
+				});
+			else
+				this.picker.css({
+					top: offset.top + (height - this.picker.outerHeight(true)) /2,
+				});
+			if (this.element.is('.input-append')) 
+				this.picker.css({
+					left: this.picker.offset().left + this.element.children('input:eq(0)').outerWidth(true)
+				});
+
+			this.picker.css({zIndex: zIndex});
+		},
+
+		check_boundaries: function () {
+			var zIndex = parseInt(this.element.parents().filter(function() {
+						return $(this).css('z-index') != 'auto';
+					}).first().css('z-index'))+10;
+			var offset = this.component ? this.component.parent().offset() : this.element.offset();
+			var height = this.component ? this.component.outerHeight() : this.element.outerHeight();
+			var width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(true);
+
+			var horizontal_done = false;
+			var vertical_done = false;
+			if ($(window).width() > offset.left + width + this.picker.outerWidth(true) - $(window).scrollLeft()) {
+				this.picker.removeClass("placement-left").addClass("placement-right")
+					.css({
+				left: offset.left + width
+			});
+				if ($.inArray('right', this.o.placement) > -1) horizontal_done = true;
+			}
+			if (offset.left - $(window).scrollLeft() + ( this.element.is('.input-append') ? this.element.children('input:eq(0)').outerWidth(true) : 0 )
+				> this.picker.outerWidth(true) && !horizontal_done) {
+				this.picker.removeClass("placement-right").addClass("placement-left")
+					.css({
+				left: offset.left - this.picker.outerWidth(true)
+			});
+				if ($.inArray('left', this.o.placement) > -1) horizontal_done = true;
+			}
+			if ($(window).width() + $(window).scrollLeft() - offset.left > (width + this.picker.outerWidth(true)) /2 && !horizontal_done)
+				this.picker.removeClass("placement-left placement-right")
+					.css({
+					left: offset.left + (width - this.picker.outerWidth(true)) /2
+				});
+
+			if ($(window).height() + $(window).scrollTop() - offset.top > height + this.picker.outerHeight(true) ) {
+				this.picker.removeClass("placement-top").addClass("placement-bottom")
+					.css({
+						top: offset.top	+ (horizontal_done ? 0 : height)
+					});
+				if ($.inArray('bottom', this.o.placement) > -1) vertical_done = true;
+			}
+			if ((offset.top - $(window).scrollTop() > this.picker.outerHeight(true) && !vertical_done)) {
+				this.picker.removeClass("placement-bottom").addClass("placement-top")
+					.css({
+						top: offset.top - this.picker.outerHeight(true) + (horizontal_done ? height : 0)
+				});
+				if ($.inArray('top', this.o.placement) > -1) vertical_done = true;
+			}
+			if ($(window).height() + $(window).scrollTop() - offset.top > (height + this.picker.outerHeight(true)) /2 && !vertical_done)
+				this.picker.removeClass("placement-top placement-bottom")
+					.css({
+					top: offset.top + (height - this.picker.outerHeight(true)) /2
+				});
+			if (this.element.is('.input-append')) 
+				this.picker.css({
+					left: this.picker.offset().left + this.element.children('input:eq(0)').outerWidth(true)
+				});
+
+			this.picker.css({zIndex: zIndex});
 		},
 
 		_allow_update: true,
@@ -1008,6 +1107,7 @@
 		keyboardNavigation: true,
 		language: 'en',
 		minViewMode: 0,
+		placement: "auto bottom",
 		rtl: false,
 		startDate: -Infinity,
 		startView: 0,

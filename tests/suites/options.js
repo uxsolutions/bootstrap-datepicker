@@ -406,3 +406,19 @@ test('BeforeShowDay', function(){
     target = picker.find('.datepicker-days tbody td:nth(29)');
     ok(!target.hasClass('disabled'), '29th is enabled');
 });
+
+test('Picker placement', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2013-06-25')
+                .datepicker({
+                    placement: "top left"
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker
+        target = picker;
+
+    input.focus();
+    ok(target.hasClass("placement-left"), "Picker is placed to the left");
+    ok(target.hasClass("placement-top"), "Picker is placed to the top");
+});
