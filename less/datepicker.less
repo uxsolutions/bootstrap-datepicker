@@ -28,6 +28,8 @@
 			content: '';
 			display: inline-block;
 			position: absolute;
+			top: 50%;
+			left: 50%;
 		}
 		&.placement-bottom:before {
 			border-left:   7px solid transparent;
@@ -35,64 +37,82 @@
 			border-bottom: 7px solid #ccc;
 			border-bottom-color: rgba(0,0,0,.2);
 			top: -7px;
-			left: 6px;
 		}
 		&.placement-top:before {
 			border-left:   7px solid transparent;
 			border-right:  7px solid transparent;
 			border-top: 7px solid #ccc;
 			border-top-color: rgba(0,0,0,.2);
+			top: auto;
 			bottom: -7px;
-			left: 6px;
 		}
 		&.placement-left:before {
 			border-left:   7px solid #ccc;
+			border-right-style: none;
 			border-bottom:  7px solid transparent;
 			border-top: 7px solid transparent;
 			border-left-color: rgba(0,0,0,.2);
-			top: 6px;
+			left: auto;
 			right: -7px;
 		}
 		&.placement-right:before {
+			border-left-style: none;
 			border-right:   7px solid #ccc;
 			border-bottom:  7px solid transparent;
 			border-top: 7px solid transparent;
 			border-right-color: rgba(0,0,0,.2);
-			top: 6px;
 			left: -7px;
+		}
+		&.placement-top.placement-left:before,
+		&.placement-top.placement-right:before {
+			bottom: 6px;
+		}
+		&.placement-bottom.placement-left:before,
+		&.placement-bottom.placement-right:before {
+			top: 7px;
 		}
 		&:after {
 			content: '';
 			display: inline-block;
 			position: absolute;
+			top: 50.5%;
+			left: 50.5%;
 		}
 		&.placement-bottom:after {
 			border-left:   6px solid transparent;
 			border-right:  6px solid transparent;
 			border-bottom: 6px solid @white;
 			top: -6px;
-			left: 7px;
 		}
 		&.placement-top:after {
 			border-left:   6px solid transparent;
 			border-right:  6px solid transparent;
 			border-top: 6px solid @white;
+			top: auto;
 			bottom: -6px;
-			left: 7px;
 		}
 		&.placement-left:after {
 			border-left:   6px solid @white;
+			border-right-style: none;
 			border-bottom:  6px solid transparent;
 			border-top: 6px solid transparent;
-			top: 7px;
+			left: auto;
 			right: -5px;
 		}
 		&.placement-right:after {
+			border-left-style: none;
 			border-right:   6px solid @white;
 			border-bottom:  6px solid transparent;
 			border-top: 6px solid transparent;
-			top: 7px;
 			left: -6px;
+		}
+		&.placement-top.placement-left:after,
+		&.placement-top.placement-right:after {
+			bottom: 7px;
+		}
+		&.placement-bottom.placement-left:after,
+		&.placement-bottom.placement-right:after {
+			top: 6px;
 		}
 	}
 	>div {

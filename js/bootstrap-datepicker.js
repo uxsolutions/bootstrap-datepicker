@@ -58,10 +58,12 @@
 			this.picker.find('.prev i, .next i')
 						.toggleClass('icon-arrow-left icon-arrow-right');
 		}
-		if (this.o.placement == 'auto')
-			this.picker.addClass('placement-bottom');
-		else
-			this.picker.addClass('placement-' + this.o.placement);
+
+		if ($.inArray('auto', this.o.placement) == -1)
+			$.each(this.o.placement, function(index, value) {
+				that.picker.addClass('placement-' + value);
+		});
+
 
 		this.viewMode = this.o.startView;
 
@@ -108,6 +110,7 @@
 					lang = defaults.language;
 			}
 			o.language = lang;
+			o.placement = this.o.placement.split(' ');
 
 			switch(o.startView){
 				case 2:
@@ -357,57 +360,62 @@
 							return $(this).css('z-index') != 'auto';
 						}).first().css('z-index'))+10;
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
-			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(true);
+			var height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			var width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(true);
-			switch(this.o.placement)
-			{
-				case 'top':
-					this.picker.css({
-						top: offset.top - this.picker.outerHeight(),
-						left: offset.left,
-				}); break;
-				case 'bottom':
-					this.picker.css({
-						top: offset.top + height,
-						left: offset.left,
-				}); break;
-				case 'left':
-					this.picker.css({
-						top: offset.top,
-						left: offset.left - this.picker.outerWidth(),
-				}); break;
-				case 'right':
-					this.picker.css({
-						top: offset.top,
-						left: offset.left + width,
-				}); break;
-				case 'auto':
-					if ($(window).height() > offset.top + height + this.picker.outerHeight() - $(window).scrollTop())
-						this.picker.removeClass("placement-top placement-left placement-right").addClass("placement-bottom")
-							.css({
-						top: offset.top + height,
-						left: offset.left,
-					});
-					else if (offset.top - $(window).scrollTop() > this.picker.outerHeight()	)
-						this.picker.removeClass("placement-bottom placement-left placement-right").addClass("placement-top")
-							.css({
-						top: offset.top - this.picker.outerHeight(),
-						left: offset.left,
-					});
-					else if ($(window).width() > offset.left + width + this.picker.outerWidth() - $(window).scrollLeft())
-						this.picker.removeClass("placement-top placement-bottom placement-left").addClass("placement-right")
-							.css({
-						top: offset.top,
-						left: offset.left + width,
-					});
-					else // if (offset.left - $(window).scrollLeft() > this.picker.outerWidth())
-						this.picker.removeClass("placement-top placement-bottom placement-right").addClass("placement-left")
-							.css({
-						top: offset.top,
-						left: offset.left - this.picker.outerWidth(),
-					});		
-				break;					
-			}
+			if ($.inArray('top', this.o.placement) > -1)
+				this.picker.css({
+					top: offset.top - this.picker.outerHeight(true)
+						+ (($.inArray('left', this.o.placement) > -1)
+							|| ($.inArray('right', this.o.placement) > -1) ? height : 0)
+				});
+			else if ($.inArray('bottom', this.o.placement) > -1)
+				this.picker.css({
+					top: offset.top
+						+ (($.inArray('left', this.o.placement) > -1)
+							|| ($.inArray('right', this.o.placement) > -1) ? 0 : height)
+				});
+			else
+				this.picker.css({
+					top: offset.top + (height - this.picker.outerHeight(true)) /2,
+				});
+
+			if ($.inArray('left', this.o.placement) > -1)
+				this.picker.css({
+					left: offset.left - this.picker.outerWidth(true)
+			});
+			else if ($.inArray('right', this.o.placement) > -1)
+				this.picker.css({
+					left: offset.left + width,
+			});
+			else
+				this.picker.css({
+					left: offset.left + (width - this.picker.outerWidth(true)) /2,
+			});
+			if (this.o.placement[0] == 'auto')
+				if ($(window).height() > offset.top + height + this.picker.outerHeight() - $(window).scrollTop())
+					this.picker.removeClass("placement-top placement-left placement-right").addClass("placement-bottom")
+						.css({
+					top: offset.top + height,
+					left: offset.left,
+				});
+				else if (offset.top - $(window).scrollTop() > this.picker.outerHeight()	)
+					this.picker.removeClass("placement-bottom placement-left placement-right").addClass("placement-top")
+						.css({
+					top: offset.top - this.picker.outerHeight(),
+					left: offset.left,
+				});
+				else if ($(window).width() > offset.left + width + this.picker.outerWidth() - $(window).scrollLeft())
+					this.picker.removeClass("placement-top placement-bottom placement-left").addClass("placement-right")
+						.css({
+					top: offset.top,
+					left: offset.left + width,
+				});
+				else // if (offset.left - $(window).scrollLeft() > this.picker.outerWidth())
+					this.picker.removeClass("placement-top placement-bottom placement-right").addClass("placement-left")
+						.css({
+					top: offset.top,
+					left: offset.left - this.picker.outerWidth(),
+				});	
 		},
 
 		_allow_update: true,
