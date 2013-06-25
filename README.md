@@ -284,6 +284,14 @@ Format a component.
 </div>
 ```
 
+To show picker as dropup instead of dropdown add 'dropup' class.
+
+```html
+<div class="input-append date datepicker dropup" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+    <input class="span2" size="16" type="text" value="12-02-2012"><span class="add-on"><i class="icon-th"></i></span>
+</div>
+```
+
 Create a date-range picker:
 
 ```html
