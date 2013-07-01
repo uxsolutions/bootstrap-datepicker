@@ -317,6 +317,9 @@
 				if (this.component){
 					this.element.find('input').val(formatted);
 				}
+				else {
+					this.element.attr('data-date', formatted);
+				}
 			} else {
 				this.element.val(formatted);
 			}
