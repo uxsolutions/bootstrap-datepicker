@@ -355,8 +355,17 @@
 						}).first().css('z-index'))+10;
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(true);
+
+			if (offset.top+this.height+this.picker.outerHeight() <= window.innerHeight) {
+				var pickerTop = offset.top + this.height;
+				$(this.picker).removeClass('arrowBottom').addClass('arrowTop');
+			} else {
+				pickerTop = offset.top - this.picker.outerHeight();
+				$(this.picker).removeClass('arrowTop').addClass('arrowBottom');
+			}
+
 			this.picker.css({
-				top: offset.top + height,
+				top: pickerTop,
 				left: offset.left,
 				zIndex: zIndex
 			});

@@ -36,10 +36,7 @@
   display: inline-block;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-  border-bottom: 7px solid #ccc;
-  border-bottom-color: rgba(0, 0, 0, 0.2);
   position: absolute;
-  top: -7px;
   left: 6px;
 }
 .datepicker-dropdown:after {
@@ -47,10 +44,26 @@
   display: inline-block;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-bottom: 6px solid #ffffff;
   position: absolute;
-  top: -6px;
   left: 7px;
+}
+.arrowTop:before {
+  border-bottom: 7px solid #ccc;
+  top: -7px;
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+}
+.arrowTop:after {
+  top: -6px;
+  border-bottom: 6px solid #ffffff;
+}
+.arrowBottom:before {
+  border-top: 7px solid #ccc;
+  bottom: -7px;
+  border-top-color: rgba(0, 0, 0, 0.2);
+}
+.arrowBottom:after {
+  bottom: -6px;
+  border-top: 6px solid #ffffff;
 }
 .datepicker > div {
   display: none;
