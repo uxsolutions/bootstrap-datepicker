@@ -173,6 +173,7 @@
 				this._events = [
 					[this.element, {
 						focus: $.proxy(this.show, this),
+						click: $.proxy(this.show, this),
 						keyup: $.proxy(this.update, this),
 						keydown: $.proxy(this.keydown, this)
 					}]
@@ -183,6 +184,7 @@
 					// For components that are not readonly, allow keyboard nav
 					[this.element.find('input'), {
 						focus: $.proxy(this.show, this),
+						click: $.proxy(this.show, this),
 						keyup: $.proxy(this.update, this),
 						keydown: $.proxy(this.keydown, this)
 					}],
@@ -253,6 +255,7 @@
 		},
 
 		show: function(e) {
+			if (this.picker.noshow) return;
 			if (!this.isInline)
 				this.picker.appendTo('body');
 			this.picker.show();
@@ -717,6 +720,10 @@
 			if (element) {
 				element.change();
 				if (this.o.autoclose && (!which || which == 'date')) {
+					// Return focus to the input field
+					this.picker.noshow = true;
+					element.focus();
+					delete this.picker.noshow;
 					this.hide();
 				}
 			}
