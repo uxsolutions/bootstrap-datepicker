@@ -1,11 +1,17 @@
 Changelog
 =========
 
-1.1.2
+1.1.3
 ----------
 
 Clicking the clear button now triggers the input's `change` and datepicker's `changeDate` events.
 Fixed a bug that broke the event-attached `format` function.
+
+
+1.1.2
+----------
+
+Botched release, no change from 1.1.1
 
 
 1.1.1
