@@ -100,7 +100,8 @@
 			// fallback to 2 letter code eg "de"
 			var lang = o.language;
 			if (!dates[lang]) {
-				lang = lang.split('-')[0];
+				if (lang)
+					lang = lang.split('-')[0];
 				if (!dates[lang])
 					lang = defaults.language;
 			}
