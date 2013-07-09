@@ -13,6 +13,7 @@
   -moz-border-radius: 4px;
   border-radius: 4px;
   direction: ltr;
+  z-index:9999;
   /*.dow {
 		border-top: 1px solid #ddd !important;
 	}*/
