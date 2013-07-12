@@ -172,7 +172,7 @@
 			if (this.isInput) { // single input
 				this._events = [
 					[this.element, {
-						focus: $.proxy(this.show, this),
+//						focus: $.proxy(this.show, this),
 						keyup: $.proxy(this.update, this),
 						keydown: $.proxy(this.keydown, this)
 					}]
@@ -772,8 +772,14 @@
 
 		keydown: function(e){
 			if (this.picker.is(':not(:visible)')){
-				if (e.keyCode == 27) // allow escape to hide and re-show picker
+				if (e.keyCode == 27) {// allow escape to hide and re-show picker
 					this.show();
+                                }else{
+                                if (e.shiftKey && e.keyCode == 191){ // also add ?
+                                    e.preventDefault(); // prevent the ? being added to the field
+                                    this.show();
+                                }
+                            }
 				return;
 			}
 			var dateChanged = false,
@@ -841,6 +847,8 @@
 				case 9: // tab
 					this.hide();
 					break;
+                                        default:e.preventDefault(); 
+                                        break; 
 			}
 			if (dateChanged){
 				this._trigger('changeDate');
@@ -1204,6 +1212,7 @@
 	DPGlobal.template = '<div class="datepicker">'+
 							'<div class="datepicker-days">'+
 								'<table class=" table-condensed">'+
+                                                                '<span class="addeddatepickermesagesmonth">Click the month below for year view</span>'+
 									DPGlobal.headTemplate+
 									'<tbody></tbody>'+
 									DPGlobal.footTemplate+
@@ -1211,6 +1220,8 @@
 							'</div>'+
 							'<div class="datepicker-months">'+
 								'<table class="table-condensed">'+
+                                                                 '<span class="addeddatepickermesagesyear">Click the year below for decade view</span>'+
+								
 									DPGlobal.headTemplate+
 									DPGlobal.contTemplate+
 									DPGlobal.footTemplate+
