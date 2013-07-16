@@ -406,3 +406,84 @@ test('BeforeShowDay', function(){
     target = picker.find('.datepicker-days tbody td:nth(29)');
     ok(!target.hasClass('disabled'), '29th is enabled');
 });
+
+test('Orientation: values are parsed correctly', function(){
+
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-10-26')
+                .datepicker({
+                    format: 'yyyy-mm-dd'
+                }),
+        dp = input.data('datepicker');
+
+    equal(dp.o.orientation.x, 'auto');
+    equal(dp.o.orientation.y, 'auto');
+
+    dp._process_options({orientation: ''});
+    equal(dp.o.orientation.x, 'auto', 'Empty value');
+    equal(dp.o.orientation.y, 'auto', 'Empty value');
+
+    dp._process_options({orientation: 'left'});
+    equal(dp.o.orientation.x, 'left', '"left"');
+    equal(dp.o.orientation.y, 'auto', '"left"');
+
+    dp._process_options({orientation: 'right'});
+    equal(dp.o.orientation.x, 'right', '"right"');
+    equal(dp.o.orientation.y, 'auto', '"right"');
+
+    dp._process_options({orientation: 'top'});
+    equal(dp.o.orientation.x, 'auto', '"top"');
+    equal(dp.o.orientation.y, 'top', '"top"');
+
+    dp._process_options({orientation: 'bottom'});
+    equal(dp.o.orientation.x, 'auto', '"bottom"');
+    equal(dp.o.orientation.y, 'bottom', '"bottom"');
+
+    dp._process_options({orientation: 'left top'});
+    equal(dp.o.orientation.x, 'left', '"left top"');
+    equal(dp.o.orientation.y, 'top', '"left top"');
+
+    dp._process_options({orientation: 'left bottom'});
+    equal(dp.o.orientation.x, 'left', '"left bottom"');
+    equal(dp.o.orientation.y, 'bottom', '"left bottom"');
+
+    dp._process_options({orientation: 'right top'});
+    equal(dp.o.orientation.x, 'right', '"right top"');
+    equal(dp.o.orientation.y, 'top', '"right top"');
+
+    dp._process_options({orientation: 'right bottom'});
+    equal(dp.o.orientation.x, 'right', '"right bottom"');
+    equal(dp.o.orientation.y, 'bottom', '"right bottom"');
+
+    dp._process_options({orientation: 'left right'});
+    equal(dp.o.orientation.x, 'left', '"left right"');
+    equal(dp.o.orientation.y, 'auto', '"left right"');
+
+    dp._process_options({orientation: 'right left'});
+    equal(dp.o.orientation.x, 'right', '"right left"');
+    equal(dp.o.orientation.y, 'auto', '"right left"');
+
+    dp._process_options({orientation: 'top bottom'});
+    equal(dp.o.orientation.x, 'auto', '"top bottom"');
+    equal(dp.o.orientation.y, 'top', '"top bottom"');
+
+    dp._process_options({orientation: 'bottom top'});
+    equal(dp.o.orientation.x, 'auto', '"bottom top"');
+    equal(dp.o.orientation.y, 'bottom', '"bottom top"');
+
+    dp._process_options({orientation: 'foo bar'});
+    equal(dp.o.orientation.x, 'auto', '"foo bar"');
+    equal(dp.o.orientation.y, 'auto', '"foo bar"');
+
+    dp._process_options({orientation: 'foo left'});
+    equal(dp.o.orientation.x, 'left', '"foo left"');
+    equal(dp.o.orientation.y, 'auto', '"foo left"');
+
+    dp._process_options({orientation: 'top bar'});
+    equal(dp.o.orientation.x, 'auto', '"top bar"');
+    equal(dp.o.orientation.y, 'top', '"top bar"');
+});
+
+
+
