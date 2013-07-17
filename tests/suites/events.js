@@ -12,7 +12,7 @@ module('Events', {
     }
 });
 
-test('Selecting a year from decade view triggers pickYear', function(){
+test('Selecting a year from decade view triggers changeYear', function(){
     var target,
         triggered = 0;
 
@@ -51,7 +51,7 @@ test('Selecting a year from decade view triggers pickYear', function(){
     equal(triggered, 1);
 });
 
-test('Selecting a month from year view triggers pickMonth', function(){
+test('Selecting a month from year view triggers changeMonth', function(){
     var target,
         triggered = 0;
 
