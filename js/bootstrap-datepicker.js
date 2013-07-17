@@ -700,10 +700,13 @@
 								switch(this.viewMode){
 									case 0:
 										this.viewDate = this.moveMonth(this.viewDate, dir);
+										this._trigger('changeMonth', this.viewDate);
 										break;
 									case 1:
 									case 2:
 										this.viewDate = this.moveYear(this.viewDate, dir);
+										if (this.viewMode === 1)
+											this._trigger('changeYear', this.viewDate);
 										break;
 								}
 								this.fill();
@@ -875,9 +878,11 @@
 					if (e.ctrlKey){
 						newDate = this.moveYear(this.date, dir);
 						newViewDate = this.moveYear(this.viewDate, dir);
+						this._trigger('changeYear', this.viewDate);
 					} else if (e.shiftKey){
 						newDate = this.moveMonth(this.date, dir);
 						newViewDate = this.moveMonth(this.viewDate, dir);
+						this._trigger('changeMonth', this.viewDate);
 					} else {
 						newDate = new Date(this.date);
 						newDate.setUTCDate(this.date.getUTCDate() + dir);
@@ -900,9 +905,11 @@
 					if (e.ctrlKey){
 						newDate = this.moveYear(this.date, dir);
 						newViewDate = this.moveYear(this.viewDate, dir);
+						this._trigger('changeYear', this.viewDate);
 					} else if (e.shiftKey){
 						newDate = this.moveMonth(this.date, dir);
 						newViewDate = this.moveMonth(this.viewDate, dir);
+						this._trigger('changeMonth', this.viewDate);
 					} else {
 						newDate = new Date(this.date);
 						newDate.setUTCDate(this.date.getUTCDate() + dir * 7);
