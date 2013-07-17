@@ -444,6 +444,20 @@
 				left: left,
 				zIndex: zIndex
 			});
+
+			// adjust scroll to make sure picker is displayed
+			var picker = this.picker[0];
+			if (picker.scrollIntoViewIfNeeded){
+				// supported only by webkit
+				picker.scrollIntoViewIfNeeded(false);
+			}
+			else {
+				var picker_bottom = this.picker.offset().top + this.picker.outerHeight();
+				var window_bottom = $(window).scrollTop() + window.innerHeight;
+				if (picker_bottom  >=  window_bottom) {
+					picker.scrollIntoView(false);
+				}
+			}
 		},
 
 		_allow_update: true,
