@@ -132,7 +132,7 @@
 		&.range.today:hover,
 		&.range.today.disabled,
 		&.range.today.disabled:hover {
-			@todayBackground: mix(@orange, @grayLighter);
+			@todayBackground: mix(@orange, @grayLighter, 50%);
 			.buttonBackground(@todayBackground, spin(@todayBackground, 20));
 			.border-radius(0);
 		}
