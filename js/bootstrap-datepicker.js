@@ -811,9 +811,9 @@
 			}
 			if (element) {
 				element.change();
-				if (this.o.autoclose && (!which || which == 'date')) {
-					this.hide();
-				}
+			}
+			if (this.o.autoclose && (!which || which == 'date')) {
+				this.hide();
 			}
 		},
 
