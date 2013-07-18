@@ -788,7 +788,7 @@
 									month += 1;
 								}
 							}
-							this._setDate(UTCDate(year, month, day,0,0,0,0));
+							this._setDate(UTCDate(year, month, day, 0, 0, 0, 0));
 						}
 						break;
 				}
@@ -797,9 +797,9 @@
 
 		_setDate: function(date, which){
 			if (!which || which == 'date')
-				this.date = new Date(date);
+				this.date = new Date(date + (date.getTimezoneOffset()*60000));
 			if (!which || which  == 'view')
-				this.viewDate = new Date(date);
+				this.viewDate = new Date(date + (date.getTimezoneOffset()*60000));
 			this.fill();
 			this.setValue();
 			this._trigger('changeDate');
