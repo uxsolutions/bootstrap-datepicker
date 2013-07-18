@@ -8,12 +8,14 @@ contributed to by him (yet?)
 
 Versions are incremented according to [semver](http://semver.org/).
 
+[Online Demo](http://eternicode.github.com/bootstrap-datepicker/)
+
 # Requirements
 
 * [Bootstrap](http://twitter.github.com/bootstrap/) 2.0.4+
 * [jQuery](http://jquery.com/) 1.7.1+
 
-These are the specific versions bootstrap-datpicker is tested against (`js` files) and built against (`css` files).  Use other versions at your own risk.
+These are the specific versions bootstrap-datepicker is tested against (`js` files) and built against (`css` files).  Use other versions at your own risk.
 
 # Example
 
@@ -161,6 +163,8 @@ $.fn.bootstrapDP = datepicker;                 // give $().bootstrapDP the boots
 
 All options that take a "Date" can handle a `Date` object or a String formatted according to the given `format`.  If the default backend is used, they can also handle a timedelta relative to today, eg '-1d', '+6m +1y', etc, where valid units are 'd' (day), 'w' (week), 'm' (month), and 'y' (year).
 
+Most options can be provided via data-attributes.  An option can be converted to a data-attribute by taking its name, replacing each uppercase letter with its lowercase equivalent preceded by a dash, and prepending "data-date-" to the result.  For example, `startDate` would be `data-date-start-date`, `format` would be `data-date-format`, and `daysOfWeekDisabled` would be `data-date-days-of-week-disabled`.
+
 ### format
 
 String.  Default: 'mm/dd/yyyy'
@@ -277,6 +281,16 @@ A function that takes a date as a parameter and returns one of the following val
    * `enabled`: same as the Boolean value above
    * `classes`: same as the String value above
    * `tooltip`: a tooltip to apply to this date, via the `title` HTML attribute
+
+### orientation
+
+String.  Default: "auto"
+
+A space-separated string consisting of one or two of "left" or "right", "top" or "bottom", and "auto" (may be omitted); for example, "top left", "bottom" (horizontal orientation will default to "auto"), "right" (vertical orientation will default to "auto"), "auto top".  Allows for fixed placement of the picker popup.
+
+"orientation" refers to the location of the picker popup's "anchor"; you can also think of it as the location of the trigger element (input, component, etc) relative to the picker.
+
+"auto" triggers "smart orientation" of the picker.  Horizontal orientation will default to "left" and left offset will be tweaked to keep the picker inside the browser viewport; vertical orientation will simply choose "top" or "bottom", whichever will show more of the picker in the viewport.
 
 ## Markup
 

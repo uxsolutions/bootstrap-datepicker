@@ -34,6 +34,8 @@
 		},
 		parseDate: function(date, format, language) {
 			if (date instanceof Date) return date;
+			if (typeof format === 'string')
+				format = this.parseFormat(format);
 			if (/^[\-+]\d+[dmwy]([\s,]+[\-+]\d+[dmwy])*$/.test(date)) {
 				var part_re = /([\-+]\d+)([dmwy])/,
 					parts = date.match(/([\-+]\d+)([dmwy])/g),
@@ -67,6 +69,8 @@
 					yyyy: function(d,v){ return d.setUTCFullYear(v); },
 					yy: function(d,v){ return d.setUTCFullYear(2000+v); },
 					m: function(d,v){
+						if (isNaN(d))
+							return d;
 						v -= 1;
 						while (v<0) v += 12;
 						v %= 12;
@@ -115,15 +119,21 @@
 					}
 					parsed[part] = val;
 				}
-				for (var i=0, s; i<setters_order.length; i++){
+				for (var i=0, _date, s; i<setters_order.length; i++){
 					s = setters_order[i];
-					if (s in parsed && !isNaN(parsed[s]))
-						setters_map[s](date, parsed[s]);
+					if (s in parsed && !isNaN(parsed[s])){
+						_date = new Date(date);
+						setters_map[s](_date, parsed[s]);
+						if (!isNaN(_date))
+							date = _date;
+					}
 				}
 			}
 			return date;
 		},
 		formatDate: function(date, format, language){
+			if (typeof format === 'string')
+				format = this.parseFormat(format)
 			var val = {
 				d: date.getUTCDate(),
 				D: dates[language].daysShort[date.getUTCDay()],
