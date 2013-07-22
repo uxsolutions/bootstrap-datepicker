@@ -485,5 +485,27 @@ test('Orientation: values are parsed correctly', function(){
     equal(dp.o.orientation.y, 'top', '"top bar"');
 });
 
+test('Right to Left: values are parsed correctly', function(){
 
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-10-26')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    rtl: true,
+                    headerRtl: true
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    equal(dp.o.rtl, true, '"Calendar Right to Left Option Parsed"');
+    equal(dp.o.headerRtl, true, '"Header Right to Left Option Parsed"');
+
+    target = picker.find('thead');
+    ok(target.hasClass('datepicker-rtl'), '"Header is right to left"');
+
+    target = picker.find('tbody');
+    ok(target.hasClass('datepicker-rtl'), '"Calendar is right to left"');
+});
 
