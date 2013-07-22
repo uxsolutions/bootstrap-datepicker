@@ -297,7 +297,7 @@
 
 		show: function(e) {
 			if (!this.isInline)
-				this.picker.appendTo('body');
+				this.picker.appendTo(this.element);
 			this.picker.show();
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			this.place();
@@ -402,7 +402,7 @@
 			var zIndex = parseInt(this.element.parents().filter(function() {
 							return $(this).css('z-index') != 'auto';
 						}).first().css('z-index'))+10;
-			var offset = this.component ? this.component.parent().offset() : this.element.offset();
+			var offset = this.component ? this.component.parent().position() : this.element.offset();
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(true);
 			var width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(true);
 			var left = offset.left,
