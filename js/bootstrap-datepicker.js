@@ -800,6 +800,8 @@
 				this.date = new Date(date);
 			if (!which || which  == 'view')
 				this.viewDate = new Date(date);
+			else
+				this.viewDate = this.date;
 			this.fill();
 			this.setValue();
 			this._trigger('changeDate');
