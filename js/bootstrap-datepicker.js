@@ -772,9 +772,10 @@
 
 		keydown: function(e){
 			if (this.picker.is(':not(:visible)')){
-				if (e.keyCode == 27 || e.keyCode == 32) // allow escape or space to hide and re-show picker
+				if (e.keyCode == 27 || e.keyCode == 32){ // allow escape or space to hide and re-show picker
 					this.show();
 					e.preventDefault();
+				}
 				return;
 			}
 			var dateChanged = false,
