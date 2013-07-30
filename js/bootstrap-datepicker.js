@@ -56,10 +56,13 @@
 			this.picker.addClass('datepicker-dropdown dropdown-menu');
 		}
 
+		if (this.o.headerRtl){
+			this.picker.find('.prev, .next')
+						.toggleClass('next prev');
+		}
+
 		if (this.o.rtl){
-			this.picker.addClass('datepicker-rtl');
-			this.picker.find('.prev i, .next i')
-						.toggleClass('icon-arrow-left icon-arrow-right');
+			this.picker.find("tbody").addClass('datepicker-rtl');
 		}
 
 
@@ -1104,6 +1107,7 @@
 		endDate: Infinity,
 		forceParse: true,
 		format: 'mm/dd/yyyy',
+		headerRtl: false,
 		keyboardNavigation: true,
 		language: 'en',
 		minViewMode: 0,
