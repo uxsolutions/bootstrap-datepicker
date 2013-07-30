@@ -502,8 +502,8 @@ test('Right to Left: values are parsed correctly', function(){
     equal(dp.o.rtl, true, '"Calendar Right to Left Option Parsed"');
     equal(dp.o.headerRtl, true, '"Header Right to Left Option Parsed"');
 
-    target = picker.find('thead');
-    ok(target.hasClass('datepicker-rtl'), '"Header is right to left"');
+    target = picker.find('thead th:last');
+    ok(target.hasClass('prev'), '"Header is right to left"');
 
     target = picker.find('tbody');
     ok(target.hasClass('datepicker-rtl'), '"Calendar is right to left"');

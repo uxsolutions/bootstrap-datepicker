@@ -21,9 +21,6 @@
 .datepicker-inline {
   width: 220px;
 }
-.datepicker thead.datepicker-rtl {
-  direction: rtl;
-}
 .datepicker tbody.datepicker-rtl tr td span {
   float: right;
 }

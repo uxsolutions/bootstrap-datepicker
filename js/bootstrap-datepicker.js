@@ -57,9 +57,8 @@
 		}
 
 		if (this.o.headerRtl){
-			this.picker.find("thead").addClass('datepicker-rtl');
-			this.picker.find('.prev i, .next i')
-						.toggleClass('icon-arrow-left icon-arrow-right');
+			this.picker.find('.prev, .next')
+						.toggleClass('next prev');
 		}
 
 		if (this.o.rtl){
