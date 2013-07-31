@@ -444,8 +444,15 @@
 			this.picker.addClass('datepicker-orient-' + yorient);
 			if (yorient === 'top')
 				top += height;
-			else
-				top -= calendarHeight + parseInt(this.picker.css('padding'));
+			else {
+				var pickerPadding = parseInt(this.picker.css('padding'));
+
+				if (isNaN(pickerPadding)) {
+					pickerPadding = 0;
+				}
+
+				top -= calendarHeight + pickerPadding;
+			}
 
 			this.picker.css({
 				top: top,
