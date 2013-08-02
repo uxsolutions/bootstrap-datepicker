@@ -461,6 +461,8 @@
 			var date, fromArgs = false;
 			if(arguments && arguments.length && (typeof arguments[0] === 'string' || arguments[0] instanceof Date)) {
 				date = arguments[0];
+				if (date instanceof Date)
+					date = new Date(date.getTime() - (date.getTimezoneOffset()*60000));
 				fromArgs = true;
 			} else {
 				date = this.isInput ? this.element.val() : this.element.data('date') || this.element.find('input').val();

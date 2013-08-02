@@ -22,13 +22,19 @@ module('Methods', {
 
 // });
 
-// test('update - String', function(){
+test('update - String', function(){
+    this.dp.update('13-03-2012');
+    datesEqual(this.dp.date, UTCDate(2012, 2, 13));
+    var date = this.dp.picker.find('.datepicker-days td:contains(13)');
+    ok(date.is('.active'), 'Date is selected');
+});
 
-// });
-
-// test('update - Date', function(){
-
-// });
+test('update - Date', function(){
+    this.dp.update(new Date(2012, 2, 13));
+    datesEqual(this.dp.date, UTCDate(2012, 2, 13));
+    var date = this.dp.picker.find('.datepicker-days td:contains(13)');
+    ok(date.is('.active'), 'Date is selected');
+});
 
 test('setDate', function(){
     var date_in = new Date(2013, 1, 1),

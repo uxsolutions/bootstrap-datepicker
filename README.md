@@ -349,8 +349,12 @@ Arguments:
 
 Update the datepicker with given argument or the current input value.
 
+If `date` is provided and is a Date objects, it is assumed to be a "local" date object, and will be converted to UTC for internal use.
+
 ```javascript
 $('.datepicker').datepicker('update');
+$('.datepicker').datepicker('update', '2011-03-05');
+$('.datepicker').datepicker('update', new Date(2011, 2, 5));
 ```
 
 ### setDate
