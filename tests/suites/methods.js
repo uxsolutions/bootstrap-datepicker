@@ -32,7 +32,7 @@ module('Methods', {
 
 test('setDate', function(){
     var date_in = new Date(2013, 1, 1),
-        expected_date = new Date(Date.UTC(2012, 3, 5));
+        expected_date = new Date(Date.UTC(2013, 1, 1));
 
     notEqual(this.dp.date, date_in);
     this.dp.setDate(date_in);
