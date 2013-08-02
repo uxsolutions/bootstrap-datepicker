@@ -11,39 +11,41 @@ module('Methods', {
 });
 
 // test('remove', function(){
-    
+
 // });
 
 // test('show', function(){
-    
+
 // });
 
 // test('hide', function(){
-    
+
 // });
 
 // test('update - String', function(){
-    
+
 // });
 
 // test('update - Date', function(){
-    
+
 // });
 
 test('setDate', function(){
-    var dateToSet = new Date(2013,01,01,12,00,00,00);
-    
-    notEqual(this.dp.date,dateToSet);
-    this.dp.setDate(dateToSet);
-    datesEqual(this.dp.date.getTime(),dateToSet.getTime());
+    var date_in = new Date(2013, 1, 1),
+        expected_date = new Date(Date.UTC(2012, 3, 5));
+
+    notEqual(this.dp.date, date_in);
+    this.dp.setDate(date_in);
+    datesEqual(this.dp.date, expected_date);
 });
 
 test('setUTCDate', function(){
-    var dateToSet = Date.UTC(2012,3,5);
+    var date_in = new Date(Date.UTC(2012, 3, 5)),
+        expected_date = date_in;
 
-    notEqual(this.dp.date,dateToSet);
-    this.dp.setUTCDate(dateToSet);
-    datesEqual(this.dp.date,dateToSet);
+    notEqual(this.dp.date, date_in);
+    this.dp.setUTCDate(date_in);
+    datesEqual(this.dp.date, expected_date);
 });
 
 // test('setStartDate', function(){
