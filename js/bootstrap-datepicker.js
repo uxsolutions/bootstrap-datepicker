@@ -397,7 +397,8 @@
 				calendarHeight = this.picker.outerHeight(),
 				visualPadding = 10,
 				windowWidth = $window.width(),
-				windowHeight = $window.height();
+				windowHeight = $window.height(),
+				scrollTop = $window.scrollTop();
 
 			var zIndex = parseInt(this.element.parents().filter(function() {
 							return $(this).css('z-index') != 'auto';
@@ -434,8 +435,8 @@
 			var yorient = this.o.orientation.y,
 				top_overflow, bottom_overflow;
 			if (yorient === 'auto') {
-				top_overflow = 0 + offset.top - calendarHeight;
-				bottom_overflow = windowHeight - (offset.top + height + calendarHeight);
+				top_overflow = -scrollTop + offset.top - calendarHeight;
+				bottom_overflow = scrollTop + windowHeight - (offset.top + height + calendarHeight);
 				if (Math.max(top_overflow, bottom_overflow) === bottom_overflow)
 					yorient = 'top';
 				else
