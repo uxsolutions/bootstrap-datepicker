@@ -73,8 +73,8 @@
 
 		this._allow_update = false;
 
-		this.setStartDate(this.o.startDate);
-		this.setEndDate(this.o.endDate);
+		this.setStartDate(this._o.startDate);
+		this.setEndDate(this._o.endDate);
 		this.setDaysOfWeekDisabled(this.o.daysOfWeekDisabled);
 
 		this.fillDow();
@@ -143,14 +143,20 @@
 			var format = DPGlobal.parseFormat(o.format);
 			if (o.startDate !== -Infinity) {
 				if (!!o.startDate) {
-					o.startDate = DPGlobal.parseDate(o.startDate, format, o.language);
+					if (o.startDate instanceof Date)
+						o.startDate = this._local_to_utc(this._zero_time(o.startDate));
+					else
+						o.startDate = DPGlobal.parseDate(o.startDate, format, o.language);
 				} else {
 					o.startDate = -Infinity;
 				}
 			}
 			if (o.endDate !== Infinity) {
 				if (!!o.endDate) {
-					o.endDate = DPGlobal.parseDate(o.endDate, format, o.language);
+					if (o.endDate instanceof Date)
+						o.endDate = this._local_to_utc(this._zero_time(o.endDate));
+					else
+						o.endDate = DPGlobal.parseDate(o.endDate, format, o.language);
 				} else {
 					o.endDate = Infinity;
 				}
@@ -343,6 +349,12 @@
 		},
 		_local_to_utc: function(local){
 			return new Date(local.getTime() - (local.getTimezoneOffset()*60000));
+		},
+		_zero_time: function(local){
+			return new Date(local.getFullYear(), local.getMonth(), local.getDate());
+		},
+		_zero_utc_time: function(utc){
+			return new Date(Date.UTC(utc.getUTCFullYear(), utc.getUTCMonth(), utc.getUTCDate()));
 		},
 
 		getDate: function() {
