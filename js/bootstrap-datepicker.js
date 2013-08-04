@@ -494,10 +494,13 @@
 
 			if (this.date < this.o.startDate) {
 				this.viewDate = new Date(this.o.startDate);
+				this.date = new Date(this.o.startDate);
 			} else if (this.date > this.o.endDate) {
 				this.viewDate = new Date(this.o.endDate);
+				this.date = new Date(this.o.endDate);
 			} else {
 				this.viewDate = new Date(this.date);
+				this.date = new Date(this.date);
 			}
 			this.fill();
 		},
