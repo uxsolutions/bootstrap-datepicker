@@ -609,7 +609,7 @@
 				clsName = this.getClassNames(prevMonth);
 				clsName.push('day');
 
-				var before = this.o.beforeShowDay(prevMonth);
+				var before = this.o.beforeShowDay(this._utc_to_local(prevMonth));
 				if (before === undefined)
 					before = {};
 				else if (typeof(before) === 'boolean')
