@@ -1,11 +1,10 @@
 module('Options', {
     setup: function(){},
     teardown: function(){
-        return
         $('#qunit-fixture *').each(function(){
             var t = $(this);
             if ('datepicker' in t.data())
-                t.data('datepicker').picker.remove();
+                t.datepicker('remove');
         });
     }
 });
