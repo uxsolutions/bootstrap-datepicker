@@ -490,7 +490,13 @@
 
 			this.date = DPGlobal.parseDate(date, this.o.format, this.o.language);
 
-			if(fromArgs) this.setValue();
+			if (fromArgs) { // setting date by clicking
+                   	  this.setValue()
+                   	} else if (date) { // setting date by typing
+                   	  this._trigger('changeDate');
+                   	} else { // clearing date by typing
+                   	  this._trigger('clearDate');
+                   	};
 
 			if (this.date < this.o.startDate) {
 				this.viewDate = new Date(this.o.startDate);
