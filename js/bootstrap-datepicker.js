@@ -283,7 +283,7 @@
 		},
 		_trigger: function(event, altdate){
 			var date = altdate || this.date,
-				local_date = new Date(date.getTime() + (date.getTimezoneOffset()*60000));
+				local_date = this._utc_to_local(date);
 
 			this.element.trigger({
 				type: event,
@@ -338,9 +338,15 @@
 			}
 		},
 
+		_utc_to_local: function(utc){
+			return new Date(utc.getTime() + (utc.getTimezoneOffset()*60000));
+		},
+		_local_to_utc: function(local){
+			return new Date(local.getTime() - (local.getTimezoneOffset()*60000));
+		},
+
 		getDate: function() {
-			var d = this.getUTCDate();
-			return new Date(d.getTime() + (d.getTimezoneOffset()*60000));
+			return this._utc_to_local(this.getUTCDate());
 		},
 
 		getUTCDate: function() {
@@ -348,7 +354,7 @@
 		},
 
 		setDate: function(d) {
-			this.setUTCDate(new Date(d.getTime() - (d.getTimezoneOffset()*60000)));
+			this.setUTCDate(this._local_to_utc(d));
 		},
 
 		setUTCDate: function(d) {
@@ -463,7 +469,7 @@
 			if(arguments && arguments.length && (typeof arguments[0] === 'string' || arguments[0] instanceof Date)) {
 				date = arguments[0];
 				if (date instanceof Date)
-					date = new Date(date.getTime() - (date.getTimezoneOffset()*60000));
+					date = this._local_to_utc(date);
 				fromArgs = true;
 			} else {
 				date = this.isInput ? this.element.val() : this.element.data('date') || this.element.find('input').val();
