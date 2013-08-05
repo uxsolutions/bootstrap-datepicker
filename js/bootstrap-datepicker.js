@@ -304,6 +304,7 @@
 		show: function(e) {
 			if (!this.isInline)
 				this.picker.appendTo('body');
+			this.update();
 			this.picker.show();
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			this.place();
@@ -339,9 +340,6 @@
 			this._detachSecondaryEvents();
 			this.picker.remove();
 			delete this.element.data().datepicker;
-			if (!this.isInput) {
-				delete this.element.data().date;
-			}
 		},
 
 		_utc_to_local: function(utc){
@@ -379,6 +377,9 @@
 			if (!this.isInput) {
 				if (this.component){
 					this.element.find('input').val(formatted);
+				}
+				else {
+					this.element.attr('data-date', formatted);
 				}
 			} else {
 				this.element.val(formatted);
@@ -484,8 +485,7 @@
 					date = this._local_to_utc(date);
 				fromArgs = true;
 			} else {
-				date = this.isInput ? this.element.val() : this.element.data('date') || this.element.find('input').val();
-				delete this.element.data().date;
+				date = this.isInput ? this.element.val() : this.element.attr('data-date') || this.element.find('input').val();
 			}
 
 			this.date = DPGlobal.parseDate(date, this.o.format, this.o.language);
