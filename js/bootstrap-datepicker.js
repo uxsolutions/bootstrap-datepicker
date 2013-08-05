@@ -1331,8 +1331,10 @@
 
 		keydown: function(e){
 			if (!this.picker.is(':visible')){
-				if (e.keyCode === 40 || e.keyCode === 27) // allow down to re-show picker
+				if (e.keyCode === 40 || e.keyCode === 27) { // allow down to re-show picker
 					this.show();
+					e.stopPropagation();
+        }
 				return;
 			}
 			var dateChanged = false,
@@ -1348,6 +1350,7 @@
 					else
 						this.hide();
 					e.preventDefault();
+					e.stopPropagation();
 					break;
 				case 37: // left
 				case 39: // right
