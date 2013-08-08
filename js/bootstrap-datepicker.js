@@ -556,9 +556,9 @@
 				cls.push('today');
 			}
 			if (currentDate &&
-				date.getUTCFullYear() == currentDate.getFullYear() &&
-				date.getUTCMonth() == currentDate.getMonth() &&
-				date.getUTCDate() == currentDate.getDate()) {
+				date.getFullYear() == currentDate.getFullYear() &&
+				date.getMonth() == currentDate.getMonth() &&
+				date.getDate() == currentDate.getDate()) {
 				cls.push('active');
 			}
 			if (date.valueOf() < this.o.startDate || date.valueOf() > this.o.endDate ||
