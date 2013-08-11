@@ -1,6 +1,45 @@
 Changelog
 =========
 
+1.2.0-rc.1
+----------
+
+New features:
+* Google Closure Compiler Compatibility
+* Smart orientation by default, and explicit picker orientation with the `orientation` option
+* Text inside the picker is no longer user-selectable
+* Packagist/Composer support (I think...)
+* No longer depends on glyphicons for arrows
+* `clearDate` event added, fired when the date is cleared
+
+Bug squashed:
+* `noConflict` fixed
+* Fix for large years causing an infinite loop in date parsing
+* Fixed cases where `changeYear` and `changeMonth` events were not being triggered
+* `component.js` moved to `bower.js`
+* Falsey values for `startDate` and `endDate` translate to `-Infinity` and `Infinity`, respectively (effectively, falsey values mean "no bounds")
+* Fixed `autoclose` for non-input, non-component elements
+* Fixed 50% param in `mix()` less function -- expands compatibility with less compilers
+* Fixed `update` method to update the selected date
+* `beforeShowDay` was getting UTC dates, now it gets local dates (all dates that developers are given should be in local time, not UTC).
+* `startDate` and `endDate` were a bit confused when given `new Date()` -- they would not allow today to be selected (the range should be inclusive), they would change whether it was selectable based on local time, etc.  These quirks should be fixed now.  They both also now expect local dates (which will then be time-zeroed and converted to UTC).
+* Fixed selected date not being automatically constrained to the specified range when `setStartDate` and `setEndDate` were called.
+* No longer uses jQuery's `.size()` (deprecated in favor of `.length`)
+* `changeDate` triggered during manual user input
+* `change` event fired when input value changed, it wasn't in some cases
+
+Locale changes:
+* Added Arabic, Norwegian, Georgian
+* `clear` for French
+* `today` and `clear` for Bahasa
+* `today` and `clear` for Portuguese (both `pt` and `pt-BR`)
+* `format` for Turkish
+* `format` and `weekStart` for Swedish
+* `format` and `weekStart` for Simplified Chinese; `today`, `format`, and `weekStart` for Traditional Chinese
+* Fixed typo in Serbian latin (`rs-latin`)
+* More appropriate use of Traditional Chinese habit in `zh-TW`
+
+
 1.1.3
 ----------
 
