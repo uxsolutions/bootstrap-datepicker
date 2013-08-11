@@ -464,6 +464,10 @@ Fired when the date picker is displayed.
 
 Fired when the date picker is hidden.
 
+### clearDate
+
+Fired when the date is cleared, normally when the "clear" button (enabled with the `clearBtn` option) is pressed.
+
 ### changeDate
 
 Fired when the date is changed.
