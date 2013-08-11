@@ -1,11 +1,10 @@
 module('Options', {
     setup: function(){},
     teardown: function(){
-        return
         $('#qunit-fixture *').each(function(){
             var t = $(this);
             if ('datepicker' in t.data())
-                t.data('datepicker').picker.remove();
+                t.datepicker('remove');
         });
     }
 });
@@ -406,3 +405,125 @@ test('BeforeShowDay', function(){
     target = picker.find('.datepicker-days tbody td:nth(29)');
     ok(!target.hasClass('disabled'), '29th is enabled');
 });
+
+test('Orientation: values are parsed correctly', function(){
+
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-10-26')
+                .datepicker({
+                    format: 'yyyy-mm-dd'
+                }),
+        dp = input.data('datepicker');
+
+    equal(dp.o.orientation.x, 'auto');
+    equal(dp.o.orientation.y, 'auto');
+
+    dp._process_options({orientation: ''});
+    equal(dp.o.orientation.x, 'auto', 'Empty value');
+    equal(dp.o.orientation.y, 'auto', 'Empty value');
+
+    dp._process_options({orientation: 'left'});
+    equal(dp.o.orientation.x, 'left', '"left"');
+    equal(dp.o.orientation.y, 'auto', '"left"');
+
+    dp._process_options({orientation: 'right'});
+    equal(dp.o.orientation.x, 'right', '"right"');
+    equal(dp.o.orientation.y, 'auto', '"right"');
+
+    dp._process_options({orientation: 'top'});
+    equal(dp.o.orientation.x, 'auto', '"top"');
+    equal(dp.o.orientation.y, 'top', '"top"');
+
+    dp._process_options({orientation: 'bottom'});
+    equal(dp.o.orientation.x, 'auto', '"bottom"');
+    equal(dp.o.orientation.y, 'bottom', '"bottom"');
+
+    dp._process_options({orientation: 'left top'});
+    equal(dp.o.orientation.x, 'left', '"left top"');
+    equal(dp.o.orientation.y, 'top', '"left top"');
+
+    dp._process_options({orientation: 'left bottom'});
+    equal(dp.o.orientation.x, 'left', '"left bottom"');
+    equal(dp.o.orientation.y, 'bottom', '"left bottom"');
+
+    dp._process_options({orientation: 'right top'});
+    equal(dp.o.orientation.x, 'right', '"right top"');
+    equal(dp.o.orientation.y, 'top', '"right top"');
+
+    dp._process_options({orientation: 'right bottom'});
+    equal(dp.o.orientation.x, 'right', '"right bottom"');
+    equal(dp.o.orientation.y, 'bottom', '"right bottom"');
+
+    dp._process_options({orientation: 'left right'});
+    equal(dp.o.orientation.x, 'left', '"left right"');
+    equal(dp.o.orientation.y, 'auto', '"left right"');
+
+    dp._process_options({orientation: 'right left'});
+    equal(dp.o.orientation.x, 'right', '"right left"');
+    equal(dp.o.orientation.y, 'auto', '"right left"');
+
+    dp._process_options({orientation: 'top bottom'});
+    equal(dp.o.orientation.x, 'auto', '"top bottom"');
+    equal(dp.o.orientation.y, 'top', '"top bottom"');
+
+    dp._process_options({orientation: 'bottom top'});
+    equal(dp.o.orientation.x, 'auto', '"bottom top"');
+    equal(dp.o.orientation.y, 'bottom', '"bottom top"');
+
+    dp._process_options({orientation: 'foo bar'});
+    equal(dp.o.orientation.x, 'auto', '"foo bar"');
+    equal(dp.o.orientation.y, 'auto', '"foo bar"');
+
+    dp._process_options({orientation: 'foo left'});
+    equal(dp.o.orientation.x, 'left', '"foo left"');
+    equal(dp.o.orientation.y, 'auto', '"foo left"');
+
+    dp._process_options({orientation: 'top bar'});
+    equal(dp.o.orientation.x, 'auto', '"top bar"');
+    equal(dp.o.orientation.y, 'top', '"top bar"');
+});
+
+test('startDate', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-10-26')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    startDate: new Date(2012, 9, 26)
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    target = picker.find('.datepicker-days tbody td:nth(25)');
+    ok(target.hasClass('disabled'), 'Previous day is disabled');
+    target = picker.find('.datepicker-days tbody td:nth(26)');
+    ok(!target.hasClass('disabled'), 'Specified date is enabled');
+    target = picker.find('.datepicker-days tbody td:nth(27)');
+    ok(!target.hasClass('disabled'), 'Next day is enabled');
+});
+
+test('endDate', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-10-26')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    endDate: new Date(2012, 9, 26)
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    target = picker.find('.datepicker-days tbody td:nth(25)');
+    ok(!target.hasClass('disabled'), 'Previous day is enabled');
+    target = picker.find('.datepicker-days tbody td:nth(26)');
+    ok(!target.hasClass('disabled'), 'Specified date is enabled');
+    target = picker.find('.datepicker-days tbody td:nth(27)');
+    ok(target.hasClass('disabled'), 'Next day is disabled');
+});
+
+

@@ -12,7 +12,7 @@ module('Events', {
     }
 });
 
-test('Selecting a year from decade view triggers pickYear', function(){
+test('Selecting a year from decade view triggers changeYear', function(){
     var target,
         triggered = 0;
 
@@ -51,7 +51,38 @@ test('Selecting a year from decade view triggers pickYear', function(){
     equal(triggered, 1);
 });
 
-test('Selecting a month from year view triggers pickMonth', function(){
+test('Navigating forward/backward from month view triggers changeYear', function(){
+    var target,
+        triggered = 0;
+
+    this.input.on('changeYear', function(){
+        triggered++;
+    });
+
+    equal(this.dp.viewMode, 0);
+    target = this.picker.find('.datepicker-days thead th.datepicker-switch');
+    ok(target.is(':visible'), 'View switcher is visible');
+
+    target.click();
+    ok(this.picker.find('.datepicker-months').is(':visible'), 'Month picker is visible');
+    equal(this.dp.viewMode, 1);
+
+    target = this.picker.find('.datepicker-months thead th.prev');
+    ok(target.is(':visible'), 'Prev switcher is visible');
+
+    target.click();
+    ok(this.picker.find('.datepicker-months').is(':visible'), 'Month picker is visible');
+    equal(triggered, 1);
+
+    target = this.picker.find('.datepicker-months thead th.next');
+    ok(target.is(':visible'), 'Next switcher is visible');
+
+    target.click();
+    ok(this.picker.find('.datepicker-months').is(':visible'), 'Month picker is visible');
+    equal(triggered, 2);
+});
+
+test('Selecting a month from year view triggers changeMonth', function(){
     var target,
         triggered = 0;
 
@@ -77,6 +108,30 @@ test('Selecting a month from year view triggers pickMonth', function(){
     datesEqual(this.dp.viewDate, UTCDate(2011, 3, 1));
     datesEqual(this.dp.date, UTCDate(2011, 2, 31));
     equal(triggered, 1);
+});
+
+test('Navigating forward/backward from month view triggers changeMonth', function(){
+    var target,
+        triggered = 0;
+
+    this.input.on('changeMonth', function(){
+        triggered++;
+    });
+
+    equal(this.dp.viewMode, 0);
+    target = this.picker.find('.datepicker-days thead th.prev');
+    ok(target.is(':visible'), 'Prev switcher is visible');
+
+    target.click();
+    ok(this.picker.find('.datepicker-days').is(':visible'), 'Day picker is visible');
+    equal(triggered, 1);
+
+    target = this.picker.find('.datepicker-days thead th.next');
+    ok(target.is(':visible'), 'Next switcher is visible');
+
+    target.click();
+    ok(this.picker.find('.datepicker-days').is(':visible'), 'Day picker is visible');
+    equal(triggered, 2);
 });
 
 test('format() returns a formatted date string', function(){
