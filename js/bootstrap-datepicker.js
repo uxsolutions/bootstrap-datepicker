@@ -477,7 +477,8 @@
 		update: function(){
 			if (!this._allow_update) return;
 
-			var date, fromArgs = false;
+			var oldDate = new Date(this.date),
+				date, fromArgs = false;
 			if(arguments && arguments.length && (typeof arguments[0] === 'string' || arguments[0] instanceof Date)) {
 				date = arguments[0];
 				if (date instanceof Date)
@@ -490,7 +491,17 @@
 
 			this.date = DPGlobal.parseDate(date, this.o.format, this.o.language);
 
-			if(fromArgs) this.setValue();
+			if (fromArgs) {
+				// setting date by clicking
+				this.setValue();
+			} else if (date) {
+				// setting date by typing
+				if (oldDate.getTime() !== this.date.getTime())
+					this._trigger('changeDate');
+			} else {
+				// clearing date
+				this._trigger('clearDate');
+			}
 
 			if (this.date < this.o.startDate) {
 				this.viewDate = new Date(this.o.startDate);
