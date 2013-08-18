@@ -88,7 +88,7 @@ $('#date-start')
         } else {
             $('#alert').hide();
             startDate = new Date(ev.date);
-            $('#date-start-display').text($('#date-start').data('date'));
+            $('#date-start-display').text($('#date-start').datepicker('getFormattedDate'));
         }
         $('#date-start').datepicker('hide');
     });
@@ -100,7 +100,7 @@ $('#date-end')
         } else {
             $('#alert').hide();
             endDate = new Date(ev.date);
-            $('#date-end-display').text($('#date-end').data('date'));
+            $('#date-end-display').text($('#date-end').datepicker('getFormattedDate'));
         }
         $('#date-end').datepicker('hide');
     });
