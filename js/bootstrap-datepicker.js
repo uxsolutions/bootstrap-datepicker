@@ -566,7 +566,7 @@
 				date.getUTCDate() == today.getDate()) {
 				cls.push('today');
 			}
-			if (currentDate && date.valueOf() == currentDate) {
+			if (date.valueOf() == currentDate) {
 				cls.push('active');
 			}
 			if (date.valueOf() < this.o.startDate || date.valueOf() > this.o.endDate ||
