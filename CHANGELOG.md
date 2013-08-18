@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.2.0-rc.1
-----------
+1.2.0
+-----
 
 New features:
 * Google Closure Compiler Compatibility
