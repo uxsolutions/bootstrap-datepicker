@@ -485,7 +485,7 @@
 					date = this._local_to_utc(date);
 				fromArgs = true;
 			} else {
-				date = this.isInput ? this.element.val() : this.element.data('date') || this.element.find('input').val();
+				date = this.isInput ? this.element.val() : this.element.data('date') || this.element.find('input').val() || this.element.text();
 				delete this.element.data().date;
 			}
 
