@@ -25,6 +25,7 @@
     <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 
     <script src="bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.ar.js" charset="UTF-8"></script>
     <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.bg.js" charset="UTF-8"></script>
     <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.ca.js" charset="UTF-8"></script>
     <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.cs.js" charset="UTF-8"></script>
@@ -42,6 +43,7 @@
     <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.is.js" charset="UTF-8"></script>
     <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.it.js" charset="UTF-8"></script>
     <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.ja.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.ka.js" charset="UTF-8"></script>
     <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.kr.js" charset="UTF-8"></script>
     <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.lt.js" charset="UTF-8"></script>
     <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.lv.js" charset="UTF-8"></script>
@@ -49,6 +51,7 @@
     <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.ms.js" charset="UTF-8"></script>
     <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.nb.js" charset="UTF-8"></script>
     <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.nl.js" charset="UTF-8"></script>
+    <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.no.js" charset="UTF-8"></script>
     <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.pl.js" charset="UTF-8"></script>
     <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.pt-BR.js" charset="UTF-8"></script>
     <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.pt.js" charset="UTF-8"></script>
@@ -113,6 +116,7 @@
             </script>
 
             <ul class="nav nav-list sidenav">
+              <li><a href="#requirements"><i class="icon-chevron-right"></i> Requirements</a></li>
               <li><a href="#examples"><i class="icon-chevron-right"></i> Examples</a></li>
               <li><a href="#using"><i class="icon-chevron-right"></i> Using bootstrap-datepicker.js</a></li>
               <li><a href="#options"><i class="icon-chevron-right"></i> Options</a></li>
@@ -125,6 +129,16 @@
             </ul>
           </div>
           <div class="span9">
+            <h2 id="requirements">Requirements</h2>
+
+            <ul>
+            <li><a href="http://twitter.github.com/bootstrap/">Bootstrap</a> 2.0.4+</li>
+            <li><a href="http://jquery.com/">jQuery</a> 1.7.1+</li>
+
+            <p>These are the specific versions bootstrap-datepicker is tested against (<code>js</code> files) and built against (<code>css</code> files).  Use other versions at your own risk.</p>
+
+            <hr>
+
             <h2 id="examples">Examples</h2>
 
             <p>Attached to a field with the format specified via options.</p>
@@ -288,6 +302,12 @@ $('#dp5').datepicker();
                   <td>If true, highlights the current date.</td>
                 </tr>
                 <tr>
+                  <td id="option-clear-btn">clearBtn</td>
+                  <td>boolean</td>
+                  <td>false</td>
+                  <td>If true, displays a "Clear" button at the bottom of the datepicker to clear the input value. If "autoclose" is also set to true, this button will also close the datepicker.</td>
+                </tr>
+                <tr>
                   <td id="option-keyboard-navigation">keyboardNavigation</td>
                   <td>boolean</td>
                   <td>true</td>
@@ -305,6 +325,45 @@ $('#dp5').datepicker();
                   <td>true</td>
                   <td>Whether or not to force parsing of the input value when the picker is closed.  That is, when an invalid date is left in the input field by the user, the picker will forcibly parse that value, and set the input's value to the new, valid date, conforming to the given <code>format</code>.</td>
                 </tr>
+                <tr>
+                  <td id="option-inputs">inputs</td>
+                  <td>array</td>
+                  <td>none</td>
+                  <td>A list of inputs to be used in a range picker, which will be attached to the selected element.  Allows for explicitly creating a range picker on a non-standard element.</td>
+                </tr>
+                <tr>
+                  <td id="option-before-show-day">beforeShowDay</td>
+                  <td>Function(Date)</td>
+                  <td>$.noop</td>
+                  <td>
+                    A function that takes a date as a parameter and returns one of the following values:
+
+                    <ul>
+                      <li>undefined to have no effect</li>
+                      <li>A Boolean, indicating whether or not this date is selectable</li>
+                      <li>A String representing additional CSS classes to apply to the date's cell</li>
+                      <li>An object with the following properties:
+                        <ul>
+                          <li>`enabled`: same as the Boolean value above</li>
+                          <li>`classes`: same as the String value above</li>
+                          <li>`tooltip`: a tooltip to apply to this date, via the `title` HTML attribute</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td id="option-orientation">orientation</td>
+                  <td>string</td>
+                  <td><code>"auto"</code></td>
+                  <td>
+                    <p>A space-separated string consisting of one or two of "left" or "right", "top" or "bottom", and "auto" (may be omitted); for example, "top left", "bottom" (horizontal orientation will default to "auto"), "right" (vertical orientation will default to "auto"), "auto top".  Allows for fixed placement of the picker popup.</p>
+
+                    <p>"orientation" refers to the location of the picker popup's "anchor"; you can also think of it as the location of the trigger element (input, component, etc) relative to the picker.</p>
+
+                    <p>"auto" triggers "smart orientation" of the picker.  Horizontal orientation will default to "left" and left offset will be tweaked to keep the picker inside the browser viewport; vertical orientation will simply choose "top" or "bottom", whichever will show more of the picker in the viewport.</p>
+                  </td>
+                </tr>
               </tbody>
             </table>
 
@@ -320,6 +379,16 @@ $('#dp5').datepicker();
             <p>Format inline.</p>
             <pre class="prettyprint linenums">
 &lt;div data-date=&quot;12-02-2012&quot; data-date-format=&quot;dd-mm-yyyy&quot;&gt;&lt;/div&gt;
+</pre>
+
+            <p>Create a date-range picker:</p>
+
+<pre class="prettyprint linenums">
+&lt;div class="input-daterange" id="datepicker"&gt;
+    &lt;input class="input-small" name="start" value="2012-04-05" /&gt;
+    &lt;span class="add-on"&gt;to&lt;/span&gt;
+    &lt;input class="input-small" name="end" value="2012-04-07" /&gt;
+&lt;/div&gt;
 </pre>
 
             <h2 id="methods">Methods</h2>
@@ -362,6 +431,30 @@ $('#dp5').datepicker();
                   <td>Update the datepicker with the current input value or given date as argument. In second case input will be updated as well.</td>
                 </tr>
                 <tr>
+                  <td id="method-setdate">setDate</td>
+                  <td>date</td>
+                  <td>date</td>
+                  <td><i class="icon-remove">&#x2716;</i></td>
+                  <td>Sets the internal date.  <code>date</code> is assumed to be a "local" date object, and will be converted to UTC for internal use.</td>
+                </tr>
+                <tr>
+                  <td id="method-setutcdate">setUTCDate</td>
+                  <td>date</td>
+                  <td>date</td>
+                  <td><i class="icon-remove">&#x2716;</i></td>
+                  <td>Sets the internal date.  <code>date</code> is assumed to be a UTC date object, and will not be converted.</td>
+                </tr>
+                <tr>
+                  <td id="method-getdate">getDate</td>
+                  <td colspan="3"></td>
+                  <td>Returns a localized date object representing the internal date object of the first datepicker in the selection.</td>
+                </tr>
+                <tr>
+                  <td id="method-getutcdate">getUTCDate</td>
+                  <td colspan="3"></td>
+                  <td>Returns the internal UTC date object, as-is and unconverted to local time, of the first datepicker in the selection.</td>
+                </tr>
+                <tr>
                   <td id="method-setstartdate">setStartDate</td>
                   <td>date</td>
                   <td>string</td>
@@ -386,7 +479,20 @@ $('#dp5').datepicker();
             </table>
 
             <h2 id="events">Events</h2>
-            <p>Datepicker class exposes a few events for manipulating the dates.</p>
+              <p>Datepicker triggers a number of events in certain circumstances.  All events have extra data attached to the event object that is passed to any event handlers:</p>
+
+              <pre class="prettyprint linenums">
+$('.datepicker').datepicker()
+    .on(picker_event, function(e){
+        # `e` here contains the extra attributes
+    });
+</pre>
+
+            <ul>
+              <li>`date`: the relevant Date object, in local timezone.</li>
+              <li>`format([format])`: a function to make formatting `date` easier.  `format` can be any format string that datepicker supports.  If `format` is not given, the format set on the datepicker will be used.</li>
+            </ul>
+
             <table class="table table-bordered table-striped">
               <thead>
                 <tr>
@@ -404,15 +510,13 @@ $('#dp5').datepicker();
                   <td>Fired immediately when the date picker is hidden.</td>
                 </tr>
                 <tr>
+                  <td id="event-cleardate">clearDate</td>
+                  <td>Fired when the date is cleared, normally when the "clear" button (enabled with the `clearBtn` option) is pressed.</td>
+                </tr>
+                <tr>
                   <td id="event-changedate">changeDate</td>
                   <td>
                     Fired when the date is changed.
-                    <pre class="prettyprint linenums">
-$('.datepicker').datepicker()
-    .on('changeDate', function(e){
-        alert(e.date.toString());
-    });
-</pre>
                   </td>
                 </tr>
                 <tr>
@@ -458,7 +562,8 @@ $.fn.datepicker.dates['en'] = {
     daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
     months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
     monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    today: "Today"
+    today: "Today",
+    clear: "Clear"
 };
 </pre>
 
@@ -490,8 +595,8 @@ $('.datepicker').datepicker({
               <div class="well">
                 Type:<br>
 
-                <label for="markup" class="inline radio">
-                  <input name="markup" value="input" type="radio" checked>
+                <label for="markup-text" class="inline radio">
+                  <input name="markup" id="markup-text" value="input" type="radio" checked>
                   Text input
                   <script type="text/html" class="html">
                     <input type="text">
@@ -500,8 +605,8 @@ $('.datepicker').datepicker({
                     input
                   </script>
                 </label>
-                <label for="markup" class="inline radio">
-                  <input name="markup" value="component" type="radio">
+                <label for="markup-component" class="inline radio">
+                  <input name="markup" id="markup-component" value="component" type="radio">
                   Component
                   <script type="text/html" class="html">
                     <div class="input-append date">
@@ -512,14 +617,28 @@ $('.datepicker').datepicker({
                     .input-append.date
                   </script>
                 </label>
-                <label for="markup" class="inline radio">
-                  <input name="markup" value="embedded" type="radio">
+                <label for="markup-inline" class="inline radio">
+                  <input name="markup" id="markup-inline" value="embedded" type="radio">
                   Embedded / inline
                   <script type="text/html" class="html">
                     <div></div>
                   </script>
                   <script type="text/plain" class="selector">
                     div
+                  </script>
+                </label>
+                <label for="markup-range" class="inline radio">
+                  <input name="markup" id="markup-range" value="range" type="radio">
+                  Range
+                  <script type="text/html" class="html">
+                    <div class="input-daterange" id="datepicker">
+                        <input type="text" class="input-small" name="start" />
+                        <span class="add-on">to</span>
+                        <input type="text" class="input-small" name="end" />
+                    </div>
+                  </script>
+                  <script type="text/plain" class="selector">
+                    .input-daterange
                   </script>
                 </label>
 
@@ -569,6 +688,19 @@ $('.datepicker').datepicker({
                     });
                   </script>
                 </label>
+                <label for="orientation">Orientation
+                  <select class="span2" id="orientation" name="orientation">
+                    <option value="auto">auto</option>
+                    <option value="top auto">top auto</option>
+                    <option value="bottom auto">bottom auto</option>
+                    <option value="auto left">auto left</option>
+                    <option value="top left">top left</option>
+                    <option value="bottom left">bottom left</option>
+                    <option value="auto right">auto right</option>
+                    <option value="top right">top right</option>
+                    <option value="bottom right">bottom right</option>
+                  </select>
+                </label>
 
                 <br>
 
@@ -604,12 +736,19 @@ $('.datepicker').datepicker({
                   <input id="forceParse" name="forceParse" type="checkbox" checked>
                   Force parse
                 </label>
+                <label for="beforeShowDay" class="inline checkbox">
+                  <input id="beforeShowDay" name="beforeShowDay" type="checkbox">
+                  Before-show-day callback
+                </label>
 
                 <br></br>
 
                 <button class="btn btn-danger" type="reset">Reset to defaults</button>
               </div>
             </form>
+            <style>
+              .datepicker .green {color: #0F0;}
+            </style>
             <script>
               $(function(){
                 var defaults = {},
@@ -653,6 +792,20 @@ $('.datepicker').datepicker({
                     if (values[opt] != defaults[opt]){
                       val = values[opt];
                       if (opt == 'daysOfWeekDisabled') val = '"'+val+'"'
+                      else if (opt == 'beforeShowDay') val = function(date){
+      if (date.getMonth() == (new Date()).getMonth())
+        switch (date.getDate()){
+          case 4:
+            return {
+              tooltip: 'Example tooltip',
+              classes: 'active'
+            };
+          case 8:
+            return false;
+          case 12:
+            return "green";
+        }
+    }
                       else if (val == 'on' || val == 'true') val = 'true';
                       else if (val === void 0 || val == 'false') val = 'false';
                       else if (parseInt(val) == val) val = val;
@@ -819,9 +972,9 @@ $('.datepicker').datepicker({
                 });
               });
             </script>
-            <div class="row">
+            <div class="row form-horizontal">
               <div class="span3" id="sandbox-container"></div>
-              <div class="span6">
+              <div class="span6" style="width:545px">
                 <pre class="prettyprint linenums" id="sandbox-html"></pre>
                 <pre class="prettyprint linenums" id="sandbox-js"></pre>
               </div>
