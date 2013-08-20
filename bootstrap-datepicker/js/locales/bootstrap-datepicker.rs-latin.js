@@ -3,7 +3,7 @@
  * Bojan Milosavlević <milboj@gmail.com>
  */
 ;(function($){
-	$.fn.datepicker.dates['rs'] = {
+	$.fn.datepicker.dates['rs-latin'] = {
 		days: ["Nedelja","Ponedeljak", "Utorak", "Sreda", "Četvrtak", "Petak", "Subota", "Nedelja"],
 		daysShort: ["Ned", "Pon", "Uto", "Sre", "Čet", "Pet", "Sub", "Ned"],
 		daysMin: ["N", "Po", "U", "Sr", "Č", "Pe", "Su", "N"],
