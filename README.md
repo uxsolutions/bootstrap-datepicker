@@ -265,6 +265,41 @@ Fired when the *view* year is changed from decade view.
 
 Fired when the *view* month is changed from year view.
 
+## Hooks
+
+### onDateRender
+
+Fired before each date is rendered. The function accepts two parameters:
+
+ 1. `Object` containing `clsName` and `displayText`. `clsName` is an array of class names which the date will have (inside the calendar), and the `displayText` is a string which will be used to display the date.
+ 
+ 2. `Date` of the date that will be rendered.
+ 
+####Example
+
+    var holidays = {
+        'uk_flag.png': new Date(1605, 10, 5),
+        'us_flag.png': new Date(1776, 6, 4)
+        //...
+    };
+    
+    $('.datepicker').datepicker({
+        format: 'mm-dd-yyy',
+        onDateRender: function(renderData, d){
+            var hol_date;
+            for (holiday in holidays) {
+                hol_date = holidays[holiday];
+                if (d.getUTCDate() == hol_date.getUTCDate() && d.getUTCMonth() == hol_date.getUTCMonth()) {
+                    renderData.displayText = '<img src="' + holiday + '">';
+                    renderData.clsName.push('holiday');
+                }
+            }
+            
+            return renderData;
+        }
+    });
+    
+
 ## Keyboard support
 
 The datepicker includes some keyboard navigation:
