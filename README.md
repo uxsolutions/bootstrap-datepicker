@@ -39,11 +39,11 @@ Attached to a field with the format specified via data tag:
 $('.datepicker').datepicker();
 ```
 
-As component:
+As a component:
 
 ```html
-<div class="input-append date datepicker" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-    <input size="16" type="text" value="12-02-2012" readonly><span class="add-on"><i class="icon-th"></i></span>
+<div class="input-group date datepicker" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+    <input size="16" type="text" value="12-02-2012" readonly><span class="input-group-addon glyphicon glyphicon-calendar"></span>
 </div>
 ```
 ```javascript
