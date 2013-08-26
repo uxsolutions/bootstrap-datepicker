@@ -274,6 +274,8 @@ Fired before each date is rendered. The function accepts two parameters:
  1. `Object` containing `clsName` and `displayText`. `clsName` is an array of class names which the date will have (inside the calendar), and the `displayText` is a string which will be used to display the date.
  
  2. `Date` of the date that will be rendered.
+
+The function *must* return an object containing `clsName` and `displayText`.
  
 ####Example
 
