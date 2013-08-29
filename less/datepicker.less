@@ -3,6 +3,7 @@
  *
  * Copyright 2012 Stefan Petre
  * Improvements by Andrew Rowls
+ * Improvements by Jonathan Peterson for bootstrap 3
  * Licensed under the Apache License v2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -10,7 +11,7 @@
 
 .datepicker {
 	padding: 4px;
-	.border-radius(4px);
+	border-radius:4px;
 	&-inline {
 		width: 220px;
 	}
@@ -39,7 +40,7 @@
 			display: inline-block;
 			border-left:   6px solid transparent;
 			border-right:  6px solid transparent;
-			border-bottom: 6px solid @white;
+			border-bottom: 6px solid white;
 			border-top:    0;
 			position: absolute;
 		}
@@ -57,7 +58,7 @@
 		&.datepicker-orient-bottom:after {
 			bottom: -6px;
 			border-bottom: 0;
-			border-top:    6px solid @white;
+			border-top:    6px solid white;
 		}
 	}
 	>div {
@@ -86,7 +87,7 @@
 		text-align: center;
 		width: 20px;
 		height: 20px;
-		.border-radius(4px);
+		border-radius:4px;
 
 		border: none;
 	}
@@ -99,29 +100,25 @@
 	}
 	table tr td {
 		&.day:hover {
-			background: @grayLighter;
+			background:@gray-lighter;
 			cursor: pointer;
 		}
 		&.old,
 		&.new {
-			color: @grayLight;
+			color: @gray-light;
 		}
 		&.disabled,
 		&.disabled:hover {
 			background: none;
-			color: @grayLight;
+			color: @gray-light;
 			cursor: default;
 		}
 		&.today,
 		&.today:hover,
 		&.today.disabled,
 		&.today.disabled:hover {
-			@todayBackground: lighten(@orange, 30%);
-			.buttonBackground(@todayBackground, spin(@todayBackground, 20));
-			color: #000;
-		}
-		&.today:hover:hover { // Thank bootstrap 2.0 for this selector...
-			// TODO: Bump min BS to 2.1, use @textColor in buttonBackground above
+			@todayBackground: lighten(@brand-warning, 30%);
+			background-color:@todayBackground;
 			color: #000;
 		}
 		&.today.active:hover {
@@ -131,22 +128,22 @@
 		&.range:hover,
 		&.range.disabled,
 		&.range.disabled:hover {
-			background:@grayLighter;
-			.border-radius(0);
+			background:@gray-lighter;
+			border-radius:0;
 		}
 		&.range.today,
 		&.range.today:hover,
 		&.range.today.disabled,
 		&.range.today.disabled:hover {
-			@todayBackground: mix(@orange, @grayLighter, 50%);
-			.buttonBackground(@todayBackground, spin(@todayBackground, 20));
-			.border-radius(0);
+			@todayBackground: mix(@brand-warning,@gray-lighter, 50%);
+			background-color:@todayBackground;
+			border-radius:0;
 		}
 		&.selected,
 		&.selected:hover,
 		&.selected.disabled,
 		&.selected.disabled:hover {
-			.buttonBackground(lighten(@grayLight, 10), darken(@grayLight, 10));
+			background-color:@gray-light;
 			color: #fff;
 			text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 		}
@@ -154,7 +151,7 @@
 		&.active:hover,
 		&.active.disabled,
 		&.active.disabled:hover {
-			.buttonBackground(@btnPrimaryBackground, spin(@btnPrimaryBackground, 20));
+			background-color:@btn-primary-bg;
 			color: #fff;
 			text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 		}
@@ -166,27 +163,27 @@
 			float: left;
 			margin: 1%;
 			cursor: pointer;
-			.border-radius(4px);
+			border-radius:4px;
 			&:hover {
-				background: @grayLighter;
+				background:@gray-lighter;
 			}
 			&.disabled,
 			&.disabled:hover {
 				background:none;
-				color: @grayLight;
+				color: @gray-light;
 				cursor: default;
 			}
 			&.active,
 			&.active:hover,
 			&.active.disabled,
 			&.active.disabled:hover {
-				.buttonBackground(@btnPrimaryBackground, spin(@btnPrimaryBackground, 20));
+				background-color:@btn-primary-bg;
 				color: #fff;
 				text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 			}
 			&.old,
 			&.new {
-				color: @grayLight;
+				color: @gray-light;
 			}
 		}
 	}
@@ -199,7 +196,7 @@
 	tfoot tr th {
 		cursor: pointer;
 		&:hover{
-			background: @grayLighter;
+			background:@gray-lighter;
 		}
 	}
 	/*.dow {
@@ -234,23 +231,23 @@
 		text-align:center;
 	}
 	input:first-child {
-		.border-radius(3px 0 0 3px);
+		border-radius:3px 0 0 3px;
 	}
 	input:last-child {
-		.border-radius(0 3px 3px 0);
+		border-radius:3px 0 0 3px;
 	}
 	.add-on {
 		display: inline-block;
 		width: auto;
 		min-width: 16px;
-		height: @baseLineHeight;
+		height: @line-height-base;
 		padding: 4px 5px;
 		font-weight: normal;
-		line-height: @baseLineHeight;
+		line-height: @line-height-base;
 		text-align: center;
-		text-shadow: 0 1px 0 @white;
+		text-shadow: 0 1px 0 white;
 		vertical-align: middle;
-		background-color: @grayLighter;
+		background-color:@gray-lighter;
 		border: 1px solid #ccc;
 		margin-left:-5px;
 		margin-right:-5px;
