@@ -12,7 +12,7 @@ Versions are incremented according to [semver](http://semver.org/).
 
 # Requirements
 
-* [Bootstrap](http://twitter.github.com/bootstrap/) 2.0.4+
+* [Bootstrap](http://twitter.github.com/bootstrap/) 3.0.0+
 * [jQuery](http://jquery.com/) 1.7.1+
 
 These are the specific versions bootstrap-datepicker is tested against (`js` files) and built against (`css` files).  Use other versions at your own risk.
