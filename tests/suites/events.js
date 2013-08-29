@@ -12,6 +12,26 @@ module('Events', {
     }
 });
 
+
+test('Events triggered does not fire element methods with matching names (like .hide())', function(){
+    var triggered_event = 0, triggered_method = 1;
+
+    this.input[0].hide = function(){
+        triggered_method--;
+    };
+
+    this.input.on('hide', function(){
+        triggered_event++;
+    });
+
+    this.dp.hide();
+
+    ok(triggered_event, "Event handler for 'hide' should fire");
+    ok(triggered_method, "Element method .hide() should not fire");
+
+    this.dp.show();
+});
+
 test('Selecting a year from decade view triggers changeYear', function(){
     var target,
         triggered = 0;
