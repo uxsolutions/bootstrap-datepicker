@@ -291,7 +291,7 @@
 			var date = altdate || this.date,
 				local_date = this._utc_to_local(date);
 
-			this.element.trigger({
+			this.element.triggerHandler({
 				type: event,
 				date: local_date,
 				format: $.proxy(function(altformat){
