@@ -8,6 +8,54 @@ module('Formats', {
     }
 });
 
+test('s: Seconds of minute, no leading zero.', function(){
+	this.input
+		.val('02:03:05')
+		.datepicker({format: 'hh:ii:s'})
+		.datepicker('setValue');
+	equal(this.input.val().split(':')[2], '5');
+});
+
+test('ss: Seconds of minute, leading zero.', function(){
+	this.input
+		.val('02:03:5')
+		.datepicker({format: 'hh:ii:ss'})
+		.datepicker('setValue');
+	equal(this.input.val().split(':')[2], '05');
+});
+
+test('i: Minutes of hour, no leading zero.', function(){
+	this.input
+		.val('02:03:15')
+		.datepicker({format: 'hh:i:ss'})
+		.datepicker('setValue');
+	equal(this.input.val().split(':')[1], '3');
+});
+
+test('ii: Minutes of hour, leading zero.', function(){
+	this.input
+		.val('02:3:15')
+		.datepicker({format: 'hh:ii:ss'})
+		.datepicker('setValue');
+	equal(this.input.val().split(':')[1], '03');
+});
+
+test('h: Hour of day, no leading zero.', function(){
+	this.input
+		.val('02:30:15')
+		.datepicker({format: 'h:ii:ss'})
+		.datepicker('setValue');
+	equal(this.input.val().split(':')[0], '2');
+});
+
+test('hh: Hour of day, leading zero.', function(){
+	this.input
+		.val('2:30:15')
+		.datepicker({format: 'hh:ii:ss'})
+		.datepicker('setValue');
+	equal(this.input.val().split(':')[0], '02');
+});
+
 test('d: Day of month, no leading zero.', function(){
     this.input
         .val('2012-03-05')
