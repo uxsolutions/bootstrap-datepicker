@@ -526,4 +526,20 @@ test('endDate', function(){
     ok(target.hasClass('disabled'), 'Next day is disabled');
 });
 
+test('parentEl: ability to use a different container for the datepicker template than <body>', function(){
+	var input = $('<input />')
+			.appendTo('#qunit-fixture')
+			.val('2012-03-05')
+			.datepicker({
+				format: 'yyyy-mm-dd',
+				clearBtn: true,
+				autoclose: true,
+				parentEl: '#qunit-fixture'
+			}),
+		dp = input.data('datepicker'),
+		picker = dp.picker;
 
+	input.focus();
+	ok(picker.parent()[0] === $('#qunit-fixture')[0], 'parentEl is #qunit-fixture');
+
+});
