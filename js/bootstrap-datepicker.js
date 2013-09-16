@@ -552,8 +552,7 @@
 			var cls = [],
 				year = this.viewDate.getUTCFullYear(),
 				month = this.viewDate.getUTCMonth(),
-				currentDate = this.date.valueOf(),
-				today = new Date();
+				currentDate = this.date.valueOf();
 			if (date.getUTCFullYear() < year || (date.getUTCFullYear() == year && date.getUTCMonth() < month)) {
 				cls.push('old');
 			} else if (date.getUTCFullYear() > year || (date.getUTCFullYear() == year && date.getUTCMonth() > month)) {
@@ -561,9 +560,9 @@
 			}
 			// Compare internal UTC date with local today, not UTC today
 			if (this.o.todayHighlight &&
-				date.getUTCFullYear() == today.getFullYear() &&
-				date.getUTCMonth() == today.getMonth() &&
-				date.getUTCDate() == today.getDate()) {
+				date.getUTCFullYear() == this.o.today.getFullYear() &&
+				date.getUTCMonth() == this.o.today.getMonth() &&
+				date.getUTCDate() == this.o.today.getDate()) {
 				cls.push('today');
 			}
 			if (date.valueOf() == currentDate) {
@@ -757,7 +756,7 @@
 								this.fill();
 								break;
 							case 'today':
-								var date = new Date();
+								var date = this.o.today;
 								date = UTCDate(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
 
 								this.showMode(-2);
@@ -1148,6 +1147,7 @@
 		rtl: false,
 		startDate: -Infinity,
 		startView: 0,
+		today: new Date(),
 		todayBtn: false,
 		todayHighlight: false,
 		weekStart: 0

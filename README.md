@@ -218,6 +218,12 @@ Number, String.  Default: 0, 'days'
 Set a limit for the view mode.  Accepts: 'days' or 0, 'months' or 1, and 'years' or 2.
 Gives the ability to pick only a month or an year.  The day is set to the 1st for 'months', and the month is set to January for 'years'.
 
+### today
+
+Date.  Default: new Date() (aka current browser time)
+
+If combined with todayBtn or todayHighlight, will highlight the date as today.  Sometimes required for testing or mockup processes.
+
 ### todayBtn
 
 Boolean, "linked".  Default: false
