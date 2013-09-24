@@ -1,9 +1,11 @@
 /* =========================================================
  * bootstrap-datepicker.js
- * http://www.eyecon.ro/bootstrap-datepicker
+ * Repo: https://github.com/eternicode/bootstrap-datepicker/
+ * Demo: http://eternicode.github.io/bootstrap-datepicker/
+ * Docs: http://bootstrap-datepicker.readthedocs.org/
+ * Forked from http://www.eyecon.ro/bootstrap-datepicker
  * =========================================================
- * Copyright 2012 Stefan Petre
- * Improvements by Andrew Rowls
+ * Started by Stefan Petre; improvements by Andrew Rowls + contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
