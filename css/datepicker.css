@@ -466,10 +466,10 @@
   display: inline-block;
   width: auto;
   min-width: 16px;
-  height: 18px;
+  height: 20px;
   padding: 4px 5px;
   font-weight: normal;
-  line-height: 18px;
+  line-height: 20px;
   text-align: center;
   text-shadow: 0 1px 0 #ffffff;
   vertical-align: middle;
@@ -504,7 +504,7 @@
   color: #333333;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
-  line-height: 18px;
+  line-height: 20px;
 }
 .datepicker.dropdown-menu th,
 .datepicker.dropdown-menu td {
