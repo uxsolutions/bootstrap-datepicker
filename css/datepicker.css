@@ -445,7 +445,6 @@
 }
 .input-append.date .add-on i,
 .input-prepend.date .add-on i {
-  display: block;
   cursor: pointer;
   width: 16px;
   height: 16px;
