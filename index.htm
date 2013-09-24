@@ -6,9 +6,6 @@
     <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
     <link href="bootstrap-datepicker/css/datepicker.css" rel="stylesheet">
     <style>
-      #alert {
-        display: none;
-      }
       body {
         padding-top: 50px;
       }
@@ -22,7 +19,6 @@
 
     <script src="google-code-prettify/prettify.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 
     <script src="bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.ar.js" charset="UTF-8"></script>
@@ -72,727 +68,241 @@
 
   </head>
 
-  <body data-spy="scroll">
+  <body>
 
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="https://github.com/eternicode/bootstrap-datepicker">Datepicker for Bootstrap</a>
+          <a class="brand" href="https://github.com/eternicode/bootstrap-datepicker">bootstrap-datepicker</a>
           <ul class="nav">
-            <li class="active"><a href="#">Docs and examples</a></li>
-            <li><a href="https://github.com/eternicode/bootstrap-datepicker" taget="_blank">Watch on GitHub</a></li>
+            <li class="active"><a href="#">Demo</a></li>
+            <li><a href="http://bootstrap-datepicker.readthedocs.org/" taget="_blank">Documentation</a></li>
+            <li><a href="https://github.com/eternicode/bootstrap-datepicker" taget="_blank">GitHub Repo</a></li>
           </ul>
         </div>
       </div>
     </div>
 
     <div class="container">
-      <section id="typeahead">
-        <div class="page-header">
-          <h1>Datepicker for Bootstrap <small>bootstrap-datepicker.js</small></h1>
-        </div>
+      <h2>bootstrap-datepicker sandbox <small>&alpha;lph&alpha;</small></h2>
+      <p>Use the form below to tweak the options; results and code appear in realtime below.</p>
+      <p>As you change options, your address bar will update to reflect the current configuration (requires a browser with <code>history.replaceState</code> support).  This url can be used to link to the sandbox with the given configuration pre-loaded.</p>
+      <p>
+        <a id="download-release" href="https://github.com/eternicode/bootstrap-datepicker/zipball/1.2.0" class="btn">Download 1.2.0</a>
+        <a id="download-master" href="https://github.com/eternicode/bootstrap-datepicker/zipball/master" class="btn">Download Development</a>
+      </p>
+      <style>
+        .sandbox-form label, .sandbox-form span {
+          display: inline-block;
+          margin: .5em .5em;
+          vertical-align: middle;
+        }
+        .sandbox-form span label {
+          vertical-align: baseline !important;
+        }
+      </style>
+      <form class="form-inline sandbox-form" id="sandbox">
+        <div class="well">
+          Type:<br>
 
-        <div class="row">
-          <div class="span3">
-            <h3>About</h3>
-            <p>Add datepicker picker to field or to any other element.</p>
-            <ul>
-              <li>can be used as a component</li>
-              <li>formats: dd, d, mm, m, yyyy, yy</li>
-              <li>separators: -, /, .</li>
-            </ul>
-            <p><a id="download-release" href="https://github.com/eternicode/bootstrap-datepicker/zipball/1.2.0" class="btn">Download 1.2.0</a></p>
-            <p><a id="download-master" href="https://github.com/eternicode/bootstrap-datepicker/zipball/master" class="btn">Download Development</a></p>
-            <script>
-            // Track downloads
-            $(function(){
-              $('#download-release').click(function(){
-                _gaq.push(['_trackEvent', 'Downloads', 'release', '1.2.0']);
-              });
-              $('#download-master').click(function(){
-                _gaq.push(['_trackEvent', 'Downloads', 'master']);
-              });
-            });
+          <label for="markup-text" class="inline radio">
+            <input name="markup" id="markup-text" value="input" type="radio" checked>
+            Text input
+            <script type="text/html" class="html">
+              <input type="text">
             </script>
-
-            <ul class="nav nav-list sidenav">
-              <li><a href="#requirements"><i class="icon-chevron-right"></i> Requirements</a></li>
-              <li><a href="#examples"><i class="icon-chevron-right"></i> Examples</a></li>
-              <li><a href="#using"><i class="icon-chevron-right"></i> Using bootstrap-datepicker.js</a></li>
-              <li><a href="#options"><i class="icon-chevron-right"></i> Options</a></li>
-              <li><a href="#markup"><i class="icon-chevron-right"></i> Markup</a></li>
-              <li><a href="#methods"><i class="icon-chevron-right"></i> Methods</a></li>
-              <li><a href="#events"><i class="icon-chevron-right"></i> Events</a></li>
-              <li><a href="#keyboard"><i class="icon-chevron-right"></i> Keyboard support</a></li>
-              <li><a href="#i18n"><i class="icon-chevron-right"></i> I18N</a></li>
-              <li><a href="#sandbox"><i class="icon-chevron-right"></i> Sandbox</a></li>
-            </ul>
-          </div>
-          <div class="span9">
-            <h2 id="requirements">Requirements</h2>
-
-            <ul>
-            <li><a href="http://twitter.github.com/bootstrap/">Bootstrap</a> 2.0.4+</li>
-            <li><a href="http://jquery.com/">jQuery</a> 1.7.1+</li>
-
-            <p>These are the specific versions bootstrap-datepicker is tested against (<code>js</code> files) and built against (<code>css</code> files).  Use other versions at your own risk.</p>
-
-            <hr>
-
-            <h2 id="examples">Examples</h2>
-
-            <p>Attached to a field with the format specified via options.</p>
-            <div class="row">
-              <div class="span3" id="dp1-container"></div>
-              <div class="span6">
-                <pre class="well prettyprint linenums" id="dp1-html">
-&lt;input type="text" id="dp1"&gt;
-</pre>
-                <pre class="well prettyprint linenums" id="dp1-js">
-$('#dp1').datepicker({
-  format: 'mm-dd-yyyy'
-});
-</pre>
+            <script type="text/plain" class="selector">
+              input
+            </script>
+          </label>
+          <label for="markup-component" class="inline radio">
+            <input name="markup" id="markup-component" value="component" type="radio">
+            Component
+            <script type="text/html" class="html">
+              <div class="input-append date">
+                <input type="text" class="span2"><span class="add-on"><i class="icon-th"></i></span>
               </div>
-            </div>
-
-            <p>Attached to a field with the format specified via data tag.</p>
-            <div class="row">
-              <div class="span3" id="dp2-container"></div>
-              <div class="span6">
-                <pre class="well prettyprint linenums" id="dp2-html">
-&lt;input type="text" value="02/16/13" data-date-format="mm/dd/yy" id="dp2"&gt;
-</pre>
-                <pre class="well prettyprint linenums" id="dp2-js">
-$('#dp2').datepicker();
-</pre>
+            </script>
+            <script type="text/plain" class="selector">
+              .input-append.date
+            </script>
+          </label>
+          <label for="markup-inline" class="inline radio">
+            <input name="markup" id="markup-inline" value="embedded" type="radio">
+            Embedded / inline
+            <script type="text/html" class="html">
+              <div></div>
+            </script>
+            <script type="text/plain" class="selector">
+              div
+            </script>
+          </label>
+          <label for="markup-range" class="inline radio">
+            <input name="markup" id="markup-range" value="range" type="radio">
+            Range
+            <script type="text/html" class="html">
+              <div class="input-daterange" id="datepicker">
+                  <input type="text" class="input-small" name="start" />
+                  <span class="add-on">to</span>
+                  <input type="text" class="input-small" name="end" />
               </div>
-            </div>
+            </script>
+            <script type="text/plain" class="selector">
+              .input-daterange
+            </script>
+          </label>
 
-            <p>As component.</p>
-            <div class="row">
-              <div class="span3" id="dp3-container"></div>
-              <div class="span6">
-                <pre class="well prettyprint linenums" id="dp3-html">
-&lt;div class="input-append date" id="dp3" data-date-format="dd-mm-yyyy"&gt;
-    &lt;input class="span2" size="16" type="text" value="12-02-2013" readonly&gt;&lt;span class="add-on"&gt;&lt;i class="icon-th"&gt;&lt;/i&gt;&lt;/span&gt;
-&lt;/div&gt;
-</pre>
-                <pre class="well prettyprint linenums" id="dp3-js">
-$('#dp3').datepicker();
-</pre>
-              </div>
-            </div>
+          <br><br>
 
-            <p>Attached to non-field element, using events to work with the date values.</p>
-            <div class="row">
-              <div class="span3" id="dp4-container"></div>
-              <div class="span6">
-                <pre class="well prettyprint linenums" id="dp4-html">
-&lt;a href="#" class="btn small" id="dp4" data-date-format="yyyy-mm-dd" data-date="2013-02-20"&gt;Change&lt;/a&gt;
-</pre>
-                <pre class="well prettyprint linenums" id="dp4-js">
-$('#dp4').datepicker()
-    .on('changeDate', function(e){
-        var y = e.date.getFullYear(),
-            _m = e.date.getMonth() + 1,
-            m = (_m > 9 ? _m : '0'+_m),
-            _d = e.date.getDate(),
-            d = (_d > 9 ? _d : '0'+_d);
-        $(this).text(y + '-' + m + '-' + d);
-    });
-</pre>
-              </div>
-            </div>
+          Options:<br>
 
-            <p>Inline/embedded picker</p>
-            <div class="row">
-              <div class="span3" id="dp5-container"></div>
-              <div class="span6">
-                <pre class="well prettyprint linenums" id="dp5-html">
-&lt;div id="dp5" data-date="12-02-2013" data-date-format="dd-mm-yyyy"&gt;&lt;/div&gt;
-</pre>
-                <pre class="well prettyprint linenums" id="dp5-js">
-$('#dp5').datepicker();
-</pre>
-              </div>
-            </div>
-
-            <hr>
-
-            <h2 id="using">Using bootstrap-datepicker.js</h2>
-            <p>Call the datepicker via javascript:</p>
-            <pre class="prettyprint linenums">$('.datepicker').datepicker()</pre>
-
-            <h2 id="options">Options</h2>
-            <table class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Type</th>
-                  <th>Default</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td id="option-format">format</td>
-                  <td>string</td>
-                  <td>'mm/dd/yyyy'</td>
-                  <td>The date format, combination of d, dd, D, DD, m, mm, M, MM, yy, yyyy.</td>
-                </tr>
-                <tr>
-                  <td id="option-week-start">weekStart</td>
-                  <td>number</td>
-                  <td>0</td>
-                  <td>Day of the week start. 0 (Sunday) to 6 (Saturday)</td>
-                </tr>
-                <tr>
-                  <td id="option-calendar-weeks">calendarWeeks</td>
-                  <td>boolean</td>
-                  <td>false</td>
-                  <td>Whether or not to show week numbers to the left of week rows.</td>
-                </tr>
-                <tr>
-                  <td id="option-start-date">startDate</td>
-                  <td>date</td>
-                  <td>-Infinity</td>
-                  <td>The earliest date that may be selected; all earlier dates will be disabled.</td>
-                </tr>
-                <tr>
-                  <td id="option-end-date">endDate</td>
-                  <td>date</td>
-                  <td>Infinity</td>
-                  <td>The latest date that may be selected; all later dates will be disabled.</td>
-                </tr>
-                <tr>
-                  <td id="option-days-of-week-disabled">daysOfWeekDisabled</td>
-                  <td>string, array</td>
-                  <td>[]</td>
-                  <td>Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday). Multiple values should be comma-separated. Example: disable weekends: <code>'0,6'</code> or <code>[0,6]</code>.</td>
-                </tr>
-                <tr>
-                  <td id="option-autoclose">autoclose</td>
-                  <td>boolean</td>
-                  <td>false</td>
-                  <td>Whether or not to close the datepicker immediately when a date is selected.</td>
-                </tr>
-                <tr>
-                  <td id="option-start-view">startView</td>
-                  <td>number, string</td>
-                  <td>0, 'month'</td>
-                  <td>The view that the datepicker should show when it is opened.  Accepts values of 0 or 'month' for month view (the default), 1 or 'year' for the 12-month overview, and 2 or 'decade' for the 10-year overview.  Useful for date-of-birth datepickers.</td>
-                </tr>
-                <tr>
-                  <td id="option-min-view-mode">minViewMode</td>
-                  <td>number, string</td>
-                  <td>0, 'days'</td>
-                  <td>Set a limit for the view mode.  Accepts: 'days' or 0, 'months' or 1, and 'years' or 2.  Gives the ability to pick only a month or an year.  The day is set to the 1st for 'months', and the month is set to January for 'years'.</td>
-                </tr>
-                <tr>
-                  <td id="option-today-btn">todayBtn</td>
-                  <td>boolean, <code>"linked"</code></td>
-                  <td>false</td>
-                  <td>If true or "linked", displays a "Today" button at the bottom of the datepicker to select the current date.  If true, the "Today" button will only move the current date into view; if "linked", the current date will also be selected.</td>
-                </tr>
-                <tr>
-                  <td id="option-today-highlight">todayHighlight</td>
-                  <td>boolean</td>
-                  <td>false</td>
-                  <td>If true, highlights the current date.</td>
-                </tr>
-                <tr>
-                  <td id="option-clear-btn">clearBtn</td>
-                  <td>boolean</td>
-                  <td>false</td>
-                  <td>If true, displays a "Clear" button at the bottom of the datepicker to clear the input value. If "autoclose" is also set to true, this button will also close the datepicker.</td>
-                </tr>
-                <tr>
-                  <td id="option-keyboard-navigation">keyboardNavigation</td>
-                  <td>boolean</td>
-                  <td>true</td>
-                  <td>Whether or not to allow date navigation by arrow keys.</td>
-                </tr>
-                <tr>
-                  <td id="option-language">language</td>
-                  <td>string</td>
-                  <td><code>"en"</code></td>
-                  <td>The IETF code (eg  "en" for English, "pt-BR" for Brazilian Portuguese) of the language to use for month and day names.  These will also be used as the input's value (and subsequently sent to the server in the case of form submissions).  If a full code (eg "de-DE") is supplied the picker will first check for an "de-DE" language and if not found will fallback and check for a "de" language.  If an unknown language code is given, English will be used.  See I18N below.</td>
-                </tr>
-                <tr>
-                  <td id="option-force-parse">forceParse</td>
-                  <td>boolean</td>
-                  <td>true</td>
-                  <td>Whether or not to force parsing of the input value when the picker is closed.  That is, when an invalid date is left in the input field by the user, the picker will forcibly parse that value, and set the input's value to the new, valid date, conforming to the given <code>format</code>.</td>
-                </tr>
-                <tr>
-                  <td id="option-inputs">inputs</td>
-                  <td>array</td>
-                  <td>none</td>
-                  <td>A list of inputs to be used in a range picker, which will be attached to the selected element.  Allows for explicitly creating a range picker on a non-standard element.</td>
-                </tr>
-                <tr>
-                  <td id="option-before-show-day">beforeShowDay</td>
-                  <td>Function(Date)</td>
-                  <td>$.noop</td>
-                  <td>
-                    A function that takes a date as a parameter and returns one of the following values:
-
-                    <ul>
-                      <li>undefined to have no effect</li>
-                      <li>A Boolean, indicating whether or not this date is selectable</li>
-                      <li>A String representing additional CSS classes to apply to the date's cell</li>
-                      <li>An object with the following properties:
-                        <ul>
-                          <li>`enabled`: same as the Boolean value above</li>
-                          <li>`classes`: same as the String value above</li>
-                          <li>`tooltip`: a tooltip to apply to this date, via the `title` HTML attribute</li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </td>
-                </tr>
-                <tr>
-                  <td id="option-orientation">orientation</td>
-                  <td>string</td>
-                  <td><code>"auto"</code></td>
-                  <td>
-                    <p>A space-separated string consisting of one or two of "left" or "right", "top" or "bottom", and "auto" (may be omitted); for example, "top left", "bottom" (horizontal orientation will default to "auto"), "right" (vertical orientation will default to "auto"), "auto top".  Allows for fixed placement of the picker popup.</p>
-
-                    <p>"orientation" refers to the location of the picker popup's "anchor"; you can also think of it as the location of the trigger element (input, component, etc) relative to the picker.</p>
-
-                    <p>"auto" triggers "smart orientation" of the picker.  Horizontal orientation will default to "left" and left offset will be tweaked to keep the picker inside the browser viewport; vertical orientation will simply choose "top" or "bottom", whichever will show more of the picker in the viewport.</p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-
-            <h2 id="markup">Markup <small>data-attributes</small></h2>
-            <p>Any option can be specified as a data-attribute by taking the option name, replacing each uppercase letter with a corresponding lowercase letter prepended by a dash, and prepending the whole name with <code>data-date-</code>.  For example, <code>autoclose</code> would become <code>data-date-autoclose</code> and <code>daysOfWeekDisabled</code> would become <code>data-date-days-of-week-disabled</code>.</p>
-            <p>Format a component.</p>
-            <pre class="prettyprint linenums">
-&lt;div class=&quot;input-append date&quot; id="datepicker" data-date-format=&quot;dd-mm-yyyy&quot;&gt;
-  &lt;input type=&quot;text&quot; value=&quot;12-02-2013&quot;&gt;&lt;span class=&quot;add-on&quot;&gt;&lt;i class=&quot;icon-th&quot;&gt;&lt;/i&gt;&lt;/span&gt;
-&lt;/div&gt;
-</pre>
-
-            <p>Format inline.</p>
-            <pre class="prettyprint linenums">
-&lt;div data-date=&quot;12-02-2012&quot; data-date-format=&quot;dd-mm-yyyy&quot;&gt;&lt;/div&gt;
-</pre>
-
-            <p>Create a date-range picker:</p>
-
-<pre class="prettyprint linenums">
-&lt;div class="input-daterange" id="datepicker"&gt;
-    &lt;input class="input-small" name="start" value="2012-04-05" /&gt;
-    &lt;span class="add-on"&gt;to&lt;/span&gt;
-    &lt;input class="input-small" name="end" value="2012-04-07" /&gt;
-&lt;/div&gt;
-</pre>
-
-            <h2 id="methods">Methods</h2>
-            <table class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>Method</th>
-                  <th>Args</th>
-                  <th>Type</th>
-                  <th title="Argument optional">?</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td id="method-main">.datepicker(options)</td>
-                  <td colspan="3"></td>
-                  <td>Initializes an datepicker.</td>
-                </tr>
-                <tr>
-                  <td id="method-remove">remove</td>
-                  <td colspan="3"></td>
-                  <td>Remove the datepicker.  Removes attached events, internal attached objects, and added HTML elements.</td>
-                </tr>
-                <tr>
-                  <td id="method-show">show</td>
-                  <td colspan="3"></td>
-                  <td>Show the datepicker.</td>
-                </tr>
-                <tr>
-                  <td id="method-hide">hide</td>
-                  <td colspan="3"></td>
-                  <td>Hide the datepicker.</td>
-                </tr>
-                <tr>
-                  <td id="method-update">update</td>
-                  <td>date</td>
-                  <td>string</td>
-                  <td><i class="icon-remove">&#x2716;</i></td>
-                  <td>Update the datepicker with the current input value or given date as argument. In second case input will be updated as well.</td>
-                </tr>
-                <tr>
-                  <td id="method-setdate">setDate</td>
-                  <td>date</td>
-                  <td>date</td>
-                  <td><i class="icon-remove">&#x2716;</i></td>
-                  <td>Sets the internal date.  <code>date</code> is assumed to be a "local" date object, and will be converted to UTC for internal use.</td>
-                </tr>
-                <tr>
-                  <td id="method-setutcdate">setUTCDate</td>
-                  <td>date</td>
-                  <td>date</td>
-                  <td><i class="icon-remove">&#x2716;</i></td>
-                  <td>Sets the internal date.  <code>date</code> is assumed to be a UTC date object, and will not be converted.</td>
-                </tr>
-                <tr>
-                  <td id="method-getdate">getDate</td>
-                  <td colspan="3"></td>
-                  <td>Returns a localized date object representing the internal date object of the first datepicker in the selection.</td>
-                </tr>
-                <tr>
-                  <td id="method-getutcdate">getUTCDate</td>
-                  <td colspan="3"></td>
-                  <td>Returns the internal UTC date object, as-is and unconverted to local time, of the first datepicker in the selection.</td>
-                </tr>
-                <tr>
-                  <td id="method-setstartdate">setStartDate</td>
-                  <td>date</td>
-                  <td>string</td>
-                  <td><i class="icon-remove">&#x2716;</i></td>
-                  <td>Sets a new lower date limit on the datepicker.  Omit date (or provide an otherwise falsey value) to unset the limit.</td>
-                </tr>
-                <tr>
-                  <td id="method-setenddate">setEndDate</td>
-                  <td>date</td>
-                  <td>string</td>
-                  <td><i class="icon-remove">&#x2716;</i></td>
-                  <td>Sets a new upper date limit on the datepicker.  Omit date (or provide an otherwise falsey value) to unset the limit.</td>
-                </tr>
-                <tr>
-                  <td id="method-setdaysofweekdisabled">setDaysOfWeekDisabled</td>
-                  <td>dates</td>
-                  <td>string, array</td>
-                  <td><i class="icon-remove">&#x2716;</i></td>
-                  <td>Sets the days of week that should be disabled.  Omit dates (or provide an otherwise falsey value) to unset the disabled days.</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <h2 id="events">Events</h2>
-              <p>Datepicker triggers a number of events in certain circumstances.  All events have extra data attached to the event object that is passed to any event handlers:</p>
-
-              <pre class="prettyprint linenums">
-$('.datepicker').datepicker()
-    .on(picker_event, function(e){
-        # `e` here contains the extra attributes
-    });
-</pre>
-
-            <ul>
-              <li>`date`: the relevant Date object, in local timezone.</li>
-              <li>`format([format])`: a function to make formatting `date` easier.  `format` can be any format string that datepicker supports.  If `format` is not given, the format set on the datepicker will be used.</li>
-            </ul>
-
-            <table class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>Event</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td id="event-show">show</td>
-                  <td>Fired immediately when the date picker is displayed.</td>
-                </tr>
-                <tr>
-                  <td id="event-hide">hide</td>
-                  <td>Fired immediately when the date picker is hidden.</td>
-                </tr>
-                <tr>
-                  <td id="event-cleardate">clearDate</td>
-                  <td>Fired when the date is cleared, normally when the "clear" button (enabled with the `clearBtn` option) is pressed.</td>
-                </tr>
-                <tr>
-                  <td id="event-changedate">changeDate</td>
-                  <td>
-                    Fired when the date is changed.
-                  </td>
-                </tr>
-                <tr>
-                  <td id="event-changeyear">changeYear</td>
-                  <td>Fired when the view year is changed from decade view.</td>
-                </tr>
-                <tr>
-                  <td id="event-changemonth">changeMonth</td>
-                  <td>Fired when the view month is changed from year view.</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <h2 id="keyboard">Keyboard support</h2>
-            <p>The datepicker includes some keyboard navigation:</p>
-            <h4>up, down, left, right arrow keys</h4>
-            <p>By themselves, left/right will move backward/forward one day, up/down will move back/forward one week. </p>
-            <p>With the shift key, up/left will move backward one month, down/right will move forward one month.</p>
-            <p>With the ctrl key, up/left will move backward one year, down/right will move forward oone year.      </p>
-            <p>Shift+ctrl behaves the same as ctrl -- that is, it does not change both month and year simultaneously, only the year.</p>
-            <h4>escape</h4>
-            <p>The escape key can be used to hide and re-show the datepicker; this is necessary if the user wants to manually edit the value.</p>
-            <h4>enter</h4>
-            <p>When the picker is visible, enter will simply hide it. When the picker is not visible, enter will have normal effects -- submitting the current form, etc.</p>
-
-            <h2 id="i18n">I18N</h2>
-            <p>The plugin supports i18n for the month and weekday names and the
-                <code>weekStart</code>
-                option. The default is English ('en'); other available translations are avilable in the
-                <code>js/locales/</code>
-                directory, simply include your desired locale after the plugin. To add more languages, simply add a key to
-                <code>$.fn.datepicker.dates</code>
-                , before calling
-                <code>.datepicker()</code>
-                . Example:
-            </p>
-
-
-            <pre class="prettyprint linenums">
-$.fn.datepicker.dates['en'] = {
-    days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-    daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
-    months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-    monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    today: "Today",
-    clear: "Clear"
-};
-</pre>
-
-            <p>If your browser (or those of your users) is displaying characters wrong, chances are the browser is loading the javascript file with a non-unicode encoding.  Simply add <code>charset="UTF-8"</code> to your <code>script</code> tag:</p>
-            <pre class="prettyprint">
-&lt;script type="text/javascript" src="bootstrap-datepicker.XX.js" charset="UTF-8"&gt;&lt;/script&gt;
-</pre>
-            <pre class="prettyprint">
-$('.datepicker').datepicker({
-    language: 'XX' // as defined in bootstrap-datepicker.XX.js
-});
-</pre>
-
-
-            <h2 id="sandbox">Sandbox <small>&alpha;lph&alpha;</small></h2>
-            <p>Use the form below to tweak the options; results and code appear in realtime below.</p>
-            <p>As you change options, your address bar will update to reflect the current configuration (requires a browser with <code>history.replaceState</code> support).  This url can be used to link to the sandbox with the given configuration pre-loaded.</p>
-            <style>
-              .sandbox-form label, .sandbox-form span {
-                display: inline-block;
-                margin: .5em .5em;
-                vertical-align: middle;
-              }
-              .sandbox-form span label {
-                vertical-align: baseline !important;
-              }
-            </style>
-            <form class="form-inline sandbox-form">
-              <div class="well">
-                Type:<br>
-
-                <label for="markup-text" class="inline radio">
-                  <input name="markup" id="markup-text" value="input" type="radio" checked>
-                  Text input
-                  <script type="text/html" class="html">
-                    <input type="text">
-                  </script>
-                  <script type="text/plain" class="selector">
-                    input
-                  </script>
-                </label>
-                <label for="markup-component" class="inline radio">
-                  <input name="markup" id="markup-component" value="component" type="radio">
-                  Component
-                  <script type="text/html" class="html">
-                    <div class="input-append date">
-                      <input type="text" class="span2"><span class="add-on"><i class="icon-th"></i></span>
-                    </div>
-                  </script>
-                  <script type="text/plain" class="selector">
-                    .input-append.date
-                  </script>
-                </label>
-                <label for="markup-inline" class="inline radio">
-                  <input name="markup" id="markup-inline" value="embedded" type="radio">
-                  Embedded / inline
-                  <script type="text/html" class="html">
-                    <div></div>
-                  </script>
-                  <script type="text/plain" class="selector">
-                    div
-                  </script>
-                </label>
-                <label for="markup-range" class="inline radio">
-                  <input name="markup" id="markup-range" value="range" type="radio">
-                  Range
-                  <script type="text/html" class="html">
-                    <div class="input-daterange" id="datepicker">
-                        <input type="text" class="input-small" name="start" />
-                        <span class="add-on">to</span>
-                        <input type="text" class="input-small" name="end" />
-                    </div>
-                  </script>
-                  <script type="text/plain" class="selector">
-                    .input-daterange
-                  </script>
-                </label>
-
-                <br><br>
-
-                Options:<br>
-
-                <label for="format">Format
-                  <input class="span2" id="format" name="format" type="text" placeholder="mm/dd/yyyy"></label>
-                <label for="weekStart">Week start
-                  <input class="span1" id="weekStart" name="weekStart" type="text" placeholder="0"></label>
-                <label for="startDate">Start date
-                  <input class="span2" id="startDate" name="startDate" type="text" placeholder="-Infinity"></label>
-                <label for="endDate">End date
-                  <input class="span2" id="endDate" name="endDate" type="text" placeholder="+Infinity"></label>
-                <label for="startView">Start view
-                  <select class="span2" id="startView" name="startView">
-                    <option value="0">0 / month</option>
-                    <option value="1">1 / year</option>
-                    <option value="2">2 / decade</option>
-                  </select>
-                </label>
-                <label for="minViewMode">Min view mode
-                  <select class="span2" id="minViewMode" name="minViewMode">
-                    <option value="0">0 / days</option>
-                    <option value="1">1 / months</option>
-                    <option value="2">2 / years</option>
-                  </select>
-                </label>
-                <label for="todayBtn" class="inline checkbox">Today button
-                  <select class="span2" id="todayBtn" name="todayBtn">
-                    <option value="false">disabled</option>
-                    <option value="true">enabled (unlinked)</option>
-                    <option value="linked">linked</option>
-                  </select>
-                </label>
-                <label for="language">Language
-                  <select class="span1" id="language" name="language">
-                    <option value="en">en</option>
-                  </select>
-                  <script>
-                    $(function(){
-                      for (var lang in $.fn.datepicker.dates) {
-                        if (!$('#language option[value='+lang+']').length)
-                          $('<option value="'+lang+'">'+lang+'</option>').appendTo('#language')
-                      }
-                    });
-                  </script>
-                </label>
-                <label for="orientation">Orientation
-                  <select class="span2" id="orientation" name="orientation">
-                    <option value="auto">auto</option>
-                    <option value="top auto">top auto</option>
-                    <option value="bottom auto">bottom auto</option>
-                    <option value="auto left">auto left</option>
-                    <option value="top left">top left</option>
-                    <option value="bottom left">bottom left</option>
-                    <option value="auto right">auto right</option>
-                    <option value="top right">top right</option>
-                    <option value="bottom right">bottom right</option>
-                  </select>
-                </label>
-
-                <br>
-
-                <span>Days of week disabled:
-                  <label class="checkbox"><input type="checkbox" name="daysOfWeekDisabled" value="0"> 0</label>
-                  <label class="checkbox"><input type="checkbox" name="daysOfWeekDisabled" value="1"> 1</label>
-                  <label class="checkbox"><input type="checkbox" name="daysOfWeekDisabled" value="2"> 2</label>
-                  <label class="checkbox"><input type="checkbox" name="daysOfWeekDisabled" value="3"> 3</label>
-                  <label class="checkbox"><input type="checkbox" name="daysOfWeekDisabled" value="4"> 4</label>
-                  <label class="checkbox"><input type="checkbox" name="daysOfWeekDisabled" value="5"> 5</label>
-                  <label class="checkbox"><input type="checkbox" name="daysOfWeekDisabled" value="6"> 6</label>
-                </span>
-
-                <br>
-
-                <label for="calendarWeeks" class="inline checkbox">
-                  <input id="calendarWeeks" name="calendarWeeks" type="checkbox">
-                  Calendar weeks
-                </label>
-                <label for="autoclose" class="inline checkbox">
-                  <input id="autoclose" name="autoclose" type="checkbox">
-                  Autoclose
-                </label>
-                <label for="todayHighlight" class="inline checkbox">
-                  <input id="todayHighlight" name="todayHighlight" type="checkbox">
-                  Today highlight
-                </label>
-                <label for="keyboardNavigation" class="inline checkbox">
-                  <input id="keyboardNavigation" name="keyboardNavigation" type="checkbox" checked>
-                  Keyboard navigation
-                </label>
-                <label for="forceParse" class="inline checkbox">
-                  <input id="forceParse" name="forceParse" type="checkbox" checked>
-                  Force parse
-                </label>
-                <label for="beforeShowDay" class="inline checkbox">
-                  <input id="beforeShowDay" name="beforeShowDay" type="checkbox">
-                  Before-show-day callback
-                </label>
-
-                <br></br>
-
-                <button class="btn btn-danger" type="reset">Reset to defaults</button>
-              </div>
-            </form>
-            <style>
-              .datepicker .green {color: #0F0;}
-            </style>
+          <label for="format">Format
+            <input class="span2" id="format" name="format" type="text" placeholder="mm/dd/yyyy"></label>
+          <label for="weekStart">Week start
+            <input class="span1" id="weekStart" name="weekStart" type="text" placeholder="0"></label>
+          <label for="startDate">Start date
+            <input class="span2" id="startDate" name="startDate" type="text" placeholder="-Infinity"></label>
+          <label for="endDate">End date
+            <input class="span2" id="endDate" name="endDate" type="text" placeholder="+Infinity"></label>
+          <label for="startView">Start view
+            <select class="span2" id="startView" name="startView">
+              <option value="0">0 / month</option>
+              <option value="1">1 / year</option>
+              <option value="2">2 / decade</option>
+            </select>
+          </label>
+          <label for="minViewMode">Min view mode
+            <select class="span2" id="minViewMode" name="minViewMode">
+              <option value="0">0 / days</option>
+              <option value="1">1 / months</option>
+              <option value="2">2 / years</option>
+            </select>
+          </label>
+          <label for="todayBtn" class="inline checkbox">Today button
+            <select class="span2" id="todayBtn" name="todayBtn">
+              <option value="false">disabled</option>
+              <option value="true">enabled (unlinked)</option>
+              <option value="linked">linked</option>
+            </select>
+          </label>
+          <label for="language">Language
+            <select class="span1" id="language" name="language">
+              <option value="en">en</option>
+            </select>
             <script>
               $(function(){
-                var defaults = {},
-                    defaults_form = $('<form>', {html: $('.sandbox-form').html()})
-                $.each(defaults_form.serializeArray(), function(i,e){
-                  if (e.name in defaults)
-                    defaults[e.name] += ',' + e.value;
-                  else
-                    defaults[e.name] = e.value;
-                });
-                delete defaults.markup;
-
-                function fix_indent(s){
-                  var lines = s.split(/\r?\n/g);
-                  while (/^\s*$/.test(lines[0])) lines.shift();
-                  while (/^\s*$/.test(lines[lines.length-1])) lines.pop();
-                  var indent = /^\s*/.exec(lines[0])[0],
-                      deindent = new RegExp('^' + indent);
-                  for (var i=0; i<lines.length; i++)
-                    lines[i] = lines[i].replace(deindent, '');
-                  return lines.join('\n');
+                for (var lang in $.fn.datepicker.dates) {
+                  if (!$('#language option[value='+lang+']').length)
+                    $('<option value="'+lang+'">'+lang+'</option>').appendTo('#language')
                 }
+              });
+            </script>
+          </label>
+          <label for="orientation">Orientation
+            <select class="span2" id="orientation" name="orientation">
+              <option value="auto">auto</option>
+              <option value="top auto">top auto</option>
+              <option value="bottom auto">bottom auto</option>
+              <option value="auto left">auto left</option>
+              <option value="top left">top left</option>
+              <option value="bottom left">bottom left</option>
+              <option value="auto right">auto right</option>
+              <option value="top right">top right</option>
+              <option value="bottom right">bottom right</option>
+            </select>
+          </label>
 
-                function build_code(){
-                  var form = $('.sandbox-form'),
-                      values = {};
-                  $.each(form.serializeArray(), function(i,e){
-                    if (e.name in values)
-                      values[e.name] += ',' + e.value;
-                    else
-                      values[e.name] = e.value;
-                  });
+          <br>
 
-                  var html = fix_indent($('[name=markup][value='+values.markup+']').siblings('script.html').html());
-                  var selector = $('[name=markup][value='+values.markup+']').siblings('script.selector').html().replace(/^\s+|\s+$/g, '');
-                  delete values.markup;
+          <span>Days of week disabled:
+            <label class="checkbox"><input type="checkbox" name="daysOfWeekDisabled" value="0"> 0</label>
+            <label class="checkbox"><input type="checkbox" name="daysOfWeekDisabled" value="1"> 1</label>
+            <label class="checkbox"><input type="checkbox" name="daysOfWeekDisabled" value="2"> 2</label>
+            <label class="checkbox"><input type="checkbox" name="daysOfWeekDisabled" value="3"> 3</label>
+            <label class="checkbox"><input type="checkbox" name="daysOfWeekDisabled" value="4"> 4</label>
+            <label class="checkbox"><input type="checkbox" name="daysOfWeekDisabled" value="5"> 5</label>
+            <label class="checkbox"><input type="checkbox" name="daysOfWeekDisabled" value="6"> 6</label>
+          </span>
 
-                  var js = "$('#sandbox-container "+selector+"').datepicker({\n",
-                      val;
-                  for (var opt in $.extend({}, defaults, values)){
-                    if (values[opt] != defaults[opt]){
-                      val = values[opt];
-                      if (opt == 'daysOfWeekDisabled') val = '"'+val+'"'
-                      else if (opt == 'beforeShowDay') val = function(date){
+          <br>
+
+          <label for="calendarWeeks" class="inline checkbox">
+            <input id="calendarWeeks" name="calendarWeeks" type="checkbox">
+            Calendar weeks
+          </label>
+          <label for="autoclose" class="inline checkbox">
+            <input id="autoclose" name="autoclose" type="checkbox">
+            Autoclose
+          </label>
+          <label for="todayHighlight" class="inline checkbox">
+            <input id="todayHighlight" name="todayHighlight" type="checkbox">
+            Today highlight
+          </label>
+          <label for="keyboardNavigation" class="inline checkbox">
+            <input id="keyboardNavigation" name="keyboardNavigation" type="checkbox" checked>
+            Keyboard navigation
+          </label>
+          <label for="forceParse" class="inline checkbox">
+            <input id="forceParse" name="forceParse" type="checkbox" checked>
+            Force parse
+          </label>
+          <label for="beforeShowDay" class="inline checkbox">
+            <input id="beforeShowDay" name="beforeShowDay" type="checkbox">
+            Before-show-day callback
+          </label>
+
+          <br></br>
+
+          <button class="btn btn-danger" type="reset">Reset to defaults</button>
+        </div>
+      </form>
+      <style>
+        .datepicker .green {color: #0F0;}
+      </style>
+      <script>
+        $(function(){
+          var defaults = {},
+              defaults_form = $('<form>', {html: $('.sandbox-form').html()})
+          $.each(defaults_form.serializeArray(), function(i,e){
+            if (e.name in defaults)
+              defaults[e.name] += ',' + e.value;
+            else
+              defaults[e.name] = e.value;
+          });
+          delete defaults.markup;
+
+          function fix_indent(s){
+            var lines = s.split(/\r?\n/g);
+            while (/^\s*$/.test(lines[0])) lines.shift();
+            while (/^\s*$/.test(lines[lines.length-1])) lines.pop();
+            var indent = /^\s*/.exec(lines[0])[0],
+                deindent = new RegExp('^' + indent);
+            for (var i=0; i<lines.length; i++)
+              lines[i] = lines[i].replace(deindent, '');
+            return lines.join('\n');
+          }
+
+          function build_code(){
+            var form = $('.sandbox-form'),
+                values = {};
+            $.each(form.serializeArray(), function(i,e){
+              if (e.name in values)
+                values[e.name] += ',' + e.value;
+              else
+                values[e.name] = e.value;
+            });
+
+            var html = fix_indent($('[name=markup][value='+values.markup+']').siblings('script.html').html());
+            var selector = $('[name=markup][value='+values.markup+']').siblings('script.selector').html().replace(/^\s+|\s+$/g, '');
+            delete values.markup;
+
+            var js = "$('#sandbox-container "+selector+"').datepicker({\n",
+                val;
+            for (var opt in $.extend({}, defaults, values)){
+              if (values[opt] != defaults[opt]){
+                val = values[opt];
+                if (opt == 'daysOfWeekDisabled') val = '"'+val+'"'
+                else if (opt == 'beforeShowDay') val = function(date){
       if (date.getMonth() == (new Date()).getMonth())
         switch (date.getDate()){
           case 4:
@@ -806,219 +316,179 @@ $('.datepicker').datepicker({
             return "green";
         }
     }
-                      else if (val == 'on' || val == 'true') val = 'true';
-                      else if (val === void 0 || val == 'false') val = 'false';
-                      else if (parseInt(val) == val) val = val;
-                      else val = '"'+val+'"'
-                      js += "    " + opt + ": " + val + ",\n"
-                    }
-                  }
-                  if (js.slice(-2) == ",\n")
-                    js = js.slice(0,-2) + "\n";
-                  js += "});";
+                else if (val == 'on' || val == 'true') val = 'true';
+                else if (val === void 0 || val == 'false') val = 'false';
+                else if (parseInt(val) == val) val = val;
+                else val = '"'+val+'"'
+                js += "    " + opt + ": " + val + ",\n"
+              }
+            }
+            if (js.slice(-2) == ",\n")
+              js = js.slice(0,-2) + "\n";
+            js += "});";
 
-                  return [html, js];
-                }
-                function update_code(){
-                  var code = build_code(),
-                      html = code[0],
-                      js = code[1];
-
-                  var print_html = html.replace(/</g, '&lt;').replace(/>/g, '&gt;')
-                  $('#sandbox-html').html(prettyPrintOne(print_html, 'html', true));
-                  $('#sandbox-js').html(prettyPrintOne(js, 'js', true));
-                }
-                function update_sandbox(){
-                  var code = build_code(),
-                      html = code[0],
-                      js = code[1];
-
-                  $('#sandbox-container > :first-child').datepicker('remove');
-                  $('#sandbox-container').html(html);
-                  eval(js);
-                }
-                function update_url(){
-                  if (history.replaceState){
-                    var query = '?' + $('.sandbox-form').serialize();
-                    history.replaceState(null, null, query + '#sandbox');
-                  }
-                }
-                function update_all(){
-                  update_code();
-                  update_sandbox();
-                  update_url();
-                }
-
-                $('.sandbox-form')
-                  .submit(function(){ return false; })
-                  .keydown(update_all)
-                  .keyup(update_all)
-                  .click(function(e){
-                    update_code();
-                    update_sandbox();
-                    if (!$(e.target).is('button[type=reset]'))
-                      update_url();
-                  });
-
-                $('.sandbox-form button[type=reset]').click(function(){
-                  $('.sandbox-form')[0].reset();
-                  update_code();
-                  update_sandbox();
-                  history.replaceState && history.replaceState(null, null, '?#sandbox');
-                });
-
-                setTimeout(function(){
-                  // Load form state from url if possible
-                  var search = document.location.search.replace(/^\?/, '');
-                  if (search){
-                    search = search.split('&');
-                    var values = {};
-                    for (var i=0, opt, val; i<search.length; i++){
-                      opt = search[i].split('=')[0];
-                      val = search[i].split('=')[1];
-                      if (opt in values)
-                        values[opt] += ',' + val;
-                      else
-                        values[opt] = val;
-                    }
-
-                    for (var opt in $.extend({}, defaults, values)){
-                      var el = $('[name='+opt+']'),
-                          val = unescape(values[opt]);
-                      if (el.is(':checkbox')){
-                        if (el.length > 1){
-                          var vals = val.split(',');
-                          $('[name='+opt+']').prop('checked', false);
-                          for (var i=0; i<vals.length; i++)
-                            $('[name='+opt+'][value='+vals[i]+']').prop('checked', true);
-                        }
-                        else if (val === 'undefined')
-                          el.prop('checked', false);
-                        else
-                          el.prop('checked', true);
-                      }
-                      else if (el.is(':radio')){
-                        el.filter('[value='+val+']').prop('checked', true);
-                      }
-                      else
-                        el.val(val);
-                    }
-                  }
-
-                  // Don't replaceState the url on pageload
-                  update_code();
-                  update_sandbox();
-                }, 300);
-
-                // Analytics event tracking
-                // What options are people interested in?
-                $('.sandbox-form input, .sandbox-form select').change(function(e){
-                  var $this = $(this),
-                      val, opt;
-                  opt = $this.attr('name');
-                  val = $this.val();
-                  if ($this.is(':checkbox') && val == 'on')
-                    val = $this.is(':checked') ? "on" : "off";
-                  _gaq.push(['_trackEvent', 'Sandbox', 'Option: ' + opt, val]);
-                });
-                // Do they even use the reset button?
-                $('.sandbox-form button[type=reset]').click(function(){
-                  _gaq.push(['_trackEvent', 'Sandbox', 'Reset']);
-                });
-
-                var flag=0, mousedown=false, delta=0, x=0, y=0, dx, dy;
-                // How do they interact with the HTML display?  Do they select
-                // the code, do they try to edit it (I'd want to!)?
-                $("#sandbox-html").mousedown(function(e){
-                  mousedown = true;
-                  delta = 0; x=e.clientX; y=e.clientY;
-                });
-                $("#sandbox-html").mousemove(function(e){
-                  if (mousedown){
-                    dx = Math.abs(e.clientX-x);
-                    dy = Math.abs(e.clientY-y);
-                    delta = Math.max(dx, dy);
-                  }
-                });
-                $("#sandbox-html").mouseup(function(){
-                  if(delta <= 10)
-                    _gaq.push(['_trackEvent', 'Sandbox', 'HTML Clicked']);
-                  else
-                    _gaq.push(['_trackEvent', 'Sandbox', 'HTML Selected']);
-                  delta = 0;
-                  mousedown = false;
-                });
-
-                // How do they interact with the JS display?  Do they select
-                // the code, do they try to edit it (I'd want to!)?
-                $("#sandbox-js").mousedown(function(e){
-                  mousedown = true;
-                  delta = 0; x=e.clientX; y=e.clientY;
-                });
-                $("#sandbox-js").mousemove(function(e){
-                  if (mousedown){
-                    dx = Math.abs(e.clientX-x);
-                    dy = Math.abs(e.clientY-y);
-                    delta = Math.max(dx, dy);
-                  }
-                });
-                $("#sandbox-js").mouseup(function(){
-                  if(delta <= 10)
-                    _gaq.push(['_trackEvent', 'Sandbox', 'JS Clicked']);
-                  else
-                    _gaq.push(['_trackEvent', 'Sandbox', 'JS Selected']);
-                  delta = 0;
-                  mousedown = false;
-                });
-              });
-            </script>
-            <div class="row form-horizontal">
-              <div class="span3" id="sandbox-container"></div>
-              <div class="span6" style="width:545px">
-                <pre class="prettyprint linenums" id="sandbox-html"></pre>
-                <pre class="prettyprint linenums" id="sandbox-js"></pre>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <hr>
-      <p>bootstrap-datepicker was started by <a href="http://www.eyecon.ro/bootstrap-datepicker" target="_blank">Stefan Petre</a>; improvements by <a href="https://github.com/eternicode" target="_blank">@eternicode</a> and various contributors.</p>
-      <p>Andrew Rowls 2012-2013</p>
-
-    </div>
-    <script>
-      $(function(){
-        window.prettyPrint && prettyPrint();
-
-        $('[id$=-container]').each(function(){
-          // Use js to extract and run examples html & js from code blocks.
-          // Kids, don't try this at home!
-          // And certainly don't use in production...
-          var prefix = $(this).attr('id').split('-')[0];
-          $('#' + prefix + '-container').html($('#' + prefix + '-html').text());
-          eval($('#' + prefix + '-js').text());
-        });
-
-        $('.sidenav').affix({
-          offset: {
-            top: 270
+            return [html, js];
           }
-        })
-      });
+          function update_code(){
+            var code = build_code(),
+                html = code[0],
+                js = code[1];
 
+            var print_html = html.replace(/</g, '&lt;').replace(/>/g, '&gt;')
+            $('#sandbox-html').html(prettyPrintOne(print_html, 'html', true));
+            $('#sandbox-js').html(prettyPrintOne(js, 'js', true));
+          }
+          function update_sandbox(){
+            var code = build_code(),
+                html = code[0],
+                js = code[1];
 
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-1453188-13']);
-      _gaq.push(['_trackPageview']);
+            $('#sandbox-container > :first-child').datepicker('remove');
+            $('#sandbox-container').html(html);
+            eval(js);
+          }
+          function update_url(){
+            if (history.replaceState){
+              var query = '?' + $('.sandbox-form').serialize();
+              history.replaceState(null, null, query + '#sandbox');
+            }
+          }
+          function update_all(){
+            update_code();
+            update_sandbox();
+            update_url();
+          }
 
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
+          $('.sandbox-form')
+            .submit(function(){ return false; })
+            .keydown(update_all)
+            .keyup(update_all)
+            .click(function(e){
+              update_code();
+              update_sandbox();
+              if (!$(e.target).is('button[type=reset]'))
+                update_url();
+            });
 
-    </script>
+          $('.sandbox-form button[type=reset]').click(function(){
+            $('.sandbox-form')[0].reset();
+            update_code();
+            update_sandbox();
+            history.replaceState && history.replaceState(null, null, '?#sandbox');
+          });
+
+          setTimeout(function(){
+            // Load form state from url if possible
+            var search = document.location.search.replace(/^\?/, '');
+            if (search){
+              search = search.split('&');
+              var values = {};
+              for (var i=0, opt, val; i<search.length; i++){
+                opt = search[i].split('=')[0];
+                val = search[i].split('=')[1];
+                if (opt in values)
+                  values[opt] += ',' + val;
+                else
+                  values[opt] = val;
+              }
+
+              for (var opt in $.extend({}, defaults, values)){
+                var el = $('[name='+opt+']'),
+                    val = unescape(values[opt]);
+                if (el.is(':checkbox')){
+                  if (el.length > 1){
+                    var vals = val.split(',');
+                    $('[name='+opt+']').prop('checked', false);
+                    for (var i=0; i<vals.length; i++)
+                      $('[name='+opt+'][value='+vals[i]+']').prop('checked', true);
+                  }
+                  else if (val === 'undefined')
+                    el.prop('checked', false);
+                  else
+                    el.prop('checked', true);
+                }
+                else if (el.is(':radio')){
+                  el.filter('[value='+val+']').prop('checked', true);
+                }
+                else
+                  el.val(val);
+              }
+            }
+
+            // Don't replaceState the url on pageload
+            update_code();
+            update_sandbox();
+          }, 300);
+
+          // Analytics event tracking
+          // What options are people interested in?
+          $('.sandbox-form input, .sandbox-form select').change(function(e){
+            var $this = $(this),
+                val, opt;
+            opt = $this.attr('name');
+            val = $this.val();
+            if ($this.is(':checkbox') && val == 'on')
+              val = $this.is(':checked') ? "on" : "off";
+            _gaq.push(['_trackEvent', 'Sandbox', 'Option: ' + opt, val]);
+          });
+          // Do they even use the reset button?
+          $('.sandbox-form button[type=reset]').click(function(){
+            _gaq.push(['_trackEvent', 'Sandbox', 'Reset']);
+          });
+
+          var flag=0, mousedown=false, delta=0, x=0, y=0, dx, dy;
+          // How do they interact with the HTML display?  Do they select
+          // the code, do they try to edit it (I'd want to!)?
+          $("#sandbox-html").mousedown(function(e){
+            mousedown = true;
+            delta = 0; x=e.clientX; y=e.clientY;
+          });
+          $("#sandbox-html").mousemove(function(e){
+            if (mousedown){
+              dx = Math.abs(e.clientX-x);
+              dy = Math.abs(e.clientY-y);
+              delta = Math.max(dx, dy);
+            }
+          });
+          $("#sandbox-html").mouseup(function(){
+            if(delta <= 10)
+              _gaq.push(['_trackEvent', 'Sandbox', 'HTML Clicked']);
+            else
+              _gaq.push(['_trackEvent', 'Sandbox', 'HTML Selected']);
+            delta = 0;
+            mousedown = false;
+          });
+
+          // How do they interact with the JS display?  Do they select
+          // the code, do they try to edit it (I'd want to!)?
+          $("#sandbox-js").mousedown(function(e){
+            mousedown = true;
+            delta = 0; x=e.clientX; y=e.clientY;
+          });
+          $("#sandbox-js").mousemove(function(e){
+            if (mousedown){
+              dx = Math.abs(e.clientX-x);
+              dy = Math.abs(e.clientY-y);
+              delta = Math.max(dx, dy);
+            }
+          });
+          $("#sandbox-js").mouseup(function(){
+            if(delta <= 10)
+              _gaq.push(['_trackEvent', 'Sandbox', 'JS Clicked']);
+            else
+              _gaq.push(['_trackEvent', 'Sandbox', 'JS Selected']);
+            delta = 0;
+            mousedown = false;
+          });
+        });
+      </script>
+      <div class="row form-horizontal">
+        <div class="span5" id="sandbox-container"></div>
+        <div class="span7">
+          <pre class="prettyprint linenums" id="sandbox-html"></pre>
+          <pre class="prettyprint linenums" id="sandbox-js"></pre>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
