@@ -295,6 +295,7 @@
 
 			this.element.trigger({
 				type: event,
+				namespace: 'bsDatepicker',
 				date: local_date,
 				format: $.proxy(function(altformat){
 					var format = altformat || this.o.format;
