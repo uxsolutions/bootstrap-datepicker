@@ -15,15 +15,9 @@ Alexey Shirshov: you may want to use it separately, so uncomment below
 @import "mixins.less";
 */
 
-.border-radius (@radius) {
-    -moz-border-radius: @radius;
-    -webkit-border-radius: @radius;
-    border-radius: @radius;
-}
-
 .datepicker {
     padding: 4px;
-    .border-radius(4px);
+    border-radius: 4px;
 
     &-inline {
         width: 220px;
@@ -132,7 +126,7 @@ Alexey Shirshov: you may want to use it separately, so uncomment below
         text-align: center;
         width: 20px;
         height: 20px;
-        .border-radius(4px);
+        border-radius: 4px;
         border: none;
     }
     // Inline display inside a table presents some problems with
@@ -184,7 +178,7 @@ Alexey Shirshov: you may want to use it separately, so uncomment below
         &.range.disabled,
         &.range.disabled:hover {
             background: @gray-lighter;
-            .border-radius(0);
+            border-radius: 0;
         }
 
             &.range.today,
@@ -193,7 +187,7 @@ Alexey Shirshov: you may want to use it separately, so uncomment below
             &.range.today.disabled:hover {
                 @todayBackground: mix(@orange, @gray-lighter, 50%);
                 .button-variant(@btn-default-color, @btn-default-bg, @btn-default-border);
-                .border-radius(0);
+                border-radius: 0;
             }
 
         &.selected,
@@ -224,7 +218,7 @@ Alexey Shirshov: you may want to use it separately, so uncomment below
             float: left;
             margin: 1%;
             cursor: pointer;
-            .border-radius(4px);
+            border-radius: 4px;
 
             &:hover {
                 background: @gray-lighter;
@@ -299,11 +293,11 @@ Alexey Shirshov: you may want to use it separately, so uncomment below
     }
 
         input:first-child {
-            .border-radius(3px 0 0 3px);
+            border-radius: 3px 0 0 3px;
         }
 
         input:last-child {
-            .border-radius(0 3px 3px 0);
+            border-radius: 0 3px 3px 0;
         }
 
     .add-on {
