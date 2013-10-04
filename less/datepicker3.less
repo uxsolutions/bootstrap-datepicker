@@ -53,7 +53,7 @@ Alexey Shirshov: you may want to use it separately, so uncomment below
             display: inline-block;
             border-left: 6px solid transparent;
             border-right: 6px solid transparent;
-            border-bottom: 6px solid white;
+            border-bottom: 6px solid #fff;
             border-top: 0;
             position: absolute;
         }
@@ -91,7 +91,7 @@ Alexey Shirshov: you may want to use it separately, so uncomment below
         &.datepicker-orient-bottom:after {
             bottom: -6px;
             border-bottom: 0;
-            border-top: 6px solid white;
+            border-top: 6px solid #fff;
         }
     }
 
@@ -145,13 +145,13 @@ Alexey Shirshov: you may want to use it separately, so uncomment below
 
         &.old,
         &.new {
-            color: @gray-light;
+            color: @btn-link-disabled-color;
         }
 
         &.disabled,
         &.disabled:hover {
             background: none;
-            color: @gray-light;
+            color: @btn-link-disabled-color;
             cursor: default;
         }
 
@@ -185,7 +185,7 @@ Alexey Shirshov: you may want to use it separately, so uncomment below
             &.range.today:hover,
             &.range.today.disabled,
             &.range.today.disabled:hover {
-                @todayBackground: mix(@orange, @gray-lighter, 50%);
+                @todayBackground: mix(orange, @gray-lighter, 50%);
                 .button-variant(@btn-default-color, @btn-default-bg, @btn-default-border);
                 border-radius: 0;
             }
@@ -227,7 +227,7 @@ Alexey Shirshov: you may want to use it separately, so uncomment below
             &.disabled,
             &.disabled:hover {
                 background: none;
-                color: @gray-light;
+                color: @btn-link-disabled-color;
                 cursor: default;
             }
 
@@ -243,7 +243,7 @@ Alexey Shirshov: you may want to use it separately, so uncomment below
 
             &.old,
             &.new {
-                color: @gray-light;
+                color: @btn-link-disabled-color;
             }
         }
     }
@@ -309,11 +309,11 @@ Alexey Shirshov: you may want to use it separately, so uncomment below
         font-weight: normal;
         line-height: @line-height-base;
         text-align: center;
-        -webkit-text-shadow: 0 1px 0 white;
-        text-shadow: 0 1px 0 #white;
+        -webkit-text-shadow: 0 1px 0 #fff;
+        text-shadow: 0 1px 0 #fff;
         vertical-align: middle;
-        background-color: @gray-lighter;
-        border: 1px solid #ccc;
+        background-color: @input-group-addon-bg;
+        border: 1px solid @input-group-addon-border-color;
         margin-left: -5px;
         margin-right: -5px;
     }
