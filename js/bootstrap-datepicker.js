@@ -420,9 +420,9 @@
 				windowHeight = $window.height(),
 				scrollTop = $window.scrollTop();
 
-			var zIndex = parseInt(this.element.parents().filter(function() {
+			var zIndex = this.o.zIndex || ( parseInt(this.element.parents().filter(function() {
 							return $(this).css('z-index') != 'auto';
-						}).first().css('z-index'))+10;
+						}).first().css('z-index'))+10 );
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(false);
 			var width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(false);
@@ -1152,7 +1152,8 @@
 		startView: 0,
 		todayBtn: false,
 		todayHighlight: false,
-		weekStart: 0
+		weekStart: 0,
+		zIndex: null
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',

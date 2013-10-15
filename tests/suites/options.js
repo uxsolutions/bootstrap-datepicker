@@ -33,6 +33,39 @@ test('Autoclose', function(){
     datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
 });
 
+test('Zindex', function(){
+    // Test with option set
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    zIndex: 235
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+
+    input.focus();
+    ok(picker.is(':visible'), 'Picker is visible');
+    equal(picker.css('z-index'), 235); // Properly set zIndex
+
+    // zIndex from parent
+    $('#qunit-fixture').css({'z-index': '111'});
+
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({}),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    ok(picker.is(':visible'), 'Picker is visible');
+    equal(picker.css('z-index'), 121); // Properly set zIndex
+});
+
 test('Startview: year view (integer)', function(){
     var input = $('<input />')
                 .appendTo('#qunit-fixture')
