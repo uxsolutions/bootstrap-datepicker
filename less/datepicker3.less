@@ -222,10 +222,9 @@ Alexey Shirshov: you may want to use it separately, so uncomment below
 		background-color: transparent;
 	}
 }
-.input-append,
-.input-prepend {
+.input-group {
 	&.date {
-		.add-on i {
+		.input-group-addon i {
 			display: block;
 			cursor: pointer;
 			width: 16px;
@@ -243,11 +242,9 @@ Alexey Shirshov: you may want to use it separately, so uncomment below
 	input:last-child {
 		border-radius: 0 3px 3px 0;
 	}
-	.add-on {
-		display: inline-block;
+	.input-group-addon {
 		width: auto;
 		min-width: 16px;
-		height: @line-height-base;
 		padding: 4px 5px;
 		font-weight: normal;
 		line-height: @line-height-base;
@@ -255,7 +252,8 @@ Alexey Shirshov: you may want to use it separately, so uncomment below
 		text-shadow: 0 1px 0 #fff;
 		vertical-align: middle;
 		background-color: @input-group-addon-bg;
-		border: 1px solid @input-group-addon-border-color;
+		border: solid @input-group-addon-border-color;
+		border-width: 1px 0;
 		margin-left:-5px;
 		margin-right:-5px;
 	}
