@@ -126,7 +126,6 @@ Alexey Shirshov: you may want to use it separately, so uncomment below
 		&.today.disabled:hover {
 			@today-bg: lighten(orange, 30%);
 			.button-variant(#000, @today-bg, darken(@today-bg, 20%));
-			.btn-styles(@today-bg);
 		}
 		&.today:hover:hover { // Thank bootstrap 2.0 for this selector...
 			// TODO: Bump min BS to 2.1, use @textColor in buttonBackground above
@@ -148,15 +147,13 @@ Alexey Shirshov: you may want to use it separately, so uncomment below
 		&.range.today.disabled:hover {
 			@today-bg: mix(orange, @gray-lighter, 50%);
 			.button-variant(#000, @today-bg, darken(@today-bg, 20%));
-			.btn-styles(@today-bg);
 			border-radius: 0;
 		}
 		&.selected,
 		&.selected:hover,
 		&.selected.disabled,
 		&.selected.disabled:hover {
-			.button-variant(@btn-default-color, @btn-default-bg, @btn-default-border);
-			.btn-styles(@btn-default-bg);
+			.button-variant(#fff, @gray-light, @gray);
 			text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 		}
 		&.active,
@@ -164,7 +161,6 @@ Alexey Shirshov: you may want to use it separately, so uncomment below
 		&.active.disabled,
 		&.active.disabled:hover {
 			.button-variant(@btn-primary-color, @btn-primary-bg, @btn-primary-border);
-			.btn-styles(@btn-primary-bg);
 			text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 		}
 		span {
