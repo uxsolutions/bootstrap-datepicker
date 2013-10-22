@@ -2,6 +2,6 @@
   "name": "eternicode/bootstrap-datepicker",
   "require": {
     "frameworks/jquery" : ">=1.7.1",
-    "twitter/bootstrap" : ">=2.0.4, <3.0"
+    "twitter/bootstrap" : ">=3.0, <4.0"
   }
 }
