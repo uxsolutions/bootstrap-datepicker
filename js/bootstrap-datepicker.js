@@ -347,10 +347,10 @@
 		},
 
 		_utc_to_local: function(utc){
-			return new Date(utc.getTime() + (utc.getTimezoneOffset()*60000));
+			return new Date(utc.getTime() - (utc.getTimezoneOffset()*60000));
 		},
 		_local_to_utc: function(local){
-			return new Date(local.getTime() - (local.getTimezoneOffset()*60000));
+			return new Date(local.getTime() + (local.getTimezoneOffset()*60000));
 		},
 		_zero_time: function(local){
 			return new Date(local.getFullYear(), local.getMonth(), local.getDate());
