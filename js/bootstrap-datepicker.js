@@ -305,7 +305,7 @@
 
 		show: function(e) {
 			if (!this.isInline)
-				this.picker.appendTo('body');
+				this.picker.appendTo(this.o.appendTo || 'body');
 			this.picker.show();
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			this.place();
