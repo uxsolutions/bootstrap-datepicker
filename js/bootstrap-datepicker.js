@@ -27,17 +27,11 @@
 	function UTCDate(){
 		return new Date(Date.UTC.apply(Date, arguments));
 	}
-	function UTCToday(){
-		var today = new Date();
-		return UTCDate(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
-	}
 
 
 	// Picker object
 
 	var Datepicker = function(element, options) {
-		var that = this;
-
 		this._process_options(options);
 
 		this.element = $(element);
@@ -63,7 +57,6 @@
 			this.picker.find('.prev i, .next i')
 						.toggleClass('icon-arrow-left icon-arrow-right');
 		}
-
 
 		this.viewMode = this.o.startView;
 
@@ -316,7 +309,7 @@
 			this._trigger('show');
 		},
 
-		hide: function(e){
+		hide: function(){
 			if(this.isInline) return;
 			if (!this.picker.is(':visible')) return;
 			this.picker.hide().detach();
@@ -594,7 +587,6 @@
 				startMonth = this.o.startDate !== -Infinity ? this.o.startDate.getUTCMonth() : -Infinity,
 				endYear = this.o.endDate !== Infinity ? this.o.endDate.getUTCFullYear() : Infinity,
 				endMonth = this.o.endDate !== Infinity ? this.o.endDate.getUTCMonth() : Infinity,
-				currentDate = this.date && this.date.valueOf(),
 				tooltip;
 			this.picker.find('.datepicker-days thead th.datepicker-switch')
 						.text(dates[this.o.language].months[month]+' '+year);
@@ -606,7 +598,7 @@
 						.toggle(this.o.clearBtn !== false);
 			this.updateNavArrows();
 			this.fillMonths();
-			var prevMonth = UTCDate(year, month-1, 28,0,0,0,0),
+			var prevMonth = UTCDate(year, month-1, 28),
 				day = DPGlobal.getDaysInMonth(prevMonth.getUTCFullYear(), prevMonth.getUTCMonth());
 			prevMonth.setUTCDate(day);
 			prevMonth.setUTCDate(day - (prevMonth.getUTCDay() - this.o.weekStart + 7)%7);
@@ -733,7 +725,8 @@
 
 		click: function(e) {
 			e.preventDefault();
-			var target = $(e.target).closest('span, td, th');
+			var target = $(e.target).closest('span, td, th'),
+				year, month, day;
 			if (target.length == 1) {
 				switch(target[0].nodeName.toLowerCase()) {
 					case 'th':
@@ -785,22 +778,22 @@
 						if (!target.is('.disabled')) {
 							this.viewDate.setUTCDate(1);
 							if (target.is('.month')) {
-								var day = 1;
-								var month = target.parent().find('span').index(target);
-								var year = this.viewDate.getUTCFullYear();
+								day = 1;
+								month = target.parent().find('span').index(target);
+								year = this.viewDate.getUTCFullYear();
 								this.viewDate.setUTCMonth(month);
 								this._trigger('changeMonth', this.viewDate);
 								if (this.o.minViewMode === 1) {
-									this._setDate(UTCDate(year, month, day,0,0,0,0));
+									this._setDate(UTCDate(year, month, day));
 								}
 							} else {
-								var year = parseInt(target.text(), 10)||0;
-								var day = 1;
-								var month = 0;
+								day = 1;
+								month = 0;
+								year = parseInt(target.text(), 10)||0;
 								this.viewDate.setUTCFullYear(year);
 								this._trigger('changeYear', this.viewDate);
 								if (this.o.minViewMode === 2) {
-									this._setDate(UTCDate(year, month, day,0,0,0,0));
+									this._setDate(UTCDate(year, month, day));
 								}
 							}
 							this.showMode(-1);
@@ -809,9 +802,9 @@
 						break;
 					case 'td':
 						if (target.is('.day') && !target.is('.disabled')){
-							var day = parseInt(target.text(), 10)||1;
-							var year = this.viewDate.getUTCFullYear(),
-								month = this.viewDate.getUTCMonth();
+							day = parseInt(target.text(), 10)||1;
+							year = this.viewDate.getUTCFullYear();
+							month = this.viewDate.getUTCMonth();
 							if (target.is('.old')) {
 								if (month === 0) {
 									month = 11;
@@ -827,7 +820,7 @@
 									month += 1;
 								}
 							}
-							this._setDate(UTCDate(year, month, day,0,0,0,0));
+							this._setDate(UTCDate(year, month, day));
 						}
 						break;
 				}
@@ -911,8 +904,7 @@
 				return;
 			}
 			var dateChanged = false,
-				dir, day, month,
-				newDate, newViewDate;
+				dir, newDate, newViewDate;
 			switch(e.keyCode){
 				case 27: // escape
 					this.hide();
@@ -1083,7 +1075,7 @@
 		// Check if "de-DE" style date is available, if not language should
 		// fallback to 2 letter code eg "de"
 		if (!dates[lang]) {
-			lang = lang.split('-')[0]
+			lang = lang.split('-')[0];
 			if (!dates[lang])
 				return;
 		}
@@ -1099,8 +1091,7 @@
 	$.fn.datepicker = function ( option ) {
 		var args = Array.apply(null, arguments);
 		args.shift();
-		var internal_return,
-			this_return;
+		var internal_return;
 		this.each(function () {
 			var $this = $(this),
 				data = $this.data('datepicker'),
