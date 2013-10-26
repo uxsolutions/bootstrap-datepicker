@@ -36,6 +36,13 @@ test('update - Date', function(){
     ok(date.is('.active'), 'Date is selected');
 });
 
+test('update - null', function(){
+    this.dp.update(null);
+    equal(this.dp.date, undefined);
+    var selected = this.dp.picker.find('.datepicker-days td.active');
+    equal(selected.length, 0, 'No date is selected');
+});
+
 test('setDate', function(){
     var date_in = new Date(2013, 1, 1),
         expected_date = new Date(Date.UTC(2013, 1, 1));
