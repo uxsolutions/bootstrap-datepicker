@@ -977,6 +977,8 @@
 				case 13: // enter
 					this.hide();
 					e.preventDefault();
+					e.stopPropagation && e.stopPropagation();
+					e.cancelBubble = true; // IE6,7,8 support
 					break;
 				case 9: // tab
 					this.hide();
