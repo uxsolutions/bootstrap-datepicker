@@ -524,9 +524,12 @@
 			var dowCnt = this.o.weekStart,
 			html = '<tr>';
 			if(this.o.calendarWeeks){
+				this.picker.find('.datepicker-days thead tr:first-child th.datepicker-switch')
+							.attr('colspan', function(i, val){
+								return parseInt(val) + 1;
+							});
 				var cell = '<th class="cw">&nbsp;</th>';
 				html += cell;
-				this.picker.find('.datepicker-days thead tr:first-child').prepend(cell);
 			}
 			while (dowCnt < this.o.weekStart + 7) {
 				html += '<th class="dow">'+dates[this.o.language].daysMin[(dowCnt++)%7]+'</th>';
