@@ -961,7 +961,7 @@
 						this._trigger('changeMonth', this.viewDate);
 					} else {
 						newDate = new Date(this.date || UTCToday());
-						newDate.setUTCDate(this.date.getUTCDate() + dir * 7);
+						newDate.setUTCDate(newDate.getUTCDate() + dir * 7);
 						newViewDate = new Date(this.viewDate);
 						newViewDate.setUTCDate(this.viewDate.getUTCDate() + dir * 7);
 					}
@@ -977,6 +977,8 @@
 				case 13: // enter
 					this.hide();
 					e.preventDefault();
+					e.stopPropagation && e.stopPropagation();
+					e.cancelBubble = true;
 					break;
 				case 9: // tab
 					this.hide();
