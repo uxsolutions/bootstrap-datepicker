@@ -46,6 +46,7 @@
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on, .btn') : false;
 		this.hasInput = this.component && this.element.find('input').length;
+		this.ignoreNextShowOnFocus = false;
 		if(this.component && this.component.length === 0)
 			this.component = false;
 
@@ -306,6 +307,11 @@
 		show: function(e) {
 			if (!this.isInline)
 				this.picker.appendTo('body');
+			if(this.ignoreNextShowOnFocus && e && e.type === 'focus') {
+				this.ignoreNextShowOnFocus = false;
+				return;
+			}
+			this.ignoreNextShowOnFocus = false;
 			this.picker.show();
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			this.place();
@@ -316,7 +322,7 @@
 			this._trigger('show');
 		},
 
-		hide: function(){
+		hide: function(focus){
 			if(this.isInline) return;
 			if (!this.picker.is(':visible')) return;
 			this.picker.hide().detach();
@@ -332,6 +338,11 @@
 				)
 			)
 				this.setValue();
+			if (focus) {
+				this.ignoreNextShowOnFocus = true;
+				var element = this.isInput? this.element : this.element.find('input');
+				setTimeout(function() { element.focus(); }, 0);
+			}
 			this._trigger('hide');
 		},
 
@@ -779,7 +790,7 @@
 								this.update();
 								this._trigger('changeDate');
 								if (this.o.autoclose)
-									this.hide();
+									this.hide(true);
 								break;
 						}
 						break;
@@ -854,7 +865,7 @@
 				element.change();
 			}
 			if (this.o.autoclose && (!which || which == 'date')) {
-				this.hide();
+				this.hide(true);
 			}
 		},
 
@@ -917,7 +928,7 @@
 				dir, newDate, newViewDate;
 			switch(e.keyCode){
 				case 27: // escape
-					this.hide();
+					this.hide(true);
 					e.preventDefault();
 					break;
 				case 37: // left
@@ -961,7 +972,7 @@
 						this._trigger('changeMonth', this.viewDate);
 					} else {
 						newDate = new Date(this.date || UTCToday());
-						newDate.setUTCDate(this.date.getUTCDate() + dir * 7);
+						newDate.setUTCDate((this.date || UTCToday()).getUTCDate() + dir * 7);
 						newViewDate = new Date(this.viewDate);
 						newViewDate.setUTCDate(this.viewDate.getUTCDate() + dir * 7);
 					}
@@ -975,8 +986,10 @@
 					}
 					break;
 				case 13: // enter
-					this.hide();
+					this.hide(true);
 					e.preventDefault();
+					e.stopPropagation && e.stopPropagation();
+					e.cancelBubble = true; // IE6-8
 					break;
 				case 9: // tab
 					this.hide();
