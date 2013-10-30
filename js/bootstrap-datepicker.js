@@ -988,6 +988,8 @@
 				case 13: // enter
 					this.hide(true);
 					e.preventDefault();
+					e.stopPropagation && e.stopPropagation();
+					e.cancelBubble = true; // IE6-8
 					break;
 				case 9: // tab
 					this.hide();
