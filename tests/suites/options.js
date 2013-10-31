@@ -286,6 +286,28 @@ test('Clear Button: clear visibility when enabled', function(){
         ok(picker.find('.datepicker-years tfoot .clear').is(':visible'), 'Clear button visible');
 });
 
+test('Disable date type switch', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    disableSwitch: true
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+        
+        input.focus();
+        ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
+
+        picker.find('.datepicker-days thead th.datepicker-switch').click();
+        
+        ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
+        ok(picker.find('.datepicker-months').is(':not(:visible)'), 'Months view hidden');
+        ok(picker.find('.datepicker-years').is(':not(:visible)'), 'Years view hidden');
+});
+
 test('Clear Button: clears input value', function(){
     var input = $('<input />')
                 .appendTo('#qunit-fixture')
