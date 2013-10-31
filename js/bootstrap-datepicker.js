@@ -64,6 +64,10 @@
 			this.picker.find('.prev i, .next i')
 						.toggleClass('icon-arrow-left icon-arrow-right');
 		}
+		
+		if(this.o.disableSwitch === true) {
+			this.picker.find('.datepicker-switch').css('cursor', 'auto')
+		}
 
 		this.viewMode = this.o.startView;
 
@@ -741,7 +745,8 @@
 					case 'th':
 						switch(target[0].className) {
 							case 'datepicker-switch':
-								this.showMode(1);
+								if( this.o.disableSwitch !== true )
+									this.showMode(1);
 								break;
 							case 'prev':
 							case 'next':
@@ -1153,7 +1158,8 @@
 		startView: 0,
 		todayBtn: false,
 		todayHighlight: false,
-		weekStart: 0
+		weekStart: 0,
+		disableSwitch: false
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',
