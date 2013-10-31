@@ -64,6 +64,10 @@
 			this.picker.find('.prev i, .next i')
 						.toggleClass('icon-arrow-left icon-arrow-right');
 		}
+		
+		if(this.o.disableSwitch === true) {
+			this.picker.find('.datepicker-switch').css('cursor', 'auto')
+		}
 
 		this.viewMode = this.o.startView;
 
