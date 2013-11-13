@@ -1,6 +1,6 @@
 /**
- * French translation for bootstrap-datepicker
- * Nico Mollet <nico.mollet@gmail.com>
+ * Persian translation for bootstrap-datepicker
+ * Mostafa Rokooie <mostafa.rokooie@gmail.com>
  */
 ;(function($){
 	$.fn.datepicker.dates['fa'] = {
