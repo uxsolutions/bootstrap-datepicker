@@ -909,11 +909,9 @@
 			}
 			var ix = this.dates.contains(date);
 			if (ix !== -1){
-				console.log("DELETE: " + date );
 				this.dates.splice(ix,1);
 			}
 			else{
-				console.log("ADD: " + date );
 				this.dates.push(date);
 			}
 			if (typeof this.o.multidate == 'number')
