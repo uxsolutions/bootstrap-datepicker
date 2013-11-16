@@ -541,7 +541,7 @@ test('Multidate', function(){
     input.focus();
 
     // Initial value is selected
-    ok(UTCDate(2012, 2, 5).valueOf() in dp.dateSelected, '2012-03-05 (initial date) in dateSelected');
+    ok(dp.dates.contains(UTCDate(2012, 2, 5)) !== -1, '2012-03-05 (initial date) in dates');
 
     // Select first
     target = picker.find('.datepicker-days tbody td:nth(7)');
@@ -549,7 +549,7 @@ test('Multidate', function(){
 
     target.click();
     datesEqual(dp.date, UTCDate(2012, 2, 4));
-    ok(UTCDate(2012, 2, 4).valueOf() in dp.dateSelected, '2012-03-04 in dateSelected');
+    ok(dp.dates.contains(UTCDate(2012, 2, 4)) !== -1, '2012-03-04 in dates');
     datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
     equal(input.val(), '2012-03-04');
 
@@ -559,7 +559,7 @@ test('Multidate', function(){
 
     target.click();
     datesEqual(dp.date, UTCDate(2012, 2, 12));
-    ok(UTCDate(2012, 2, 12).valueOf() in dp.dateSelected, '2012-03-12 in dateSelected');
+    ok(dp.dates.contains(UTCDate(2012, 2, 12)) !== -1, '2012-03-12 in dates');
     datesEqual(dp.viewDate, UTCDate(2012, 2, 12));
     equal(input.val(), '2012-03-04,2012-03-12');
 
@@ -569,7 +569,7 @@ test('Multidate', function(){
 
     target.click();
     datesEqual(dp.date, UTCDate(2012, 2, 4));
-    ok(!(UTCDate(2012, 2, 4).valueOf() in dp.dateSelected), '2012-03-04 no longer in dateSelected');
+    ok(dp.dates.contains(UTCDate(2012, 2, 4)) === -1, '2012-03-04 no longer in dates');
     datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
     equal(input.val(), '2012-03-12');
 });

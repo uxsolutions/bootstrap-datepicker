@@ -39,6 +39,16 @@
 		this.date = undefined;
 		this.viewDate = UTCToday();
 
+		this.dates = [];
+		// Array.indexOf is not cross-browser; $.inArray doesn't work with Dates
+		this.dates.contains = function(d){
+			var val = d && d.valueOf();
+			for (var i=0, l=this.length; i<l; i++)
+				if (this[i].valueOf() === val)
+					return i;
+			return -1;
+		};
+
 		this._process_options(options);
 
 		this.element = $(element);
@@ -48,8 +58,6 @@
 		this.hasInput = this.component && this.element.find('input').length;
 		if(this.component && this.component.length === 0)
 			this.component = false;
-
-		this.dateSelected={};
 
 		this.picker = $(DPGlobal.template);
 		this._buildEvents();
@@ -404,14 +412,10 @@
 			if (!this.o.multidate)
 				return DPGlobal.formatDate(this.date, format, this.o.language);
 
-
-			// Here we could sort them or have them in any order. I guess it should be option if they are chronological or first-selected -order
-			// Now i guess they are more or less random.
-			var selected_dates_list=[];
-			for (var seldate_key in this.dateSelected){
-				selected_dates_list.push( DPGlobal.formatDate( this.dateSelected[seldate_key] , format, this.o.language) );
-			}
-			return selected_dates_list.join(",");
+			var lang = this.o.language;
+			return $.map(this.dates, function(d){
+				return DPGlobal.formatDate(d, format, lang);
+			}).join(this.o.multidateSeparator);
 		},
 
 		setStartDate: function(startDate){
@@ -592,9 +596,9 @@
 				cls.push('today');
 			}
 			if (currentDate) {
-				if (this.o.multidate && date.valueOf() == currentDate)
+				if (!this.o.multidate && date.valueOf() == currentDate)
 					cls.push('active');
-				else if (this.o.multidate && this.dateSelected[date.valueOf()] )
+				else if (this.o.multidate && this.dates.contains(date) !== -1)
 					cls.push('active');
 			}
 			if (date.valueOf() < this.o.startDate || date.valueOf() > this.o.endDate ||
@@ -861,16 +865,14 @@
 		},
 
 		_toggle_multidate: function( date ) {
-			var found = this.dateSelected[date.valueOf()];
-			if ( found )
-			{
+			var ix = this.dates.contains(date);
+			if (ix !== -1){
 				console.log("DELETE: " + date );
-				delete this.dateSelected[date.valueOf()];
+				this.dates.splice(ix,1);
 			}
-			else
-			{
+			else{
 				console.log("ADD: " + date );
-				this.dateSelected[date.valueOf()] = date;
+				this.dates.push(date);
 			}
 		},
 
