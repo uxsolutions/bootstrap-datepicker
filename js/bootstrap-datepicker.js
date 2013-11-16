@@ -591,7 +591,7 @@
 				date.getUTCDate() == today.getDate()) {
 				cls.push('today');
 			}
-			if (currentDate && date.valueOf() == currentDate) {
+			if (currentDate) {
 				if (this.o.multidate && date.valueOf() == currentDate)
 					cls.push('active');
 				else if (this.o.multidate && this.dateSelected[date.valueOf()] )
