@@ -76,7 +76,7 @@ Arguments: None
 Returns a localized date object representing the internal date object of the first datepicker in the selection.
 
 
-setUTCDate
+getUTCDate
 ----------
 
 Arguments: None
