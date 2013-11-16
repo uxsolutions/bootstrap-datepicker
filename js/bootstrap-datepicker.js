@@ -916,6 +916,9 @@
 				console.log("ADD: " + date );
 				this.dates.push(date);
 			}
+			if (typeof this.o.multidate == 'number')
+				while (this.dates.length > this.o.multidate)
+					this.dates.splice(0,1);
 		},
 
 		_setDate: function(date, which){

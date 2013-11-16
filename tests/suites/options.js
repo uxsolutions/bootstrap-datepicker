@@ -574,6 +574,55 @@ test('Multidate', function(){
     equal(input.val(), '2012-03-12');
 });
 
+test('Multidate with limit', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    multidate: 2
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+
+    // Initial value is selected
+    ok(dp.dates.contains(UTCDate(2012, 2, 5)) !== -1, '2012-03-05 (initial date) in dates');
+
+    // Select first
+    target = picker.find('.datepicker-days tbody td:nth(7)');
+    equal(target.text(), '4'); // Mar 4
+
+    target.click();
+    datesEqual(dp.date, UTCDate(2012, 2, 4));
+    ok(dp.dates.contains(UTCDate(2012, 2, 4)) !== -1, '2012-03-04 in dates');
+    datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
+    equal(input.val(), '2012-03-04');
+
+    // Select second
+    target = picker.find('.datepicker-days tbody td:nth(15)');
+    equal(target.text(), '12'); // Mar 12
+
+    target.click();
+    datesEqual(dp.date, UTCDate(2012, 2, 12));
+    ok(dp.dates.contains(UTCDate(2012, 2, 12)) !== -1, '2012-03-12 in dates');
+    datesEqual(dp.viewDate, UTCDate(2012, 2, 12));
+    equal(input.val(), '2012-03-04,2012-03-12');
+
+    // Select third
+    target = picker.find('.datepicker-days tbody td:nth(20)');
+    equal(target.text(), '17'); // Mar 17
+
+    target.click();
+    datesEqual(dp.date, UTCDate(2012, 2, 17));
+    ok(dp.dates.contains(UTCDate(2012, 2, 4)) === -1, '2012-03-04 no longer in dates');
+    ok(dp.dates.contains(UTCDate(2012, 2, 17)) !== -1, '2012-03-17 in dates');
+    datesEqual(dp.viewDate, UTCDate(2012, 2, 17));
+    equal(input.val(), '2012-03-12,2012-03-17');
+});
+
 test('Multidate Separator', function(){
     var input = $('<input />')
                 .appendTo('#qunit-fixture')
