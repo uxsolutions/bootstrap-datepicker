@@ -177,3 +177,18 @@ test('Does not block events', function(){
     equal(clicks, 1);
     $('#qunit-fixture').off('click', '.add-on', handler);
 });
+
+
+test('date and viewDate must be between startDate and endDate when setStartDate called', function() {
+    this.dp.setDate(new Date(2013, 1, 1));
+    this.dp.setStartDate(new Date(2013, 5, 6));
+    datesEqual(this.dp.viewDate, UTCDate(2013, 5, 6));
+    datesEqual(this.dp.date, UTCDate(2013, 5, 6));
+});
+
+test('date and viewDate must be between startDate and endDate when setEndDate called', function() {
+    this.dp.setDate(new Date(2013, 12, 1));
+    this.dp.setEndDate(new Date(2013, 5, 6));
+    datesEqual(this.dp.viewDate, UTCDate(2013, 5, 6));
+    datesEqual(this.dp.date, UTCDate(2013, 5, 6));
+});
