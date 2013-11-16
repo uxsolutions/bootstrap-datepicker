@@ -624,7 +624,7 @@
 				startMonth = this.o.startDate !== -Infinity ? this.o.startDate.getUTCMonth() : -Infinity,
 				endYear = this.o.endDate !== Infinity ? this.o.endDate.getUTCFullYear() : Infinity,
 				endMonth = this.o.endDate !== Infinity ? this.o.endDate.getUTCMonth() : Infinity,
-				tooltip;
+				tooltip, currentYear;
 			this.picker.find('.datepicker-days thead th.datepicker-switch')
 						.text(dates[this.o.language].months[month]+' '+year);
 			this.picker.find('tfoot th.today')
@@ -690,16 +690,25 @@
 				prevMonth.setUTCDate(prevMonth.getUTCDate()+1);
 			}
 			this.picker.find('.datepicker-days tbody').empty().append(html.join(''));
-			var currentYear = this.date && this.date.getUTCFullYear();
 
 			var months = this.picker.find('.datepicker-months')
 						.find('th:eq(1)')
 							.text(year)
 							.end()
 						.find('span').removeClass('active');
-			if (currentYear && currentYear == year) {
-				months.eq(this.date && this.date.getUTCMonth()).addClass('active');
+
+			if (this.o.multidate){
+				$.each(this.dates, function(i, d){
+					if (d.getUTCFullYear() == year)
+						months.eq(d.getUTCMonth()).addClass('active');
+				});
 			}
+			else{
+				currentYear = this.date && this.date.getUTCFullYear();
+				if (currentYear && currentYear == year)
+					months.eq(this.date && this.date.getUTCMonth()).addClass('active');
+			}
+
 			if (year < startYear || year > endYear) {
 				months.addClass('disabled');
 			}
@@ -718,8 +727,22 @@
 									.end()
 								.find('td');
 			year -= 1;
+			var years = [], classes;
+			if (this.o.multidate)
+				years = $.map(this.dates, function(d){ return d.getUTCFullYear(); });
+			else if (this.date)
+				years = [this.date.getUTCFullYear()];
 			for (var i = -1; i < 11; i++) {
-				html += '<span class="year'+(i == -1 ? ' old' : i == 10 ? ' new' : '')+(currentYear == year ? ' active' : '')+(year < startYear || year > endYear ? ' disabled' : '')+'">'+year+'</span>';
+				classes = ['year'];
+				if (i === -1)
+					classes.push('old');
+				else if (i === 10)
+					classes.push('new');
+				if ($.inArray(year, years) !== -1)
+					classes.push('active');
+				if (year < startYear || year > endYear)
+					classes.push('disabled');
+				html += '<span class="' + classes.join(' ') + '">'+year+'</span>';
 				year += 1;
 			}
 			yearCont.html(html);
