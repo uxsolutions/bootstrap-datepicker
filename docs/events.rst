@@ -8,8 +8,9 @@ Datepicker triggers a number of events in certain circumstances.  All events hav
             # `e` here contains the extra attributes
         });
 
-* ``date``: the relevant Date object, in local timezone.
-* ``format([format])``: a function to make formatting ``date`` easier.  ``format`` can be any format string that datepicker supports.  If ``format`` is not given, the format set on the datepicker will be used.
+* ``date``: the relevant Date object, in local timezone.  For a multidate picker, this will be the latest date picked.
+* ``dates``: an Array of Date objects, in local timezone, when using a multidate picker.
+* ``format([ix], [format])``: a function to make formatting ``date`` easier.  ``ix`` can be the index of a Date in the ``dates`` array to format; if absent, the last date selected will be used.  ``format`` can be any format string that datepicker supports; if absent, the format set on the datepicker will be used.  Both arguments are optional.
 
 
 show

@@ -308,14 +308,24 @@
 			this._unapplyEvents(this._secondaryEvents);
 		},
 		_trigger: function(event, altdate){
-			var date = altdate || this.date,
+			var date = altdate || this.dates[this.dates.length-1],
 				local_date = this._utc_to_local(date);
 
 			this.element.trigger({
 				type: event,
 				date: local_date,
-				format: $.proxy(function(altformat){
-					var format = altformat || this.o.format;
+				dates: $.map(this.dates, this._utc_to_local),
+				format: $.proxy(function(ix, format){
+					if (arguments.length === 0){
+						ix = this.dates.length - 1;
+						format = this.o.format;
+					}
+					else if (typeof ix == 'string'){
+						format = ix;
+						ix = this.dates.length - 1;
+					}
+					format = format || this.o.format;
+					var date = this.dates[ix];
 					return DPGlobal.formatDate(date, format, this.o.language);
 				}, this)
 			});
@@ -888,6 +898,15 @@
 		},
 
 		_toggle_multidate: function( date ) {
+			// Use splice here instead of assigning a new array, because of
+			// custom .contains method
+			if (!this.o.multidate){
+				// Always need at least one date in the multi-list, for
+				// triggered events
+				this.dates.splice(0);
+				this.dates.push(date);
+				return;
+			}
 			var ix = this.dates.contains(date);
 			if (ix !== -1){
 				console.log("DELETE: " + date );
@@ -905,8 +924,7 @@
 			if (!which || which  == 'view')
 				this.viewDate = date && new Date(date);
 
-			if (this.o.multidate)
-				this._toggle_multidate(date);
+			this._toggle_multidate(date);
 
 			this.fill();
 			this.setValue();

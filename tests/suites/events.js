@@ -180,6 +180,64 @@ test('format(altformat) returns a formatted date string', function(){
     equal(out, '3/14/11');
 });
 
+test('format(ix) returns a formatted date string of the ix\'th date selected', function(){
+    var target,
+        error, out;
+
+    this.dp._process_options({multidate: true});
+
+    this.input.on('changeDate', function(e){
+        try{
+            out = e.format(1);
+        }
+        catch(e){
+            error = e;
+        }
+    });
+
+    target = this.picker.find('.datepicker-days tbody td:nth(7)');
+    equal(target.text(), '6'); // Mar 6
+    target.click();
+
+    target = this.picker.find('.datepicker-days tbody td:nth(15)');
+    equal(target.text(), '14'); // Mar 16
+    target.click();
+
+    equal(this.dp.dates.length, 2);
+
+    equal(error, undefined);
+    equal(out, '14-03-2011');
+});
+
+test('format(ix, altformat) returns a formatted date string', function(){
+    var target,
+        error, out;
+
+    this.dp._process_options({multidate: true});
+
+    this.input.on('changeDate', function(e){
+        try{
+            out = e.format(1, 'm/d/yy');
+        }
+        catch(e){
+            error = e;
+        }
+    });
+
+    target = this.picker.find('.datepicker-days tbody td:nth(7)');
+    equal(target.text(), '6'); // Mar 6
+    target.click();
+
+    target = this.picker.find('.datepicker-days tbody td:nth(15)');
+    equal(target.text(), '14'); // Mar 16
+    target.click();
+
+    equal(this.dp.dates.length, 2);
+
+    equal(error, undefined);
+    equal(out, '3/14/11');
+});
+
 test('Clear button: triggers change and changeDate events', function(){
     this.input = $('<input type="text" value="31-03-2011">')
                     .appendTo('#qunit-fixture')
