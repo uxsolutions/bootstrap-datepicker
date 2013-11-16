@@ -49,9 +49,8 @@
 		if(this.component && this.component.length === 0)
 			this.component = false;
 
-		this.dateSelected={}
-		this.multidate = this.element.is('.multidate')
-		
+		this.dateSelected={};
+
 		this.picker = $(DPGlobal.template);
 		this._buildEvents();
 		this._attachEvents();
@@ -141,6 +140,14 @@
 			}
 
 			o.startView = Math.max(o.startView, o.minViewMode);
+
+			// true, false, or Number > 0
+			if (o.multidate !== true){
+				o.multidate = Number(o.multidate) || false;
+				if (o.multidate !== false)
+					o.multidate = Math.max(0, o.multidate);
+			}
+			o.multidateSeparator = String(o.multidateSeparator);
 
 			o.weekStart %= 7;
 			o.weekEnd = ((o.weekStart + 6) % 7);
@@ -393,17 +400,16 @@
 		getFormattedDate: function(format) {
 			if (format === undefined)
 				format = this.o.format;
-				
-			if ( this.multidate != true )
+
+			if (!this.o.multidate)
 				return DPGlobal.formatDate(this.date, format, this.o.language);
-			
-			
+
+
 			// Here we could sort them or have them in any order. I guess it should be option if they are chronological or first-selected -order
 			// Now i guess they are more or less random.
 			var selected_dates_list=[];
-			for ( var seldate_key in this.dateSelected )
-			{
-				selected_dates_list.push( DPGlobal.formatDate( this.dateSelected[seldate_key] , format, this.o.language) )
+			for (var seldate_key in this.dateSelected){
+				selected_dates_list.push( DPGlobal.formatDate( this.dateSelected[seldate_key] , format, this.o.language) );
 			}
 			return selected_dates_list.join(",");
 		},
@@ -586,10 +592,9 @@
 				cls.push('today');
 			}
 			if (currentDate && date.valueOf() == currentDate) {
-			{
-				if ( this.multidate != true && date.valueOf() == currentDate) 
+				if (this.o.multidate && date.valueOf() == currentDate)
 					cls.push('active');
-				else if ( this.multidate == true && this.dateSelected[ date.valueOf() ] )
+				else if (this.o.multidate && this.dateSelected[date.valueOf()] )
 					cls.push('active');
 			}
 			if (date.valueOf() < this.o.startDate || date.valueOf() > this.o.endDate ||
@@ -868,16 +873,16 @@
 				this.dateSelected[date.valueOf()] = date;
 			}
 		},
-		
+
 		_setDate: function(date, which){
 			if (!which || which == 'date')
 				this.date = date && new Date(date);
 			if (!which || which  == 'view')
 				this.viewDate = date && new Date(date);
-			
-			if ( this.multidate == true )
-				this._toggle_multidate( date );
-			
+
+			if (this.o.multidate)
+				this._toggle_multidate(date);
+
 			this.fill();
 			this.setValue();
 			this._trigger('changeDate');
@@ -1184,6 +1189,8 @@
 		keyboardNavigation: true,
 		language: 'en',
 		minViewMode: 0,
+		multidate: false,
+		multidateSeparator: ',',
 		orientation: "auto",
 		rtl: false,
 		startDate: -Infinity,
