@@ -551,7 +551,7 @@ test('Multidate', function(){
     datesEqual(dp.date, UTCDate(2012, 2, 4));
     ok(dp.dates.contains(UTCDate(2012, 2, 4)) !== -1, '2012-03-04 in dates');
     datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
-    equal(input.val(), '2012-03-04');
+    equal(input.val(), '2012-03-05,2012-03-04');
 
     // Select second
     target = picker.find('.datepicker-days tbody td:nth(15)');
@@ -561,7 +561,7 @@ test('Multidate', function(){
     datesEqual(dp.date, UTCDate(2012, 2, 12));
     ok(dp.dates.contains(UTCDate(2012, 2, 12)) !== -1, '2012-03-12 in dates');
     datesEqual(dp.viewDate, UTCDate(2012, 2, 12));
-    equal(input.val(), '2012-03-04,2012-03-12');
+    equal(input.val(), '2012-03-05,2012-03-04,2012-03-12');
 
     // Deselect first
     target = picker.find('.datepicker-days tbody td:nth(7)');
@@ -571,7 +571,7 @@ test('Multidate', function(){
     datesEqual(dp.date, UTCDate(2012, 2, 4));
     ok(dp.dates.contains(UTCDate(2012, 2, 4)) === -1, '2012-03-04 no longer in dates');
     datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
-    equal(input.val(), '2012-03-12');
+    equal(input.val(), '2012-03-05,2012-03-12');
 });
 
 test('Multidate with limit', function(){
@@ -599,7 +599,7 @@ test('Multidate with limit', function(){
     datesEqual(dp.date, UTCDate(2012, 2, 4));
     ok(dp.dates.contains(UTCDate(2012, 2, 4)) !== -1, '2012-03-04 in dates');
     datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
-    equal(input.val(), '2012-03-04');
+    equal(input.val(), '2012-03-05,2012-03-04');
 
     // Select second
     target = picker.find('.datepicker-days tbody td:nth(15)');
@@ -643,12 +643,12 @@ test('Multidate Separator', function(){
     equal(target.text(), '4'); // Mar 4
 
     target.click();
-    equal(input.val(), '2012-03-04');
+    equal(input.val(), '2012-03-05 2012-03-04');
 
     // Select second
     target = picker.find('.datepicker-days tbody td:nth(15)');
     equal(target.text(), '12'); // Mar 12
 
     target.click();
-    equal(input.val(), '2012-03-04 2012-03-12');
+    equal(input.val(), '2012-03-05 2012-03-04 2012-03-12');
 });

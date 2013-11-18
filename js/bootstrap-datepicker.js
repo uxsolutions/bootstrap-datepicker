@@ -540,6 +540,8 @@
 			} else {
 				this.date = undefined;
 			}
+			if (this.date)
+				this._toggle_multidate(this.date);
 
 			if (fromArgs) {
 				// setting date by clicking

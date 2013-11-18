@@ -188,7 +188,7 @@ test('format(ix) returns a formatted date string of the ix\'th date selected', f
 
     this.input.on('changeDate', function(e){
         try{
-            out = e.format(1);
+            out = e.format(2);
         }
         catch(e){
             error = e;
@@ -203,7 +203,7 @@ test('format(ix) returns a formatted date string of the ix\'th date selected', f
     equal(target.text(), '14'); // Mar 16
     target.click();
 
-    equal(this.dp.dates.length, 2);
+    equal(this.dp.dates.length, 3);
 
     equal(error, undefined);
     equal(out, '14-03-2011');
@@ -217,7 +217,7 @@ test('format(ix, altformat) returns a formatted date string', function(){
 
     this.input.on('changeDate', function(e){
         try{
-            out = e.format(1, 'm/d/yy');
+            out = e.format(2, 'm/d/yy');
         }
         catch(e){
             error = e;
@@ -232,7 +232,7 @@ test('format(ix, altformat) returns a formatted date string', function(){
     equal(target.text(), '14'); // Mar 16
     target.click();
 
-    equal(this.dp.dates.length, 2);
+    equal(this.dp.dates.length, 3);
 
     equal(error, undefined);
     equal(out, '3/14/11');
