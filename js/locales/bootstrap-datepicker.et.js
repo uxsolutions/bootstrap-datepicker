@@ -11,7 +11,7 @@
 		months: ["Jaanuar", "Veebruar", "Märts", "Aprill", "Mai", "Juuni", "Juuli", "August", "September", "Oktoober", "November", "Detsember"],
 		monthsShort: ["Jaan", "Veeb", "Märts", "Apr", "Mai", "Juuni", "Juuli", "Aug", "Sept", "Okt", "Nov", "Dets"],
 		today: "Täna",
-    weekStart: 1,
-    format: "dd.mm.yyyy"
+		weekStart: 1,
+		format: "dd.mm.yyyy"
 	};
 }(jQuery));
