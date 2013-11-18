@@ -29,7 +29,7 @@ test('Selecting a year from decade view triggers changeYear', function(){
     equal(this.dp.viewMode, 1);
     // Not modified when switching modes
     datesEqual(this.dp.viewDate, UTCDate(2011, 2, 31));
-    datesEqual(this.dp.date, UTCDate(2011, 2, 31));
+    datesEqual(this.dp.dates[0], UTCDate(2011, 2, 31));
 
     target = this.picker.find('.datepicker-months thead th.datepicker-switch');
     ok(target.is(':visible'), 'View switcher is visible');
@@ -39,7 +39,7 @@ test('Selecting a year from decade view triggers changeYear', function(){
     equal(this.dp.viewMode, 2);
     // Not modified when switching modes
     datesEqual(this.dp.viewDate, UTCDate(2011, 2, 31));
-    datesEqual(this.dp.date, UTCDate(2011, 2, 31));
+    datesEqual(this.dp.dates[0], UTCDate(2011, 2, 31));
 
     // Change years to test internal state changes
     target = this.picker.find('.datepicker-years tbody span:contains(2010)');
@@ -47,7 +47,7 @@ test('Selecting a year from decade view triggers changeYear', function(){
     equal(this.dp.viewMode, 1);
     // Only viewDate modified
     datesEqual(this.dp.viewDate, UTCDate(2010, 2, 1));
-    datesEqual(this.dp.date, UTCDate(2011, 2, 31));
+    datesEqual(this.dp.dates[0], UTCDate(2011, 2, 31));
     equal(triggered, 1);
 });
 
@@ -99,14 +99,14 @@ test('Selecting a month from year view triggers changeMonth', function(){
     equal(this.dp.viewMode, 1);
     // Not modified when switching modes
     datesEqual(this.dp.viewDate, UTCDate(2011, 2, 31));
-    datesEqual(this.dp.date, UTCDate(2011, 2, 31));
+    datesEqual(this.dp.dates[0], UTCDate(2011, 2, 31));
 
     target = this.picker.find('.datepicker-months tbody span:contains(Apr)');
     target.click();
     equal(this.dp.viewMode, 0);
     // Only viewDate modified
     datesEqual(this.dp.viewDate, UTCDate(2011, 3, 1));
-    datesEqual(this.dp.date, UTCDate(2011, 2, 31));
+    datesEqual(this.dp.dates[0], UTCDate(2011, 2, 31));
     equal(triggered, 1);
 });
 
@@ -152,7 +152,7 @@ test('format() returns a formatted date string', function(){
     target.click();
 
     datesEqual(this.dp.viewDate, UTCDate(2011, 2, 14));
-    datesEqual(this.dp.date, UTCDate(2011, 2, 14));
+    datesEqual(this.dp.dates[0], UTCDate(2011, 2, 14));
     equal(error, undefined)
     equal(out, '14-03-2011');
 });
@@ -175,7 +175,7 @@ test('format(altformat) returns a formatted date string', function(){
     target.click();
 
     datesEqual(this.dp.viewDate, UTCDate(2011, 2, 14));
-    datesEqual(this.dp.date, UTCDate(2011, 2, 14));
+    datesEqual(this.dp.dates[0], UTCDate(2011, 2, 14));
     equal(error, undefined)
     equal(out, '3/14/11');
 });

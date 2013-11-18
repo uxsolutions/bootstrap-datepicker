@@ -29,7 +29,7 @@ test('Autoclose', function(){
 
     target.click();
     ok(picker.is(':not(:visible)'), 'Picker is hidden');
-    datesEqual(dp.date, UTCDate(2012, 2, 4));
+    datesEqual(dp.dates[0], UTCDate(2012, 2, 4));
     datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
 });
 
@@ -184,7 +184,7 @@ test('Today Button: moves to today\'s date', function(){
         var d = new Date(),
             today = UTCDate(d.getFullYear(), d.getMonth(), d.getDate());
         datesEqual(dp.viewDate, today);
-        datesEqual(dp.date, UTCDate(2012, 2, 5));
+        datesEqual(dp.dates[0], UTCDate(2012, 2, 5));
 });
 
 test('Today Button: "linked" selects today\'s date', function(){
@@ -209,7 +209,7 @@ test('Today Button: "linked" selects today\'s date', function(){
         var d = new Date(),
             today = UTCDate(d.getFullYear(), d.getMonth(), d.getDate());
         datesEqual(dp.viewDate, today);
-        datesEqual(dp.date, today);
+        datesEqual(dp.dates[0], today);
 });
 
 test('Today Highlight: today\'s date is not highlighted by default', patch_date(function(Date){
@@ -548,8 +548,7 @@ test('Multidate', function(){
     equal(target.text(), '4'); // Mar 4
 
     target.click();
-    datesEqual(dp.date, UTCDate(2012, 2, 4));
-    ok(dp.dates.contains(UTCDate(2012, 2, 4)) !== -1, '2012-03-04 in dates');
+    datesEqual(dp.dates.get(-1), UTCDate(2012, 2, 4), '2012-03-04 in dates');
     datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
     equal(input.val(), '2012-03-05,2012-03-04');
 
@@ -558,8 +557,7 @@ test('Multidate', function(){
     equal(target.text(), '12'); // Mar 12
 
     target.click();
-    datesEqual(dp.date, UTCDate(2012, 2, 12));
-    ok(dp.dates.contains(UTCDate(2012, 2, 12)) !== -1, '2012-03-12 in dates');
+    datesEqual(dp.dates.get(-1), UTCDate(2012, 2, 12), '2012-03-12 in dates');
     datesEqual(dp.viewDate, UTCDate(2012, 2, 12));
     equal(input.val(), '2012-03-05,2012-03-04,2012-03-12');
 
@@ -568,7 +566,6 @@ test('Multidate', function(){
     equal(target.text(), '4'); // Mar 4
 
     target.click();
-    datesEqual(dp.date, UTCDate(2012, 2, 4));
     ok(dp.dates.contains(UTCDate(2012, 2, 4)) === -1, '2012-03-04 no longer in dates');
     datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
     equal(input.val(), '2012-03-05,2012-03-12');
@@ -596,8 +593,7 @@ test('Multidate with limit', function(){
     equal(target.text(), '4'); // Mar 4
 
     target.click();
-    datesEqual(dp.date, UTCDate(2012, 2, 4));
-    ok(dp.dates.contains(UTCDate(2012, 2, 4)) !== -1, '2012-03-04 in dates');
+    datesEqual(dp.dates.get(-1), UTCDate(2012, 2, 4), '2012-03-04 in dates');
     datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
     equal(input.val(), '2012-03-05,2012-03-04');
 
@@ -606,8 +602,7 @@ test('Multidate with limit', function(){
     equal(target.text(), '12'); // Mar 12
 
     target.click();
-    datesEqual(dp.date, UTCDate(2012, 2, 12));
-    ok(dp.dates.contains(UTCDate(2012, 2, 12)) !== -1, '2012-03-12 in dates');
+    datesEqual(dp.dates.get(-1), UTCDate(2012, 2, 12), '2012-03-12 in dates');
     datesEqual(dp.viewDate, UTCDate(2012, 2, 12));
     equal(input.val(), '2012-03-04,2012-03-12');
 
@@ -616,9 +611,8 @@ test('Multidate with limit', function(){
     equal(target.text(), '17'); // Mar 17
 
     target.click();
-    datesEqual(dp.date, UTCDate(2012, 2, 17));
+    datesEqual(dp.dates.get(-1), UTCDate(2012, 2, 17), '2012-03-17 in dates');
     ok(dp.dates.contains(UTCDate(2012, 2, 4)) === -1, '2012-03-04 no longer in dates');
-    ok(dp.dates.contains(UTCDate(2012, 2, 17)) !== -1, '2012-03-17 in dates');
     datesEqual(dp.viewDate, UTCDate(2012, 2, 17));
     equal(input.val(), '2012-03-12,2012-03-17');
 });
