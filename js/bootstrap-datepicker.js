@@ -558,11 +558,13 @@
 				}, this));
 				fromArgs = true;
 			} else {
-				dates.push(
-					this.isInput
+				dates = this.isInput
 						? this.element.val()
-						: this.element.data('date') || this.element.find('input').val()
-					);
+						: this.element.data('date') || this.element.find('input').val();
+				if (dates && this.o.multidate)
+					dates = dates.split(this.o.multidateSeparator);
+				else
+					dates = [dates];
 				delete this.element.data().date;
 			}
 
@@ -1032,21 +1034,21 @@
 					if (!this.o.keyboardNavigation) break;
 					dir = e.keyCode == 37 ? -1 : 1;
 					if (e.ctrlKey){
-						newDate = this.moveYear(this.date || UTCToday(), dir);
+						newDate = this.moveYear(this.dates.get(-1) || UTCToday(), dir);
 						newViewDate = this.moveYear(this.viewDate, dir);
 						this._trigger('changeYear', this.viewDate);
 					} else if (e.shiftKey){
-						newDate = this.moveMonth(this.date || UTCToday(), dir);
+						newDate = this.moveMonth(this.dates.get(-1) || UTCToday(), dir);
 						newViewDate = this.moveMonth(this.viewDate, dir);
 						this._trigger('changeMonth', this.viewDate);
 					} else {
-						newDate = new Date(this.date || UTCToday());
+						newDate = new Date(this.dates.get(-1) || UTCToday());
 						newDate.setUTCDate(newDate.getUTCDate() + dir);
 						newViewDate = new Date(this.viewDate);
 						newViewDate.setUTCDate(this.viewDate.getUTCDate() + dir);
 					}
 					if (this.dateWithinRange(newDate)){
-						this.date = newDate;
+						this._toggle_multidate(newDate);
 						this.viewDate = newViewDate;
 						this.setValue();
 						this.update();
@@ -1059,21 +1061,21 @@
 					if (!this.o.keyboardNavigation) break;
 					dir = e.keyCode == 38 ? -1 : 1;
 					if (e.ctrlKey){
-						newDate = this.moveYear(this.date || UTCToday(), dir);
+						newDate = this.moveYear(this.dates.get(-1) || UTCToday(), dir);
 						newViewDate = this.moveYear(this.viewDate, dir);
 						this._trigger('changeYear', this.viewDate);
 					} else if (e.shiftKey){
-						newDate = this.moveMonth(this.date || UTCToday(), dir);
+						newDate = this.moveMonth(this.dates.get(-1) || UTCToday(), dir);
 						newViewDate = this.moveMonth(this.viewDate, dir);
 						this._trigger('changeMonth', this.viewDate);
 					} else {
-						newDate = new Date(this.date || UTCToday());
-						newDate.setUTCDate(this.date.getUTCDate() + dir * 7);
+						newDate = new Date(this.dates.get(-1) || UTCToday());
+						newDate.setUTCDate(this.dates.get(-1).getUTCDate() + dir * 7);
 						newViewDate = new Date(this.viewDate);
 						newViewDate.setUTCDate(this.viewDate.getUTCDate() + dir * 7);
 					}
 					if (this.dateWithinRange(newDate)){
-						this.date = newDate;
+						this._toggle_multidate(newDate);
 						this.viewDate = newViewDate;
 						this.setValue();
 						this.update();

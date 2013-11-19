@@ -27,7 +27,7 @@ test('Regression: by week (up/down arrows); up from Mar 6, 2011 should go to Feb
     target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     equal(target.text(), 'March 2011', 'Title is "March 2011"');
     datesEqual(this.dp.viewDate, UTCDate(2011, 2, 6));
-    datesEqual(this.dp.date, UTCDate(2011, 2, 6));
+    datesEqual(this.dp.dates.get(-1), UTCDate(2011, 2, 6));
 
     // Navigation: -1 week, up arrow key
     this.input.trigger({
@@ -35,7 +35,7 @@ test('Regression: by week (up/down arrows); up from Mar 6, 2011 should go to Feb
         keyCode: 38
     });
     datesEqual(this.dp.viewDate, UTCDate(2011, 1, 27));
-    datesEqual(this.dp.date, UTCDate(2011, 1, 27));
+    datesEqual(this.dp.dates.get(-1), UTCDate(2011, 1, 27));
     target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     equal(target.text(), 'February 2011', 'Title is "February 2011"');
 });
@@ -49,7 +49,7 @@ test('Regression: by day (left/right arrows); left from Mar 1, 2011 should go to
     target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     equal(target.text(), 'March 2011', 'Title is "March 2011"');
     datesEqual(this.dp.viewDate, UTCDate(2011, 2, 1));
-    datesEqual(this.dp.date, UTCDate(2011, 2, 1));
+    datesEqual(this.dp.dates.get(-1), UTCDate(2011, 2, 1));
 
     // Navigation: -1 day left arrow key
     this.input.trigger({
@@ -57,7 +57,7 @@ test('Regression: by day (left/right arrows); left from Mar 1, 2011 should go to
         keyCode: 37
     });
     datesEqual(this.dp.viewDate, UTCDate(2011, 1, 28));
-    datesEqual(this.dp.date, UTCDate(2011, 1, 28));
+    datesEqual(this.dp.dates.get(-1), UTCDate(2011, 1, 28));
     target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     equal(target.text(), 'February 2011', 'Title is "February 2011"');
 });
@@ -71,7 +71,7 @@ test('Regression: by month (shift + left/right arrows); left from Mar 15, 2011 s
     target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     equal(target.text(), 'March 2011', 'Title is "March 2011"');
     datesEqual(this.dp.viewDate, UTCDate(2011, 2, 15));
-    datesEqual(this.dp.date, UTCDate(2011, 2, 15));
+    datesEqual(this.dp.dates.get(-1), UTCDate(2011, 2, 15));
 
     // Navigation: -1 month, shift + left arrow key
     this.input.trigger({
@@ -80,7 +80,7 @@ test('Regression: by month (shift + left/right arrows); left from Mar 15, 2011 s
         shiftKey: true
     });
     datesEqual(this.dp.viewDate, UTCDate(2011, 1, 15));
-    datesEqual(this.dp.date, UTCDate(2011, 1, 15));
+    datesEqual(this.dp.dates.get(-1), UTCDate(2011, 1, 15));
     target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     equal(target.text(), 'February 2011', 'Title is "February 2011"');
 });
