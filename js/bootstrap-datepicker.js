@@ -1175,7 +1175,7 @@
 	};
 	DateRangePicker.prototype = {
 		updateDates: function(){
-			this.dates = $.map(this.pickers, function(i){ return i.date; });
+			this.dates = $.map(this.pickers, function(i){ return i.getUTCDate(); });
 			this.updateRanges();
 		},
 		updateRanges: function(){
