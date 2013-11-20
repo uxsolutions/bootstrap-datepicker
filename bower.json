@@ -4,6 +4,6 @@
   "main": ["js/bootstrap-datepicker.js","css/datepicker.css"],
   "dependencies": {
     "jquery" : ">=1.7.1",
-    "bootstrap" : ">=2.0.4 <3.0"
+    "bootstrap" : ">=3.0 <4.0"
   }
 }
