@@ -81,6 +81,7 @@
 	var Datepicker = function(element, options) {
 		this.dates = new DateArray();
 		this.viewDate = UTCToday();
+		this.focusDate = null;
 
 		this._process_options(options);
 
@@ -277,7 +278,10 @@
 				this._events = [
 					[this.element, {
 						focus: $.proxy(this.show, this),
-						keyup: $.proxy(function(){ this.update() }, this),
+						keyup: $.proxy(function(e){
+							if ($.inArray(e.keyCode, [27,37,39,38,40,32,13,9]) === -1)
+								this.update();
+						}, this),
 						keydown: $.proxy(this.keydown, this)
 					}]
 				];
@@ -287,7 +291,10 @@
 					// For components that are not readonly, allow keyboard nav
 					[this.element.find('input'), {
 						focus: $.proxy(this.show, this),
-						keyup: $.proxy(function(){ this.update() }, this),
+						keyup: $.proxy(function(e){
+							if ($.inArray(e.keyCode, [27,37,39,38,40,32,13,9]) === -1)
+								this.update()
+						}, this),
 						keydown: $.proxy(this.keydown, this)
 					}],
 					[this.component, {
@@ -382,6 +389,7 @@
 		hide: function(){
 			if(this.isInline) return;
 			if (!this.picker.is(':visible')) return;
+			this.focusDate = null;
 			this.picker.hide().detach();
 			this._detachSecondaryEvents();
 			this.viewMode = this.o.startView;
@@ -643,6 +651,8 @@
 			} else if (date.getUTCFullYear() > year || (date.getUTCFullYear() == year && date.getUTCMonth() > month)) {
 				cls.push('new');
 			}
+			if (this.focusDate && date.valueOf() === this.focusDate.valueOf())
+				cls.push('focused');
 			// Compare internal UTC date with local today, not UTC today
 			if (this.o.todayHighlight &&
 				date.getUTCFullYear() == today.getFullYear() &&
@@ -1023,10 +1033,17 @@
 				return;
 			}
 			var dateChanged = false,
-				dir, newDate, newViewDate;
+				dir, newDate, newViewDate,
+				focusDate = this.focusDate || this.viewDate;
 			switch(e.keyCode){
 				case 27: // escape
-					this.hide();
+					if (this.focusDate){
+						this.focusDate = null;
+						this.viewDate = this.dates.get(-1) || this.viewDate;
+						this.fill();
+					}
+					else
+						this.hide();
 					e.preventDefault();
 					break;
 				case 37: // left
@@ -1035,25 +1052,23 @@
 					dir = e.keyCode == 37 ? -1 : 1;
 					if (e.ctrlKey){
 						newDate = this.moveYear(this.dates.get(-1) || UTCToday(), dir);
-						newViewDate = this.moveYear(this.viewDate, dir);
+						newViewDate = this.moveYear(focusDate, dir);
 						this._trigger('changeYear', this.viewDate);
 					} else if (e.shiftKey){
 						newDate = this.moveMonth(this.dates.get(-1) || UTCToday(), dir);
-						newViewDate = this.moveMonth(this.viewDate, dir);
+						newViewDate = this.moveMonth(focusDate, dir);
 						this._trigger('changeMonth', this.viewDate);
 					} else {
 						newDate = new Date(this.dates.get(-1) || UTCToday());
 						newDate.setUTCDate(newDate.getUTCDate() + dir);
-						newViewDate = new Date(this.viewDate);
-						newViewDate.setUTCDate(this.viewDate.getUTCDate() + dir);
+						newViewDate = new Date(focusDate);
+						newViewDate.setUTCDate(focusDate.getUTCDate() + dir);
 					}
 					if (this.dateWithinRange(newDate)){
-						this._toggle_multidate(newDate);
-						this.viewDate = newViewDate;
+						this.focusDate = this.viewDate = newViewDate;
 						this.setValue();
-						this.update();
+						this.fill();
 						e.preventDefault();
-						dateChanged = true;
 					}
 					break;
 				case 38: // up
@@ -1062,37 +1077,59 @@
 					dir = e.keyCode == 38 ? -1 : 1;
 					if (e.ctrlKey){
 						newDate = this.moveYear(this.dates.get(-1) || UTCToday(), dir);
-						newViewDate = this.moveYear(this.viewDate, dir);
+						newViewDate = this.moveYear(focusDate, dir);
 						this._trigger('changeYear', this.viewDate);
 					} else if (e.shiftKey){
 						newDate = this.moveMonth(this.dates.get(-1) || UTCToday(), dir);
-						newViewDate = this.moveMonth(this.viewDate, dir);
+						newViewDate = this.moveMonth(focusDate, dir);
 						this._trigger('changeMonth', this.viewDate);
 					} else {
 						newDate = new Date(this.dates.get(-1) || UTCToday());
-						newDate.setUTCDate(this.dates.get(-1).getUTCDate() + dir * 7);
-						newViewDate = new Date(this.viewDate);
-						newViewDate.setUTCDate(this.viewDate.getUTCDate() + dir * 7);
+						newDate.setUTCDate(newDate.getUTCDate() + dir * 7);
+						newViewDate = new Date(focusDate);
+						newViewDate.setUTCDate(focusDate.getUTCDate() + dir * 7);
 					}
 					if (this.dateWithinRange(newDate)){
-						this._toggle_multidate(newDate);
-						this.viewDate = newViewDate;
+						this.focusDate = this.viewDate = newViewDate;
 						this.setValue();
-						this.update();
+						this.fill();
 						e.preventDefault();
-						dateChanged = true;
 					}
 					break;
+				case 32: // spacebar
+					focusDate = this.focusDate || this.dates.get(-1) || this.viewDate;
+					this._toggle_multidate(focusDate);
+					dateChanged = true;
+					this.focusDate = null;
+					this.viewDate = this.dates.get(-1) || this.viewDate;
+					this.setValue();
+					this.fill();
+					e.preventDefault();
+					break;
 				case 13: // enter
+					if (this.focusDate){
+						this._toggle_multidate(this.focusDate);
+						dateChanged = true;
+						this.focusDate = null;
+						this.viewDate = this.dates.get(-1) || this.viewDate;
+						this.setValue();
+						this.fill();
+					}
 					this.hide();
 					e.preventDefault();
 					break;
 				case 9: // tab
+					this.focusDate = null;
+					this.viewDate = this.dates.get(-1) || this.viewDate;
+					this.fill();
 					this.hide();
 					break;
 			}
 			if (dateChanged){
-				this._trigger('changeDate');
+				if (this.dates.length)
+					this._trigger('changeDate');
+				else
+					this._trigger('clearDate');
 				var element;
 				if (this.isInput) {
 					element = this.element;

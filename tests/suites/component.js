@@ -49,7 +49,8 @@ test('simple keyboard nav test', function(){
         keyCode: 37
     });
     datesEqual(this.dp.viewDate, UTCDate(2012, 1, 11));
-    datesEqual(this.dp.getUTCDate(), UTCDate(2012, 1, 11));
+    datesEqual(this.dp.getUTCDate(), UTCDate(2012, 1, 12));
+    datesEqual(this.dp.focusDate, UTCDate(2012, 1, 11));
     // Month not changed
     target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     equal(target.text(), 'February 2012', 'Title is "February 2012"');
@@ -61,7 +62,8 @@ test('simple keyboard nav test', function(){
         shiftKey: true
     });
     datesEqual(this.dp.viewDate, UTCDate(2012, 2, 11));
-    datesEqual(this.dp.getUTCDate(), UTCDate(2012, 2, 11));
+    datesEqual(this.dp.getUTCDate(), UTCDate(2012, 1, 12));
+    datesEqual(this.dp.focusDate, UTCDate(2012, 2, 11));
     target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     equal(target.text(), 'March 2012', 'Title is "March 2012"');
 
@@ -72,7 +74,8 @@ test('simple keyboard nav test', function(){
         ctrlKey: true
     });
     datesEqual(this.dp.viewDate, UTCDate(2011, 2, 11));
-    datesEqual(this.dp.getUTCDate(), UTCDate(2011, 2, 11));
+    datesEqual(this.dp.getUTCDate(), UTCDate(2012, 1, 12));
+    datesEqual(this.dp.focusDate, UTCDate(2011, 2, 11));
     target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     equal(target.text(), 'March 2011', 'Title is "March 2011"');
 });
