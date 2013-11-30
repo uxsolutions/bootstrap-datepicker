@@ -502,6 +502,7 @@
 				this.date = new Date(this.date);
 			} else {
 				this.date = undefined;
+				this.range = undefined;
 			}
 
 			if (fromArgs) {
