@@ -412,13 +412,14 @@
 			this.place();
 			this._attachSecondaryEvents();
 			this._trigger('show');
+			return this;
 		},
 
 		hide: function(){
 			if (this.isInline)
-				return;
+				return this;
 			if (!this.picker.is(':visible'))
-				return;
+				return this;
 			this.focusDate = null;
 			this.picker.hide().detach();
 			this._detachSecondaryEvents();
@@ -434,6 +435,7 @@
 			)
 				this.setValue();
 			this._trigger('hide');
+			return this;
 		},
 
 		remove: function(){
@@ -445,6 +447,7 @@
 			if (!this.isInput){
 				delete this.element.data().date;
 			}
+			return this;
 		},
 
 		_utc_to_local: function(utc){
@@ -483,6 +486,7 @@
 			this.update.apply(this, args);
 			this._trigger('changeDate');
 			this.setValue();
+			return this;
 		},
 
 		setUTCDates: function(){
@@ -490,6 +494,7 @@
 			this.update.apply(this, $.map(args, this._utc_to_local));
 			this._trigger('changeDate');
 			this.setValue();
+			return this;
 		},
 
 		setDate: alias('setDates'),
@@ -505,6 +510,7 @@
 			else {
 				this.element.val(formatted).change();
 			}
+			return this;
 		},
 
 		getFormattedDate: function(format){
@@ -521,23 +527,26 @@
 			this._process_options({startDate: startDate});
 			this.update();
 			this.updateNavArrows();
+			return this;
 		},
 
 		setEndDate: function(endDate){
 			this._process_options({endDate: endDate});
 			this.update();
 			this.updateNavArrows();
+			return this;
 		},
 
 		setDaysOfWeekDisabled: function(daysOfWeekDisabled){
 			this._process_options({daysOfWeekDisabled: daysOfWeekDisabled});
 			this.update();
 			this.updateNavArrows();
+			return this;
 		},
 
 		place: function(){
 			if (this.isInline)
-				return;
+				return this;
 			var calendarWidth = this.picker.outerWidth(),
 				calendarHeight = this.picker.outerHeight(),
 				visualPadding = 10,
@@ -601,12 +610,13 @@
 				left: left,
 				zIndex: zIndex
 			});
+			return this;
 		},
 
 		_allow_update: true,
 		update: function(){
 			if (!this._allow_update)
-				return;
+				return this;
 
 			var oldDates = this.dates.copy(),
 				dates = [],
@@ -662,6 +672,7 @@
 				this._trigger('clearDate');
 
 			this.fill();
+			return this;
 		},
 
 		fillDow: function(){
