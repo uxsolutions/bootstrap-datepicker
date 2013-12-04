@@ -192,6 +192,7 @@
 		width: 145px;
 	}
 
+	tr.week:hover,
 	thead tr:first-child th,
 	tfoot tr th {
 		cursor: pointer;
@@ -199,6 +200,13 @@
 			background: @gray-lighter;
 		}
 	}
+
+	tr.week.active,
+	tr.week.active:hover {
+		.button-variant(@btn-primary-color, @btn-primary-bg, @btn-primary-border);
+		text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+	}
+
 	/*.dow {
 		border-top: 1px solid #ddd !important;
 	}*/

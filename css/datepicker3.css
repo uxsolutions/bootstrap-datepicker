@@ -14,7 +14,6 @@
   /*.dow {
 		border-top: 1px solid #ddd !important;
 	}*/
-
 }
 .datepicker-inline {
   width: 220px;
@@ -711,13 +710,77 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .datepicker th.datepicker-switch {
   width: 145px;
 }
+.datepicker tr.week:hover,
 .datepicker thead tr:first-child th,
 .datepicker tfoot tr th {
   cursor: pointer;
 }
+.datepicker tr.week:hover:hover,
 .datepicker thead tr:first-child th:hover,
 .datepicker tfoot tr th:hover {
   background: #eeeeee;
+}
+.datepicker tr.week.active,
+.datepicker tr.week.active:hover {
+  color: #ffffff;
+  background-color: #428bca;
+  border-color: #357ebd;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+.datepicker tr.week.active:hover,
+.datepicker tr.week.active:hover:hover,
+.datepicker tr.week.active:focus,
+.datepicker tr.week.active:hover:focus,
+.datepicker tr.week.active:active,
+.datepicker tr.week.active:hover:active,
+.datepicker tr.week.active.active,
+.datepicker tr.week.active:hover.active,
+.open .dropdown-toggle.datepicker tr.week.active,
+.open .dropdown-toggle.datepicker tr.week.active:hover {
+  color: #ffffff;
+  background-color: #3276b1;
+  border-color: #285e8e;
+}
+.datepicker tr.week.active:active,
+.datepicker tr.week.active:hover:active,
+.datepicker tr.week.active.active,
+.datepicker tr.week.active:hover.active,
+.open .dropdown-toggle.datepicker tr.week.active,
+.open .dropdown-toggle.datepicker tr.week.active:hover {
+  background-image: none;
+}
+.datepicker tr.week.active.disabled,
+.datepicker tr.week.active:hover.disabled,
+.datepicker tr.week.active[disabled],
+.datepicker tr.week.active:hover[disabled],
+fieldset[disabled] .datepicker tr.week.active,
+fieldset[disabled] .datepicker tr.week.active:hover,
+.datepicker tr.week.active.disabled:hover,
+.datepicker tr.week.active:hover.disabled:hover,
+.datepicker tr.week.active[disabled]:hover,
+.datepicker tr.week.active:hover[disabled]:hover,
+fieldset[disabled] .datepicker tr.week.active:hover,
+fieldset[disabled] .datepicker tr.week.active:hover:hover,
+.datepicker tr.week.active.disabled:focus,
+.datepicker tr.week.active:hover.disabled:focus,
+.datepicker tr.week.active[disabled]:focus,
+.datepicker tr.week.active:hover[disabled]:focus,
+fieldset[disabled] .datepicker tr.week.active:focus,
+fieldset[disabled] .datepicker tr.week.active:hover:focus,
+.datepicker tr.week.active.disabled:active,
+.datepicker tr.week.active:hover.disabled:active,
+.datepicker tr.week.active[disabled]:active,
+.datepicker tr.week.active:hover[disabled]:active,
+fieldset[disabled] .datepicker tr.week.active:active,
+fieldset[disabled] .datepicker tr.week.active:hover:active,
+.datepicker tr.week.active.disabled.active,
+.datepicker tr.week.active:hover.disabled.active,
+.datepicker tr.week.active[disabled].active,
+.datepicker tr.week.active:hover[disabled].active,
+fieldset[disabled] .datepicker tr.week.active.active,
+fieldset[disabled] .datepicker tr.week.active:hover.active {
+  background-color: #428bca;
+  border-color: #357ebd;
 }
 .datepicker .cw {
   font-size: 10px;
