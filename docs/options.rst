@@ -121,6 +121,13 @@ Number, String.  Default: 0, "days"
 Set a limit for the view mode.  Accepts: "days" or 0, "months" or 1, and "years" or 2.
 Gives the ability to pick only a month or an year.  The day is set to the 1st for "months", and the month is set to January for "years".
 
+maxViewMode
+-----------
+
+Number, String.  Default: 2, "years"
+
+Set a limit for the view mode.  Accepts: "days" or 0, "months" or 1, and "years" or 2.
+Gives the ability to pick only a day or a month. If minViewMode is greater than maxViewMode maxViewMode will be ignored.
 
 orientation
 -----------
