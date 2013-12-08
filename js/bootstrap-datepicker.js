@@ -204,17 +204,31 @@
 		_events: [],
 		_secondaryEvents: [],
 		_applyEvents: function(evs){
-			for (var i=0, el, ev; i<evs.length; i++){
+			for (var i=0, el, ch, ev; i<evs.length; i++){
 				el = evs[i][0];
-				ev = evs[i][1];
-				el.on(ev);
+				if (evs[i].length == 2){
+					ch = undefined;
+					ev = evs[i][1];
+				}
+				else if (evs[i].length == 3){
+					ch = evs[i][1];
+					ev = evs[i][2];
+				}
+				el.on(ev, ch);
 			}
 		},
 		_unapplyEvents: function(evs){
 			for (var i=0, el, ev; i<evs.length; i++){
 				el = evs[i][0];
-				ev = evs[i][1];
-				el.off(ev);
+				if (evs[i].length == 2){
+					ch = undefined;
+					ev = evs[i][1];
+				}
+				else if (evs[i].length == 3){
+					ch = evs[i][1];
+					ev = evs[i][2];
+				}
+				el.off(ev, ch);
 			}
 		},
 		_buildEvents: function(){
