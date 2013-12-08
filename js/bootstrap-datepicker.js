@@ -31,6 +31,11 @@
 		var today = new Date();
 		return UTCDate(today.getFullYear(), today.getMonth(), today.getDate());
 	}
+	function alias(method){
+		return function(){
+			this[method].apply(this, arguments);
+		}
+	}
 
 	var DateArray = (function(){
 		var extras = {
@@ -453,23 +458,34 @@
 			return utc && new Date(Date.UTC(utc.getUTCFullYear(), utc.getUTCMonth(), utc.getUTCDate()));
 		},
 
+		getDates: function(){
+			return $.map(this.dates, this._utc_to_local);
+		},
+
+		getUTCDates: function(){
+			return $.map(this.dates, function(d){ return new Date(d); });
+		},
+
 		getDate: function() {
 			return this._utc_to_local(this.getUTCDate());
 		},
 
 		getUTCDate: function() {
-			return this.dates.get(-1);
+			return new Date(this.dates.get(-1));
 		},
 
-		setDate: function(d) {
-			this.update(d);
+		setDates: function() {
+			this.update.apply(this, arguments);
 			this.setValue();
 		},
 
-		setUTCDate: function(d) {
-			this.update(this._utc_to_local(d));
+		setUTCDates: function() {
+			this.update.apply(this, $.map(arguments, this._utc_to_local));
 			this.setValue();
 		},
+
+		setDate: alias('setDates'),
+		setUTCDate: alias('setUTCDates'),
 
 		setValue: function() {
 			var formatted = this.getFormattedDate();

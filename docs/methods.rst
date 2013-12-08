@@ -68,6 +68,26 @@ Arguments:
 Sets the internal date.  ``date`` is assumed to be a UTC date object, and will not be converted.
 
 
+setDates
+--------
+
+Arguments:
+
+* date[, date[, ...]] (Date)
+
+Sets the internal date list.  Each ``date`` is assumed to be a "local" date object, and will be converted to UTC for internal use.  For use with multidate pickers.
+
+
+setUTCDates
+-----------
+
+Arguments:
+
+* date[, date[, ...]] (Date)
+
+Sets the internal date list.  Each ``date`` is assumed to be a UTC date object, and will not be converted.  For use with multidate pickers.
+
+
 getDate
 -------
 
@@ -82,6 +102,22 @@ getUTCDate
 Arguments: None
 
 Returns the internal UTC date object, as-is and unconverted to local time, of the first datepicker in the selection.  For multidate pickers, returns the latest date selected.
+
+
+getDates
+--------
+
+Arguments: None
+
+Returns a list of localized date objects representing the internal date objects of the first datepicker in the selection.  For use with multidate pickers.
+
+
+getUTCDates
+-----------
+
+Arguments: None
+
+Returns the internal list of UTC date objects, as they are and unconverted to local time, of the first datepicker in the selection.  For use with multidate pickers.
 
 
 setStartDate
