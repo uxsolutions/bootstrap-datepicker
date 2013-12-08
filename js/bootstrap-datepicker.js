@@ -396,6 +396,7 @@
 
 		setUTCDate: function(d) {
 			this.date = d;
+			this._trigger('changeDate');
 			this.setValue();
 		},
 
