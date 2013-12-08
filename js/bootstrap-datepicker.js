@@ -105,8 +105,6 @@
 
 		if (this.o.rtl){
 			this.picker.addClass('datepicker-rtl');
-			this.picker.find('.prev i, .next i')
-						.toggleClass('icon-arrow-left icon-arrow-right');
 		}
 
 		this.viewMode = this.o.startView;
@@ -260,17 +258,31 @@
 		_events: [],
 		_secondaryEvents: [],
 		_applyEvents: function(evs){
-			for (var i=0, el, ev; i<evs.length; i++){
+			for (var i=0, el, ch, ev; i<evs.length; i++){
 				el = evs[i][0];
-				ev = evs[i][1];
-				el.on(ev);
+				if (evs[i].length == 2){
+					ch = undefined;
+					ev = evs[i][1];
+				}
+				else if (evs[i].length == 3){
+					ch = evs[i][1];
+					ev = evs[i][2];
+				}
+				el.on(ev, ch);
 			}
 		},
 		_unapplyEvents: function(evs){
 			for (var i=0, el, ev; i<evs.length; i++){
 				el = evs[i][0];
-				ev = evs[i][1];
-				el.off(ev);
+				if (evs[i].length == 2){
+					ch = undefined;
+					ev = evs[i][1];
+				}
+				else if (evs[i].length == 3){
+					ch = evs[i][1];
+					ev = evs[i][2];
+				}
+				el.off(ev, ch);
 			}
 		},
 		_buildEvents: function(){
@@ -312,6 +324,20 @@
 					}]
 				];
 			}
+			this._events.push(
+				// Component: listen for blur on element descendants
+				[this.element, '*', {
+					blur: $.proxy(function(e){
+						this._focused_from = e.target;
+					}, this)
+				}],
+				// Input: listen for blur on element
+				[this.element, {
+					blur: $.proxy(function(e){
+						this._focused_from = e.target;
+					}, this)
+				}]
+			);
 
 			this._secondaryEvents = [
 				[this.picker, {
@@ -380,9 +406,6 @@
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			this.place();
 			this._attachSecondaryEvents();
-			if (e) {
-				e.preventDefault();
-			}
 			this._trigger('show');
 		},
 
@@ -936,6 +959,10 @@
 						break;
 				}
 			}
+			if (this._focused_from){
+				$(this._focused_from).focus();
+				delete this._focused_from;
+			}
 		},
 
 		_toggle_multidate: function( date ) {
@@ -1190,6 +1217,11 @@
 				i = $.inArray(e.target, this.inputs),
 				l = this.inputs.length;
 			if (i == -1) return;
+
+			$.each(this.pickers, function(i, p){
+				if (!p.getUTCDate())
+					p.setUTCDate(new_date);
+			});
 
 			if (new_date < this.dates[i]){
 				// Date being moved earlier/left
