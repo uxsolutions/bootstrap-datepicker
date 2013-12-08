@@ -1,6 +1,43 @@
 Changelog
 =========
 
+1.3.0
+-----
+
+New features:
+* Bootstrap 3 support.  Added build files `build/build_standalone3.less` and `build/build3.less`, and source files `less/datepicker3.less` and `css/datepicker3.css` (built from `build_standalone3.less`).
+* Multi-date functionality.  This required rethinking several areas of the picker:
+    * The internals have been modified to be completely multidate-centric.
+    * Attributes and methods availabel on events have changed, but the old attributes and functions will still work.
+    * Keyboard navigation has been revamped, as it didn't work at all properly with multidate selection.
+    * The picker now explicitly supports "no selected date".
+
+Non-API changes:
+* Keyboard navigation has been changed.  See `docs/keyboard.rst`.
+* Empty pickers in a range picker setup will be populated with the first date selected by the user to make finding the next date easier.
+
+Bug squashed:
+* Jan 1, 1970 is now highlighted when selected
+* `touchstart` added to document-bound picker-closing events (alongside `mousedown`)
+* Fixed a display bug with component add-on icons being vertically higher than they should have been.
+* Input is refocused after clicking the picker.
+* `changeDate` event is triggered when `setDate` is called.
+
+Locale changes:
+* Added Ukrainian, Belgium-Dutch, Welsh, Galician, and Vietnamese
+* `clear` for German, Danish
+* `clear` for Danish
+* Fixed `weekStart` and `format` for Norwegian
+* `weekStart` and `format` for Georgian
+* Tweaks for Latvian and French
+
+Repository changes:
+* Documentation has been moved from the base `README.md` file to the `docs/` folder, and been re-written to use sphinx docs.  The docs are now viewable online at http://bootstrap-datepicker.readthedocs.org/.  The [gh-pages](http://eternicode.github.io/bootstrap-datepicker/) branch has been reduced to the sandbox demo.
+* Changed the js file header to point at repo/demo/docs urls instead of eyecon.ro
+* The css files are now the output of the standalone build scripts instead of `build/build.less` etc.
+* `composer.json` now supports component-installer
+
+
 1.2.0
 -----
 
