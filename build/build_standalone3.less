@@ -6,19 +6,21 @@
 //
 // Variables, mixins, and rules copied from bootstrap 2.0.2
 
-@import "build.less";
+@import "build3.less";
 
 // Dropdown css
 
-@zindexDropdown:                1000;
-@grayDark:                      #333;
-@baseLineHeight:                20px;
-@tableBackground:               transparent; // overall background-color
-@dropdownBackground:            @white;
-@dropdownBorder:                rgba(0,0,0,.2);
-@dropdownLinkColor:             @grayDark;
-@dropdownLinkColorHover:        @white;
-@dropdownLinkBackgroundHover:   @linkColor;
+@zindex-dropdown:               1000;
+@gray-dark:                     #333;
+@line-height-base:              1.428571429; // 20/14
+@table-bg:                      transparent; // overall background-color
+@dropdown-bg:                   #fff;
+@dropdow-border:                rgba(0,0,0,.15);
+@dropdown-link-color:           @gray-dark;
+@dropdown-link-hover-color:     #fff;
+@component-active-bg:           @brand-primary;
+@dropdown-link-active-bg:       @component-active-bg;
+@dropdown-link-hover-bg:        @dropdown-link-active-bg;
 
 // Drop shadows
 .box-shadow(@shadow) {
@@ -33,15 +35,15 @@
   position: absolute;
   top: 100%;
   left: 0;
-  z-index: @zindexDropdown;
+  z-index: @zindex-dropdown;
   float: left;
   display: none; // none by default, but block on "open" of the menu
   min-width: 160px;
   list-style: none;
-  background-color: @dropdownBackground;
+  background-color: @dropdown-bg;
   border: 1px solid #ccc;
   border: 1px solid rgba(0,0,0,.2);
-  .border-radius(5px);
+  border-radius: 5px;
   .box-shadow(0 5px 10px rgba(0,0,0,.2));
   -webkit-background-clip: padding-box;
      -moz-background-clip: padding;
@@ -53,7 +55,7 @@
   color: #333333;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size:13px;
-  line-height: @baseLineHeight;
+  line-height: @line-height-base;
 
   th, td {
     padding: 4px 5px;
