@@ -264,6 +264,20 @@
 					}]
 				];
 			}
+			this._events.push(
+				// Component: listen for blur on element descendants
+				[this.element, '*', {
+					blur: $.proxy(function(e){
+						this._focused_from = e.target;
+					}, this)
+				}],
+				// Input: listen for blur on element
+				[this.element, {
+					blur: $.proxy(function(e){
+						this._focused_from = e.target;
+					}, this)
+				}]
+			);
 
 			this._secondaryEvents = [
 				[this.picker, {
@@ -322,9 +336,6 @@
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			this.place();
 			this._attachSecondaryEvents();
-			if (e) {
-				e.preventDefault();
-			}
 			this._trigger('show');
 		},
 
@@ -845,6 +856,10 @@
 						}
 						break;
 				}
+			}
+			if (this._focused_from){
+				$(this._focused_from).focus();
+				delete this._focused_from;
 			}
 		},
 
