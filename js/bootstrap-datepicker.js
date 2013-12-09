@@ -476,6 +476,7 @@
 
 		setDates: function() {
 			this.update.apply(this, arguments);
+			this._trigger('changeDate');
 			this.setValue();
 		},
 
