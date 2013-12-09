@@ -977,10 +977,10 @@
 						break;
 				}
 			}
-			if (this._focused_from){
+			if (this.picker.is(':visible') && this._focused_from){
 				$(this._focused_from).focus();
-				delete this._focused_from;
 			}
+			delete this._focused_from;
 		},
 
 		_toggle_multidate: function( date ) {
