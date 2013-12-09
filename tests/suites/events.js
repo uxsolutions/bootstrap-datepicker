@@ -301,6 +301,6 @@ test('setDate: triggers change and changeDate events', function(){
 
     this.dp.setDate(new Date(2011, 2, 5));
 
-    equal(triggered_change, 1);
+    equal(triggered_change, 2);
     equal(triggered_changeDate, 1);
 });
