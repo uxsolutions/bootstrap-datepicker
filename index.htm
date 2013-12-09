@@ -3,7 +3,24 @@
   <head>
     <meta charset="utf-8">
     <title>Datepicker for Bootstrap</title>
-    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <link id="bs-css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+      var page = {bootstrap:3};
+      function swap_bs(){
+        var css = $('#bs-css');
+        if (page.bootstrap == 3){
+          css.prop('href', 'http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css');
+          page.bootstrap = 2;
+          $(page).trigger('change:bootstrap', 2)
+        }
+        else{
+          css.prop('href', 'http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css');
+          page.bootstrap = 3;
+          $(page).trigger('change:bootstrap', 3)
+        }
+      }
+    </script>
     <link href="bootstrap-datepicker/css/datepicker.css" rel="stylesheet">
     <style>
       body {
@@ -18,7 +35,6 @@
     <![endif]-->
 
     <script src="google-code-prettify/prettify.min.js"></script>
-    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 
     <script src="bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.ar.js" charset="UTF-8"></script>
@@ -73,8 +89,8 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="https://github.com/eternicode/bootstrap-datepicker">bootstrap-datepicker</a>
-          <ul class="nav">
+          <a class="brand navbar-brand" href="https://github.com/eternicode/bootstrap-datepicker">bootstrap-datepicker</a>
+          <ul class="nav navbar-nav">
             <li class="active"><a href="#">Demo</a></li>
             <li><a href="http://bootstrap-datepicker.readthedocs.org/" taget="_blank">Documentation</a></li>
             <li><a href="https://github.com/eternicode/bootstrap-datepicker" taget="_blank">GitHub Repo</a></li>
@@ -88,8 +104,8 @@
       <p>Use the form below to tweak the options; results and code appear in realtime below.</p>
       <p>As you change options, your address bar will update to reflect the current configuration (requires a browser with <code>history.replaceState</code> support).  This url can be used to link to the sandbox with the given configuration pre-loaded.</p>
       <p>
-        <a id="download-release" href="https://github.com/eternicode/bootstrap-datepicker/zipball/1.2.0" class="btn">Download 1.2.0</a>
-        <a id="download-master" href="https://github.com/eternicode/bootstrap-datepicker/zipball/master" class="btn">Download Development</a>
+        <a id="download-release" href="https://github.com/eternicode/bootstrap-datepicker/zipball/1.2.0" class="btn btn-default">Download 1.2.0</a>
+        <a id="download-master" href="https://github.com/eternicode/bootstrap-datepicker/zipball/master" class="btn btn-default">Download Development</a>
       </p>
       <style>
         .sandbox-form label, .sandbox-form span {
@@ -108,8 +124,11 @@
           <label for="markup-text" class="inline radio">
             <input name="markup" id="markup-text" value="input" type="radio" checked>
             Text input
-            <script type="text/html" class="html">
-              <input type="text">
+            <script type="text/html" class="html" data-version="2">
+              <input type="text" type="text">
+            </script>
+            <script type="text/html" class="html" data-version="3">
+              <input type="text" type="text" class="form-control">
             </script>
             <script type="text/plain" class="selector">
               input
@@ -118,9 +137,14 @@
           <label for="markup-component" class="inline radio">
             <input name="markup" id="markup-component" value="component" type="radio">
             Component
-            <script type="text/html" class="html">
+            <script type="text/html" class="html" data-version="2">
               <div class="input-append date">
                 <input type="text" class="span2"><span class="add-on"><i class="icon-th"></i></span>
+              </div>
+            </script>
+            <script type="text/html" class="html" data-version="3">
+              <div class="input-group date">
+                <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
               </div>
             </script>
             <script type="text/plain" class="selector">
@@ -130,7 +154,7 @@
           <label for="markup-inline" class="inline radio">
             <input name="markup" id="markup-inline" value="embedded" type="radio">
             Embedded / inline
-            <script type="text/html" class="html">
+            <script type="text/html" class="html" data-version="*">
               <div></div>
             </script>
             <script type="text/plain" class="selector">
@@ -140,11 +164,18 @@
           <label for="markup-range" class="inline radio">
             <input name="markup" id="markup-range" value="range" type="radio">
             Range
-            <script type="text/html" class="html">
+            <script type="text/html" class="html" data-version="2">
               <div class="input-daterange" id="datepicker">
                   <input type="text" class="input-small" name="start" />
                   <span class="add-on">to</span>
                   <input type="text" class="input-small" name="end" />
+              </div>
+            </script>
+            <script type="text/html" class="html" data-version="3">
+              <div class="input-daterange input-group" id="datepicker">
+                  <input type="text" class="input-sm form-control" name="start" />
+                  <span class="input-group-addon">to</span>
+                  <input type="text" class="input-sm form-control" name="end" />
               </div>
             </script>
             <script type="text/plain" class="selector">
@@ -157,36 +188,36 @@
           Options:<br>
 
           <label for="format">Format
-            <input class="span2" id="format" name="format" type="text" placeholder="mm/dd/yyyy"></label>
+            <input class="span2 col-md-2 form-control" id="format" name="format" type="text" placeholder="mm/dd/yyyy"></label>
           <label for="weekStart">Week start
-            <input class="span1" id="weekStart" name="weekStart" type="text" placeholder="0"></label>
+            <input class="span1 col-md-1 form-control" id="weekStart" name="weekStart" type="text" placeholder="0"></label>
           <label for="startDate">Start date
-            <input class="span2" id="startDate" name="startDate" type="text" placeholder="-Infinity"></label>
+            <input class="span2 col-md-2 form-control" id="startDate" name="startDate" type="text" placeholder="-Infinity"></label>
           <label for="endDate">End date
-            <input class="span2" id="endDate" name="endDate" type="text" placeholder="+Infinity"></label>
+            <input class="span2 col-md-2 form-control" id="endDate" name="endDate" type="text" placeholder="+Infinity"></label>
           <label for="startView">Start view
-            <select class="span2" id="startView" name="startView">
+            <select class="span2 col-md-2 form-control" id="startView" name="startView">
               <option value="0">0 / month</option>
               <option value="1">1 / year</option>
               <option value="2">2 / decade</option>
             </select>
           </label>
           <label for="minViewMode">Min view mode
-            <select class="span2" id="minViewMode" name="minViewMode">
+            <select class="span2 col-md-2 form-control" id="minViewMode" name="minViewMode">
               <option value="0">0 / days</option>
               <option value="1">1 / months</option>
               <option value="2">2 / years</option>
             </select>
           </label>
           <label for="todayBtn" class="inline checkbox">Today button
-            <select class="span2" id="todayBtn" name="todayBtn">
+            <select class="span2 col-md-2 form-control" id="todayBtn" name="todayBtn">
               <option value="false">disabled</option>
               <option value="true">enabled (unlinked)</option>
               <option value="linked">linked</option>
             </select>
           </label>
           <label for="language">Language
-            <select class="span1" id="language" name="language">
+            <select class="span1 col-md-1 form-control" id="language" name="language">
               <option value="en">en</option>
             </select>
             <script>
@@ -199,7 +230,7 @@
             </script>
           </label>
           <label for="orientation">Orientation
-            <select class="span2" id="orientation" name="orientation">
+            <select class="span2 col-md-2 form-control" id="orientation" name="orientation">
               <option value="auto">auto</option>
               <option value="top auto">top auto</option>
               <option value="bottom auto">bottom auto</option>
@@ -253,6 +284,7 @@
 
           <br></br>
 
+          <button class="btn btn-warning" type="button" id="ch_bs"></button>
           <button class="btn btn-danger" type="reset">Reset to defaults</button>
         </div>
       </form>
@@ -292,7 +324,8 @@
                 values[e.name] = e.value;
             });
 
-            var html = fix_indent($('[name=markup][value='+values.markup+']').siblings('script.html').html());
+            var html_el = $('[name=markup][value='+values.markup+']').siblings('script.html').filter('[data-version="' + page.bootstrap + '"], [data-version="*""]');
+            var html = fix_indent(html_el.html());
             var selector = $('[name=markup][value='+values.markup+']').siblings('script.selector').html().replace(/^\s+|\s+$/g, '');
             delete values.markup;
 
@@ -376,6 +409,15 @@
             update_sandbox();
             history.replaceState && history.replaceState(null, null, '?#sandbox');
           });
+
+          $(page).on('change:bootstrap', function(e, version){
+            $('#ch_bs').text('Switch to Bootstrap ' + (5-version));
+          });
+          $('#ch_bs').click(function(){
+            swap_bs();
+          });
+
+          $(page).on('change:bootstrap', update_all);
 
           setTimeout(function(){
             // Load form state from url if possible
@@ -480,6 +522,9 @@
             delta = 0;
             mousedown = false;
           });
+
+
+          $(page).trigger('change:bootstrap', page.bootstrap)
         });
 
         var _gaq = _gaq || [];
@@ -494,8 +539,8 @@
 
       </script>
       <div class="row form-horizontal">
-        <div class="span5" id="sandbox-container"></div>
-        <div class="span7">
+        <div class="span5 col-md-5" id="sandbox-container"></div>
+        <div class="span7 col-md-7">
           <pre class="prettyprint linenums" id="sandbox-html"></pre>
           <pre class="prettyprint linenums" id="sandbox-js"></pre>
         </div>
