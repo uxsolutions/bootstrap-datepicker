@@ -33,7 +33,7 @@
 	}
 	function alias(method){
 		return function(){
-			this[method].apply(this, arguments);
+			return this[method].apply(this, arguments);
 		}
 	}
 
