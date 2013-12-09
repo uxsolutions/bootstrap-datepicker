@@ -1230,6 +1230,13 @@
 			});
 		},
 		dateUpdated: function(e){
+			// `this.updating` is a workaround for preventing infinite recursion
+			// between `changeDate` triggering and `setUTCDate` calling.  Until
+			// there is a better mechanism.
+			if (this.updating)
+				return;
+			this.updating = true;
+
 			var dp = $(e.target).data('datepicker'),
 				new_date = dp.getUTCDate(),
 				i = $.inArray(e.target, this.inputs),
@@ -1254,6 +1261,8 @@
 				}
 			}
 			this.updateDates();
+
+			delete this.updating;
 		},
 		remove: function(){
 			$.map(this.pickers, function(p){ p.remove(); });
