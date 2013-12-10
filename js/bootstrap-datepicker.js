@@ -277,7 +277,7 @@
 			}
 		},
 		_unapplyEvents: function(evs){
-			for (var i=0, el, ev; i<evs.length; i++){
+			for (var i=0, el, ev, ch; i<evs.length; i++){
 				el = evs[i][0];
 				if (evs[i].length == 2){
 					ch = undefined;
