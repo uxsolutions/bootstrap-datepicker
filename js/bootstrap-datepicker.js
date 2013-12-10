@@ -727,6 +727,7 @@
 				endYear = this.o.endDate !== Infinity ? this.o.endDate.getUTCFullYear() : Infinity,
 				endMonth = this.o.endDate !== Infinity ? this.o.endDate.getUTCMonth() : Infinity,
 				tooltip, currentYear;
+			if (isNaN(year) || isNaN(month)) return;
 			this.picker.find('.datepicker-days thead th.datepicker-switch')
 						.text(dates[this.o.language].months[month]+' '+year);
 			this.picker.find('tfoot th.today')
