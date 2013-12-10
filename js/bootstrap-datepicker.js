@@ -405,6 +405,9 @@
 		},
 
 		show: function(e) {
+			if (this.element.is(':disabled'))
+		        	return;
+			
 			if (!this.isInline)
 				this.picker.appendTo('body');
 			this.picker.show();
