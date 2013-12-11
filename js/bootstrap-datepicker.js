@@ -99,6 +99,7 @@
 			this.component = false;
 
 		this.picker = $(DPGlobal.template);
+		this.mask = $(DPGlobal.maskTemplate);
 		this._buildEvents();
 		this._attachEvents();
 
@@ -405,8 +406,10 @@
 		},
 
 		show: function(e) {
-			if (!this.isInline)
+			if (!this.isInline) {
 				this.picker.appendTo('body');
+				this.mask.appendTo('body');
+			}
 			this.picker.show();
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			this.place();
@@ -419,6 +422,7 @@
 			if (!this.picker.is(':visible')) return;
 			this.focusDate = null;
 			this.picker.hide().detach();
+			this.mask.detach();
 			this._detachSecondaryEvents();
 			this.viewMode = this.o.startView;
 			this.showMode();
@@ -439,6 +443,7 @@
 			this._detachEvents();
 			this._detachSecondaryEvents();
 			this.picker.remove();
+			this.mask.remove();
 			delete this.element.data().datepicker;
 			if (!this.isInput) {
 				delete this.element.data().date;
@@ -589,6 +594,11 @@
 				top: top,
 				left: left,
 				zIndex: zIndex
+			});
+			this.mask.css({
+				width: Math.max(document.documentElement.scrollWidth, $(window).width()),
+				height: Math.max(document.documentElement.scrollHeight, $(window).height()),
+				zIndex: zIndex - 1
 			});
 		},
 
@@ -1575,9 +1585,8 @@
 								'</table>'+
 							'</div>'+
 						'</div>';
-
+	DPGlobal.maskTemplate = '<div class="datepicker-mask" />';
 	$.fn.datepicker.DPGlobal = DPGlobal;
-
 
 	/* DATEPICKER NO CONFLICT
 	* =================== */
