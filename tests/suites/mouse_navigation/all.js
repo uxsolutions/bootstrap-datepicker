@@ -31,3 +31,14 @@ test('Clicking outside datepicker hides datepicker', function(){
 
     $otherelement.remove();
 });
+
+test('Clicking on the datepicker mask hides the datepicker', function(){
+    var mask = this.dp.mask;
+
+    ok(this.picker.is(':visible'), 'Picker is visible');
+    this.input.trigger('click');
+    ok(this.picker.is(':visible'), 'Picker is still visible');
+
+    mask.trigger('mousedown');
+    ok(this.picker.is(':not(:visible)'), 'Picker is hidden');
+});
