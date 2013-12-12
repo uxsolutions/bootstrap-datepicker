@@ -33,7 +33,7 @@
 	}
 	function alias(method){
 		return function(){
-			this[method].apply(this, arguments);
+			return this[method].apply(this, arguments);
 		}
 	}
 
@@ -277,7 +277,7 @@
 			}
 		},
 		_unapplyEvents: function(evs){
-			for (var i=0, el, ev; i<evs.length; i++){
+			for (var i=0, el, ev, ch; i<evs.length; i++){
 				el = evs[i][0];
 				if (evs[i].length == 2){
 					ch = undefined;
@@ -977,10 +977,10 @@
 						break;
 				}
 			}
-			if (this._focused_from){
+			if (this.picker.is(':visible') && this._focused_from){
 				$(this._focused_from).focus();
-				delete this._focused_from;
 			}
+			delete this._focused_from;
 		},
 
 		_toggle_multidate: function( date ) {
@@ -1230,6 +1230,13 @@
 			});
 		},
 		dateUpdated: function(e){
+			// `this.updating` is a workaround for preventing infinite recursion
+			// between `changeDate` triggering and `setUTCDate` calling.  Until
+			// there is a better mechanism.
+			if (this.updating)
+				return;
+			this.updating = true;
+
 			var dp = $(e.target).data('datepicker'),
 				new_date = dp.getUTCDate(),
 				i = $.inArray(e.target, this.inputs),
@@ -1254,6 +1261,8 @@
 				}
 			}
 			this.updateDates();
+
+			delete this.updating;
 		},
 		remove: function(){
 			$.map(this.pickers, function(p){ p.remove(); });
