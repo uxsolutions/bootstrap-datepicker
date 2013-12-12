@@ -1,3 +1,7 @@
 instrumented/
 tests/coverage.html
 docs/_build
+.sass-cache
+node_modules
+Gemfile.lock
+test/output/*

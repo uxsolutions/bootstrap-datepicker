@@ -1,0 +1,32 @@
+{
+  "name": "bootstrap-datepicker",
+  "description": "A datepicker for Bootstrap.",
+  "version": "1.1.1",
+  "main": "js/bootstrap-datepicker.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/eternicode/bootstrap-datepicker.git"
+  },
+  "keywords": [
+    "bootstrap",
+    "datepicker"
+  ],
+  "license": "Apache Version 2",
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "matchdep": "~0.3.0",
+    "diff": "~1.0.7",
+    "lodash": "~2.4.1",
+    "grunt": "~0.4.2",
+    "grunt-contrib-nodeunit": "~0.2.2",
+    "grunt-sed": "~0.1.1",
+    "grunt-contrib-compass": "~0.7.0",
+    "grunt-contrib-less": "~0.8.3",
+    "grunt-contrib-jshint": "~0.7.2",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-bump": "0.0.11"
+  }
+}
