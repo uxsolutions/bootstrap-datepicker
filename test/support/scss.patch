@@ -47,7 +47,7 @@ Index: css/datepicker.css
    display: none;
  }
  .datepicker.days div.datepicker-days {
-@@ -104,243 +108,141 @@
+@@ -104,244 +108,141 @@
    -moz-border-radius: 4px;
    border-radius: 4px;
    border: none;
@@ -57,7 +57,9 @@ Index: css/datepicker.css
 -.table-striped .datepicker table tr th {
    background-color: transparent;
  }
- .datepicker table tr td.day:hover {
++.datepicker table tr td.day:hover, .datepicker table tr td.day.focused {
+-.datepicker table tr td.day:hover,
+-.datepicker table tr td.day.focused {
    background: #eeeeee;
    cursor: pointer;
  }
@@ -346,7 +348,7 @@ Index: css/datepicker.css
  }
  .datepicker table tr td span {
    display: block;
-@@ -356,67 +258,41 @@
+@@ -357,67 +258,41 @@
  }
  .datepicker table tr td span:hover {
    background: #eeeeee;
@@ -428,7 +430,7 @@ Index: css/datepicker.css
  }
  .datepicker th.datepicker-switch {
    width: 145px;
-@@ -438,14 +314,16 @@
+@@ -439,14 +314,16 @@
  .datepicker thead tr:first-child th.cw {
    cursor: default;
    background-color: transparent;
@@ -445,7 +447,7 @@ Index: css/datepicker.css
    text-align: center;
  }
  .input-daterange input:first-child {
-@@ -466,15 +344,16 @@
+@@ -467,15 +344,16 @@
    padding: 4px 5px;
    font-weight: normal;
    line-height: 20px;
@@ -463,7 +465,7 @@ Index: css/datepicker.css
    position: absolute;
    top: 100%;
    left: 0;
-@@ -482,9 +361,9 @@
+@@ -483,9 +361,9 @@
    float: left;
    display: none;
    min-width: 160px;
@@ -474,7 +476,7 @@ Index: css/datepicker.css
    border: 1px solid rgba(0, 0, 0, 0.2);
    -webkit-border-radius: 5px;
    -moz-border-radius: 5px;
-@@ -497,12 +376,11 @@
+@@ -498,12 +376,11 @@
    background-clip: padding-box;
    *border-right-width: 2px;
    *border-bottom-width: 2px;

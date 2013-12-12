@@ -52,7 +52,7 @@ module.exports = function(grunt) {
         expand: true,
         cwd: 'less',
         dest: 'sass/',
-        src: '**/*.less',
+        src: 'datepicker.less',
         ext: '.scss'
       },
       build: {
