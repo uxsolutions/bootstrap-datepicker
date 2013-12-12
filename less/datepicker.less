@@ -11,17 +11,23 @@
 .datepicker {
 	padding: 4px;
 	.border-radius(4px);
-	&-inline {
+	direction: ltr;
+}
+
+	.datepicker-inline {
 		width: 220px;
 	}
-	direction: ltr;
-	&&-rtl {
+
+.datepicker {
+	&.datepicker-rtl {
 		direction: rtl;
 		table tr td span {
 			float: right;
 		}
 	}
-	&-dropdown {
+}
+
+	.datepicker-dropdown {
 		top: 0;
 		left: 0;
 		&:before {
@@ -60,6 +66,8 @@
 			border-top:    6px solid @white;
 		}
 	}
+
+.datepicker {
 	>div {
 		display: none;
 	}
