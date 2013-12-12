@@ -5,3 +5,4 @@ docs/_build
 node_modules
 Gemfile.lock
 test/output/*
+pkg

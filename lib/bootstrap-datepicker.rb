@@ -1,4 +1,4 @@
-require "bootstrap/datepicker/version"
+require "bootstrap-datepicker/version"
 
 module Bootstrap
   module Datepicker
@@ -8,4 +8,6 @@ module Bootstrap
   end
 end
 
-Compass::Frameworks.register 'bootstrap-datepicker', :path => Bootstrap::Switch.base_directory
+require "bootstrap-sass"
+
+Compass::Frameworks.register 'bootstrap-datepicker', :path => Bootstrap::Datepicker.base_directory
