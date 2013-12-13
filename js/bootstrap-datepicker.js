@@ -1142,6 +1142,10 @@
 					}
 					break;
 				case 32: // spacebar
+					// Spacebar is used in manually typing dates in some formats.
+					// As such, its behavior should not be hijacked.
+					break;
+				case 13: // enter
 					focusDate = this.focusDate || this.dates.get(-1) || this.viewDate;
 					this._toggle_multidate(focusDate);
 					dateChanged = true;
@@ -1149,19 +1153,11 @@
 					this.viewDate = this.dates.get(-1) || this.viewDate;
 					this.setValue();
 					this.fill();
-					e.preventDefault();
-					break;
-				case 13: // enter
-					if (this.focusDate){
-						this._toggle_multidate(this.focusDate);
-						dateChanged = true;
-						this.focusDate = null;
-						this.viewDate = this.dates.get(-1) || this.viewDate;
-						this.setValue();
-						this.fill();
+					if (this.picker.is(':visible')){
+						e.preventDefault();
+						if (this.o.autoclose)
+							this.hide();
 					}
-					this.hide();
-					e.preventDefault();
 					break;
 				case 9: // tab
 					this.focusDate = null;
