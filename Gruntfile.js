@@ -66,14 +66,6 @@ module.exports = function(grunt) {
 
     // Just enough Less to Sass conversion to work.
     sed: {
-      sassifyPrepend: {
-        path: './sass/',
-        recursive: true,
-        pattern: / \*\/\n/,
-        replacement: function(comment){
-          return comment + '\n' + '@import "bootstrap/variables";\n@import "bootstrap/mixins";\n';
-        },
-      },
       sassifyDefault: {
         path: './sass/',
         recursive: true,
@@ -121,7 +113,7 @@ module.exports = function(grunt) {
         pattern: /@import "([\w-_\.]+)";/g,
         replacement: function(string, file){
           var aliases = {
-            'build.less': 'datepicker'
+            'build.less': 'datepicker-imports'
           };
           return '@import "' + (aliases[file] || file) + '";';
         },

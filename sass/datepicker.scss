@@ -8,9 +8,6 @@
  *
  */
 
-@import "bootstrap/variables";
-@import "bootstrap/mixins";
-
 .datepicker {
 	padding: 4px;
 	@include border-radius(4px);
