@@ -14,17 +14,14 @@ With the ctrl key, up/left will move focus backward one year, down/right will mo
 
 Shift+ctrl behaves the same as ctrl -- that is, it does not change both month and year simultaneously, only the year.
 
-spacebar
---------
+enter
+-----
 
-Toggles the focused date between selected and unselected.  When the date is deselected, the ``clearDate`` event is triggered; otherwise, the ``changeDate`` is triggered.
+When the picker is visible, enter will toggle the focused date (if there is one).  When the picker is not visible, enter will have normal effects -- submitting the current form, etc.
+
+When the date is deselected, the ``clearDate`` event is triggered; otherwise, the ``changeDate`` event is triggered.  If ``autoclose`` is enabled, the picker will be hidden after selection or deselection.
 
 escape
 ------
 
 The escape key can be used to clear the focused date and hide and re-show the datepicker; hiding the picker is necessary if the user wants to manually edit the value.
-
-enter
------
-
-When the picker is visible, enter will toggle the focused date (if there is one) and hide the picker.  When the picker is not visible, enter will have normal effects -- submitting the current form, etc.
