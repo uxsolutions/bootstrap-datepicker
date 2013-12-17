@@ -34,7 +34,7 @@
 	function alias(method){
 		return function(){
 			return this[method].apply(this, arguments);
-		}
+		};
 	}
 
 	var DateArray = (function(){
@@ -77,7 +77,7 @@
 			a.push.apply(a, arguments);
 			$.extend(a, extras);
 			return a;
-		}
+		};
 	})();
 
 
@@ -310,7 +310,7 @@
 						focus: $.proxy(this.show, this),
 						keyup: $.proxy(function(e){
 							if ($.inArray(e.keyCode, [27,37,39,38,40,32,13,9]) === -1)
-								this.update()
+								this.update();
 						}, this),
 						keydown: $.proxy(this.keydown, this)
 					}],
@@ -404,7 +404,7 @@
 			});
 		},
 
-		show: function(e) {
+		show: function(){
 			if (!this.isInline)
 				this.picker.appendTo('body');
 			this.picker.show();
@@ -725,7 +725,7 @@
 				startMonth = this.o.startDate !== -Infinity ? this.o.startDate.getUTCMonth() : -Infinity,
 				endYear = this.o.endDate !== Infinity ? this.o.endDate.getUTCFullYear() : Infinity,
 				endMonth = this.o.endDate !== Infinity ? this.o.endDate.getUTCMonth() : Infinity,
-				tooltip, currentYear;
+				tooltip;
 			this.picker.find('.datepicker-days thead th.datepicker-switch')
 						.text(dates[this.o.language].months[month]+' '+year);
 			this.picker.find('tfoot th.today')
@@ -1186,17 +1186,11 @@
 			if (dir) {
 				this.viewMode = Math.max(this.o.minViewMode, Math.min(2, this.viewMode + dir));
 			}
-			/*
-				vitalets: fixing bug of very special conditions:
-				jquery 1.7.1 + webkit + show inline datepicker in bootstrap popover.
-				Method show() does not set display css correctly and datepicker is not shown.
-				Changed to .css('display', 'block') solve the problem.
-				See https://github.com/vitalets/x-editable/issues/37
-
-				In jquery 1.7.2+ everything works fine.
-			*/
-			//this.picker.find('>div').hide().filter('.datepicker-'+DPGlobal.modes[this.viewMode].clsName).show();
-			this.picker.find('>div').hide().filter('.datepicker-'+DPGlobal.modes[this.viewMode].clsName).css('display', 'block');
+			this.picker
+				.find('>div')
+				.hide()
+				.filter('.datepicker-'+DPGlobal.modes[this.viewMode].clsName)
+					.css('display', 'block');
 			this.updateNavArrows();
 		}
 	};
@@ -1269,11 +1263,14 @@
 		// Derive options from element data-attrs
 		var data = $(el).data(),
 			out = {}, inkey,
-			replace = new RegExp('^' + prefix.toLowerCase() + '([A-Z])'),
-			prefix = new RegExp('^' + prefix.toLowerCase());
+			replace = new RegExp('^' + prefix.toLowerCase() + '([A-Z])');
+		prefix = new RegExp('^' + prefix.toLowerCase());
+		function re_lower(_,a){
+			return a.toLowerCase();
+		}
 		for (var key in data)
 			if (prefix.test(key)){
-				inkey = key.replace(replace, function(_,a){ return a.toLowerCase(); });
+				inkey = key.replace(replace, re_lower);
 				out[inkey] = data[key];
 			}
 		return out;
@@ -1416,12 +1413,12 @@
 			if (date instanceof Date) return date;
 			if (typeof format === 'string')
 				format = DPGlobal.parseFormat(format);
+			var part_re = /([\-+]\d+)([dmwy])/,
+				parts = date.match(/([\-+]\d+)([dmwy])/g),
+				part, dir, i;
 			if (/^[\-+]\d+[dmwy]([\s,]+[\-+]\d+[dmwy])*$/.test(date)) {
-				var part_re = /([\-+]\d+)([dmwy])/,
-					parts = date.match(/([\-+]\d+)([dmwy])/g),
-					part, dir;
 				date = new Date();
-				for (var i=0; i<parts.length; i++) {
+				for (i=0; i<parts.length; i++) {
 					part = part_re.exec(parts[i]);
 					dir = parseInt(part[1]);
 					switch(part[2]){
@@ -1441,9 +1438,9 @@
 				}
 				return UTCDate(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 0, 0, 0);
 			}
-			var parts = date && date.match(this.nonpunctuation) || [],
-				date = new Date(),
-				parsed = {},
+			parts = date && date.match(this.nonpunctuation) || [];
+			date = new Date();
+			var parsed = {},
 				setters_order = ['yyyy', 'yy', 'M', 'MM', 'm', 'mm', 'd', 'dd'],
 				setters_map = {
 					yyyy: function(d,v){ return d.setUTCFullYear(v); },
@@ -1461,7 +1458,7 @@
 					},
 					d: function(d,v){ return d.setUTCDate(v); }
 				},
-				val, filtered, part;
+				val, filtered;
 			setters_map['M'] = setters_map['MM'] = setters_map['mm'] = setters_map['m'];
 			setters_map['dd'] = setters_map['d'];
 			date = UTCDate(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
@@ -1473,33 +1470,32 @@
 				}).toArray();
 			}
 			// Process remainder
+			function match_part(){
+				var m = this.slice(0, parts[i].length),
+					p = parts[i].slice(0, m.length);
+				return m == p;
+			}
 			if (parts.length == fparts.length) {
-				for (var i=0, cnt = fparts.length; i < cnt; i++) {
+				var cnt;
+				for (i=0, cnt = fparts.length; i < cnt; i++) {
 					val = parseInt(parts[i], 10);
 					part = fparts[i];
 					if (isNaN(val)) {
 						switch(part) {
 							case 'MM':
-								filtered = $(dates[language].months).filter(function(){
-									var m = this.slice(0, parts[i].length),
-										p = parts[i].slice(0, m.length);
-									return m == p;
-								});
+								filtered = $(dates[language].months).filter(match_part);
 								val = $.inArray(filtered[0], dates[language].months) + 1;
 								break;
 							case 'M':
-								filtered = $(dates[language].monthsShort).filter(function(){
-									var m = this.slice(0, parts[i].length),
-										p = parts[i].slice(0, m.length);
-									return m == p;
-								});
+								filtered = $(dates[language].monthsShort).filter(match_part);
 								val = $.inArray(filtered[0], dates[language].monthsShort) + 1;
 								break;
 						}
 					}
 					parsed[part] = val;
 				}
-				for (var i=0, _date, s; i<setters_order.length; i++){
+				var _date, s;
+				for (i=0; i<setters_order.length; i++){
 					s = setters_order[i];
 					if (s in parsed && !isNaN(parsed[s])){
 						_date = new Date(date);
@@ -1528,8 +1524,8 @@
 			};
 			val.dd = (val.d < 10 ? '0' : '') + val.d;
 			val.mm = (val.m < 10 ? '0' : '') + val.m;
-			var date = [],
-				seps = $.extend([], format.separators);
+			date = [];
+			var seps = $.extend([], format.separators);
 			for (var i=0, cnt = format.parts.length; i <= cnt; i++) {
 				if (seps.length)
 					date.push(seps.shift());
@@ -1545,7 +1541,14 @@
 							'</tr>'+
 						'</thead>',
 		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',
-		footTemplate: '<tfoot><tr><th colspan="7" class="today"></th></tr><tr><th colspan="7" class="clear"></th></tr></tfoot>'
+		footTemplate: '<tfoot>'+
+							'<tr>'+
+								'<th colspan="7" class="today"></th>'+
+							'</tr>'+
+							'<tr>'+
+								'<th colspan="7" class="clear"></th>'+
+							'</tr>'+
+						'</tfoot>'
 	};
 	DPGlobal.template = '<div class="datepicker">'+
 							'<div class="datepicker-days">'+
