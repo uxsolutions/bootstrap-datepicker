@@ -18,7 +18,7 @@ module('Component', {
 
 
 test('Component gets date/viewDate from input value', function(){
-    datesEqual(this.dp.date, UTCDate(2012, 1, 12));
+    datesEqual(this.dp.getUTCDate(), UTCDate(2012, 1, 12));
     datesEqual(this.dp.viewDate, UTCDate(2012, 1, 12));
 });
 
@@ -37,7 +37,7 @@ test('simple keyboard nav test', function(){
     equal(this.dp.viewMode, 0);
     target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     equal(target.text(), 'February 2012', 'Title is "February 2012"');
-    datesEqual(this.dp.date, UTCDate(2012, 1, 12));
+    datesEqual(this.dp.getUTCDate(), UTCDate(2012, 1, 12));
     datesEqual(this.dp.viewDate, UTCDate(2012, 1, 12));
 
     // Focus/open
@@ -49,7 +49,8 @@ test('simple keyboard nav test', function(){
         keyCode: 37
     });
     datesEqual(this.dp.viewDate, UTCDate(2012, 1, 11));
-    datesEqual(this.dp.date, UTCDate(2012, 1, 11));
+    datesEqual(this.dp.getUTCDate(), UTCDate(2012, 1, 12));
+    datesEqual(this.dp.focusDate, UTCDate(2012, 1, 11));
     // Month not changed
     target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     equal(target.text(), 'February 2012', 'Title is "February 2012"');
@@ -61,7 +62,8 @@ test('simple keyboard nav test', function(){
         shiftKey: true
     });
     datesEqual(this.dp.viewDate, UTCDate(2012, 2, 11));
-    datesEqual(this.dp.date, UTCDate(2012, 2, 11));
+    datesEqual(this.dp.getUTCDate(), UTCDate(2012, 1, 12));
+    datesEqual(this.dp.focusDate, UTCDate(2012, 2, 11));
     target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     equal(target.text(), 'March 2012', 'Title is "March 2012"');
 
@@ -72,22 +74,24 @@ test('simple keyboard nav test', function(){
         ctrlKey: true
     });
     datesEqual(this.dp.viewDate, UTCDate(2011, 2, 11));
-    datesEqual(this.dp.date, UTCDate(2011, 2, 11));
+    datesEqual(this.dp.getUTCDate(), UTCDate(2012, 1, 12));
+    datesEqual(this.dp.focusDate, UTCDate(2011, 2, 11));
     target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     equal(target.text(), 'March 2011', 'Title is "March 2011"');
 });
 
 test('setValue', function(){
-    this.dp.date = UTCDate(2012, 2, 13)
-    this.dp.setValue()
-    datesEqual(this.dp.date, UTCDate(2012, 2, 13));
+    this.dp.dates.replace(UTCDate(2012, 2, 13));
+    this.dp.setValue();
+    datesEqual(this.dp.dates[0], UTCDate(2012, 2, 13));
     equal(this.input.val(), '13-03-2012');
 });
 
 test('update', function(){
     this.input.val('13-03-2012');
-    this.dp.update()
-    datesEqual(this.dp.date, UTCDate(2012, 2, 13));
+    this.dp.update();
+    equal(this.dp.dates.length, 1);
+    datesEqual(this.dp.dates[0], UTCDate(2012, 2, 13));
 });
 
 test('Navigating to/from decade view', function(){
@@ -106,7 +110,7 @@ test('Navigating to/from decade view', function(){
     equal(this.dp.viewMode, 1);
     // Not modified when switching modes
     datesEqual(this.dp.viewDate, UTCDate(2012, 2, 31));
-    datesEqual(this.dp.date, UTCDate(2012, 2, 31));
+    datesEqual(this.dp.dates[0], UTCDate(2012, 2, 31));
 
     target = this.picker.find('.datepicker-months thead th.datepicker-switch');
     ok(target.is(':visible'), 'View switcher is visible');
@@ -116,7 +120,7 @@ test('Navigating to/from decade view', function(){
     equal(this.dp.viewMode, 2);
     // Not modified when switching modes
     datesEqual(this.dp.viewDate, UTCDate(2012, 2, 31));
-    datesEqual(this.dp.date, UTCDate(2012, 2, 31));
+    datesEqual(this.dp.dates[0], UTCDate(2012, 2, 31));
 
     // Change years to test internal state changes
     target = this.picker.find('.datepicker-years tbody span:contains(2011)');
@@ -124,14 +128,14 @@ test('Navigating to/from decade view', function(){
     equal(this.dp.viewMode, 1);
     // Only viewDate modified
     datesEqual(this.dp.viewDate, UTCDate(2011, 2, 1));
-    datesEqual(this.dp.date, UTCDate(2012, 2, 31));
+    datesEqual(this.dp.dates[0], UTCDate(2012, 2, 31));
 
     target = this.picker.find('.datepicker-months tbody span:contains(Apr)');
     target.click();
     equal(this.dp.viewMode, 0);
     // Only viewDate modified
     datesEqual(this.dp.viewDate, UTCDate(2011, 3, 1));
-    datesEqual(this.dp.date, UTCDate(2012, 2, 31));
+    datesEqual(this.dp.dates[0], UTCDate(2012, 2, 31));
 });
 
 test('Selecting date resets viewDate and date', function(){
@@ -149,7 +153,7 @@ test('Selecting date resets viewDate and date', function(){
     // Updated internally on click
     target.click();
     datesEqual(this.dp.viewDate, UTCDate(2012, 1, 26))
-    datesEqual(this.dp.date, UTCDate(2012, 1, 26))
+    datesEqual(this.dp.dates[0], UTCDate(2012, 1, 26))
 
     // Re-rendered on click
     target = this.picker.find('.datepicker-days tbody td:first');
@@ -176,4 +180,23 @@ test('Does not block events', function(){
     this.addon.click();
     equal(clicks, 1);
     $('#qunit-fixture').off('click', '.add-on', handler);
+});
+
+
+test('date and viewDate must be between startDate and endDate when setStartDate called', function() {
+    this.dp.setDate(new Date(2013, 1, 1));
+    datesEqual(this.dp.dates[0], UTCDate(2013, 1, 1));
+    datesEqual(this.dp.viewDate, UTCDate(2013, 1, 1));
+    this.dp.setStartDate(new Date(2013, 5, 6));
+    datesEqual(this.dp.viewDate, UTCDate(2013, 5, 6));
+    equal(this.dp.dates.length, 0);
+});
+
+test('date and viewDate must be between startDate and endDate when setEndDate called', function() {
+    this.dp.setDate(new Date(2013, 11, 1));
+    datesEqual(this.dp.dates[0], UTCDate(2013, 11, 1));
+    datesEqual(this.dp.viewDate, UTCDate(2013, 11, 1));
+    this.dp.setEndDate(new Date(2013, 5, 6));
+    datesEqual(this.dp.viewDate, UTCDate(2013, 5, 6));
+    equal(this.dp.dates.length, 0);
 });

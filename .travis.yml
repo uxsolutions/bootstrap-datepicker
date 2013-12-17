@@ -1,4 +1,8 @@
+install:
+  - npm install -g jshint
 before_script:
   - cd ./tests
   - echo "new Date().toString();" | phantomjs
-script: phantomjs run-qunit.js tests.html
+script:
+  - jshint ../js/bootstrap-datepicker.js ../js/locales/*.js
+  - phantomjs run-qunit.js tests.html

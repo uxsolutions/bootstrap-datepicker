@@ -20,21 +20,21 @@ For all cases, you should have your own fork of the repo.
 
 To submit a pull request for a **new feature**:
 
-1. Run the tests.  Every pull request for a new feature should have an accompanying unit test.  See the README in the `tests/` directory for details.
-2. Create a new branch off of the `master` branch for your feature, with a name following the pattern `feature/<description>`, where `<description>` is a short description of the new feature.  This is particularly helpful when you want to submit multiple pull requests.
+1. Run the tests.  Every pull request for a new feature should have an accompanying unit test and docs changes.  See the README in the `tests/` and `docs/` directories for details.
+2. Create a new branch off of the `master` branch for your feature.  This is particularly helpful when you want to submit multiple pull requests.
 3. Add a test (or multiple tests) for your feature.  Again, see `tests/README.md`.
 4. Add your new feature, making the test pass.
 5. Push to your fork and submit the pull request!
 
 To submit a **bug fix**:
 
-1. Create a new branch off of the `master` branch, with a name following the pattern `bug/<description>`.
+1. Create a new branch off of the `master` branch.
 2. Add a test that demonstrates the bug.
 3. Make the test pass.
-4. Push to your fork and submit the pll request!
+4. Push to your fork and submit the pull request!
 
 To submit a **documentation fix**:
 
-1. Create a new branch off of the `master` branch, with a name following the pattern `docs/<description>`.
+1. Create a new branch off of the `master` branch.
 2. Add your documentation fixes (no tests required).
 3. Push to your fork and submit the pull request!

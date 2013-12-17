@@ -10,7 +10,7 @@
 
 .datepicker {
 	padding: 4px;
-	.border-radius(4px);
+	border-radius: 4px;
 	&-inline {
 		width: 220px;
 	}
@@ -39,7 +39,7 @@
 			display: inline-block;
 			border-left:   6px solid transparent;
 			border-right:  6px solid transparent;
-			border-bottom: 6px solid @white;
+			border-bottom: 6px solid #fff;
 			border-top:    0;
 			position: absolute;
 		}
@@ -57,7 +57,7 @@
 		&.datepicker-orient-bottom:after {
 			bottom: -6px;
 			border-bottom: 0;
-			border-top:    6px solid @white;
+			border-top:    6px solid #fff;
 		}
 	}
 	>div {
@@ -80,15 +80,16 @@
 		-moz-user-select: none;
 		-ms-user-select: none;
 		user-select: none;
-	}
-	td,
-	th{
-		text-align: center;
-		width: 20px;
-		height: 20px;
-		.border-radius(4px);
+		tr {
+			td, th {
+				text-align: center;
+				width: 30px;
+				height: 30px;
+				border-radius: 4px;
 
-		border: none;
+				border: none;
+			}
+		}
 	}
 	// Inline display inside a table presents some problems with
 	// border and background colors.
@@ -99,26 +100,25 @@
 	}
 	table tr td {
 		&.day:hover, &.day.focused {
-			background: @grayLighter;
+			background: @gray-lighter;
 			cursor: pointer;
 		}
 		&.old,
 		&.new {
-			color: @grayLight;
+			color: @btn-link-disabled-color;
 		}
 		&.disabled,
 		&.disabled:hover {
 			background: none;
-			color: @grayLight;
+			color: @btn-link-disabled-color;
 			cursor: default;
 		}
 		&.today,
 		&.today:hover,
 		&.today.disabled,
 		&.today.disabled:hover {
-			@todayBackground: lighten(@orange, 30%);
-			.buttonBackground(@todayBackground, spin(@todayBackground, 20));
-			color: #000;
+			@today-bg: lighten(orange, 30%);
+			.button-variant(#000, @today-bg, darken(@today-bg, 20%));
 		}
 		&.today:hover:hover { // Thank bootstrap 2.0 for this selector...
 			// TODO: Bump min BS to 2.1, use @textColor in buttonBackground above
@@ -131,31 +131,29 @@
 		&.range:hover,
 		&.range.disabled,
 		&.range.disabled:hover {
-			background:@grayLighter;
-			.border-radius(0);
+			background:@gray-lighter;
+			border-radius: 0;
 		}
 		&.range.today,
 		&.range.today:hover,
 		&.range.today.disabled,
 		&.range.today.disabled:hover {
-			@todayBackground: mix(@orange, @grayLighter, 50%);
-			.buttonBackground(@todayBackground, spin(@todayBackground, 20));
-			.border-radius(0);
+			@today-bg: mix(orange, @gray-lighter, 50%);
+			.button-variant(#000, @today-bg, darken(@today-bg, 20%));
+			border-radius: 0;
 		}
 		&.selected,
 		&.selected:hover,
 		&.selected.disabled,
 		&.selected.disabled:hover {
-			.buttonBackground(lighten(@grayLight, 10), darken(@grayLight, 10));
-			color: #fff;
+			.button-variant(#fff, @gray-light, @gray);
 			text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 		}
 		&.active,
 		&.active:hover,
 		&.active.disabled,
 		&.active.disabled:hover {
-			.buttonBackground(@btnPrimaryBackground, spin(@btnPrimaryBackground, 20));
-			color: #fff;
+			.button-variant(@btn-primary-color, @btn-primary-bg, @btn-primary-border);
 			text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 		}
 		span {
@@ -166,27 +164,26 @@
 			float: left;
 			margin: 1%;
 			cursor: pointer;
-			.border-radius(4px);
+			border-radius: 4px;
 			&:hover {
-				background: @grayLighter;
+				background: @gray-lighter;
 			}
 			&.disabled,
 			&.disabled:hover {
-				background:none;
-				color: @grayLight;
+				background: none;
+				color: @btn-link-disabled-color;
 				cursor: default;
 			}
 			&.active,
 			&.active:hover,
 			&.active.disabled,
 			&.active.disabled:hover {
-				.buttonBackground(@btnPrimaryBackground, spin(@btnPrimaryBackground, 20));
-				color: #fff;
+				.button-variant(@btn-primary-color, @btn-primary-bg, @btn-primary-border);
 				text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 			}
 			&.old,
 			&.new {
-				color: @grayLight;
+				color: @btn-link-disabled-color;
 			}
 		}
 	}
@@ -199,7 +196,7 @@
 	tfoot tr th {
 		cursor: pointer;
 		&:hover{
-			background: @grayLighter;
+			background: @gray-lighter;
 		}
 	}
 	/*.dow {
@@ -218,10 +215,9 @@
 		background-color: transparent;
 	}
 }
-.input-append,
-.input-prepend {
+.input-group {
 	&.date {
-		.add-on i {
+		.input-group-addon i {
 			cursor: pointer;
 			width: 16px;
 			height: 16px;
@@ -233,24 +229,23 @@
 		text-align:center;
 	}
 	input:first-child {
-		.border-radius(3px 0 0 3px);
+		border-radius: 3px 0 0 3px;
 	}
 	input:last-child {
-		.border-radius(0 3px 3px 0);
+		border-radius: 0 3px 3px 0;
 	}
-	.add-on {
-		display: inline-block;
+	.input-group-addon {
 		width: auto;
 		min-width: 16px;
-		height: @baseLineHeight;
 		padding: 4px 5px;
 		font-weight: normal;
-		line-height: @baseLineHeight;
+		line-height: @line-height-base;
 		text-align: center;
-		text-shadow: 0 1px 0 @white;
+		text-shadow: 0 1px 0 #fff;
 		vertical-align: middle;
-		background-color: @grayLighter;
-		border: 1px solid #ccc;
+		background-color: @input-group-addon-bg;
+		border: solid @input-group-addon-border-color;
+		border-width: 1px 0;
 		margin-left:-5px;
 		margin-right:-5px;
 	}
