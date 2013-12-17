@@ -1,3 +1,5 @@
+install:
+  - npm install -g jshint
 before_script:
   - cd ./tests
   - echo "new Date().toString();" | phantomjs
