@@ -292,6 +292,7 @@
 		},
 		_buildEvents: function(){
 			if (this.isInput) { // single input
+				this.element.attr("autocomplete","off");
 				this._events = [
 					[this.element, {
 						focus: $.proxy(this.show, this),
@@ -304,6 +305,7 @@
 				];
 			}
 			else if (this.component && this.hasInput){ // component: input + button
+				this.element.find('input').attr("autocomplete","off");
 				this._events = [
 					// For components that are not readonly, allow keyboard nav
 					[this.element.find('input'), {
