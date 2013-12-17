@@ -2,7 +2,7 @@
     "jquery": true,
     "browser": true,
 
-    //"eqeqeq": true,
+    "eqeqeq": true,
     "freeze": true,
     //"indent": 4, // when we move to spaces
     "latedef": true,
