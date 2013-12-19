@@ -80,6 +80,8 @@
 		};
 	})();
 
+	var options;
+
 
 	// Picker object
 
@@ -259,6 +261,8 @@
 				});
 				o.orientation.y = _plc[0] || 'auto';
 			}
+
+			options = this.o;
 		},
 		_events: [],
 		_secondaryEvents: [],
@@ -528,7 +532,7 @@
 		},
 
 		place: function(){
-						if(this.isInline) return;
+			if(this.isInline) return;
 			var calendarWidth = this.picker.outerWidth(),
 				calendarHeight = this.picker.outerHeight(),
 				visualPadding = 10,
@@ -1353,7 +1357,8 @@
 		startView: 0,
 		todayBtn: false,
 		todayHighlight: false,
-		weekStart: 0
+		weekStart: 0,
+		useMomentForDateFormat: false
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',
@@ -1409,6 +1414,23 @@
 			return {separators: separators, parts: parts};
 		},
 		parseDate: function(date, format, language) {
+			if(options.useMomentForDateFormat) {
+				return DPGlobal.momentParseDate(date, format, language)
+			} else {
+				return DPGlobal.standardParseDate(date, format, language)
+			}
+		},
+		momentParseDate: function(date, format, language) {
+			if (!date)
+				return undefined;
+			if (date instanceof Date) return date;
+				var momentDate = moment(date);
+			if(momentDate.isValid()) {
+				var utc = momentDate.utc();
+				return UTCDate(utc.year(), utc.month(), utc.date(), 0, 0, 0);
+			}
+		},
+		standardParseDate: function(date, format, language) {
 			if (!date)
 				return undefined;
 			if (date instanceof Date) return date;
