@@ -1006,7 +1006,9 @@
 
 			this.fill();
 			this.setValue();
-			this._trigger('changeDate');
+			if (!which || which  !== 'view') {
+				this._trigger('changeDate');
+			}
 			var element;
 			if (this.isInput) {
 				element = this.element;
