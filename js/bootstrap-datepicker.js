@@ -133,6 +133,7 @@
 
 		this.update();
 		this.showMode();
+		this.setValue();
 
 		if(this.isInline) {
 			this.show();
@@ -592,6 +593,11 @@
 		},
 
 		_allow_update: true,
+		_getDefaultDate: function () {
+			return this.o.startDate.getTime
+				? new Date(this.o.startDate)
+				: this._local_to_utc(this._zero_time(new Date()));
+		},
 		update: function(){
 			if (!this._allow_update) return;
 
@@ -626,6 +632,9 @@
 					!date
 				);
 			}, this), true);
+			if (!dates.length && !this.o.allowEmpty) {
+				dates.push(this._getDefaultDate());
+			}
 			this.dates.replace(dates);
 
 			if (this.dates.length)
@@ -986,9 +995,14 @@
 			var ix = this.dates.contains(date);
 			if (!date){
 				this.dates.clear();
+				if (!this.allowEmpty) {
+					this.dates.push(this._getDefaultDate());
+				}
 			}
 			else if (ix !== -1){
-				this.dates.remove(ix);
+				if (this.o.allowEmpty || this.dates.length > 1) {
+					this.dates.remove(ix);
+				}
 			}
 			else{
 				this.dates.push(date);
@@ -1346,6 +1360,7 @@
 		language: 'en',
 		minViewMode: 0,
 		multidate: false,
+		allowEmpty: true,
 		multidateSeparator: ',',
 		orientation: "auto",
 		rtl: false,
