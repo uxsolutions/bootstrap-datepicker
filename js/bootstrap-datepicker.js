@@ -408,8 +408,13 @@
 		},
 
 		show: function(){
-			if (!this.isInline)
-				this.picker.appendTo('body');
+			if (!this.isInline) {
+				if (this.o.container) {
+					this.picker.appendTo(this.o.container);
+				} else {
+					this.picker.appendTo('body');
+				}
+			}
 			this.picker.show();
 			this.place();
 			this._attachSecondaryEvents();
@@ -549,6 +554,13 @@
 					return $(this).css('z-index') !== 'auto';
 				}).first().css('z-index'))+10;
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
+			if (this.o.container) {
+				var containerOffset = this.o.container.offset();
+				offset = {
+					top: offset.top - containerOffset.top,
+					left: offset.left - containerOffset.left
+				};
+			}
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(false);
 			var width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(false);
 			var left = offset.left,
