@@ -426,6 +426,7 @@
 			if (
 				this.o.forceParse &&
 				(
+					!this.o.allowEmpty ||
 					this.isInput && this.element.val() ||
 					this.hasInput && this.element.find('input').val()
 				)
