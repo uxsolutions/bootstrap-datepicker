@@ -594,7 +594,10 @@
 		},
 
 		_allow_update: true,
-		_getDefaultDate: function () {
+		_getFallbackDate: function (oldDates) {
+			if (oldDates && oldDates.length) {
+				return oldDates[0];
+			}
 			return this.o.startDate.getTime
 				? new Date(this.o.startDate)
 				: this._local_to_utc(this._zero_time(new Date()));
@@ -624,7 +627,15 @@
 			}
 
 			dates = $.map(dates, $.proxy(function(date){
-				return DPGlobal.parseDate(date, this.o.format, this.o.language);
+				var date = DPGlobal.parseDate(date, this.o.format, this.o.language);
+				if (date && !fromArgs && this.o.fixRange) {
+					if (date < this.o.startDate) {
+						date = new Date(this.o.startDate);
+					} else if (date > this.o.endDate) {
+						date = new Date(this.o.endDate);
+					}
+				}
+				return date;
 			}, this));
 			dates = $.grep(dates, $.proxy(function(date){
 				return (
@@ -634,7 +645,7 @@
 				);
 			}, this), true);
 			if (!dates.length && !this.o.allowEmpty) {
-				dates.push(this._getDefaultDate());
+				dates.push(this._getFallbackDate(oldDates));
 			}
 			this.dates.replace(dates);
 
@@ -997,7 +1008,7 @@
 			if (!date){
 				this.dates.clear();
 				if (!this.allowEmpty) {
-					this.dates.push(this._getDefaultDate());
+					this.dates.push(this._getFallbackDate());
 				}
 			}
 			else if (ix !== -1){
@@ -1362,6 +1373,7 @@
 		minViewMode: 0,
 		multidate: false,
 		allowEmpty: true,
+		fixRange: false,
 		multidateSeparator: ',',
 		orientation: "auto",
 		rtl: false,
