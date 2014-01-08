@@ -134,6 +134,7 @@
 
 		this.update();
 		this.showMode();
+		this.setValue();
 
 		if (this.isInline){
 			this.show();
@@ -430,6 +431,7 @@
 			if (
 				this.o.forceParse &&
 				(
+					!this.o.allowEmpty ||
 					this.isInput && this.element.val() ||
 					this.hasInput && this.element.find('input').val()
 				)
@@ -601,6 +603,14 @@
 		},
 
 		_allow_update: true,
+		_getFallbackDate: function (oldDates) {
+			if (oldDates && oldDates.length) {
+				return oldDates[0];
+			}
+			return this.o.startDate.getTime
+				? new Date(this.o.startDate)
+				: this._local_to_utc(this._zero_time(new Date()));
+		},
 		update: function(){
 			if (!this._allow_update)
 				return;
@@ -628,7 +638,15 @@
 			}
 
 			dates = $.map(dates, $.proxy(function(date){
-				return DPGlobal.parseDate(date, this.o.format, this.o.language);
+				var date = DPGlobal.parseDate(date, this.o.format, this.o.language);
+				if (date && !fromArgs && this.o.fixRange) {
+					if (date < this.o.startDate) {
+						date = new Date(this.o.startDate);
+					} else if (date > this.o.endDate) {
+						date = new Date(this.o.endDate);
+					}
+				}
+				return date;
 			}, this));
 			dates = $.grep(dates, $.proxy(function(date){
 				return (
@@ -637,6 +655,9 @@
 					!date
 				);
 			}, this), true);
+			if (!dates.length && !this.o.allowEmpty) {
+				dates.push(this._getFallbackDate(oldDates));
+			}
 			this.dates.replace(dates);
 
 			if (this.dates.length)
@@ -1012,9 +1033,14 @@
 			var ix = this.dates.contains(date);
 			if (!date){
 				this.dates.clear();
+				if (!this.allowEmpty) {
+					this.dates.push(this._getFallbackDate());
+				}
 			}
 			else if (ix !== -1){
-				this.dates.remove(ix);
+				if (this.o.allowEmpty || this.dates.length > 1) {
+					this.dates.remove(ix);
+				}
 			}
 			else {
 				this.dates.push(date);
@@ -1397,6 +1423,8 @@
 		language: 'en',
 		minViewMode: 0,
 		multidate: false,
+		allowEmpty: true,
+		fixRange: false,
 		multidateSeparator: ',',
 		orientation: "auto",
 		rtl: false,
