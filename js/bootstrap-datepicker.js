@@ -36,6 +36,12 @@
 			return this[method].apply(this, arguments);
 		};
 	}
+	function toDateString(date){
+		if (!date || !(date instanceof Date)) {
+			return;
+		}
+		return [date.getFullYear(), date.getMonth(), date.getDate()].join('-');
+	}
 
 	var DateArray = (function(){
 		var extras = {
@@ -45,11 +51,10 @@
 			contains: function(d){
 				// Array.indexOf is not cross-browser;
 				// $.inArray doesn't work with Dates
-				var val = d && d.valueOf();
+				var val = d && toDateString(d);
 				for (var i=0, l=this.length; i < l; i++)
-					if (this[i].valueOf() === val)
-						return i;
-				return -1;
+					if (toDateString(this[i]) === val)
+						return -1;
 			},
 			remove: function(i){
 				this.splice(i,1);
