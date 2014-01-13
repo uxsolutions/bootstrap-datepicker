@@ -481,13 +481,15 @@
 		},
 
 		setDates: function(){
-			this.update.apply(this, arguments);
+			var args = $.isArray(arguments[0]) ? arguments[0] : arguments;
+			this.update.apply(this, args);
 			this._trigger('changeDate');
 			this.setValue();
 		},
 
 		setUTCDates: function(){
-			this.update.apply(this, $.map(arguments, this._utc_to_local));
+			var args = $.isArray(arguments[0]) ? arguments[0] : arguments;
+			this.update.apply(this, $.map(args, this._utc_to_local));
 			this._trigger('changeDate');
 			this.setValue();
 		},
