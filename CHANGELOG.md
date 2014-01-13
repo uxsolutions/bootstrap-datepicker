@@ -25,17 +25,18 @@ Bug squashed:
 
 Locale changes:
 * Added Ukrainian, Belgium-Dutch, Welsh, Galician, and Vietnamese
-* `clear` for German, Danish
-* `clear` for Danish
+* `clear` for German, Danish, Italian, and Romanian
 * Fixed `weekStart` and `format` for Norwegian
 * `weekStart` and `format` for Georgian
-* Tweaks for Latvian and French
+* Tweaks for Latvian, French, Vietnamese, Swedish, and Croatian
+* De-duplicated Ukrainian files from `uk` and `ua` to just `ua`
 
 Repository changes:
 * Documentation has been moved from the base `README.md` file to the `docs/` folder, and been re-written to use sphinx docs.  The docs are now viewable online at http://bootstrap-datepicker.readthedocs.org/.  The [gh-pages](http://eternicode.github.io/bootstrap-datepicker/) branch has been reduced to the sandbox demo.
 * Changed the js file header to point at repo/demo/docs urls instead of eyecon.ro
 * The css files are now the output of the standalone build scripts instead of `build/build.less` etc.
 * `composer.json` now supports component-installer
+* Added [JSHint](http://www.jshint.com/docs/) and [JSCS](https://github.com/mdevils/node-jscs) configurations
 
 
 1.2.0
