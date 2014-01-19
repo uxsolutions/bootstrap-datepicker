@@ -24,7 +24,7 @@ Bug squashed:
 * `changeDate` event is triggered when `setDate` is called.
 
 Locale changes:
-* Added Ukrainian, Belgium-Dutch, Welsh, Galician, and Vietnamese
+* Added Ukrainian, Belgium-Dutch, Welsh, Galician, Vietnamese, and Azerbaijani
 * `clear` for German, Danish, Italian, and Romanian
 * Fixed `weekStart` and `format` for Norwegian
 * `weekStart` and `format` for Georgian
