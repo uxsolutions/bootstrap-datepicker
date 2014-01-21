@@ -18,8 +18,8 @@ module.exports = function(grunt){
         jscs: {
             /* grunt-contrib-jscs notes:
                 0.1.2 works
-                0.1.3 inifite loops on postinstall
-                0.1.4 doesn't seem to hit all targets when run "grunt jscs"
+                0.1.3 infinite loops on postinstall
+                0.1.4 doesn't seem to hit all targets when run via "grunt jscs"
             */
             gruntfile: ['Gruntfile.js'],
             main: ['js/bootstrap-datepicker.js'],
