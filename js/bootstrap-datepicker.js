@@ -63,7 +63,7 @@
 				this.push.apply(this, new_array);
 			},
 			clear: function(){
-				this.length = 0;
+				this.splice(0);
 			},
 			copy: function(){
 				var a = new DateArray();
@@ -409,7 +409,7 @@
 
 		show: function(){
 			if (!this.isInline)
-				this.picker.appendTo('body');
+				this.picker.appendTo($(this.element).parent());
 			this.picker.show();
 			this.place();
 			this._attachSecondaryEvents();
@@ -571,10 +571,10 @@
 			else {
 				// Default to left
 				this.picker.addClass('datepicker-orient-left');
-				if (offset.left < 0)
-					left -= offset.left - visualPadding;
-				else if (offset.left + calendarWidth > windowWidth)
-					left = windowWidth - calendarWidth - visualPadding;
+				// if (offset.left < 0)
+				// 	left -= offset.left - visualPadding;
+				// else if (offset.left + calendarWidth > windowWidth)
+				// 	left = windowWidth - calendarWidth - visualPadding;
 			}
 
 			// auto y orientation is best-situation: top or bottom, no fudging,

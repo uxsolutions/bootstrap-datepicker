@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.1.3
+----------
+
+ * Created a SASS Port. 
+ * Updated the positioning of the datepicker to be relative to the triggering element rather than absolute to the page.
+
+
 1.1.2
 ----------
 
