@@ -5,7 +5,7 @@
  * Docs: http://bootstrap-datepicker.readthedocs.org/
  * Forked from http://www.eyecon.ro/bootstrap-datepicker
  * =========================================================
- * Started by Stefan Petre; improvements by Andrew Rowls + contributors
+ * Started by Stefan Petre; improvements by Andrew Rowls + contributors; forked & modified by Ashley Novak
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
