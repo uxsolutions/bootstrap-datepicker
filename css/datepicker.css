@@ -507,6 +507,8 @@
   line-height: 20px;
 }
 .datepicker.dropdown-menu th,
-.datepicker.dropdown-menu td {
+.datepicker.datepicker-inline th,
+.datepicker.dropdown-menu td,
+.datepicker.datepicker-inline td {
   padding: 4px 5px;
 }
