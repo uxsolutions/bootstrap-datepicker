@@ -8,22 +8,34 @@
  *
  */
 
+ @mixin datepicker-button-variant($color, $background, $border) {
+  color: $color;
+  background-color: $background;
+  border-color: $border;
+
+  &:focus,
+  &:active,
+  &.active {
+    color: $color;
+    background-color: $background;//darken($background, 8%);
+    border-color: darken($border, 12%);
+  }
+
+  &:hover{
+    color: $color;
+    background-color: darken($background, 8%);
+    border-color: darken($border, 12%);
+  }
+}
+
 .datepicker {
   padding: 4px;
   border-radius: 4px;
-  .datepicker-inline {
+  &.datepicker-inline {
     width: 220px;
   }
-  // direction: ltr;
-  // &&-rtl {
-  //   direction: rtl;
-  //   table tr td span {
-  //     float: right;
-  //   }
-  // }
-  .datepicker-dropdown {
-    display: absolute;
-    top: 12px;
+  &.datepicker-dropdown {
+    position: absolute;
     left: 0;
     &:before {
       content: '';
@@ -44,10 +56,10 @@
       border-top:    0;
       position: absolute;
     }
-    &.datepicker-orient-left:before   { left: 6px; }
-    &.datepicker-orient-left:after    { left: 7px; }
-    &.datepicker-orient-right:before  { right: 6px; }
-    &.datepicker-orient-right:after   { right: 7px; }
+    &.datepicker-orient-left:before   { left: 107px; }
+    &.datepicker-orient-left:after    { left: 108px; }
+    &.datepicker-orient-right:before  { right: 107px; }
+    &.datepicker-orient-right:after   { right: 108px; }
     &.datepicker-orient-top:before    { top: -7px; }
     &.datepicker-orient-top:after     { top: -6px; }
     &.datepicker-orient-bottom:before {
@@ -119,7 +131,7 @@
     &.today.disabled,
     &.today.disabled:hover {
       $today-bg: $brand-info;
-      @include button-variant($gray-dark, $today-bg, darken($today-bg, 20%));
+      @include datepicker-button-variant($gray-dark, $today-bg, darken($today-bg, 20%));
     }
     &.today:hover:hover { // Thank bootstrap 2.0 for this selector...
       // TODO: Bump min BS to 2.1, use $textColor in buttonBackground above
@@ -139,22 +151,22 @@
     &.range.today:hover,
     &.range.today.disabled,
     &.range.today.disabled:hover {
-      $today-bg: mix(orange, $gray-lighter, 50%);
-      @include button-variant(#000, $today-bg, darken($today-bg, 20%));
+      $today-bg: $brand-info;
+      @include datepicker-button-variant(#000, $today-bg, darken($today-bg, 20%));
       border-radius: 0;
     }
     &.selected,
     &.selected:hover,
     &.selected.disabled,
     &.selected.disabled:hover {
-      @include button-variant(#fff, $gray-light, $gray);
+      @include datepicker-button-variant(#fff, $gray-light, $gray);
       text-shadow: 0 -1px 0 rgba(0,0,0,.25);
     }
     &.active,
     &.active:hover,
     &.active.disabled,
     &.active.disabled:hover {
-      @include button-variant($btn-primary-color, $brand-primary, $brand-primary);
+      @include datepicker-button-variant($white, $brand-primary, $brand-primary);
       text-shadow: 0 -1px 0 rgba(0,0,0,.25);
     }
     span {
@@ -179,7 +191,7 @@
       &.active:hover,
       &.active.disabled,
       &.active.disabled:hover {
-        @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+        @include datepicker-button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
         text-shadow: 0 -1px 0 rgba(0,0,0,.25);
       }
       &.old,

@@ -571,10 +571,10 @@
 			else {
 				// Default to left
 				this.picker.addClass('datepicker-orient-left');
-				// if (offset.left < 0)
-				// 	left -= offset.left - visualPadding;
-				// else if (offset.left + calendarWidth > windowWidth)
-				// 	left = windowWidth - calendarWidth - visualPadding;
+				if (offset.left < 0)
+					left -= offset.left - visualPadding;
+				else if (offset.left + calendarWidth > windowWidth)
+					left = windowWidth - calendarWidth - visualPadding;
 			}
 
 			// auto y orientation is best-situation: top or bottom, no fudging,
@@ -590,14 +590,14 @@
 					yorient = 'bottom';
 			}
 			this.picker.addClass('datepicker-orient-' + yorient);
-			if (yorient === 'top')
-				top += height;
+			if (yorient !== 'top')
+				top = - calendarHeight + 20;
 			else
-				top -= calendarHeight + parseInt(this.picker.css('padding-top'));
+				top = height + 35;//calendarHeight + parseInt(this.picker.css('padding-top'));
 
 			this.picker.css({
 				top: top,
-				left: left,
+				left: 0,
 				zIndex: zIndex
 			});
 		},
@@ -1598,9 +1598,9 @@
 		},
 		headTemplate: '<thead>'+
 							'<tr>'+
-								'<th class="prev">&laquo;</th>'+
+								'<th class="prev">&lsaquo;</th>'+
 								'<th colspan="5" class="datepicker-switch"></th>'+
-								'<th class="next">&raquo;</th>'+
+								'<th class="next">&rsaquo;</th>'+
 							'</tr>'+
 						'</thead>',
 		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',
