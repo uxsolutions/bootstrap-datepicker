@@ -1,6 +1,6 @@
 /* =========================================================
- * bootstrap-datepicker.js
- * Repo: https://github.com/eternicode/bootstrap-datepicker/
+ * bootstrap-sass-datepicker.js
+ * Repo: https://github.com/abnovak/bootstrap-sass-datepicker
  * Demo: http://eternicode.github.io/bootstrap-datepicker/
  * Docs: http://bootstrap-datepicker.readthedocs.org/
  * Forked from http://www.eyecon.ro/bootstrap-datepicker
