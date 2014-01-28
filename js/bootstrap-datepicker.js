@@ -93,8 +93,9 @@
 		this.element = $(element);
 		this.isInline = false;
 		this.isInput = this.element.is('input');
+		this.inputField = this.isInput ? this.element : this.element.find('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on, .input-group-addon, .btn') : false;
-		this.hasInput = this.component && this.element.find('input').length;
+		this.hasInput = this.component && this.inputField.length;
 		if (this.component && this.component.length === 0)
 			this.component = false;
 
@@ -309,7 +310,7 @@
 			else if (this.component && this.hasInput){ // component: input + button
 				this._events = [
 					// For components that are not readonly, allow keyboard nav
-					[this.element.find('input'), {
+					[this.inputField, {
 						focus: $.proxy(this.show, this),
 						keyup: $.proxy(function(e){
 							if ($.inArray(e.keyCode, [27,37,39,38,40,32,13,9]) === -1)
@@ -407,13 +408,20 @@
 			});
 		},
 
+		enable: function(){
+			this.inputField.prop('disabled', false);
+		},
+
 		show: function(){
-			if (!this.isInline)
-				this.picker.appendTo('body');
-			this.picker.show();
-			this.place();
-			this._attachSecondaryEvents();
-			this._trigger('show');
+			// if the input is not disabled we can display the datepicker
+			if(!this.inputField.prop('disabled')){
+				if (!this.isInline)
+					this.picker.appendTo('body');
+				this.picker.show();
+				this.place();
+				this._attachSecondaryEvents();
+				this._trigger('show');
+			}
 		},
 
 		hide: function(){
