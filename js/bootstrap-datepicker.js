@@ -408,13 +408,9 @@
 			});
 		},
 
-		enable: function(){
-			this.inputField.prop('disabled', false);
-		},
-
 		show: function(){
 			// if the input is not disabled we can display the datepicker
-			if(!this.inputField.prop('disabled')){
+			if (!this.inputField.prop('disabled')){
 				if (!this.isInline)
 					this.picker.appendTo('body');
 				this.picker.show();
