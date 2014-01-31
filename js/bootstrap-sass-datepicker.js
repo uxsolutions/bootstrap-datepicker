@@ -593,7 +593,11 @@
 			if (yorient !== 'top')
 				top = - calendarHeight + 20;
 			else
-				top = height + 35;//calendarHeight + parseInt(this.picker.css('padding-top'));
+				top = height + 5;//calendarHeight + parseInt(this.picker.css('padding-top'));
+
+			if ($(this.picker).parent().children('label').length > 0 && yorient == 'top'){
+				top = top + 28;
+			}
 
 			this.picker.css({
 				top: top,
