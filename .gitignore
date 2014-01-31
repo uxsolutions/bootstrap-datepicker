@@ -1,3 +1,7 @@
 instrumented/
 tests/coverage.html
 docs/_build
+
+/.idea/
+
+*.iml
