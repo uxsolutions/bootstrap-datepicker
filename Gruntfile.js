@@ -88,6 +88,31 @@ module.exports = function(grunt){
 
     grunt.registerTask('lint', 'Lint all js files with jshint and jscs', ['jshint', 'jscs']);
     grunt.registerTask('test', 'Lint files and run unit tests', ['lint', 'qunit']);
-    grunt.registerTask('finish', 'Prepares repo for commit [test, less:repo]', ['test', 'less:repo']);
+    grunt.registerTask('finish', 'Prepares repo for commit [test, less:repo, screenshots]', ['test', 'less:repo', 'screenshots']);
     grunt.registerTask('dist', 'Builds minified files', ['less:css', 'less:standalone', 'cssmin', 'uglify']);
+
+    grunt.registerTask('screenshots', 'Rebuilds automated docs screenshots', function(){
+        var phantomjs = require('phantomjs').path;
+
+        grunt.file.recurse('docs/_static/screenshots/', function(abspath){
+            grunt.file.delete(abspath);
+        });
+
+        grunt.file.recurse('docs/_screenshots/', function(abspath, root, subdir, filename){
+            if (!/.html$/.test(filename))
+                return;
+            subdir = subdir || '';
+
+            var outdir = "docs/_static/screenshots/" + subdir,
+                outfile = outdir + filename.replace(/.html$/, '.png');
+
+            if (!grunt.file.exists(outdir))
+                grunt.file.mkdir(outdir);
+
+            grunt.util.spawn({
+                cmd: phantomjs,
+                args: ['docs/_screenshots/script/screenshot.js', abspath, outfile]
+            });
+        });
+    });
 };
