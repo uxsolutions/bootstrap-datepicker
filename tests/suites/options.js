@@ -646,3 +646,54 @@ test('Multidate Separator', function(){
     target.click();
     equal(input.val(), '2012-03-05 2012-03-04 2012-03-12');
 });
+
+
+test("Picker is shown on input focus when showOnFocus is not defined", function () {
+
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .val('2014-01-01')
+            .datepicker({
+            }),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+
+    input.focus();
+
+    ok(picker.is(":visible"), "Datepicker is hidden");
+
+});
+
+test("Picker is shown on input focus when showOnFocus is true", function () {
+
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .val('2014-01-01')
+            .datepicker({
+                showOnFocus: true
+            }),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+
+    input.focus();
+
+    ok(picker.is(":visible"), "Datepicker is hidden");
+
+});
+
+test("Picker is hidden on input focus when showOnFocus is false", function () {
+
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .val('2014-01-01')
+            .datepicker({
+                showOnFocus: false
+            }),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+
+    input.focus();
+
+    ok(picker.is(":hidden"), "Datepicker is visible");
+
+});
