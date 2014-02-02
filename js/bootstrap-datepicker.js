@@ -760,7 +760,14 @@
 			prevMonth.setUTCDate(day);
 			prevMonth.setUTCDate(day - (prevMonth.getUTCDay() - this.o.weekStart + 7)%7);
 			var nextMonth = new Date(prevMonth);
-			nextMonth.setUTCDate(nextMonth.getUTCDate() + 42);
+
+			if (this.o.showNewWeek){
+				nextMonth.setUTCDate(nextMonth.getUTCDate() + 42);
+			}
+			else {
+				nextMonth.setUTCDate(nextMonth.getUTCDate() + 35);
+			}
+			
 			nextMonth = nextMonth.valueOf();
 			var html = [];
 			var clsName;
@@ -1404,6 +1411,7 @@
 		multidateSeparator: ',',
 		orientation: "auto",
 		rtl: false,
+		showNewWeek: true,
 		startDate: -Infinity,
 		startView: 0,
 		todayBtn: false,
