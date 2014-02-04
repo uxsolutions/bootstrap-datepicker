@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-sass-datepicker",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "main": ["js/bootstrap-sass-datepicker.js", "sass/datepicker.scss"],
   "ignore": [
   	"css",
