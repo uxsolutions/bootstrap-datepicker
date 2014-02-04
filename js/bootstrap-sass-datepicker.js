@@ -601,8 +601,8 @@
 
 			this.picker.css({
 				top: top,
-				left: 0,
-				zIndex: zIndex
+				left: 0//,
+				// zIndex: zIndex
 			});
 		},
 
