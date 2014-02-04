@@ -7,30 +7,11 @@ bugs when adding new features and making changes.
 The simplest way to run the tests is to open `tests/tests.html` in your browser.
 The test suites will automatically run themselves and present their results.
 
-To run the tests from the command line, download and install
-[PhantomJS](http://phantomjs.org/), and run `run-qunit.js` with it:
+To run the tests from the command line (after running jshint and jscs, which is
+recommended), install Grunt and run the `test` task from anywhere within the
+repo:
 
-    $ cd tests/
-    $ phantomjs run-qunit.js tests.html
-
-Failed tests and their failed assertions will be printed to the console.  A
-results summary will be printed at the end.
-
-To generate coverage statistics, use [JSCoverage](http://siliconforks.com/jscoverage/)
-to instrument the js files:
-
-    $ cd tests/
-    $ jscoverage ../js/ ../instrumented/
-    $ phantomjs run-qunit.js tests.html
-
-Coverage percentage will be included in the output summary, and a highlighted
-line-by-line html file will be generated.
-
-# Shout-out
-
-Thanks to Rod @ While One Fork for the
-[CIS guide](http://whileonefork.blogspot.com/2011/10/integrating-javascript-tests-into-cli.html)
-on putting the above together.
+    $ grunt test
 
 # Adding tests
 
@@ -47,9 +28,3 @@ name and `<year>` is the four-digit year the tests pertain to.
 In order for new tests to be run, they must be imported into `tests/tests.html`.
 Find the script includes headed by the html comment `<!-- Test suites -->`, and
 add a new one to the list which includes the new js files.
-
-# Can I use this?
-
-By all means, please do!  Just note that I stopped working on this structure
-once it fit my needs, there's no real support for it, and it may change in the
-future.  Otherwise, have at it.

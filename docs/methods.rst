@@ -75,7 +75,11 @@ Arguments:
 
 * date[, date[, ...]] (Date)
 
-Sets the internal date list.  Each ``date`` is assumed to be a "local" date object, and will be converted to UTC for internal use.  For use with multidate pickers.
+or
+
+* [date[, date[, ...]]] (Array)
+
+Sets the internal date list; accepts multiple dates or a single array of dates as arguments.  Each ``date`` is assumed to mbe a "local" date object, and will be converted to UTC for internal use.  For use with multidate pickers.
 
 
 setUTCDates
@@ -84,6 +88,10 @@ setUTCDates
 Arguments:
 
 * date[, date[, ...]] (Date)
+
+or
+
+* [date[, date[, ...]]] (Array)
 
 Sets the internal date list.  Each ``date`` is assumed to be a UTC date object, and will not be converted.  For use with multidate pickers.
 

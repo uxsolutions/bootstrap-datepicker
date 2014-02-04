@@ -785,6 +785,8 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   line-height: 1.428571429;
 }
 .datepicker.dropdown-menu th,
-.datepicker.dropdown-menu td {
-  padding: 4px 5px;
+.datepicker.datepicker-inline th,
+.datepicker.dropdown-menu td,
+.datepicker.datepicker-inline td {
+  padding: 0px 5px;
 }

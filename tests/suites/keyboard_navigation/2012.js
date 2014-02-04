@@ -355,7 +355,7 @@ test('by year, from leap day', function(){
     equal(target.text(), 'February 2013', 'Title is "February 2013"');
 });
 
-test('Selection (spacebar)', function(){
+test('Selection (enter)', function(){
     var target;
 
     equal(this.dp.viewMode, 0);
@@ -378,7 +378,7 @@ test('Selection (spacebar)', function(){
     // Selection: Enter
     this.input.trigger({
         type: 'keydown',
-        keyCode: 32
+        keyCode: 13
     });
     // view and selection updated, focus cleared
     datesEqual(this.dp.viewDate, UTCDate(2012, 2, 30));
@@ -394,6 +394,7 @@ test('Selection (spacebar)', function(){
 test('Selection + hide (enter)', function(){
     var target;
 
+    this.dp._process_options({autoclose: true});
     equal(this.dp.viewMode, 0);
     target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     equal(target.text(), 'March 2012', 'Title is "March 2012"');
