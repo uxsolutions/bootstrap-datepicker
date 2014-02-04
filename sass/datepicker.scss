@@ -37,6 +37,7 @@
   &.datepicker-dropdown {
     position: absolute;
     left: 0;
+    z-index: 9999;
     &:before {
       content: '';
       display: inline-block;
