@@ -704,6 +704,13 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   background-color: #428bca;
   border-color: #357ebd;
 }
+.datepicker table tr td span.active-view,
+.datepicker table tr td span.active-view:hover,
+.datepicker table tr td span.active.disabled,
+.datepicker table tr td span.active.disabled:hover {
+  border: solid 1px #357ebd;
+  box-sizing: border-box;
+}
 .datepicker table tr td span.old,
 .datepicker table tr td span.new {
   color: #999999;
@@ -729,6 +736,37 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   cursor: default;
   background-color: transparent;
 }
+.datepicker.datepicker-horizontal thead tr:first-child th:hover,
+.datepicker.datepicker-horizontal tfoot tr th:hover {
+  background: inherit;
+}
+.datepicker.datepicker-horizontal thead tr:first-child th.switch,
+.datepicker.datepicker-horizontal tfoot tr th.switch {
+  cursor: inherit;
+}
+.datepicker.datepicker-horizontal .datepicker-days,
+.datepicker.datepicker-horizontal .datepicker-months,
+.datepicker.datepicker-horizontal .datepicker-years {
+  border-right: #cccccc dotted 1px;
+  border-bottom: #cccccc dotted 1px;
+  padding: 0 8px;
+  margin: 0;
+  display: inline-block;
+  min-height: 270px;
+}
+@media (max-width: 636px) {
+  .datepicker.datepicker-horizontal .datepicker-days,
+  .datepicker.datepicker-horizontal .datepicker-months,
+  .datepicker.datepicker-horizontal .datepicker-years {
+    width: 95%;
+    border-right: none;
+  }
+  .datepicker.datepicker-horizontal .datepicker-days:last-child,
+  .datepicker.datepicker-horizontal .datepicker-months:last-child,
+  .datepicker.datepicker-horizontal .datepicker-years:last-child {
+    border-bottom: none;
+  }
+}
 .input-group.date .input-group-addon i {
   cursor: pointer;
   width: 16px;
@@ -748,7 +786,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   min-width: 16px;
   padding: 4px 5px;
   font-weight: normal;
-  line-height: 1.428571429;
+  line-height: 1.42857143;
   text-align: center;
   text-shadow: 0 1px 0 #fff;
   vertical-align: middle;
@@ -782,7 +820,10 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   color: #333333;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
-  line-height: 1.428571429;
+  line-height: 1.42857143;
+}
+.datepicker.datepicker-horizontal.dropdown-menu {
+  max-width: 90%;
 }
 .datepicker.dropdown-menu th,
 .datepicker.datepicker-inline th,

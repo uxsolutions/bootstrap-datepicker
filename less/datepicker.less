@@ -184,6 +184,13 @@
 				color: #fff;
 				text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 			}
+			&.active-view,
+			&.active-view:hover,
+			&.active.disabled,
+			&.active.disabled:hover {
+				border: solid 1px @btnPrimaryBackground;
+				box-sizing: border-box;
+			}
 			&.old,
 			&.new {
 				color: @grayLight;
@@ -216,6 +223,41 @@
 	thead tr:first-child th.cw {
 		cursor: default;
 		background-color: transparent;
+	}
+	&.datepicker-horizontal {
+		thead tr:first-child th,
+		tfoot tr th {
+			&:hover{
+				background: inherit;
+			}
+
+			&.switch {
+				cursor: inherit;
+			}
+		}
+
+		@pickerBorder: #ccc dotted 1px;
+
+		.datepicker-days,
+		.datepicker-months,
+		.datepicker-years {
+			border-right: @pickerBorder;
+			border-bottom: @pickerBorder;
+			padding: 0 8px;
+			margin: 0;
+			display: inline-block;
+			min-height: 250px;
+
+			@media(max-width: 536px) {
+				& {
+					width: 95%;
+					border-right: none;
+				}
+				&:last-child {
+					border-bottom: none;
+				}
+			}
+		}
 	}
 }
 .input-append,

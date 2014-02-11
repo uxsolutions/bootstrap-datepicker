@@ -37,6 +37,22 @@
 		};
 	}
 
+	// returns the number of the mode related with the picker (year, month or day)
+	// that contains the HTMLElement that is the target for the event "e"
+	// that was triggered
+	var getTargetModeNumber = function(e) {
+		var modePicker = $(e.target).closest('[class^=datepicker-]');
+		if(modePicker.hasClass('datepicker-days')) {
+			return 0;
+		}
+		if(modePicker.hasClass('datepicker-months')) {
+			return 1;
+		}
+		if(modePicker.hasClass('datepicker-years')) {
+			return 2;
+		}
+	};
+
 	var DateArray = (function(){
 		var extras = {
 			get: function(i){
@@ -126,6 +142,10 @@
 		this.setStartDate(this._o.startDate);
 		this.setEndDate(this._o.endDate);
 		this.setDaysOfWeekDisabled(this.o.daysOfWeekDisabled);
+
+    if(this.o.horizontal){
+      this.picker.addClass("datepicker-horizontal");
+    }
 
 		this.fillDow();
 		this.fillMonths();
@@ -744,7 +764,9 @@
 				endMonth = this.o.endDate !== Infinity ? this.o.endDate.getUTCMonth() : Infinity,
 				todaytxt = dates[this.o.language].today || dates['en'].today || '',
 				cleartxt = dates[this.o.language].clear || dates['en'].clear || '',
-				tooltip;
+				tooltip,
+				viewYear = this.viewDate && this.viewDate.getUTCFullYear(),
+				viewMonth = this.viewDate && this.viewDate.getUTCMonth();
 			this.picker.find('.datepicker-days thead th.datepicker-switch')
 						.text(dates[this.o.language].months[month]+' '+year);
 			this.picker.find('tfoot th.today')
@@ -815,11 +837,13 @@
 						.find('th:eq(1)')
 							.text(year)
 							.end()
-						.find('span').removeClass('active');
+						.find('span').removeClass('active active-view');
 
 			$.each(this.dates, function(i, d){
 				if (d.getUTCFullYear() === year)
 					months.eq(d.getUTCMonth()).addClass('active');
+				if (viewYear === year)
+					months.eq(viewMonth).addClass('active-view');
 			});
 
 			if (year < startYear || year > endYear){
@@ -854,6 +878,8 @@
 					classes.push('active');
 				if (year < startYear || year > endYear)
 					classes.push('disabled');
+				if (viewYear === year)
+					classes.push('active-view');
 				html += '<span class="' + classes.join(' ') + '">'+year+'</span>';
 				year += 1;
 			}
@@ -913,8 +939,9 @@
 								break;
 							case 'prev':
 							case 'next':
-								var dir = DPGlobal.modes[this.viewMode].navStep * (target[0].className === 'prev' ? -1 : 1);
-								switch (this.viewMode){
+								var nMode = (this.o.horizontal) ? getTargetModeNumber(e) : this.viewMode;
+								var dir = DPGlobal.modes[nMode].navStep * (target[0].className === 'prev' ? -1 : 1);
+								switch (nMode){
 									case 0:
 										this.viewDate = this.moveMonth(this.viewDate, dir);
 										this._trigger('changeMonth', this.viewDate);
@@ -1034,6 +1061,7 @@
 			if (!which || which  === 'view')
 				this.viewDate = date && new Date(date);
 
+			this.focusDate = null;
 			this.fill();
 			this.setValue();
 			this._trigger('changeDate');
@@ -1230,6 +1258,10 @@
 		},
 
 		showMode: function(dir){
+			if(this.o.horizontal) {
+				return;
+			}
+
 			if (dir){
 				this.viewMode = Math.max(this.o.minViewMode, Math.min(2, this.viewMode + dir));
 			}
