@@ -10,6 +10,7 @@
 		daysMin: ["Ne", "Po", "Út", "St", "Čt", "Pá", "So", "Ne"],
 		months: ["Leden", "Únor", "Březen", "Duben", "Květen", "Červen", "Červenec", "Srpen", "Září", "Říjen", "Listopad", "Prosinec"],
 		monthsShort: ["Led", "Úno", "Bře", "Dub", "Kvě", "Čer", "Čnc", "Srp", "Zář", "Říj", "Lis", "Pro"],
-		today: "Dnes"
+		today: "Dnes",
+		clear: "Vymazat"
 	};
 }(jQuery));
