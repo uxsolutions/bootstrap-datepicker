@@ -95,6 +95,7 @@
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on, .input-group-addon, .btn') : false;
 		this.hasInput = this.component && this.element.find('input').length;
+		this.ignoreNextShowOnFocus = false;
 		if (this.component && this.component.length === 0)
 			this.component = false;
 
@@ -298,6 +299,7 @@
 				this._events = [
 					[this.element, {
 						focus: $.proxy(this.show, this),
+						click: $.proxy(this.show, this),
 						keyup: $.proxy(function(e){
 							if ($.inArray(e.keyCode, [27,37,39,38,40,32,13,9]) === -1)
 								this.update();
@@ -311,6 +313,7 @@
 					// For components that are not readonly, allow keyboard nav
 					[this.element.find('input'), {
 						focus: $.proxy(this.show, this),
+						click: $.proxy(this.show, this),
 						keyup: $.proxy(function(e){
 							if ($.inArray(e.keyCode, [27,37,39,38,40,32,13,9]) === -1)
 								this.update();
@@ -407,16 +410,30 @@
 			});
 		},
 
-		show: function(){
+		_focus: function(focus){
+			this.ignoreNextShowOnFocus = true;
+			var element = this.isInput? this.element : this.element.find('input');
+			setTimeout(function() { element.focus(); }, 0);
+		},
+
+		show: function(e){
 			if (!this.isInline)
 				this.picker.appendTo('body');
+			if (this.ignoreNextShowOnFocus && e && e.type === 'focus') {
+				this.ignoreNextShowOnFocus = false;
+				return;
+			}
 			this.picker.show();
 			this.place();
 			this._attachSecondaryEvents();
+			if (this.component && this.hasInput) {
+				// Ensure focus is moved from add-on to input
+				this._focus();
+			}
 			this._trigger('show');
 		},
 
-		hide: function(){
+		hide: function(focus){
 			if (this.isInline)
 				return;
 			if (!this.picker.is(':visible'))
@@ -435,6 +452,9 @@
 				)
 			)
 				this.setValue();
+			if (focus) {
+				this._focus();
+			}
 			this._trigger('hide');
 		},
 
@@ -947,7 +967,7 @@
 								this.update();
 								this._trigger('changeDate');
 								if (this.o.autoclose)
-									this.hide();
+									this.hide(true);
 								break;
 						}
 						break;
@@ -1048,7 +1068,7 @@
 				element.change();
 			}
 			if (this.o.autoclose && (!which || which === 'date')){
-				this.hide();
+				this.hide(true);
 			}
 		},
 
@@ -1127,7 +1147,7 @@
 						this.fill();
 					}
 					else
-						this.hide();
+						this.hide(true);
 					e.preventDefault();
 					break;
 				case 37: // left
@@ -1201,7 +1221,7 @@
 					if (this.picker.is(':visible')){
 						e.preventDefault();
 						if (this.o.autoclose)
-							this.hide();
+							this.hide(true);
 					}
 					break;
 				case 9: // tab
