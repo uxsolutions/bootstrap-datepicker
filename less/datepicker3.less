@@ -13,6 +13,9 @@
 	border-radius: 4px;
 	&-inline {
 		width: 220px;
+		&.datepicker-horizontal {
+			width: auto;
+		}
 	}
 	direction: ltr;
 	&&-rtl {
@@ -238,20 +241,15 @@
 		.datepicker-days,
 		.datepicker-months,
 		.datepicker-years {
-			border-right: @pickerBorder;
-			border-bottom: @pickerBorder;
+			border: @pickerBorder;
 			padding: 0 8px;
-			margin: 0;
+			margin: 0 -1px 0 0;
 			display: inline-block;
 			min-height: 270px;
 
 			@media(max-width: 636px) {
 				& {
 					width: 95%;
-					border-right: none;
-				}
-				&:last-child {
-					border-bottom: none;
 				}
 			}
 		}
