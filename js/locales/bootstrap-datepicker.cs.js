@@ -11,6 +11,8 @@
 		months: ["Leden", "Únor", "Březen", "Duben", "Květen", "Červen", "Červenec", "Srpen", "Září", "Říjen", "Listopad", "Prosinec"],
 		monthsShort: ["Led", "Úno", "Bře", "Dub", "Kvě", "Čer", "Čnc", "Srp", "Zář", "Říj", "Lis", "Pro"],
 		today: "Dnes",
-		clear: "Vymazat"
+		clear: "Vymazat",
+		weekStart: 1,
+		format: "d.m.yyyy"
 	};
 }(jQuery));
