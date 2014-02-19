@@ -227,3 +227,6 @@ Boolean.  Default: false
 If true, all pickers (day, month, year) are visible at the same time and layout
 horizontally.
 
+.. figure:: _static/screenshots/option_horizontal.png
+    :align: center
+
