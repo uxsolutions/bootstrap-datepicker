@@ -98,7 +98,7 @@
 		if (this.component && this.component.length === 0)
 			this.component = false;
 
-		this.picker = $(DPGlobal.template);
+		this.picker = $(DPGlobal.template(this.o.template));
 		this._buildEvents();
 		this._attachEvents();
 
@@ -1408,7 +1408,8 @@
 		startView: 0,
 		todayBtn: false,
 		todayHighlight: false,
-		weekStart: 0
+		weekStart: 0,
+        template: {}
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',
@@ -1613,29 +1614,37 @@
 							'</tr>'+
 						'</tfoot>'
 	};
-	DPGlobal.template = '<div class="datepicker">'+
-							'<div class="datepicker-days">'+
-								'<table class=" table-condensed">'+
-									DPGlobal.headTemplate+
-									'<tbody></tbody>'+
-									DPGlobal.footTemplate+
-								'</table>'+
-							'</div>'+
-							'<div class="datepicker-months">'+
-								'<table class="table-condensed">'+
-									DPGlobal.headTemplate+
-									DPGlobal.contTemplate+
-									DPGlobal.footTemplate+
-								'</table>'+
-							'</div>'+
-							'<div class="datepicker-years">'+
-								'<table class="table-condensed">'+
-									DPGlobal.headTemplate+
-									DPGlobal.contTemplate+
-									DPGlobal.footTemplate+
-								'</table>'+
-							'</div>'+
-						'</div>';
+
+	DPGlobal.template = function(options) {
+        var headTemplate = options.headTemplate || DPGlobal.headTemplate;
+        var contTemplate = options.contTemplate || DPGlobal.contTemplate;
+        var footTemplate = options.footTemplate || DPGlobal.footTemplate;
+
+
+        return '<div class="datepicker">'+
+                  '<div class="datepicker-days">'+
+                      '<table class=" table-condensed">'+
+                          headTemplate+
+                          '<tbody></tbody>'+
+                          footTemplate+
+                      '</table>'+
+                  '</div>'+
+                  '<div class="datepicker-months">'+
+                      '<table class="table-condensed">'+
+                          headTemplate+
+                          contTemplate+
+                          footTemplate+
+                      '</table>'+
+                  '</div>'+
+                  '<div class="datepicker-years">'+
+                      '<table class="table-condensed">'+
+                          headTemplate+
+                          contTemplate+
+                          footTemplate+
+                      '</table>'+
+                  '</div>'+
+               '</div>';
+    };
 
 	$.fn.datepicker.DPGlobal = DPGlobal;
 
