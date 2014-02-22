@@ -1409,7 +1409,7 @@
 		todayBtn: false,
 		todayHighlight: false,
 		weekStart: 0,
-        template: {}
+		template: {},
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',
