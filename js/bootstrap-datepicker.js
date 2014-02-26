@@ -410,6 +410,11 @@
 		show: function(){
 			if (!this.isInline)
 				this.picker.appendTo('body');
+ 			
+ 			// prevent datepicker from wiping out field value if it 
+ 			// was set before datepicker was applied
+			this.update();
+			
 			this.picker.show();
 			this.place();
 			this._attachSecondaryEvents();
