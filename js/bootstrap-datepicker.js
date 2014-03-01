@@ -410,7 +410,7 @@
 			});
 		},
 
-		_focus: function(focus){
+		_focus: function(){
 			this.ignoreNextShowOnFocus = true;
 			var element = this.isInput? this.element : this.element.find('input');
 			setTimeout(function() { element.focus(); }, 0);
