@@ -549,7 +549,7 @@
 
 			var zIndex = parseInt(this.element.parents().filter(function(){
 					var itemZIndex = $(this).css('z-index');
-					return itemZIndex != 'auto' && itemZIndex !== 0;
+					return itemZIndex !== 'auto' && itemZIndex !== 0;
 				}).first().css('z-index'))+10;
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(false);
