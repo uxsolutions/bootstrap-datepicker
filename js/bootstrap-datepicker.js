@@ -414,6 +414,9 @@
 			this.place();
 			this._attachSecondaryEvents();
 			this._trigger('show');
+			if ((window.navigator.msMaxTouchPoints || 'ontouchstart' in document) && this.o.disableTouchKeyboard) {
+				$(this.element).blur();
+			}
 		},
 
 		hide: function(){
@@ -1408,7 +1411,8 @@
 		startView: 0,
 		todayBtn: false,
 		todayHighlight: false,
-		weekStart: 0
+		weekStart: 0,
+		disableTouchKeyboard: false
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',
