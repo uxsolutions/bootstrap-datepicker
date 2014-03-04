@@ -192,8 +192,6 @@
 				o.multidate = Number(o.multidate) || false;
 				if (o.multidate !== false)
 					o.multidate = Math.max(0, o.multidate);
-				else
-					o.multidate = 1;
 			}
 			o.multidateSeparator = String(o.multidateSeparator);
 
@@ -1017,15 +1015,21 @@
 			if (!date){
 				this.dates.clear();
 			}
-			else if (ix !== -1){
-				this.dates.remove(ix);
-			}
-			else {
+			else if (this.o.multidate === false) {
+				this.dates.clear();
 				this.dates.push(date);
 			}
-			if (typeof this.o.multidate === 'number')
-				while (this.dates.length > this.o.multidate)
-					this.dates.remove(0);
+			else {
+				if (ix !== -1){
+					this.dates.remove(ix);
+				}
+				else {
+					this.dates.push(date);
+				}
+				if (typeof this.o.multidate === 'number')
+					while (this.dates.length > this.o.multidate)
+						this.dates.remove(0);
+			}
 		},
 
 		_setDate: function(date, which){
