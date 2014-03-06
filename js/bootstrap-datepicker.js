@@ -63,7 +63,7 @@
 				this.push.apply(this, new_array);
 			},
 			clear: function(){
-				this.length = 0;
+				this.splice(0);
 			},
 			copy: function(){
 				var a = new DateArray();
@@ -87,6 +87,8 @@
 		this.dates = new DateArray();
 		this.viewDate = UTCToday();
 		this.focusDate = null;
+		this._windowWidth = $(window).width();
+	    	this._windowHeight = $(window).height();
 
 		this._process_options(options);
 
@@ -352,7 +354,13 @@
 					click: $.proxy(this.click, this)
 				}],
 				[$(window), {
-					resize: $.proxy(this.place, this)
+				    resize: $.proxy(function (e) {
+				        if ($(e.target).width() != this._windowWidth || $(e.target).height() != this._windowHeight) {
+				            this._windowWidth = $(e.target).width();
+				            this._windowHeight = $(e.target).height();
+				            this.place();
+				        }
+				    }, this)
 				}],
 				[$(document), {
 					'mousedown touchstart': $.proxy(function(e){
