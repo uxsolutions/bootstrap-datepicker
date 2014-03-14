@@ -804,7 +804,7 @@
 
 				var utfDate = prevMonth.getUTCDate();
 				if (this.o.getDayContent !== $.noop){
-					var dayContent = this.o.getDayContent(this._utc_to_local(prevMonth));
+					var dayContent = this.o.getDayContent(this._utc_to_local(prevMonth), this);
 					if (dayContent) {
 						utfDate = dayContent;
 					}
