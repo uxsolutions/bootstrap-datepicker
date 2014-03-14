@@ -548,7 +548,7 @@
 				scrollTop = $window.scrollTop();
 
 			var zIndex = parseInt(this.element.parents().filter(function(){
-					return $(this).css('z-index') !== 'auto';
+					return ($(this).css('z-index') !== 'auto' && $(this).css('z-index') > 0);
 				}).first().css('z-index'))+10;
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(false);
@@ -802,8 +802,13 @@
 						tooltip = before.tooltip;
 				}
 
+				var utfDate = prevMonth.getUTCDate();
+				if (this.o.getDayContent !== $.noop){
+					utfDate = this.o.getDayContent(this._utc_to_local(prevMonth));
+				}
+
 				clsName = $.unique(clsName);
-				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + '>'+prevMonth.getUTCDate() + '</td>');
+				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + '>'+ utfDate + '</td>');
 				if (prevMonth.getUTCDay() === this.o.weekEnd){
 					html.push('</tr>');
 				}
