@@ -55,7 +55,7 @@
 						item = this[i];
 					if (item.getDate() === da && 
 						item.getMonth() === m &&
-						item.getYear() === y)
+						item.getFullYear() === y)
 						return i;
 				}
 				return -1;
