@@ -47,14 +47,8 @@
 			    // $.inArray doesn't work with Dates
 			    
 				for (var i = 0, l = this.length; i < l; i++) {
-				    var da = d.getDate(),
-						m = d.getMonth(),
-						y = d.getFullYear(),
-						item = this[i];
-					if (item.getDate() === da && 
-						item.getMonth() === m &&
-						item.getFullYear() === y)
-						return i;
+					if(d.toLocaleDateString() === this[i].toLocaleDateString())
+						return 0;
 				}
 				return -1;
 			},
