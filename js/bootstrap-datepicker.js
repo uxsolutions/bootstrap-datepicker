@@ -45,9 +45,7 @@
 			contains: function(d){
 				// Array.indexOf is not cross-browser;
 			    // $.inArray doesn't work with Dates
-			    if (!d) {
-			        return -1;
-			    }
+			    
 				for (var i = 0, l = this.length; i < l; i++) {
 				    var da = d.getDate(),
 						m = d.getMonth(),
