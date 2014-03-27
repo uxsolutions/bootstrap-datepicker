@@ -48,7 +48,7 @@
 			    
 				for (var i = 0, l = this.length; i < l; i++) {
 					if(d.toLocaleDateString() === this[i].toLocaleDateString())
-						return 0;
+						return i;
 				}
 				return -1;
 			},
