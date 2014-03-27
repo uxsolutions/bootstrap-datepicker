@@ -51,7 +51,7 @@
 				for (var i = 0, l = this.length; i < l; i++) {
 				    var da = d.getDate(),
 						m = d.getMonth(),
-						y = d.getYear(),
+						y = d.getFullYear(),
 						item = this[i];
 					if (item.getDate() === da && 
 						item.getMonth() === m &&
