@@ -51,7 +51,7 @@
 						m = d.getMonth(),
 						y = d.getFullYear(),
 						item = this[i];
-					if (item.getDate() === da && 
+					if (item.getDate() === da &&
 						item.getMonth() === m &&
 						item.getFullYear() === y)
 						return i;
