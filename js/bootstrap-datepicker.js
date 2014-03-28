@@ -44,10 +44,10 @@
 			},
 			contains: function(d){
 				// Array.indexOf is not cross-browser;
-			    // $.inArray doesn't work with Dates
-			    
+        // $.inArray doesn't work with Dates
+        
 				for (var i = 0, l = this.length; i < l; i++) {
-				    var da = d.getDate(),
+          var da = d.getDate(),
 						m = d.getMonth(),
 						y = d.getFullYear(),
 						item = this[i];
