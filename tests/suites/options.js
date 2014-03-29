@@ -646,3 +646,58 @@ test('Multidate Separator', function(){
     target.click();
     equal(input.val(), '2012-03-05 2012-03-04 2012-03-12');
 });
+
+test('Custom parseDate function returns undefined', function(){
+    var parseDate = function() {};
+
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    parseDate: parseDate
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    var actual = input.datepicker('getUTCDate');
+    var expected = UTCDate(2012, 2, 5); 
+
+    console.log(actual);
+    console.log(expected);
+    datesEqual(actual, expected);
+});
+
+test('Custom parseDate function parses date', function(){
+    var parseDate = function(date, format, language) {
+        console.log(typeof(date));
+        if(typeof(date) === 'string') {
+            var year = date.substring(0, 4);
+            var month = date.substring(4, 6) - 1;
+            var day = date.substring(6);
+
+            console.log(year);
+            console.log(month);
+            console.log(day);
+
+            return UTCDate(year, month, day);
+        }
+    };
+
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('20120305')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    parseDate: parseDate
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    var actual = input.datepicker('getUTCDate');
+    var expected = UTCDate(2012, 2, 5);
+
+    datesEqual(actual, expected);
+});

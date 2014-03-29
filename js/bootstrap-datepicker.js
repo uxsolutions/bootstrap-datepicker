@@ -205,7 +205,7 @@
 					if (o.startDate instanceof Date)
 						o.startDate = this._local_to_utc(this._zero_time(o.startDate));
 					else
-						o.startDate = DPGlobal.parseDate(o.startDate, format, o.language);
+						o.startDate = this.parseDate(o.startDate, format, o.language);
 				} else {
 					o.startDate = -Infinity;
 				}
@@ -215,7 +215,7 @@
 					if (o.endDate instanceof Date)
 						o.endDate = this._local_to_utc(this._zero_time(o.endDate));
 					else
-						o.endDate = DPGlobal.parseDate(o.endDate, format, o.language);
+						o.endDate = this.parseDate(o.endDate, format, o.language);
 				} else {
 					o.endDate = Infinity;
 				}
@@ -527,6 +527,18 @@
 			this.updateNavArrows();
 		},
 
+		parseDate: function(date, format, language){
+			if('parseDate' in this.o && typeof(this.o.parseDate) === 'function') {
+				var result = this.o.parseDate(date, format, language);
+			}
+
+			if(result === undefined) {
+				result = DPGlobal.parseDate(date, format, language);
+			}
+
+			return result;
+		},
+
 		place: function(){
 						if(this.isInline) return;
 			var calendarWidth = this.picker.outerWidth(),
@@ -617,7 +629,7 @@
 			}
 
 			dates = $.map(dates, $.proxy(function(date){
-				return DPGlobal.parseDate(date, this.o.format, this.o.language);
+				return this.parseDate(date, this.o.format, this.o.language);
 			}, this));
 			dates = $.grep(dates, $.proxy(function(date){
 				return (

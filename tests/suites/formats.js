@@ -233,3 +233,5 @@ test('Trailing separators', patch_date(function(Date){
         .datepicker('setValue');
     equal(this.input.val(), '29.02.2012.');
 }));
+
+

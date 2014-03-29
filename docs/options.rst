@@ -151,6 +151,15 @@ A space-separated string consisting of one or two of "left" or "right", "top" or
 
 .. _startdate:
 
+
+parseDate
+---------
+
+Function(date, format, language).  Default: undefined
+
+If defined, this function will be called to parse dates prior to the default parsing logic.  If this function returns a Date value, it will be used as the parsed value.  If this function returns undefined, the date will be passed along to the default date parsing logic.
+
+
 startDate
 ---------
 
