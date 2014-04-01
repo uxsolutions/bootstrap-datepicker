@@ -1,5 +1,5 @@
 /**
- * Vasque translation for bootstrap-datepicker
+ * Basque translation for bootstrap-datepicker
  * Arkaitz Etxeberria <kondi80@gmail.com>
  */
 ;(function($){
@@ -12,3 +12,4 @@
         today: "Gaur"
     };
 }(jQuery));
+
