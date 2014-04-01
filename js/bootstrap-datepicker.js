@@ -547,9 +547,10 @@
 				windowHeight = $window.height(),
 				scrollTop = $window.scrollTop();
 
-			var zIndex = Math.max.apply(null, this.element.parents().map(function() {
+			var parentZIndexes = this.element.parents().map(function() {
 					return parseInt($(this).css('z-index')) || 0;
-				})) + 10;
+				});
+			var zIndex = Math.max.apply(null, Array.prototype.slice.apply(parentZIndexes)) + 10;
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(false);
 			var width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(false);
