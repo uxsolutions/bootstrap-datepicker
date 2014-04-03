@@ -65,6 +65,26 @@ Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday).
     :align: center
 
 
+.. _defaultDay:
+
+defaultDay
+----------
+
+Number, String. Default: 1
+
+The default day to use when ``minViewMode`` is set to something other than "days". Accepts: a number from 1 to 31, or the string "last".
+
+
+.. _defaultMonth:
+
+defaultMonth
+------------
+
+Number. Default: 0
+
+The default month to use when ``minViewMode`` is set to "years". Accepts: a number from 0 to 11, corresponding to months from January to December.
+
+
 .. _enddate:
 
 endDate
@@ -133,7 +153,7 @@ minViewMode
 Number, String.  Default: 0, "days"
 
 Set a limit for the view mode.  Accepts: "days" or 0, "months" or 1, and "years" or 2.
-Gives the ability to pick only a month or an year.  The day is set to the 1st for "months", and the month is set to January for "years".
+Gives the ability to pick only a month or an year.  The day is set to the 1st (or value given with the ``defaultDay`` option) for "months", and the month is set to January (or value given with the ``defaultMonth`` option) for "years".
 
 multidate
 ---------
