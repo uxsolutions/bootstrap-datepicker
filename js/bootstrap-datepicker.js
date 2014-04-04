@@ -1017,7 +1017,7 @@
 			if (!date){
 				this.dates.clear();
 			}
-			else if (ix !== -1){
+			else if (this.o.toggleActive && ix !== -1){
 				this.dates.remove(ix);
 			}
 			else {
@@ -1393,6 +1393,7 @@
 		beforeShowDay: $.noop,
 		calendarWeeks: false,
 		clearBtn: false,
+        toggleActive: true,
 		daysOfWeekDisabled: [],
 		endDate: Infinity,
 		forceParse: true,
