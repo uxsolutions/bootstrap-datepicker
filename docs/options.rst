@@ -51,6 +51,12 @@ If true, displays a "Clear" button at the bottom of the datepicker to clear the 
 .. figure:: _static/screenshots/option_clearbtn.png
     :align: center
 
+toggleActive
+--------
+
+Boolean. Default: true
+
+If true, selecting the currently active date in the datepicker will clear the input value.
 
 .. _daysofweekdisabled:
 
