@@ -1017,8 +1017,10 @@
 			if (!date){
 				this.dates.clear();
 			}
-			else if ((this.o.multidate > 1 || this.o.toggleActive) && ix !== -1){
-                this.dates.remove(ix);
+			else if (ix !== -1){
+                if(this.o.multidate === true || this.o.multidate > 1 || this.o.toggleActive){
+                    this.dates.remove(ix);
+                }
 			}
 			else {
 				this.dates.push(date);
