@@ -56,7 +56,7 @@ toggleActive
 
 Boolean. Default: true
 
-If true, selecting the currently active date in the datepicker will clear the input value.
+If true, selecting the currently active date in the datepicker will unset the respective date. This option is always true when the multidate option is being used.
 
 .. _daysofweekdisabled:
 
