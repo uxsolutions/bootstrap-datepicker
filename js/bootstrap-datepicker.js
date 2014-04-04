@@ -1017,7 +1017,7 @@
 			if (!date){
 				this.dates.clear();
 			}
-			else if (this.o.toggleActive && ix !== -1){
+			else if (!this.o.multidate && this.o.toggleActive && ix !== -1){
 				this.dates.remove(ix);
 			}
 			else {
