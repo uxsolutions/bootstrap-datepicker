@@ -1018,9 +1018,9 @@
 				this.dates.clear();
 			}
 			else if (ix !== -1){
-                if(this.o.multidate === true || this.o.multidate > 1 || this.o.toggleActive){
-                    this.dates.remove(ix);
-                }
+				if(this.o.multidate === true || this.o.multidate > 1 || this.o.toggleActive){
+					this.dates.remove(ix);
+				}
 			}
 			else {
 				this.dates.push(date);
@@ -1395,7 +1395,7 @@
 		beforeShowDay: $.noop,
 		calendarWeeks: false,
 		clearBtn: false,
-        toggleActive: true,
+		toggleActive: true,
 		daysOfWeekDisabled: [],
 		endDate: Infinity,
 		forceParse: true,
