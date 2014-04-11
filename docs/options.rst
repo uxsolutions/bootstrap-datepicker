@@ -83,7 +83,7 @@ fillAsYouGo
 
 Boolean. Default: false
 
-Update the value of the date in the datepicker before you reach the final view. For example, starting from the decade view and clicking "2011" would set the internal date to January 1, 2011 and the associated input will be updated to show the new value. Then selecting "Feb" would update it to February 1, 2011. The datepicker will remain open until you hit your `minViewMode`.
+Update the value of the date in the datepicker before you reach the final view. For example, starting from the decade view and clicking "2011" would set the internal date to January 1, 2011 and the associated input will be updated to show the new value. Then selecting "Feb" would update it to February 1, 2011.
 
 
 forceParse
