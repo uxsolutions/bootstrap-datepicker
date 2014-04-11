@@ -263,9 +263,9 @@
 				o.orientation.y = _plc[0] || 'auto';
 			}
 			if (o.defaultViewDate) {
-				var year = o.defaultViewDate.year || new Date().getFullYear(),
-						month = o.defaultViewDate.month || 0,
-						day = o.defaultViewDate.day || 1;
+				var year = o.defaultViewDate.year || new Date().getFullYear();
+				var month = o.defaultViewDate.month || 0;
+				var day = o.defaultViewDate.day || 1;
 				o.defaultViewDate = UTCDate(year, month, day);
 			} else {
 				o.defaultViewDate = UTCToday();
