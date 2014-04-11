@@ -65,6 +65,21 @@ Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday).
     :align: center
 
 
+.. _defaultviewdate:
+
+
+defaultViewDate
+---------------
+
+Object with keys ``year``, ``month``, and ``day``. Default: today
+
+Date to view when initially opening the calendar. The internal value of the date remains today as default, but when the datepicker is first opened the calendar will open to ``defaultViewDate`` rather than today. If this option is not used, "today" remains the default view date. If the given object is missing any of the required keys, their defaults are:
+
+ * ``year``: the current year
+ * ``month``: 1
+ * ``day``: 1
+
+
 .. _enddate:
 
 endDate
