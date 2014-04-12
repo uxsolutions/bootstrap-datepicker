@@ -10,6 +10,7 @@
                 months: ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"],
                 monthsShort: ["Sty", "Lu", "Mar", "Kw", "Maj", "Cze", "Lip", "Sie", "Wrz", "Pa", "Lis", "Gru"],
                 today: "Dzisiaj",
-                weekStart: 1
+                weekStart: 1,
+                clear: "Wyczyść"
         };
 }(jQuery));
