@@ -1191,6 +1191,8 @@
 					// As such, its behavior should not be hijacked.
 					break;
 				case 13: // enter
+					if (!this.o.keyboardNavigation)
+						break;
 					focusDate = this.focusDate || this.dates.get(-1) || this.viewDate;
 					this._toggle_multidate(focusDate);
 					dateChanged = true;
