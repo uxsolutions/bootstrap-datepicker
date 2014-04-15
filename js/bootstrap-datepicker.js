@@ -1249,8 +1249,13 @@
 		},
 
 		getMinViewModeDate: function (year, month, day){
-			month = month || this.o.defaultMonth;
-			day = day || this.o.defaultDay;
+			if (month === undefined || month === null) {
+				month = this.o.defaultMonth;
+			}
+			if (day === undefined || day === null) {
+				day = this.o.defaultDay;
+			}
+
 			if (day > new Date(year, month, day).getDate()){
 				month++;
 				day = 0;
