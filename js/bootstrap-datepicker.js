@@ -134,6 +134,7 @@
 
 		this.update();
 		this.showMode();
+		this.showTime();
 
 		if (this.isInline){
 			this.show();
@@ -1239,6 +1240,18 @@
 				.filter('.datepicker-'+DPGlobal.modes[this.viewMode].clsName)
 					.css('display', 'block');
 			this.updateNavArrows();
+		},
+
+		showTime: function(){
+			if (this.o.showTime) {
+				this.picker.find('[name=ampm]').hide();
+			} else {
+				if (!this.o.todayBtn){
+					this.picker.find('tfoot').hide();
+				} else {
+					this.picker.find('.timepicker').hide();
+				}
+			}
 		}
 	};
 
@@ -1404,6 +1417,7 @@
 		multidateSeparator: ',',
 		orientation: "auto",
 		rtl: false,
+		showTime: false,
 		startDate: -Infinity,
 		startView: 0,
 		todayBtn: false,
@@ -1596,6 +1610,37 @@
 			}
 			return date.join('');
 		},
+
+		timepickerTemplate: function(){
+			var optionTags = function(min, max){
+				var s = '';
+				for (var i = min; i < max; i++){
+					var val = ('0' + i).slice(-2);
+					s += '<option value="' + val + '">' + val + '</option>';
+				}
+				return s;
+			}
+
+			return '<tr>'+
+				'<th class="timepicker" colspan="7">'+
+					'<select class="time" name="hour">'+
+						optionTags(0, 24)+
+					'</select>'+
+					'<select class="time" name="minute">'+
+						optionTags(0, 60)+
+					'</select>'+
+					'<select class="time" name="second">'+
+						optionTags(0, 60)+
+					'</select>'+
+					'<select class="time" name="ampm">'+
+						'<option value="am">am</option>'+
+						'<option value="pm">pm</option>'+
+					'</select>'+
+					'<button class="btn btn-success btn-small">Set</button>'+
+				'</th>'+
+			'</tr>';
+		},
+
 		headTemplate: '<thead>'+
 							'<tr>'+
 								'<th class="prev">&laquo;</th>'+
@@ -1603,16 +1648,20 @@
 								'<th class="next">&raquo;</th>'+
 							'</tr>'+
 						'</thead>',
-		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',
-		footTemplate: '<tfoot>'+
-							'<tr>'+
-								'<th colspan="7" class="today"></th>'+
-							'</tr>'+
-							'<tr>'+
-								'<th colspan="7" class="clear"></th>'+
-							'</tr>'+
-						'</tfoot>'
+		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>'
 	};
+
+	DPGlobal.footTemplate =
+		'<tfoot>' +
+			DPGlobal.timepickerTemplate()+
+			'<tr>'+
+				'<th colspan="7" class="today"></th>'+
+			'</tr>'+
+			'<tr>'+
+				'<th colspan="7" class="clear"></th>'+
+			'</tr>'+
+		'</tfoot>';
+
 	DPGlobal.template = '<div class="datepicker">'+
 							'<div class="datepicker-days">'+
 								'<table class=" table-condensed">'+

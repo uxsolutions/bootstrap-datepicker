@@ -512,3 +512,11 @@
 .datepicker.datepicker-inline td {
   padding: 4px 5px;
 }
+.datepicker .timepicker .time {
+	width: auto;
+	margin: 2px;
+}
+
+.datepicker .timepicker:hover {
+	background: none;
+}
