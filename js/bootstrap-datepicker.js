@@ -352,6 +352,9 @@
 				[this.picker, {
 					click: $.proxy(this.click, this)
 				}],
+				[this.picker.find('button'), {
+					click: $.proxy(this.setTime, this)
+				}],
 				[$(window), {
 					resize: $.proxy(this.place, this)
 				}],
@@ -859,6 +862,24 @@
 				year += 1;
 			}
 			yearCont.html(html);
+
+			this._setTimeDropdowns(this.viewDate);
+		},
+
+		_setTimeDropdowns: function(viewDate) {
+			var $timepicker = this.picker.find('.timepicker');
+			$('select[name=hour]', $timepicker).val(('0' + viewDate.getUTCHours()).slice(-2));
+			$('select[name=minute]', $timepicker).val(('0' + viewDate.getUTCMinutes()).slice(-2));
+			$('select[name=second]', $timepicker).val(('0' + viewDate.getUTCSeconds()).slice(-2));
+		},
+
+		_getTimeFromDropdowns: function() {
+			var $timepicker = this.picker.find('.timepicker');
+			return {
+				h: parseInt($('select[name=hour]', $timepicker).val()),
+				m: parseInt($('select[name=minute]', $timepicker).val()),
+				s: parseInt($('select[name=second]', $timepicker).val())
+			};
 		},
 
 		updateNavArrows: function(){
@@ -901,9 +922,22 @@
 			}
 		},
 
+		setTime: function(e) {
+			e.preventDefault();
+			var newDate = this._utc_to_local(this.viewDate),
+				time = this._getTimeFromDropdowns();
+			newDate.setHours(time.h);
+			newDate.setMinutes(time.m);
+			newDate.setSeconds(time.s);
+			this.update(newDate);
+			if (this._o.autoclose) {
+				this.hide();
+			}
+		},
+
 		click: function(e){
 			e.preventDefault();
-			var target = $(e.target).closest('span, td, th'),
+			var target = $(e.target).closest('span, td, th, select'),
 				year, month, day;
 			if (target.length === 1){
 				switch (target[0].nodeName.toLowerCase()){
@@ -1465,7 +1499,7 @@
 		getDaysInMonth: function(year, month){
 			return [31, (DPGlobal.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
 		},
-		validParts: /dd?|DD?|mm?|MM?|yy(?:yy)?/g,
+		validParts: /dd?|DD?|mm?|MM?|yy(?:yy)?|h|H|i|s/g,
 		nonpunctuation: /[^ -\/:-@\[\u3400-\u9fff-`{-~\t\n\r]+/g,
 		parseFormat: function(format){
 			// IE treats \0 as a string end in inputs (truncating the value),
@@ -1512,7 +1546,9 @@
 			parts = date && date.match(this.nonpunctuation) || [];
 			date = new Date();
 			var parsed = {},
-				setters_order = ['yyyy', 'yy', 'M', 'MM', 'm', 'mm', 'd', 'dd'],
+				setters_order = ['yyyy', 'yy', 'M', 'MM', 'm', 'mm', 'd', 'dd',
+					'h', 'H', 'i', 's'
+				],
 				setters_map = {
 					yyyy: function(d,v){
 						return d.setUTCFullYear(v);
@@ -1533,11 +1569,21 @@
 					},
 					d: function(d,v){
 						return d.setUTCDate(v);
+					},
+					h: function(d,v) {
+						return d.setUTCHours(v);
+					},
+					i: function(d,v) {
+						return d.setUTCMinutes(v);
+					},
+					s: function(d,v) {
+						return d.setUTCSeconds(v);
 					}
 				},
 				val, filtered;
 			setters_map['M'] = setters_map['MM'] = setters_map['mm'] = setters_map['m'];
 			setters_map['dd'] = setters_map['d'];
+			setters_map['H'] = setters_map['h'];
 			date = UTCDate(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
 			var fparts = format.parts.slice();
 			// Remove noop parts
@@ -1589,6 +1635,12 @@
 				return '';
 			if (typeof format === 'string')
 				format = DPGlobal.parseFormat(format);
+
+			var
+				hh = ('00' + date.getUTCHours()).slice(-2),
+				mi = ('00' + date.getUTCMinutes()).slice(-2),
+				ss = ('00' + date.getUTCSeconds()).slice(-2);
+
 			var val = {
 				d: date.getUTCDate(),
 				D: dates[language].daysShort[date.getUTCDay()],
@@ -1597,8 +1649,15 @@
 				M: dates[language].monthsShort[date.getUTCMonth()],
 				MM: dates[language].months[date.getUTCMonth()],
 				yy: date.getUTCFullYear().toString().substring(2),
-				yyyy: date.getUTCFullYear()
+				yyyy: date.getUTCFullYear(),
+				h: hh,
+				H: hh,
+				i: mi,
+				I: mi,
+				s: ss,
+				S: ss
 			};
+
 			val.dd = (val.d < 10 ? '0' : '') + val.d;
 			val.mm = (val.m < 10 ? '0' : '') + val.m;
 			date = [];
