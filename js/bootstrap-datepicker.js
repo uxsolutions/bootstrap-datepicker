@@ -1042,7 +1042,9 @@
 				}
 			}
 			if (this.picker.is(':visible') && this._focused_from){
-				$(this._focused_from).focus();
+				if (target[0].nodeName.toLowerCase() !== 'select') {
+					$(this._focused_from).focus();
+				}
 			}
 			delete this._focused_from;
 		},
