@@ -13,7 +13,7 @@ module('Inline', {
 
 
 test('Picker gets date/viewDate from data-date attr', function(){
-    datesEqual(this.dp.date, UTCDate(2012, 1, 12));
+    datesEqual(this.dp.dates[0], UTCDate(2012, 1, 12));
     datesEqual(this.dp.viewDate, UTCDate(2012, 1, 12));
 });
 
@@ -24,5 +24,5 @@ test('Visible after init', function(){
 
 test('update', function(){
     this.dp.update('13-03-2012')
-    datesEqual(this.dp.date, UTCDate(2012, 2, 13));
+    datesEqual(this.dp.dates[0], UTCDate(2012, 2, 13));
 });
