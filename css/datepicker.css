@@ -112,7 +112,8 @@
 .table-striped .datepicker table tr th {
   background-color: transparent;
 }
-.datepicker table tr td.day:hover {
+.datepicker table tr td.day:hover,
+.datepicker table tr td.day.focused {
   background: #eeeeee;
   cursor: pointer;
 }
@@ -543,6 +544,8 @@
   line-height: 20px;
 }
 .datepicker.dropdown-menu th,
-.datepicker.dropdown-menu td {
+.datepicker.datepicker-inline th,
+.datepicker.dropdown-menu td,
+.datepicker.datepicker-inline td {
   padding: 4px 5px;
 }

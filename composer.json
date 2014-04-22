@@ -12,7 +12,8 @@
                 "js/bootstrap-datepicker.js"
             ],
             "styles": [
-                "css/datepicker.css"
+                "css/datepicker.css",
+                "css/datepicker3.css"
             ]
         }
     }
