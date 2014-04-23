@@ -346,7 +346,6 @@
 					}, this)
 				}]
 			);
-
 			this._secondaryEvents = [
 				[this.picker, {
 					click: $.proxy(this.click, this)
@@ -368,6 +367,9 @@
 					}, this)
 				}]
 			];
+			if (this.o.hideOnScroll) {
+				this._secondaryEvents[1][1].scroll = $.proxy(this.hide, this);
+			}
 		},
 		_attachEvents: function(){
 			this._detachEvents();
@@ -546,6 +548,7 @@
 				windowWidth = $window.width(),
 				windowHeight = $window.height(),
 				scrollTop = $window.scrollTop();
+				scrollLeft = $window.scrollLeft();
 
 			var zIndex = parseInt(this.element.parents().filter(function(){
 					return $(this).css('z-index') !== 'auto';
@@ -573,8 +576,8 @@
 				this.picker.addClass('datepicker-orient-left');
 				if (offset.left < 0)
 					left -= offset.left - visualPadding;
-				else if (offset.left + calendarWidth > windowWidth)
-					left = windowWidth - calendarWidth - visualPadding;
+				else if (offset.left + calendarWidth > windowWidth + scrollLeft)
+					left = windowWidth - calendarWidth - visualPadding + scrollLeft;
 			}
 
 			// auto y orientation is best-situation: top or bottom, no fudging,
@@ -1408,7 +1411,8 @@
 		startView: 0,
 		todayBtn: false,
 		todayHighlight: false,
-		weekStart: 0
+		weekStart: 0,
+		hideOnScroll: false
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',
