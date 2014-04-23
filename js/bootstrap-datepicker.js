@@ -941,7 +941,7 @@
 			newDate.setMinutes(time.m);
 			newDate.setSeconds(time.s);
 			this.update(newDate);
-			if (this._o.autoclose) {
+			if (this._o.autoclose || e.target.tagName === 'BUTTON') {
 				this.hide();
 			}
 		},
@@ -1101,7 +1101,7 @@
 			if (element){
 				element.change();
 			}
-			if (this.o.autoclose && (!which || which === 'date')){
+			if (this.o.autoclose && !this.o.showTime && (!which || which === 'date')){
 				this.hide();
 			}
 		},
