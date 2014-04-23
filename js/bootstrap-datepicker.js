@@ -1047,7 +1047,13 @@
 									month += 1;
 								}
 							}
-							this._setDate(UTCDate(year, month, day));
+
+							var
+								h = this.viewDate.getUTCHours(),
+								m = this.viewDate.getUTCMinutes(),
+								s = this.viewDate.getUTCSeconds();
+
+							this._setDate(UTCDate(year, month, day, h, m, s));
 						}
 						break;
 				}
