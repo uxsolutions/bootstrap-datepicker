@@ -547,7 +547,7 @@
 				visualPadding = 10,
 				windowWidth = $window.width(),
 				windowHeight = $window.height(),
-				scrollTop = $window.scrollTop();
+				scrollTop = $window.scrollTop(),
 				scrollLeft = $window.scrollLeft();
 
 			var zIndex = parseInt(this.element.parents().filter(function(){
