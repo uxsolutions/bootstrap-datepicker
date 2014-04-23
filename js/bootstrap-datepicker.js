@@ -42,13 +42,24 @@
 			get: function(i){
 				return this.slice(i)[0];
 			},
-			contains: function(d){
+			contains: function(d, ignoreTime){
 				// Array.indexOf is not cross-browser;
 				// $.inArray doesn't work with Dates
 				var val = d && d.valueOf();
+				ignoreTime = typeof(ignoreTime) === 'undefined';
+				if (ignoreTime) {
+					val = d.getFullYear().toString() + d.getMonth() + d.getDate();
+				}
 				for (var i=0, l=this.length; i < l; i++)
-					if (this[i].valueOf() === val)
-						return i;
+					if (ignoreTime) {
+						var t = this[i].getUTCFullYear().toString() + this[i].getUTCMonth() + this[i].getUTCDate();
+						if (t === val) {
+							return i;
+						}
+					} else {
+						if (this[i].valueOf() === val)
+							return i;
+					}
 				return -1;
 			},
 			remove: function(i){
