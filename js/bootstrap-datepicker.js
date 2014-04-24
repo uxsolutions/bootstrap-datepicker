@@ -816,6 +816,8 @@
 			}
 			this.picker.find('.datepicker-days tbody').empty().append(html.join(''));
 			this.picker.find('.day.active').parent().addClass('active');
+			if(this.selectWeek)
+				this.picker.find('.day.active').parent().find(".day").addClass("active");
 
 			var months = this.picker.find('.datepicker-months')
 						.find('th:eq(1)')
