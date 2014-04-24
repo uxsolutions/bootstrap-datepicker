@@ -816,8 +816,6 @@
 			}
 			this.picker.find('.datepicker-days tbody').empty().append(html.join(''));
 			this.picker.find('.day.active').parent().addClass('active');
-			if(this.selectWeek)
-				this.picker.find('.day.active').parent().find(".day").addClass("active");
 
 			var months = this.picker.find('.datepicker-months')
 						.find('th:eq(1)')
@@ -988,10 +986,7 @@
 						break;
 					case 'td':
 						if (target.is('.day') && !target.is('.disabled')){
-							if(this.selectWeek)
-								day = target.parent().find("td").eq(0).text();
-							else
-								day = parseInt(target.text(), 10)||1;
+							day = parseInt(target.text(), 10)||1;
 							year = this.viewDate.getUTCFullYear();
 							month = this.viewDate.getUTCMonth();
 							if (target.is('.old')){
