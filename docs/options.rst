@@ -52,6 +52,15 @@ If true, displays a "Clear" button at the bottom of the datepicker to clear the 
     :align: center
 
 
+container
+-----------
+
+String.  Default: "body"
+
+Appends the date picker popup to a specific element; eg: container: '#picker-container' (will default to "body")
+
+
+
 .. _daysofweekdisabled:
 
 daysOfWeekDisabled

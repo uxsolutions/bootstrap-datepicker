@@ -262,6 +262,7 @@
 				});
 				o.orientation.y = _plc[0] || 'auto';
 			}
+			o.container = o.container ? o.container : 'body';
 		},
 		_events: [],
 		_secondaryEvents: [],
@@ -409,7 +410,7 @@
 
 		show: function(){
 			if (!this.isInline)
-				this.picker.appendTo('body');
+				this.picker.appendTo(this.o.container);
 			this.picker.show();
 			this.place();
 			this._attachSecondaryEvents();
