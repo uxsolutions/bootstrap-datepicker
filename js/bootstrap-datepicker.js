@@ -1053,6 +1053,10 @@
 								m = this.viewDate.getUTCMinutes(),
 								s = this.viewDate.getUTCSeconds();
 
+							if (this.inputs && this.inputs[this.inputs.length - 1] === this.element[0]) {
+								h = 23; m = s = 59;
+							}
+
 							this._setDate(UTCDate(year, month, day, h, m, s));
 						}
 						break;
@@ -1319,7 +1323,10 @@
 			.datepicker(options)
 			.bind('changeDate', $.proxy(this.dateUpdated, this));
 
+		var rangeInputs = this.inputs;
 		this.pickers = $.map(this.inputs, function(i){
+			var data = $(i).data('datepicker');
+			data.inputs = rangeInputs;
 			return $(i).data('datepicker');
 		});
 		this.updateDates();
