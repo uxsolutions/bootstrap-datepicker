@@ -13,6 +13,7 @@ Versions are incremented according to [semver](http://semver.org/).
 * [Online Docs](http://bootstrap-datepicker.readthedocs.org/) (ReadTheDocs.com)
 * [Google Group](https://groups.google.com/group/bootstrap-datepicker/)
 * [Travis CI ![Build Status](https://travis-ci.org/eternicode/bootstrap-datepicker.png?branch=master)](https://travis-ci.org/eternicode/bootstrap-datepicker)
+* [![devDependency Status](https://david-dm.org/eternicode/bootstrap-datepicker/dev-status.svg)](https://david-dm.org/eternicode/bootstrap-datepicker#info=devDependencies)
 
 ## Development
 
