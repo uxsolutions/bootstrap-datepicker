@@ -1,4 +1,5 @@
 {
+  "name": "bootstrap-datepicker",
   "scripts": {
     "test": "grunt test"
   },
