@@ -167,7 +167,7 @@
     &.active:hover,
     &.active.disabled,
     &.active.disabled:hover {
-      @include datepicker-button-variant($white, $brand-primary, $brand-primary);
+      @include datepicker-button-variant(#fff, $brand-primary, $brand-primary);
       text-shadow: 0 -1px 0 rgba(0,0,0,.25);
     }
     span {
