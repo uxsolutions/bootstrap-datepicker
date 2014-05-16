@@ -12,6 +12,6 @@
   ],
   "dependencies": {
      "jquery" : ">=1.7.1",
-	 "bootstrap-sass":"latest"
+     "bootstrap-sass-official": ">=3.0 <4.0"
   }
 }
