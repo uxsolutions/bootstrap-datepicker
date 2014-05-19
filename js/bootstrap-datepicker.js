@@ -1704,7 +1704,7 @@
 					s += '<option value="' + val + '">' + val + '</option>';
 				}
 				return s;
-			}
+			};
 
 			return '<tr>'+
 				'<th class="timepicker" colspan="7">'+
