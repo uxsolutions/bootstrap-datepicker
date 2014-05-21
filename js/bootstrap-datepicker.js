@@ -1303,7 +1303,7 @@
 			if (this.o.showTime) {
 				this.picker.find('[name=ampm]').hide();
 			} else {
-				if (!this.o.todayBtn){
+				if (!this.o.todayBtn && !this.o.clearBtn){
 					this.picker.find('tfoot').hide();
 				} else {
 					this.picker.find('.timepicker').hide();
