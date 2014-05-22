@@ -729,6 +729,19 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   cursor: default;
   background-color: transparent;
 }
+.datepicker .timepicker:hover {
+  background: none;
+}
+.datepicker .timepicker .time {
+  width: auto;
+  margin: 2px;
+}
+.datepicker .timepicker .btn-small {
+  border-radius: 3px;
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 1px 8px;
+}
 .input-group.date .input-group-addon i {
   cursor: pointer;
   width: 16px;

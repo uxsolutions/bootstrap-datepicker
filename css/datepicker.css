@@ -443,6 +443,13 @@
   cursor: default;
   background-color: transparent;
 }
+.datepicker .timepicker:hover {
+  background: none;
+}
+.datepicker .timepicker .time {
+  width: auto;
+  margin: 2px;
+}
 .input-append.date .add-on i,
 .input-prepend.date .add-on i {
   cursor: pointer;
@@ -511,12 +518,4 @@
 .datepicker.dropdown-menu td,
 .datepicker.datepicker-inline td {
   padding: 4px 5px;
-}
-.datepicker .timepicker .time {
-	width: auto;
-	margin: 2px;
-}
-
-.datepicker .timepicker:hover {
-	background: none;
 }
