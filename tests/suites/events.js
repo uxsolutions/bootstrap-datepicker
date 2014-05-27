@@ -4,7 +4,7 @@ module('Events', {
                         .appendTo('#qunit-fixture')
                         .datepicker({format: "dd-mm-yyyy"})
                         .focus(); // Activate for visibility checks
-        this.dp = this.input.data('datepicker')
+        this.dp = this.input.data('datepicker');
         this.picker = this.dp.picker;
     },
     teardown: function(){
@@ -153,7 +153,7 @@ test('format() returns a formatted date string', function(){
 
     datesEqual(this.dp.viewDate, UTCDate(2011, 2, 14));
     datesEqual(this.dp.dates[0], UTCDate(2011, 2, 14));
-    equal(error, undefined)
+    equal(error, undefined);
     equal(out, '14-03-2011');
 });
 
@@ -176,7 +176,7 @@ test('format(altformat) returns a formatted date string', function(){
 
     datesEqual(this.dp.viewDate, UTCDate(2011, 2, 14));
     datesEqual(this.dp.dates[0], UTCDate(2011, 2, 14));
-    equal(error, undefined)
+    equal(error, undefined);
     equal(out, '3/14/11');
 });
 

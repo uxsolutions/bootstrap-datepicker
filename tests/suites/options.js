@@ -305,7 +305,7 @@ test('Clear Button: clears input value', function(){
         target = picker.find('.datepicker-days tfoot .clear');
         target.click();
 
-        equal(input.val(),'',"Input value has been cleared.")
+        equal(input.val(),'',"Input value has been cleared.");
         ok(picker.is(':visible'), 'Picker is visible');
 });
 
