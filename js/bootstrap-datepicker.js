@@ -550,11 +550,14 @@
 			var zIndex = parseInt(this.element.parents().filter(function(){
 					return $(this).css('z-index') !== 'auto';
 				}).first().css('z-index'))+10;
+			
+			var pg_dir = this.component ? this.component.parent().css('direction') : this.element.css('direction');
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(false);
 			var width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(false);
 			var left = offset.left,
-				top = offset.top;
+				top = offset.top,
+                		right = windowWidth - left - calendarWidth;
 
 			this.picker.removeClass(
 				'datepicker-orient-top datepicker-orient-bottom '+
@@ -564,7 +567,7 @@
 			if (this.o.orientation.x !== 'auto'){
 				this.picker.addClass('datepicker-orient-' + this.o.orientation.x);
 				if (this.o.orientation.x === 'right')
-					left -= calendarWidth - width;
+					pg_dir == 'rtl' ? right -= width - calendarWidth : left -= calendarWidth - width;
 			}
 			// auto x orientation is best-placement: if it crosses a window
 			// edge, fudge it sideways
@@ -575,6 +578,11 @@
 					left -= offset.left - visualPadding;
 				else if (offset.left + calendarWidth > windowWidth)
 					left = windowWidth - calendarWidth - visualPadding;
+					
+				if (right < 0)
+				    right = visualPadding;
+				else if (right + calendarWidth > windowWidth)
+				    right = windowWidth - calendarWidth - visualPadding;
 			}
 
 			// auto y orientation is best-situation: top or bottom, no fudging,
@@ -598,6 +606,7 @@
 			this.picker.css({
 				top: top,
 				left: left,
+				right: right,
 				zIndex: zIndex
 			});
 		},
@@ -1613,7 +1622,7 @@
 							'</tr>'+
 						'</tfoot>'
 	};
-	DPGlobal.template = '<div class="datepicker">'+
+	DPGlobal.template = '<div class="td-md-2 datepicker">'+
 							'<div class="datepicker-days">'+
 								'<table class=" table-condensed">'+
 									DPGlobal.headTemplate+
