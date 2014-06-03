@@ -667,7 +667,7 @@
 			var dowCnt = this.o.weekStart,
 				html = '<tr>';
 			if (this.o.calendarWeeks){
-				var cell = '<th class="cw">&nbsp;</th>';
+				var cell = '<th class="cw">&#160;</th>';
 				html += cell;
 				this.picker.find('.datepicker-days thead tr:first-child').prepend(cell);
 			}
@@ -1598,9 +1598,9 @@
 		},
 		headTemplate: '<thead>'+
 							'<tr>'+
-								'<th class="prev">&laquo;</th>'+
+								'<th class="prev">&#171;</th>'+
 								'<th colspan="5" class="datepicker-switch"></th>'+
-								'<th class="next">&raquo;</th>'+
+								'<th class="next">&#187;</th>'+
 							'</tr>'+
 						'</thead>',
 		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',
