@@ -744,9 +744,10 @@
 				endMonth = this.o.endDate !== Infinity ? this.o.endDate.getUTCMonth() : Infinity,
 				todaytxt = dates[this.o.language].today || dates['en'].today || '',
 				cleartxt = dates[this.o.language].clear || dates['en'].clear || '',
+				monthViewTitle = dates[this.o.language].monthViewTitle || this.o.monthViewTitle,
 				tooltip;
 			this.picker.find('.datepicker-days thead th.datepicker-switch')
-						.text(dates[this.o.language].months[month]+' '+year);
+						.text(DPGlobal.formatDate(d, monthViewTitle, this.o.language));
 			this.picker.find('tfoot th.today')
 						.text(todaytxt)
 						.toggle(this.o.todayBtn !== false);
@@ -1400,6 +1401,7 @@
 		keyboardNavigation: true,
 		language: 'en',
 		minViewMode: 0,
+		monthViewTitle: 'MM yyyy',
 		multidate: false,
 		multidateSeparator: ',',
 		orientation: "auto",
