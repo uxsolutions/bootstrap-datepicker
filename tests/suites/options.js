@@ -646,3 +646,41 @@ test('Multidate Separator', function(){
     target.click();
     equal(input.val(), '2012-03-05 2012-03-04 2012-03-12');
 });
+
+test('Century Start: 1900', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('70-03-05')
+                .datepicker({
+                    format: 'yy-mm-dd',
+                    centuryStart: 70
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+
+    target = picker.find('.datepicker-days tbody td:nth(9)');
+    target.click();
+    equal(picker.find('.datepicker-days thead .datepicker-switch').text(), 'March 1970', 'Title is "March 1970"');
+});
+
+test('Century Start: 2000', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('69-03-05')
+                .datepicker({
+                    format: 'yy-mm-dd',
+                    centuryStart: 70
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+
+    target = picker.find('.datepicker-days tbody td:nth(9)');
+    target.click();
+    equal(picker.find('.datepicker-days thead .datepicker-switch').text(), 'March 2069', 'Title is "March 2069"');
+});

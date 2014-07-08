@@ -206,7 +206,7 @@
 					if (o.startDate instanceof Date)
 						o.startDate = this._local_to_utc(this._zero_time(o.startDate));
 					else
-						o.startDate = DPGlobal.parseDate(o.startDate, format, o.language);
+						o.startDate = DPGlobal.parseDate(o.startDate, format, o.language, o.centuryStart);
 				}
 				else {
 					o.startDate = -Infinity;
@@ -217,7 +217,7 @@
 					if (o.endDate instanceof Date)
 						o.endDate = this._local_to_utc(this._zero_time(o.endDate));
 					else
-						o.endDate = DPGlobal.parseDate(o.endDate, format, o.language);
+						o.endDate = DPGlobal.parseDate(o.endDate, format, o.language, o.centuryStart);
 				}
 				else {
 					o.endDate = Infinity;
@@ -630,7 +630,7 @@
 			}
 
 			dates = $.map(dates, $.proxy(function(date){
-				return DPGlobal.parseDate(date, this.o.format, this.o.language);
+				return DPGlobal.parseDate(date, this.o.format, this.o.language, this.o.centuryStart);
 			}, this));
 			dates = $.grep(dates, $.proxy(function(date){
 				return (
@@ -1408,7 +1408,8 @@
 		startView: 0,
 		todayBtn: false,
 		todayHighlight: false,
-		weekStart: 0
+		weekStart: 0,
+		centuryStart: false
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',
@@ -1463,7 +1464,7 @@
 			}
 			return {separators: separators, parts: parts};
 		},
-		parseDate: function(date, format, language){
+		parseDate: function(date, format, language, centuryStart){
 			if (!date)
 				return undefined;
 			if (date instanceof Date)
@@ -1504,7 +1505,7 @@
 						return d.setUTCFullYear(v);
 					},
 					yy: function(d,v){
-						return d.setUTCFullYear(2000+v);
+						return d.setUTCFullYear((centuryStart && v >= Math.min(Math.abs(parseInt(centuryStart, 10)), 99) ? 1900 : 2000) + v);
 					},
 					m: function(d,v){
 						if (isNaN(d))

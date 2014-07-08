@@ -41,6 +41,13 @@ Whether or not to show week numbers to the left of week rows.
 .. figure:: _static/screenshots/option_calendarweeks.png
     :align: center
 
+centuryStart
+-------------
+
+Number, Boolean. Default: false
+
+When using a 2 digit year format, and this option is set to a number between 1 and 99, years preceding this number will default to the 2000s, and years following it will default to the '90s.
+
 clearBtn
 --------
 
