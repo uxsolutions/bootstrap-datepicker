@@ -1249,6 +1249,8 @@
 		},
 
 		getMinViewModeDate: function (year, month, day){
+			var date;
+
 			if (month === undefined || month === null) {
 				month = this.o.defaultMonth;
 			}
@@ -1260,7 +1262,17 @@
 				month++;
 				day = 0;
 			}
-			return UTCDate(year, month, day);
+
+			date = UTCDate(year, month, day);
+
+			// stay within the bounds given by the startDate and endDate options
+			if (date < this.o.startDate) {
+				date = this.o.startDate;
+			} else if (this.o.endDate < date) {
+				date = this.o.endDate;
+			}
+
+			return date;
 		}
 	};
 
