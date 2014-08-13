@@ -1285,6 +1285,7 @@
 				new_date = dp.getUTCDate(),
 				i = $.inArray(e.target, this.inputs),
 				j = i - 1,
+				k = i + 1,
 				l = this.inputs.length;
 			if (i === -1)
 				return;
@@ -1300,10 +1301,10 @@
 					this.pickers[j--].setUTCDate(new_date);
 				}
 			}
-			else if (new_date > this.dates[i]){
+			else if (new_date > this.dates[k]){
 				// Date being moved later/right
-				while (i < l && new_date > this.dates[i]){
-					this.pickers[i++].setUTCDate(new_date);
+				while (k < l && new_date > this.dates[k]){
+					this.pickers[k++].setUTCDate(new_date);
 				}
 			}
 			this.updateDates();
