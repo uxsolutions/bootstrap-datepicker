@@ -703,10 +703,10 @@
 				month = this.viewDate.getUTCMonth(),
 				today = new Date();
 			if (date.getUTCFullYear() < year || (date.getUTCFullYear() === year && date.getUTCMonth() < month)){
-				cls.push('old');
+				cls.push(( this.o.oldNewDisabled ? 'disabled disable-old' : 'old'));
 			}
 			else if (date.getUTCFullYear() > year || (date.getUTCFullYear() === year && date.getUTCMonth() > month)){
-				cls.push('new');
+				cls.push(( this.o.oldNewDisabled ? 'disabled disable-new' : 'new'));
 			}
 			if (this.focusDate && date.valueOf() === this.focusDate.valueOf())
 				cls.push('focused');
@@ -1408,7 +1408,8 @@
 		startView: 0,
 		todayBtn: false,
 		todayHighlight: false,
-		weekStart: 0
+		weekStart: 0,
+		oldNewDisabled: false
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',

@@ -123,6 +123,12 @@
   color: #999999;
   cursor: default;
 }
+.datepicker table tr td.disable-old,
+.datepicker table tr td.disable-old:hover,
+.datepicker table tr td.disable-new,
+.datepicker table tr td.disable-new:hover {
+  color: #eeeeee;
+}
 .datepicker table tr td.today,
 .datepicker table tr td.today:hover,
 .datepicker table tr td.today.disabled,
