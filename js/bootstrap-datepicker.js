@@ -527,11 +527,11 @@
 					clsName.push('disabled');
 				if (before.classes)
 					clsName = clsName.concat(before.classes.split(/\s+/));
-				if (before.tooltip)
+				if (typeof(before.tooltip) !== 'undefined')
 					tooltip = before.tooltip;
 
 				clsName = $.unique(clsName);
-				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + '>'+prevMonth.getUTCDate() + '</td>');
+				html.push('<td class="'+clsName.join(' ')+'"' + (typeof(tooltip) !== 'undefined' ? ' title="'+tooltip+'"' : '') + '>'+prevMonth.getUTCDate() + '</td>');
 				if (prevMonth.getUTCDay() == this.weekEnd) {
 					html.push('</tr>');
 				}
