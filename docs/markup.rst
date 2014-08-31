@@ -31,6 +31,8 @@ Adding the ``date`` class to an ``input-append`` or ``input-prepend`` bootstrap 
 .. figure:: _static/screenshots/markup_component.png
     :align: center
 
+.. _daterange:
+
 date-range
 ----------
 
