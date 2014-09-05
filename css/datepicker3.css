@@ -109,7 +109,9 @@
   background-color: transparent;
 }
 .datepicker table tr td.day:hover,
-.datepicker table tr td.day.focused {
+.datepicker table tr td.day.focused,
+.datepicker table tr td span.month:hover,
+.datepicker table tr td span.month.focused {
   background: #eeeeee;
   cursor: pointer;
 }
@@ -748,7 +750,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   min-width: 16px;
   padding: 4px 5px;
   font-weight: normal;
-  line-height: 1.428571429;
+  line-height: 1.42857143;
   text-align: center;
   text-shadow: 0 1px 0 #fff;
   vertical-align: middle;
@@ -782,7 +784,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   color: #333333;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
-  line-height: 1.428571429;
+  line-height: 1.42857143;
 }
 .datepicker.dropdown-menu th,
 .datepicker.datepicker-inline th,
