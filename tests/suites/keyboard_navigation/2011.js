@@ -90,3 +90,42 @@ test('Regression: by month (shift + left/right arrows); left from Mar 15, 2011 s
     target = this.picker.find('.datepicker-days thead th.datepicker-switch');
     equal(target.text(), 'February 2011', 'Title is "February 2011"');
 });
+
+
+test('Regression: min view mode month, by month (left/right arrows); left from Mar 15, 2011 should go to Feb 15, 2011', function(){
+    var target;
+
+    // remove existing
+    this.picker.remove();
+
+    // add new with different options
+    this.input = $('<input type="text" value="31-03-2011">')
+        .appendTo('#qunit-fixture')
+        .datepicker({format: "dd-mm-yyyy", minViewMode: 1, startView: 1})
+        .focus(); // Activate for visibility checks
+    this.dp = this.input.data('datepicker');
+    this.picker = this.dp.picker;
+
+    this.input.val('15-03-2011').datepicker('update');
+
+    equal(this.dp.viewMode, 1);
+    target = this.picker.find('.datepicker-days thead th.datepicker-switch');
+    equal(target.text(), 'March 2011', 'Title is "March 2011"');
+    datesEqual(this.dp.viewDate, UTCDate(2011, 2, 15));
+    datesEqual(this.dp.dates.get(-1), UTCDate(2011, 2, 15));
+    equal(this.dp.focusDate, null);
+
+    // Navigation: -1 month, shift + left arrow key
+    this.input.trigger({
+        type: 'keydown',
+        keyCode: 37
+    });
+
+    console.log(this.dp.dates);
+
+    datesEqual(this.dp.viewDate, UTCDate(2011, 1, 15));
+    datesEqual(this.dp.dates.get(-1), UTCDate(2011, 2, 15));
+    datesEqual(this.dp.focusDate, UTCDate(2011, 1, 15));
+    target = this.picker.find('.datepicker-days thead th.datepicker-switch');
+    equal(target.text(), 'February 2011', 'Title is "February 2011"');
+});
