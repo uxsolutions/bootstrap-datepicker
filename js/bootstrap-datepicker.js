@@ -1191,6 +1191,8 @@
 					// As such, its behavior should not be hijacked.
 					break;
 				case 13: // enter
+					if (!this.o.returnEnabled)
+						break;
 					focusDate = this.focusDate || this.dates.get(-1) || this.viewDate;
 					this._toggle_multidate(focusDate);
 					dateChanged = true;
@@ -1398,6 +1400,7 @@
 		forceParse: true,
 		format: 'mm/dd/yyyy',
 		keyboardNavigation: true,
+		returnEnabled: true,
 		language: 'en',
 		minViewMode: 0,
 		multidate: false,
