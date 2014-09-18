@@ -116,7 +116,7 @@
 		this.viewMode = this.o.startView;
 
 		if (this.o.calendarWeeks)
-			this.picker.find('tfoot th.today')
+			this.picker.find('tfoot th.today, tfoot th.clear')
 						.attr('colspan', function(i, val){
 							return parseInt(val) + 1;
 						});
