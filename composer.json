@@ -14,6 +14,9 @@
             "styles": [
                 "css/datepicker.css",
                 "css/datepicker3.css"
+            ],
+            "files": [
+                "js/locales/bootstrap-datepicker.*.js"
             ]
         }
     }
