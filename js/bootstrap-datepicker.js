@@ -191,9 +191,7 @@
 			if (o.multidate !== true){
 				o.multidate = Number(o.multidate) || false;
 				if (o.multidate !== false)
-					o.multidate = Math.max(0, o.multidate);
-				else
-					o.multidate = 1;
+					o.multidate = Math.max(1, o.multidate);
 			}
 			o.multidateSeparator = String(o.multidateSeparator);
 
@@ -1013,7 +1011,10 @@
 		},
 
 		_toggle_multidate: function(date){
-			var ix = this.dates.contains(date);
+            if (this.o.multidate === false) {
+                this.dates.clear();
+            }
+            var ix = this.dates.contains(date);
 			if (!date){
 				this.dates.clear();
 			}
