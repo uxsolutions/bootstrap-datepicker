@@ -1193,7 +1193,10 @@
 					break;
 				case 13: // enter
 					focusDate = this.focusDate || this.dates.get(-1) || this.viewDate;
-					this._toggle_multidate(focusDate);
+					// Ensure we never deselect the date on Enter even in multidate mode.
+					if (this.dates.contains(focusDate) === -1) {
+						this._toggle_multidate(focusDate);
+					}
 					dateChanged = true;
 					this.focusDate = null;
 					this.viewDate = this.dates.get(-1) || this.viewDate;
