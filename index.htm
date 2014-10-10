@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>Datepicker for Bootstrap</title>
-    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-    <link id="bs-css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+    <link id="bs-css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
     <link id="bsdp-css" href="bootstrap-datepicker/css/datepicker3.css" rel="stylesheet">
     <script>
       var page = {bootstrap:3};
@@ -12,13 +12,13 @@
         var bscss = $('#bs-css'),
             bsdpcss = $('#bsdp-css');
         if (page.bootstrap == 3){
-          bscss.prop('href', 'http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css');
+          bscss.prop('href', '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css');
           bsdpcss.prop('href', 'bootstrap-datepicker/css/datepicker.css');
           page.bootstrap = 2;
           $(page).trigger('change:bootstrap', 2)
         }
         else{
-          bscss.prop('href', 'http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css');
+          bscss.prop('href', '//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css');
           bsdpcss.prop('href', 'bootstrap-datepicker/css/datepicker3.css');
           page.bootstrap = 3;
           $(page).trigger('change:bootstrap', 3)
@@ -34,7 +34,7 @@
     <link href="docs.css" rel="stylesheet">
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
     <script src="google-code-prettify/prettify.min.js"></script>
