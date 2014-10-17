@@ -1596,13 +1596,13 @@
 					d: function(d,v){
 						return d.setUTCDate(v);
 					},
-					h: function(d,v) {
+					h: function(d,v){
 						return d.setUTCHours(v);
 					},
-					i: function(d,v) {
+					i: function(d,v){
 						return d.setUTCMinutes(v);
 					},
-					s: function(d,v) {
+					s: function(d,v){
 						return d.setUTCSeconds(v);
 					}
 				},
@@ -1662,10 +1662,7 @@
 			if (typeof format === 'string')
 				format = DPGlobal.parseFormat(format);
 
-			var
-				hh = ('00' + date.getUTCHours()).slice(-2),
-				mi = ('00' + date.getUTCMinutes()).slice(-2),
-				ss = ('00' + date.getUTCSeconds()).slice(-2);
+			var hh = ('00' + date.getUTCHours()).slice(-2);
 
 			var val = {
 				d: date.getUTCDate(),
@@ -1678,10 +1675,8 @@
 				yyyy: date.getUTCFullYear(),
 				h: hh,
 				H: hh,
-				i: mi,
-				I: mi,
-				s: ss,
-				S: ss
+				i: ('00' + date.getUTCMinutes()).slice(-2),
+				s: ('00' + date.getUTCSeconds()).slice(-2)
 			};
 
 			val.dd = (val.d < 10 ? '0' : '') + val.d;

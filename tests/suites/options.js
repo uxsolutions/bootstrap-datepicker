@@ -33,6 +33,31 @@ test('Autoclose', function(){
     datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
 });
 
+test('Autoclose with showTime', function () {
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .val('2012-03-05 15:9:57')
+            .datepicker({
+                format: 'yyyy-mm-dd h:i:s',
+                showTime: true,
+                autoclose: true // should be ignored
+            }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    ok(picker.is(':visible'), 'Picker is visible');
+    target = picker.find('.datepicker-days tbody td:nth(7)');
+    equal(target.text(), '4'); // Mar 4
+
+    target.click();
+    // It still should be visible
+    ok(picker.is(':visible'), 'Picker is visible');
+    datesEqual(dp.dates[0], UTCDate(2012, 2, 4, 15, 9, 57));
+    datesEqual(dp.viewDate, UTCDate(2012, 2, 4, 15, 9, 57));
+});
+
 test('Startview: year view (integer)', function(){
     var input = $('<input />')
                 .appendTo('#qunit-fixture')
@@ -305,7 +330,7 @@ test('Clear Button: clears input value', function(){
         target = picker.find('.datepicker-days tfoot .clear');
         target.click();
 
-        equal(input.val(),'',"Input value has been cleared.")
+        equal(input.val(),'',"Input value has been cleared.");
         ok(picker.is(':visible'), 'Picker is visible');
 });
 
@@ -645,4 +670,46 @@ test('Multidate Separator', function(){
 
     target.click();
     equal(input.val(), '2012-03-05 2012-03-04 2012-03-12');
+});
+
+test('showTime', function () {
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .val('2012-03-05 15:9:57')
+            .datepicker({
+                format: 'yyyy-mm-dd h:i:s',
+                showTime: true
+            }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target, select;
+
+    input.focus();
+    ok(picker.is(':visible'), 'Picker is visible');
+
+    target = picker.find('.datepicker-days tfoot th.timepicker');
+    ok(target.is(':visible'), 'Timepicker is visible');
+
+    // First find the hours
+    select = target.find('select.time[name=hour]');
+    ok(select.is(':visible'), 'Hours is visible');
+    equal(select.val(), '15');
+    select.val('17');
+    // Minutes
+    select = target.find('select.time[name=minute]');
+    ok(select.is(':visible'), 'Minutes is visible');
+    equal(select.val(), '09');
+    select.val('59');
+    // Seconds
+    select = target.find('select.time[name=second]');
+    ok(select.is(':visible'), 'Seconds is visible');
+    equal(select.val(), '57');
+    select.val('02');
+
+    ok(target.find('select.time[name=ampm]').is(':not(:visible)'), 'AM/PM is hidden by default');
+
+    target.find('button').click();
+    ok(picker.is(':not(:visible)'), 'Picker is hidden');
+    datesEqual(dp.dates[0], UTCDate(2012, 2, 5, 17, 59, 2));
+    datesEqual(dp.viewDate, UTCDate(2012, 2, 5, 17, 59, 2));
 });
