@@ -1197,13 +1197,15 @@
 					// As such, its behavior should not be hijacked.
 					break;
 				case 13: // enter
-					focusDate = this.focusDate || this.dates.get(-1) || this.viewDate;
-					this._toggle_multidate(focusDate);
-					dateChanged = true;
-					this.focusDate = null;
-					this.viewDate = this.dates.get(-1) || this.viewDate;
-					this.setValue();
-					this.fill();
+					if (this.o.keyboardNavigation) {
+						focusDate = this.focusDate || this.dates.get(-1) || this.viewDate;
+						this._toggle_multidate(focusDate);
+						dateChanged = true;
+						this.focusDate = null;
+						this.viewDate = this.dates.get(-1) || this.viewDate;
+						this.setValue();
+						this.fill();
+					}
 					if (this.picker.is(':visible')){
 						e.preventDefault();
 						if (this.o.autoclose)
