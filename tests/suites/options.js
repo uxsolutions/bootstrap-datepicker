@@ -646,3 +646,28 @@ test('Multidate Separator', function(){
     target.click();
     equal(input.val(), '2012-03-05 2012-03-04 2012-03-12');
 });
+
+test('Deselectable', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    allowDeselection: false,
+		    format: 'yyyy-mm-dd',
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+
+    // Initial value is selected
+    ok(dp.dates.contains(UTCDate(2012, 2, 5)) !== -1, '2012-03-05 (initial date) in dates'); 
+
+    // Deselect first
+    target = picker.find('.datepicker-days tbody td:nth(8)');
+    equal(target.text(), '5'); // Mar 5
+
+    target.click();
+    equal(input.val(), '2012-03-05');
+});
