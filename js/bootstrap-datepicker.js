@@ -745,10 +745,10 @@
 				todaytxt = dates[this.o.language].today || dates['en'].today || '',
 				cleartxt = dates[this.o.language].clear || dates['en'].clear || '',
 				currentMonth = dates[this.o.language].months[month] || '',
-				currentYear = ((year.toString().length == 4) ? year : '') || '',
+				currentYear = ((year.toString().length === 4) ? year :'') || '',
 				tooltip;
 
-			if (currentYear.length == 0) {
+			if (currentYear.length === 0) {
 				this.picker.hide();
 				return;
 			} else {
