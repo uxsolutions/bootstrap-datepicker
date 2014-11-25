@@ -1573,8 +1573,8 @@
 						var t = str.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
 						if(t!==null){
 						  var d=+t[2], m=+t[1], y=+t[3];
-						  var date = new Date(y,m-1,d);
-						  if(date.getFullYear()===y && date.getMonth()===m-1){
+						  var date = UTCDate(y,m-1,d,0,0,0);
+						  if(date.getUTCFullYear()===y && date.getUTCMonth()===m-1){
 						    return date;   
 						  }
 						}
