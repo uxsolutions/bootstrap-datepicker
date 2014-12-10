@@ -547,7 +547,7 @@
 				windowHeight = $window.height(),
 				scrollTop = $window.scrollTop();
 
-			var zIndex = parseInt(this.element.parents().filter(function(){
+			var zIndex = parseInt($("body").children().filter(function(){
 					return $(this).css('z-index') !== 'auto';
 				}).first().css('z-index'))+10;
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
