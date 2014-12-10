@@ -1,11 +1,94 @@
 Changelog
 =========
 
-1.1.2
+1.3.0
+-----
+
+New features:
+* Bootstrap 3 support.  Added build files `build/build_standalone3.less` and `build/build3.less`, and source files `less/datepicker3.less` and `css/datepicker3.css` (built from `build_standalone3.less`).
+* Multi-date functionality.  This required rethinking several areas of the picker:
+    * The internals have been modified to be completely multidate-centric.
+    * Attributes and methods availabel on events have changed, but the old attributes and functions will still work.
+    * Keyboard navigation has been revamped, as it didn't work at all properly with multidate selection.
+    * The picker now explicitly supports "no selected date".
+
+Non-API changes:
+* Keyboard navigation has been changed.  See `docs/keyboard.rst`.
+* Empty pickers in a range picker setup will be populated with the first date selected by the user to make finding the next date easier.
+
+Bug squashed:
+* Jan 1, 1970 is now highlighted when selected
+* `touchstart` added to document-bound picker-closing events (alongside `mousedown`)
+* Fixed a display bug with component add-on icons being vertically higher than they should have been.
+* Input is refocused after clicking the picker.
+* `changeDate` event is triggered when `setDate` is called.
+
+Locale changes:
+* Added Ukrainian, Belgium-Dutch, Welsh, Galician, Vietnamese, and Azerbaijani
+* `clear` for German, Danish, Italian, and Romanian
+* Fixed `weekStart` and `format` for Norwegian
+* `weekStart` and `format` for Georgian
+* Tweaks for Latvian, French, Vietnamese, Swedish, and Croatian
+* De-duplicated Ukrainian files from `uk` and `ua` to just `ua`
+
+Repository changes:
+* Documentation has been moved from the base `README.md` file to the `docs/` folder, and been re-written to use sphinx docs.  The docs are now viewable online at http://bootstrap-datepicker.readthedocs.org/.  The [gh-pages](http://eternicode.github.io/bootstrap-datepicker/) branch has been reduced to the sandbox demo.
+* Changed the js file header to point at repo/demo/docs urls instead of eyecon.ro
+* The css files are now the output of the standalone build scripts instead of `build/build.less` etc.
+* `composer.json` now supports component-installer
+* Added [JSHint](http://www.jshint.com/docs/) and [JSCS](https://github.com/mdevils/node-jscs) configurations
+
+
+1.2.0
+-----
+
+New features:
+* Google Closure Compiler Compatibility
+* Smart orientation by default, and explicit picker orientation with the `orientation` option
+* Text inside the picker is no longer user-selectable
+* Packagist/Composer support (I think...)
+* No longer depends on glyphicons for arrows
+* `clearDate` event added, fired when the date is cleared
+
+Bug squashed:
+* `noConflict` fixed
+* Fix for large years causing an infinite loop in date parsing
+* Fixed cases where `changeYear` and `changeMonth` events were not being triggered
+* `component.js` moved to `bower.js`
+* Falsey values for `startDate` and `endDate` translate to `-Infinity` and `Infinity`, respectively (effectively, falsey values mean "no bounds")
+* Fixed `autoclose` for non-input, non-component elements
+* Fixed 50% param in `mix()` less function -- expands compatibility with less compilers
+* Fixed `update` method to update the selected date
+* `beforeShowDay` was getting UTC dates, now it gets local dates (all dates that developers are given should be in local time, not UTC).
+* `startDate` and `endDate` were a bit confused when given `new Date()` -- they would not allow today to be selected (the range should be inclusive), they would change whether it was selectable based on local time, etc.  These quirks should be fixed now.  They both also now expect local dates (which will then be time-zeroed and converted to UTC).
+* Fixed selected date not being automatically constrained to the specified range when `setStartDate` and `setEndDate` were called.
+* No longer uses jQuery's `.size()` (deprecated in favor of `.length`)
+* `changeDate` triggered during manual user input
+* `change` event fired when input value changed, it wasn't in some cases
+
+Locale changes:
+* Added Arabic, Norwegian, Georgian
+* `clear` for French
+* `today` and `clear` for Bahasa
+* `today` and `clear` for Portuguese (both `pt` and `pt-BR`)
+* `format` for Turkish
+* `format` and `weekStart` for Swedish
+* `format` and `weekStart` for Simplified Chinese; `today`, `format`, and `weekStart` for Traditional Chinese
+* Fixed typo in Serbian latin (`rs-latin`)
+* More appropriate use of Traditional Chinese habit in `zh-TW`
+
+
+1.1.3
 ----------
 
 Clicking the clear button now triggers the input's `change` and datepicker's `changeDate` events.
 Fixed a bug that broke the event-attached `format` function.
+
+
+1.1.2
+----------
+
+Botched release, no change from 1.1.1
 
 
 1.1.1
