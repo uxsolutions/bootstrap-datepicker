@@ -744,9 +744,19 @@
 				endMonth = this.o.endDate !== Infinity ? this.o.endDate.getUTCMonth() : Infinity,
 				todaytxt = dates[this.o.language].today || dates['en'].today || '',
 				cleartxt = dates[this.o.language].clear || dates['en'].clear || '',
+				currentMonth = dates[this.o.language].months[month] || '',
+				currentYear = ((year.toString().length === 4) ? year :'') || '',
 				tooltip;
+
+			if (currentYear.length === 0) {
+				this.picker.hide();
+				return;
+			} else {
+				this.picker.show();
+			}
+
 			this.picker.find('.datepicker-days thead th.datepicker-switch')
-						.text(dates[this.o.language].months[month]+' '+year);
+            .text(currentMonth+' '+currentYear);
 			this.picker.find('tfoot th.today')
 						.text(todaytxt)
 						.toggle(this.o.todayBtn !== false);
@@ -870,31 +880,31 @@
 			switch (this.viewMode){
 				case 0:
 					if (this.o.startDate !== -Infinity && year <= this.o.startDate.getUTCFullYear() && month <= this.o.startDate.getUTCMonth()){
-						this.picker.find('.prev').css({visibility: 'hidden'});
+						this.picker.find('.prev').css({opacity: '0'});
 					}
 					else {
-						this.picker.find('.prev').css({visibility: 'visible'});
+						this.picker.find('.prev').css({opacity: '100'});
 					}
 					if (this.o.endDate !== Infinity && year >= this.o.endDate.getUTCFullYear() && month >= this.o.endDate.getUTCMonth()){
-						this.picker.find('.next').css({visibility: 'hidden'});
+						this.picker.find('.next').css({opacity: '0'});
 					}
 					else {
-						this.picker.find('.next').css({visibility: 'visible'});
+						this.picker.find('.next').css({opacity: '100'});
 					}
 					break;
 				case 1:
 				case 2:
 					if (this.o.startDate !== -Infinity && year <= this.o.startDate.getUTCFullYear()){
-						this.picker.find('.prev').css({visibility: 'hidden'});
+						this.picker.find('.prev').css({opacity: '0'});
 					}
 					else {
-						this.picker.find('.prev').css({visibility: 'visible'});
+						this.picker.find('.prev').css({opacity: '100'});
 					}
 					if (this.o.endDate !== Infinity && year >= this.o.endDate.getUTCFullYear()){
-						this.picker.find('.next').css({visibility: 'hidden'});
+						this.picker.find('.next').css({opacity: '0'});
 					}
 					else {
-						this.picker.find('.next').css({visibility: 'visible'});
+						this.picker.find('.next').css({opacity: '100'});
 					}
 					break;
 			}
