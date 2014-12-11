@@ -219,3 +219,16 @@ Day of the week start. 0 (Sunday) to 6 (Saturday)
 
 .. figure:: _static/screenshots/option_weekstart.png
     :align: center
+
+
+horizontal
+--------------
+
+Boolean.  Default: false
+
+If true, all pickers (day, month, year) are visible at the same time and layout
+horizontally.
+
+.. figure:: _static/screenshots/option_horizontal.png
+    :align: center
+

@@ -646,3 +646,31 @@ test('Multidate Separator', function(){
     target.click();
     equal(input.val(), '2012-03-05 2012-03-04 2012-03-12');
 });
+
+test('Horizontal Layout', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                //.val('2012-03-05')
+                .datepicker({
+                    horizontal: true
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+
+    // Is day's picker visible?
+    target = picker.find('.datepicker-days');
+    ok(target.is(':visible'), 'Day\'s Picker is visible');
+
+    // ... and month's picker?
+    target = target.siblings('.datepicker-months');
+    ok(target.is(':visible'), 'Month\'s Picker is visible');
+
+    // ... and year's picker?
+    target = target.siblings('.datepicker-years');
+    ok(target.is(':visible'), 'Year\'s Picker is visible');
+
+    // does 
+});

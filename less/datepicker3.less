@@ -13,6 +13,9 @@
 	border-radius: 4px;
 	&-inline {
 		width: 220px;
+		&.datepicker-horizontal {
+			width: auto;
+		}
 	}
 	direction: ltr;
 	&&-rtl {
@@ -181,6 +184,13 @@
 				.button-variant(@btn-primary-color, @btn-primary-bg, @btn-primary-border);
 				text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 			}
+			&.active-view,
+			&.active-view:hover,
+			&.active.disabled,
+			&.active.disabled:hover {
+				border: solid 1px @btn-primary-border;
+				box-sizing: border-box;
+			}
 			&.old,
 			&.new {
 				color: @btn-link-disabled-color;
@@ -213,6 +223,36 @@
 	thead tr:first-child th.cw {
 		cursor: default;
 		background-color: transparent;
+	}
+	&.datepicker-horizontal {
+		thead tr:first-child th,
+		tfoot tr th {
+			&:hover{
+				background: inherit;
+			}
+
+			&.switch {
+				cursor: inherit;
+			}
+		}
+
+		@pickerBorder: #ccc dotted 1px;
+
+		.datepicker-days,
+		.datepicker-months,
+		.datepicker-years {
+			border: @pickerBorder;
+			padding: 0 8px;
+			margin: 0 -1px 0 0;
+			display: inline-block;
+			min-height: 270px;
+
+			@media(max-width: 636px) {
+				& {
+					width: 95%;
+				}
+			}
+		}
 	}
 }
 .input-group {

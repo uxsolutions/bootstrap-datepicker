@@ -20,6 +20,9 @@
 .datepicker-inline {
   width: 220px;
 }
+.datepicker-inline.datepicker-horizontal {
+  width: auto;
+}
 .datepicker.datepicker-rtl {
   direction: rtl;
 }
@@ -418,6 +421,13 @@
 .datepicker table tr td span.active.disabled:hover.active {
   background-color: #003399 \9;
 }
+.datepicker table tr td span.active-view,
+.datepicker table tr td span.active-view:hover,
+.datepicker table tr td span.active.disabled,
+.datepicker table tr td span.active.disabled:hover {
+  border: solid 1px #0088cc;
+  box-sizing: border-box;
+}
 .datepicker table tr td span.old,
 .datepicker table tr td span.new {
   color: #999999;
@@ -442,6 +452,30 @@
 .datepicker thead tr:first-child th.cw {
   cursor: default;
   background-color: transparent;
+}
+.datepicker.datepicker-horizontal thead tr:first-child th:hover,
+.datepicker.datepicker-horizontal tfoot tr th:hover {
+  background: inherit;
+}
+.datepicker.datepicker-horizontal thead tr:first-child th.switch,
+.datepicker.datepicker-horizontal tfoot tr th.switch {
+  cursor: inherit;
+}
+.datepicker.datepicker-horizontal .datepicker-days,
+.datepicker.datepicker-horizontal .datepicker-months,
+.datepicker.datepicker-horizontal .datepicker-years {
+  border: #cccccc dotted 1px;
+  padding: 0 8px;
+  margin: 0 -1px 0 0;
+  display: inline-block;
+  min-height: 250px;
+}
+@media (max-width: 536px) {
+  .datepicker.datepicker-horizontal .datepicker-days,
+  .datepicker.datepicker-horizontal .datepicker-months,
+  .datepicker.datepicker-horizontal .datepicker-years {
+    width: 95%;
+  }
 }
 .input-append.date .add-on i,
 .input-prepend.date .add-on i {
@@ -504,6 +538,9 @@
   color: #333333;
   font-size: 13px;
   line-height: 20px;
+}
+.datepicker.datepicker-horizontal.dropdown-menu {
+  max-width: 90%;
 }
 .datepicker.dropdown-menu th,
 .datepicker.datepicker-inline th,

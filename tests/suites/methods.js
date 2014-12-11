@@ -27,6 +27,10 @@ test('update - String', function(){
     datesEqual(this.dp.dates[0], UTCDate(2012, 2, 13));
     var date = this.dp.picker.find('.datepicker-days td:contains(13)');
     ok(date.is('.active'), 'Date is selected');
+    var month = this.dp.picker.find('.datepicker-months span:contains(Mar)');
+    ok(month.is('.active-view'), 'Month is active (view)');
+    var year = this.dp.picker.find('.datepicker-years span:contains(2012)');
+    ok(year.is('.active-view'), 'Year is active (view)');
 });
 
 test('update - Date', function(){
@@ -34,13 +38,22 @@ test('update - Date', function(){
     datesEqual(this.dp.dates[0], UTCDate(2012, 2, 13));
     var date = this.dp.picker.find('.datepicker-days td:contains(13)');
     ok(date.is('.active'), 'Date is selected');
+    var month = this.dp.picker.find('.datepicker-months span:contains(Mar)');
+    ok(month.is('.active-view'), 'Month is active (view)');
+    var year = this.dp.picker.find('.datepicker-years span:contains(2012)');
+    ok(year.is('.active-view'), 'Year is active (view)');
 });
 
 test('update - null', function(){
+    this.dp.update(new Date(2012, 2, 13));
     this.dp.update(null);
     equal(this.dp.dates[0], undefined);
     var selected = this.dp.picker.find('.datepicker-days td.active');
     equal(selected.length, 0, 'No date is selected');
+    var month = this.dp.picker.find('.datepicker-months span.active-view');
+    equal(month.length, 0, 'No Month is active (view)');
+    var year = this.dp.picker.find('.datepicker-years span.active-view');
+    equal(year.text(), '2012', 'Last selected Year is active (view)');
 });
 
 test('setDate', function(){
