@@ -91,6 +91,7 @@
 		this._process_options(options);
 
 		this.element = $(element);
+		this.container = (options.container && $(options.container)) || $('body');
 		this.isInline = false;
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on, .input-group-addon, .btn') : false;
@@ -409,7 +410,7 @@
 
 		show: function(){
 			if (!this.isInline)
-				this.picker.appendTo('body');
+				this.picker.appendTo(this.container);
 			this.picker.show();
 			this.place();
 			this._attachSecondaryEvents();
@@ -422,6 +423,12 @@
 			if (!this.picker.is(':visible'))
 				return;
 			this.focusDate = null;
+
+			// focus the input before hiding the picker to avoid its re-opening
+			if (this.isInput) {
+				this.element.focus();
+			}
+
 			this.picker.hide().detach();
 			this._detachSecondaryEvents();
 			this.viewMode = this.o.startView;
@@ -547,14 +554,19 @@
 				windowHeight = $window.height(),
 				scrollTop = $window.scrollTop();
 
+			var containerOffset = {
+				top: this.container.offset().top - this.container.scrollTop(),
+				left: this.container.offset().left - this.container.scrollLeft(),
+			};
+
 			var zIndex = parseInt(this.element.parents().filter(function(){
 					return $(this).css('z-index') !== 'auto';
 				}).first().css('z-index'))+10;
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(false);
 			var width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(false);
-			var left = offset.left,
-				top = offset.top;
+			var left = offset.left - containerOffset.left,
+				top = offset.top - containerOffset.top;
 
 			this.picker.removeClass(
 				'datepicker-orient-top datepicker-orient-bottom '+
@@ -574,7 +586,7 @@
 				if (offset.left < 0)
 					left -= offset.left - visualPadding;
 				else if (offset.left + calendarWidth > windowWidth)
-					left = windowWidth - calendarWidth - visualPadding;
+					left = windowWidth - calendarWidth - visualPadding - containerOffset.left;
 			}
 
 			// auto y orientation is best-situation: top or bottom, no fudging,
@@ -582,8 +594,8 @@
 			var yorient = this.o.orientation.y,
 				top_overflow, bottom_overflow;
 			if (yorient === 'auto'){
-				top_overflow = -scrollTop + offset.top - calendarHeight;
-				bottom_overflow = scrollTop + windowHeight - (offset.top + height + calendarHeight);
+				top_overflow = -scrollTop + top - calendarHeight;
+				bottom_overflow = scrollTop + windowHeight - (top + height + calendarHeight);
 				if (Math.max(top_overflow, bottom_overflow) === bottom_overflow)
 					yorient = 'top';
 				else
@@ -1016,6 +1028,8 @@
 			var ix = this.dates.contains(date);
 			if (!date){
 				this.dates.clear();
+			} else if (this.dates.length === 1 && this.dates[0].toUTCString() === date.toUTCString()) {
+				return	// don't untoggle a date if the new value is the same as the value that's already stored
 			}
 			if (this.o.multidate === 1 && ix === 0){
                 // single datepicker, don't remove selected date
@@ -1194,13 +1208,15 @@
 					// As such, its behavior should not be hijacked.
 					break;
 				case 13: // enter
-					focusDate = this.focusDate || this.dates.get(-1) || this.viewDate;
-					this._toggle_multidate(focusDate);
-					dateChanged = true;
-					this.focusDate = null;
-					this.viewDate = this.dates.get(-1) || this.viewDate;
-					this.setValue();
-					this.fill();
+					if (this.o.keyboardNavigation) {
+						focusDate = this.focusDate || this.dates.get(-1) || this.viewDate;
+						this._toggle_multidate(focusDate);
+						dateChanged = true;
+						this.focusDate = null;
+						this.viewDate = this.dates.get(-1) || this.viewDate;
+						this.setValue();
+						this.fill();
+					}
 					if (this.picker.is(':visible')){
 						e.preventDefault();
 						if (this.o.autoclose)
