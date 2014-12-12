@@ -1,5 +1,10 @@
 {
     "name": "eternicode/bootstrap-datepicker",
+    "description": "A datepicker for twitter bootstrap forked from Stefan Petre's (of eyecon.ro)",
+    "keywords": [
+        "bootstrap",
+        "datepicker"
+    ],
     "type": "component",
     "require": {
         "robloach/component-installer": "*",
@@ -14,6 +19,9 @@
             "styles": [
                 "css/datepicker.css",
                 "css/datepicker3.css"
+            ],
+            "files": [
+                "js/locales/bootstrap-datepicker.*.js"
             ]
         }
     }
