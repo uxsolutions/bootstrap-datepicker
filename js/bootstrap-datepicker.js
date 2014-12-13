@@ -1022,7 +1022,12 @@
                 // single datepicker, don't remove selected date
             }
 			else if (ix !== -1){
-				this.dates.remove(ix);
+				if(!this.isInput){
+					this.dates.remove(ix); //fix for pressing enter after manually typing date.
+				}
+				else if(this.o.autoclose){
+					this.hide();
+				}
 			}
 			else {
 				this.dates.push(date);
