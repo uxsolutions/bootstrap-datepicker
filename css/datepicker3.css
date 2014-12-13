@@ -728,8 +728,6 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 }
 .input-group.date .input-group-addon i {
   cursor: pointer;
-  width: 16px;
-  height: 16px;
 }
 .input-daterange input {
   text-align: center;
