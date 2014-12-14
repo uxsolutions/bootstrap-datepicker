@@ -547,9 +547,23 @@
 				windowHeight = $window.height(),
 				scrollTop = $window.scrollTop();
 
-			var zIndex = parseInt(this.element.parents().filter(function(){
-					return $(this).css('z-index') !== 'auto';
-				}).first().css('z-index'))+10;
+            // zIndex must be greater than all the zIndex ​​of parents
+			var zIndex = 10;
+		    var parents = this.element.parents().filter(function() {
+		        return $(this).css('z-index') !== 'auto';
+		    });
+
+		    parents.each(function() {
+		        var z = parseInt($(this).css('z-index'));
+		        if (z > zIndex)
+		            zIndex = z;
+		    });
+
+			// does not work when the datepicker is located in a bootstrap-popup on chrome v:35.0.1916.153
+//			var zIndex = parseInt(this.element.parents().filter(function(){
+//					return $(this).css('z-index') !== 'auto';
+//			}).first().css('z-index')) + 10;				
+			
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(false);
 			var width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(false);
