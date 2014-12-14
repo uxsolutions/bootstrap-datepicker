@@ -1,25 +1,10 @@
-/* =========================================================
- * bootstrap-datepicker.js
- * Repo: https://github.com/eternicode/bootstrap-datepicker/
- * Demo: http://eternicode.github.io/bootstrap-datepicker/
- * Docs: http://bootstrap-datepicker.readthedocs.org/
- * Forked from http://www.eyecon.ro/bootstrap-datepicker
- * =========================================================
- * Started by Stefan Petre; improvements by Andrew Rowls + contributors
+/*!
+ * Datepicker for Bootstrap v1.4.0 (https://github.com/eternicode/bootstrap-datepicker)
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * ========================================================= */
-
+ * Copyright 2012 Stefan Petre
+ * Improvements by Andrew Rowls
+ * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+ */
 (function($, undefined){
 
 	function UTCDate(){
@@ -30,11 +15,9 @@
 		return UTCDate(today.getFullYear(), today.getMonth(), today.getDate());
 	}
 	function isUTCEquals(date1, date2) {
-		return (
-			date1.getUTCFullYear() === date2.getUTCFullYear() &&
-			date1.getUTCMonth() === date2.getUTCMonth() &&
-			date1.getUTCDate() === date2.getUTCDate()
-		);
+		return (	date1.getUTCFullYear() === date2.getUTCFullYear() &&
+					date1.getUTCMonth() === date2.getUTCMonth() &&
+					date1.getUTCDate() === date2.getUTCDate() );
 	}
 	function alias(method){
 		return function(){
@@ -238,10 +221,10 @@
 			o.datesDisabled = o.datesDisabled||[];
 			if (!$.isArray(o.datesDisabled)) {
 				var datesDisabled = [];
-				datesDisabled.push(DPGlobal.parseDate(o.datesDisabled, format, o.language));
+				datesDisabled.push( DPGlobal.parseDate(o.datesDisabled, format, o.language) );
 				o.datesDisabled = datesDisabled;
 			}
-			o.datesDisabled = $.map(o.datesDisabled,function(d){
+			o.datesDisabled = $.map(o.datesDisabled, function (d) {
 				return DPGlobal.parseDate(d, format, o.language);
 			});
 
@@ -318,7 +301,7 @@
 		},
 		_buildEvents: function(){
             var events = {
-                keyup: $.proxy(function(e){
+                keyup: $.proxy(function (e) {
                     if ($.inArray(e.keyCode, [27, 37, 39, 38, 40, 32, 13, 9]) === -1)
                         this.update();
                 }, this),
@@ -614,11 +597,11 @@
 				appendOffset = $(this.o.container).offset();
 
 			var parentsZindex = [];
-			this.element.parents().each(function(){
+			this.element.parents().each(function() {
 				var itemZIndex = $(this).css('z-index');
-				if (itemZIndex !== 'auto' && itemZIndex !== 0) parentsZindex.push(parseInt(itemZIndex));
+				if ( itemZIndex !== 'auto' && itemZIndex !== 0 ) parentsZindex.push( parseInt( itemZIndex ) );
 			});
-			var zIndex = Math.max.apply(Math, parentsZindex) + 10;
+			var zIndex = Math.max.apply( Math, parentsZindex ) + 10;
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(false);
 			var width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(false);
@@ -812,9 +795,8 @@
 				$.inArray(date.getUTCDay(), this.o.daysOfWeekDisabled) !== -1){
 				cls.push('disabled');
 			}
-			if (this.o.datesDisabled.length > 0 &&
-				$.grep(this.o.datesDisabled, function(d){
-					return isUTCEquals(date, d); }).length > 0) {
+			if ( this.o.datesDisabled.length > 0 &&
+				$.grep(this.o.datesDisabled, function(d) { return isUTCEquals(date, d); }).length > 0 ) {
 				cls.push('disabled', 'disabled-date');
 			}
 
@@ -840,8 +822,7 @@
 				todaytxt = dates[this.o.language].today || dates['en'].today || '',
 				cleartxt = dates[this.o.language].clear || dates['en'].clear || '',
 				tooltip;
-			if (isNaN(year) || isNaN(month))
-				return;
+			if (isNaN(year) || isNaN(month)) return;
 			this.picker.find('.datepicker-days thead th.datepicker-switch')
 						.text(dates[this.o.language].months[month]+' '+year);
 			this.picker.find('tfoot th.today')
@@ -932,8 +913,8 @@
 
 			if (this.o.beforeShowMonth !== $.noop){
 				var that = this;
-				$.each(months, function(i, month){
-					if (!$(month).hasClass("disabled")) {
+				$.each(months, function(i, month) {
+					if (! $(month).hasClass("disabled")) {
 						var moDate = new Date(year, i, 1);
 						var before = that.o.beforeShowMonth(moDate);
 						if (before === false)
@@ -1119,7 +1100,7 @@
 			}
 
 			if (ix !== -1){
-				if (this.o.multidate === true || this.o.multidate > 1 || this.o.toggleActive){
+				if(this.o.multidate === true || this.o.multidate > 1 || this.o.toggleActive){
 					this.dates.remove(ix);
 				}
 			} else if (this.o.multidate === false) {

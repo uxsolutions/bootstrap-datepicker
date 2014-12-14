@@ -1,96 +1,177 @@
-/* global module, require */
 module.exports = function(grunt){
-    require('load-grunt-tasks')(grunt);
+    'use strict';
 
+    // Force use of Unix newlines
+    grunt.util.linefeed = '\n';
+
+    // Project configuration.
     grunt.initConfig({
+        //Metadata
         pkg: grunt.file.readJSON('package.json'),
-        qunit: {
-            all: ['tests/tests.html']
+        banner: [
+            '/*!',
+            ' * Datepicker for Bootstrap v<%= pkg.version %> (<%= pkg.homepage %>)',
+            ' *',
+            ' * Copyright 2012 Stefan Petre',
+            ' * Improvements by Andrew Rowls',
+            ' * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)',
+            ' */\n'
+        ].join('\n'),
+
+        // Task configuration.
+        clean: {
+            dist: 'dist'
         },
         jshint: {
             options: {
-                jshintrc: true
+                jshintrc: 'js/.jshintrc'
             },
-            gruntfile: ['Gruntfile.js'],
-            main: ['js/bootstrap-datepicker.js'],
-            locales: ['js/locales/*js']
+            main: {
+                src: 'js/bootstrap-datepicker.js'
+            },
+            locales: {
+                src: 'js/locales/*.js'
+            },
+            gruntfile: {
+                options: {
+                    jshintrc: 'grunt/.jshintrc'
+                },
+                src: 'Gruntfile.js'
+            }
         },
         jscs: {
-            /* grunt-contrib-jscs notes:
-                0.1.2 works
-                0.1.3 infinite loops on postinstall
-                0.1.4 doesn't seem to hit all targets when run via "grunt jscs"
-            */
-            gruntfile: ['Gruntfile.js'],
-            main: ['js/bootstrap-datepicker.js'],
-            locales: ['js/locales/*js']
+            options: {
+                config: '.jscsrc'
+            },
+            main: {
+                src: 'js/bootstrap-datepicker.js'
+            },
+            locales: {
+                src: 'js/locales/*.js'
+            },
+            gruntfile: {
+                src: 'Gruntfile.js'
+            }
         },
-        less: {
-            standalone: {
-                files: {
-                    '_build/datepicker.standalone.css': 'build/build_standalone.less',
-                    '_build/datepicker3.standalone.css': 'build/build_standalone3.less'
-                }
+        qunit: {
+            all: 'tests/tests.html'
+        },
+        concat: {
+            options: {
+                banner: '<%= banner %>',
+                stripBanners: true
             },
-            css: {
-                files: {
-                    '_build/datepicker.css': 'build/build.less',
-                    '_build/datepicker3.css': 'build/build3.less'
-                }
-            },
-            repo: {
-                files: {
-                    'css/datepicker.css': 'build/build_standalone.less',
-                    'css/datepicker3.css': 'build/build_standalone3.less'
-                }
+            main: {
+                src: 'js/bootstrap-datepicker.js',
+                dest: 'dist/js/<%= pkg.name %>.js'
             }
         },
         uglify: {
             options: {
-                compress: true,
-                mangle: true
+                preserveComments: 'some'
             },
             main: {
-                options: {
-                    sourceMap: function(dest){
-                        return dest.replace('.min.js', '.js.map');
-                    }
-                },
-                files: {
-                    '_build/bootstrap-datepicker.min.js': 'js/bootstrap-datepicker.js',
-                    '_build/bootstrap-datepicker.locales.min.js': 'js/locales/*.js'
-                }
+                src: '<%= concat.main.dest %>',
+                dest: 'dist/js/<%= pkg.name %>.min.js'
             },
             locales: {
                 files: [{
                     expand: true,
                     cwd: 'js/locales/',
                     src: ['*.js', '!*.min.js'],
-                    dest: '_build/locales/',
+                    dest: 'dist/locales/',
                     rename: function(dest, name){
                         return dest + name.replace(/\.js$/, '.min.js');
                     }
                 }]
             }
         },
-        cssmin: {
-            all: {
+        less: {
+            options: {
+                banner: '<%= banner %>'
+            },
+            standalone: {
                 files: {
-                    '_build/datepicker.standalone.min.css': '_build/datepicker.standalone.css',
-                    '_build/datepicker.min.css': '_build/datepicker.css',
-                    '_build/datepicker3.standalone.min.css': '_build/datepicker3.standalone.css',
-                    '_build/datepicker3.min.css': '_build/datepicker3.css'
+                    'dist/css/<%= pkg.name %>.standalone.css': 'build/build_standalone.less',
+                    'dist/css/<%= pkg.name %>3.standalone.css': 'build/build_standalone3.less'
+                }
+            },
+            css: {
+                files: {
+                    'dist/css/<%= pkg.name %>.css': 'build/build.less',
+                    'dist/css/<%= pkg.name %>3.css': 'build/build3.less'
                 }
             }
         },
-        clean: ['_build']
+        cssmin: {
+            options: {
+                compatibility: 'ie8',
+                keepSpecialComments: '*',
+                noAdvanced: true
+            },
+            main: {
+                files: {
+                    'dist/css/<%= pkg.name %>.min.css': 'dist/css/<%= pkg.name %>.css',
+                    'dist/css/<%= pkg.name %>3.min.css': 'dist/css/<%= pkg.name %>3.css'
+                }
+            },
+            standalone: {
+                files: {
+                    'dist/css/<%= pkg.name %>.standalone.min.css': 'dist/css/<%= pkg.name %>.standalone.css',
+                    'dist/css/<%= pkg.name %>3.standalone.min.css': 'dist/css/<%= pkg.name %>3.standalone.css'
+                }
+            }
+        },
+        csslint: {
+            options: {
+                csslintrc: 'less/.csslintrc'
+            },
+            dist: [
+                'dist/css/bootstrap-datepicker.css',
+                'dist/css/bootstrap-datepicker3.css',
+                'dist/css/bootstrap-datepicker_standalone.css',
+                'dist/css/bootstrap-datepicker3_standalone.css'
+            ]
+        },
+        compress: {
+            main: {
+                options: {
+                    archive: 'bootstrap-datepicker-<%= pkg.version %>-dist.zip',
+                    mode: 'zip',
+                    level: 9,
+                    pretty: true
+                },
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'dist/',
+                        src: ['**']
+                    }
+                ]
+            }
+        }
     });
 
-    grunt.registerTask('lint', 'Lint all js files with jshint and jscs', ['jshint', 'jscs']);
-    grunt.registerTask('test', 'Lint files and run unit tests', ['lint', 'qunit']);
-    grunt.registerTask('finish', 'Prepares repo for commit [test, less:repo, screenshots]', ['test', 'less:repo', 'screenshots']);
-    grunt.registerTask('dist', 'Builds minified files', ['less:css', 'less:standalone', 'cssmin', 'uglify']);
+    // These plugins provide necessary tasks.
+    require('load-grunt-tasks')(grunt, {scope: 'devDependencies'});
+    require('time-grunt')(grunt);
 
+    // JS distribution task.
+    grunt.registerTask('dist-js', ['concat', 'uglify:main', 'uglify:locales']);
+
+    // CSS distribution task.
+    grunt.registerTask('less-compile', ['less:standalone', 'less:css']);
+    grunt.registerTask('dist-css', ['less-compile', 'cssmin:main', 'cssmin:standalone']);
+
+    // Full distribution task.
+    grunt.registerTask('dist', ['clean:dist', 'dist-js', 'dist-css']);
+
+    // Code check tasks.
+    grunt.registerTask('lint-js', 'Lint all js files with jshint and jscs', ['jshint', 'jscs']);
+    grunt.registerTask('lint-css', 'Lint all css files', ['dist-css', 'csslint:dist']);
+    grunt.registerTask('test', 'Lint files and run unit tests', ['lint-js', /*'lint-css',*/ 'qunit']);
+
+    // Docs task.
     grunt.registerTask('screenshots', 'Rebuilds automated docs screenshots', function(){
         var phantomjs = require('phantomjs').path;
 
