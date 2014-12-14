@@ -409,7 +409,7 @@
 
 		show: function(){
 			if (!this.isInline)
-				this.picker.appendTo('body');
+				this.picker.appendTo(this.o.appendTo);
 			this.picker.show();
 			this.place();
 			this._attachSecondaryEvents();
@@ -549,12 +549,13 @@
 
 			var zIndex = parseInt(this.element.parents().filter(function(){
 					return $(this).css('z-index') !== 'auto';
-				}).first().css('z-index'))+10;
+				}).first().css('z-index'))+99999;
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
+			var containerOffset = $(this.o.appendTo).offset();
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(false);
 			var width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(false);
-			var left = offset.left,
-				top = offset.top;
+			var left = offset.left - containerOffset.left,
+				top = offset.top - containerOffset.top;
 
 			this.picker.removeClass(
 				'datepicker-orient-top datepicker-orient-bottom '+
@@ -1396,6 +1397,7 @@
 	};
 
 	var defaults = $.fn.datepicker.defaults = {
+		appendTo: 'body',
 		autoclose: false,
 		beforeShowDay: $.noop,
 		calendarWeeks: false,
