@@ -1287,6 +1287,8 @@
 			var dp = $(e.target).data('datepicker'),
 				new_date = dp.getUTCDate(),
 				i = $.inArray(e.target, this.inputs),
+				left_start = i - 1,
+				right_start = i + 1,
 				l = this.inputs.length;
 			if (i === -1)
 				return;
@@ -1295,8 +1297,15 @@
 				if (!p.getUTCDate())
 					p.setUTCDate(new_date);
 			});
-
-			if (new_date < this.dates[i]){
+			if ( isNaN(Date.parse(this.dates[i]))){
+				while (left_start >= 0 && new_date < this.dates[left_start]){
+					this.pickers[left_start--].setUTCDate(new_date);
+				}
+				while (right_start < l && new_date > this.dates[right_start]){
+					this.pickers[right_start++].setUTCDate(new_date);
+				}
+            }
+			else if (new_date < this.dates[i]){
 				// Date being moved earlier/left
 				while (i >= 0 && new_date < this.dates[i]){
 					this.pickers[i--].setUTCDate(new_date);
