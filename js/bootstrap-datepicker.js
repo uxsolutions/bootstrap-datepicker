@@ -63,7 +63,7 @@
 				this.push.apply(this, new_array);
 			},
 			clear: function(){
-				this.length = 0;
+				this.splice(0);
 			},
 			copy: function(){
 				var a = new DateArray();
@@ -409,7 +409,7 @@
 
 		show: function(){
 			if (!this.isInline)
-				this.picker.appendTo('body');
+				this.picker.appendTo(this._o.appendWidgetTo);
 			this.picker.show();
 			this.place();
 			this._attachSecondaryEvents();
@@ -540,21 +540,24 @@
 		place: function(){
 			if (this.isInline)
 				return;
+
 			var calendarWidth = this.picker.outerWidth(),
 				calendarHeight = this.picker.outerHeight(),
 				visualPadding = 10,
-				windowWidth = $window.width(),
-				windowHeight = $window.height(),
-				scrollTop = $window.scrollTop();
+				windowWidth = $(this._o.appendWidgetTo).width(),
+				windowHeight = $(this._o.appendWidgetTo).height(),
+				scrollTop = $(this._o.appendWidgetTo).scrollTop(),
+				appendOffset = $(this._o.appendWidgetTo).offset(),
+				offset = this.component ? this.component.parent().offset() : this.element.offset(),
+				height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(false),
+				width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(false);
+
+			var left = offset.left - appendOffset.left,
+				top = offset.top - appendOffset.top + scrollTop;
 
 			var zIndex = parseInt(this.element.parents().filter(function(){
 					return $(this).css('z-index') !== 'auto';
 				}).first().css('z-index'))+10;
-			var offset = this.component ? this.component.parent().offset() : this.element.offset();
-			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(false);
-			var width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(false);
-			var left = offset.left,
-				top = offset.top;
 
 			this.picker.removeClass(
 				'datepicker-orient-top datepicker-orient-bottom '+
@@ -573,7 +576,7 @@
 				this.picker.addClass('datepicker-orient-left');
 				if (offset.left < 0)
 					left -= offset.left - visualPadding;
-				else if (offset.left + calendarWidth > windowWidth)
+				else if (left + calendarWidth > windowWidth)
 					left = windowWidth - calendarWidth - visualPadding;
 			}
 
@@ -582,8 +585,8 @@
 			var yorient = this.o.orientation.y,
 				top_overflow, bottom_overflow;
 			if (yorient === 'auto'){
-				top_overflow = -scrollTop + offset.top - calendarHeight;
-				bottom_overflow = scrollTop + windowHeight - (offset.top + height + calendarHeight);
+				top_overflow = -scrollTop + top - calendarHeight;
+				bottom_overflow = scrollTop + windowHeight - (top + height + calendarHeight);
 				if (Math.max(top_overflow, bottom_overflow) === bottom_overflow)
 					yorient = 'top';
 				else
@@ -1396,6 +1399,7 @@
 	};
 
 	var defaults = $.fn.datepicker.defaults = {
+		appendWidgetTo: 'body',
 		autoclose: false,
 		beforeShowDay: $.noop,
 		calendarWeeks: false,
@@ -1676,3 +1680,4 @@
 	});
 
 }(window.jQuery));
+
