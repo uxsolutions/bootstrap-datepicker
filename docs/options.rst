@@ -219,3 +219,10 @@ Day of the week start. 0 (Sunday) to 6 (Saturday)
 
 .. figure:: _static/screenshots/option_weekstart.png
     :align: center
+
+appendTo
+---------
+
+String.  Default: body
+
+The DOM element where datepicker popup html will be appended to
