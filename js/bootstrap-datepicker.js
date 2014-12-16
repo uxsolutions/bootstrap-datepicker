@@ -409,7 +409,7 @@
 
 		show: function(){
 			if (!this.isInline)
-				this.picker.appendTo(this.o.appendTo);
+				this.picker.appendTo('body');
 			this.picker.show();
 			this.place();
 			this._attachSecondaryEvents();
@@ -1399,7 +1399,6 @@
 	};
 
 	var defaults = $.fn.datepicker.defaults = {
-		appendTo: 'body',
 		autoclose: false,
 		beforeShowDay: $.noop,
 		calendarWeeks: false,
