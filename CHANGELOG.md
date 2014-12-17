@@ -1,6 +1,62 @@
 Changelog
 =========
 
+1.3.1
+-----
+
+Repo changes:
+* Automated screenshots have been added to the docs. These probably need to be documented so that contributors can add them when appropriate.
+* Grunt support
+* Missing description and keywords for Packagist
+* Composer: Include translation files into deployment dir
+* Add package name and version to npm package.json
+
+Bugfixes:
+* Remove font-family declaration for datepicker 
+* Don't deselect date unless datepicker is multidate
+* Removed comment from compiled CSS.
+* Don't clear input after typing date and hitting Enter when keyboard nav is disabled
+* Fixing the ui displaying 'undefined nan' when typing dates in Firefox & IE 
+* Reset tooltip to a default empty value 
+* Fix colspan if calendarWeeks & clearBtn are true 
+* Removed fixed width and height in large and small group addon
+* z-index calculation should not stop at first element
+* Fix IE8 bug with Array#splice with one argument 
+
+Documentation:
+* ghpages: jQuery js not being loaded when using HTTPS
+* Adds clearBtn option to sandbox page
+* Minor fixes (typo's, links,...)
+
+Locale changes
+
+Updated languages:
+* Clear translation in czech
+* Dutch translation
+* Swedish translation
+* Japanese translation
+* Ukrainian translation fixes
+* Add spanish clear, week start and format
+* Added galician clear, week start and format
+* Added missing clear localization value for polish translation
+* Add clear zh-CN translation
+* Fixed Albanian translation typo's
+* Add missing clear and format localization value for Russian translation
+* Updated Serbian translation
+* Fixed Ukrainian iso code to uk instead of ua 
+* Updated greek translation
+* Update Catalan and Spanish localizations
+* Added missing armenian translations
+
+New languages:
+* Basque
+* Khmer (Cambodia)
+* Bosnian
+* British english
+* Armenian
+* Faroese
+* Swiss Italian and Swiss French
+
 1.3.0
 -----
 
