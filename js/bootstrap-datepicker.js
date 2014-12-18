@@ -1031,9 +1031,7 @@
 			else if (ix !== -1){
 				this.dates.remove(ix);
 			}
-			else {
-				this.dates.push(date);
-			}
+			this.dates.push(date);
 			if (typeof this.o.multidate === 'number')
 				while (this.dates.length > this.o.multidate)
 					this.dates.remove(0);
