@@ -7,6 +7,10 @@ Please note that this fork is not used on Stefan's page, nor is it maintained or
 
 Versions are incremented according to [semver](http://semver.org/).
 
+## Mobile Add-On
+
+If you'd like to add responsive and mobile support to your datepickers, then please visit <https://github.com/niftylettuce/bootstrap-datepicker-mobile>.
+
 ## Links
 
 * [Online Demo](http://eternicode.github.io/bootstrap-datepicker/)
