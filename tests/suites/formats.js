@@ -64,9 +64,25 @@ test('M: Month shortname.', function(){
     equal(this.input.val().split('-')[1], 'Mar');
 });
 
+test('M: Month shortname case insensitive.', function(){
+    this.input
+        .val('2012-MAR-05')
+        .datepicker({format: 'yyyy-M-dd'})
+        .datepicker('setValue');
+    equal(this.input.val().split('-')[1], 'Mar');
+});
+
 test('MM: Month full name.', function(){
     this.input
         .val('2012-March-5')
+        .datepicker({format: 'yyyy-MM-dd'})
+        .datepicker('setValue');
+    equal(this.input.val().split('-')[1], 'March');
+});
+
+test('M: Month fullname case insensitive.', function(){
+    this.input
+        .val('2012-MARCH-05')
         .datepicker({format: 'yyyy-MM-dd'})
         .datepicker('setValue');
     equal(this.input.val().split('-')[1], 'March');
