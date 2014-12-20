@@ -1771,6 +1771,9 @@
 		return this;
 	};
 
+	/* DATEPICKER VERSION
+	 * =================== */
+	$.fn.datepicker.version =  "1.4.0";
 
 	/* DATEPICKER DATA-API
 	* ================== */

@@ -157,6 +157,44 @@ module.exports = function(grunt){
                     }
                 ]
             }
+        },
+        'string-replace': {
+            js: {
+                files: [{
+                    src: 'js/bootstrap-datepicker.js',
+                    dest: 'js/bootstrap-datepicker.js'
+                }],
+                options: {
+                    replacements: [{
+                        pattern: '$.fn.datepicker.version =  "1.4.0";',
+                        replacement: '$.fn.datepicker.version =  "' + grunt.option('newver') + '";'
+                    }]
+                }
+            },
+            npm: {
+                files: [{
+                    src: 'package.json',
+                    dest: 'package.json'
+                }],
+                options: {
+                    replacements: [{
+                        pattern: '"version": "1.4.0",',
+                        replacement: '"version": "' + grunt.option('newver') + '",'
+                    }]
+                }
+            },
+            bower: {
+                files: [{
+                    src: 'bower.json',
+                    dest: 'bower.json'
+                }],
+                options: {
+                    replacements: [{
+                        pattern: '"version": "1.4.0",',
+                        replacement: '"version": "' + grunt.option('newver') + '",'
+                    }]
+                }
+            }
         }
     });
 
@@ -178,6 +216,10 @@ module.exports = function(grunt){
     grunt.registerTask('lint-js', 'Lint all js files with jshint and jscs', ['jshint', 'jscs']);
     grunt.registerTask('lint-css', 'Lint all css files', ['dist-css', 'csslint:dist']);
     grunt.registerTask('test', 'Lint files and run unit tests', ['lint-js', /*'lint-css',*/ 'qunit']);
+
+    // Version numbering task.
+    // grunt bump-version --newver=X.Y.Z
+    grunt.registerTask('bump-version', 'string-replace');
 
     // Docs task.
     grunt.registerTask('screenshots', 'Rebuilds automated docs screenshots', function(){
