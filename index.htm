@@ -303,6 +303,10 @@
             <input id="beforeShowDay" name="beforeShowDay" type="checkbox">
             Before-show-day callback
           </label>
+          <label for="beforeShowMonth" class="inline checkbox">
+            <input id="beforeShowMonth" name="beforeShowMonth" type="checkbox">
+            Before-show-month callback
+          </label>
 
           <br></br>
 
@@ -359,19 +363,25 @@
                 val = values[opt];
                 if (opt == 'daysOfWeekDisabled') val = '"'+val+'"'
                 else if (opt == 'beforeShowDay') val = function(date){
-      if (date.getMonth() == (new Date()).getMonth())
-        switch (date.getDate()){
-          case 4:
-            return {
-              tooltip: 'Example tooltip',
-              classes: 'active'
-            };
-          case 8:
-            return false;
-          case 12:
-            return "green";
-        }
-    }
+                    if (date.getMonth() == (new Date()).getMonth())
+                      switch (date.getDate()){
+                        case 4:
+                          return {
+                            tooltip: 'Example tooltip',
+                            classes: 'active'
+                          };
+                        case 8:
+                          return false;
+                        case 12:
+                          return "green";
+                    }
+                }
+                else if (opt == 'beforeShowMonth') val = function(date){
+                    switch (date.getMonth()){
+                      case 8:
+                        return false;
+                    }
+                }
                 else if (val == 'on' || val == 'true') val = 'true';
                 else if (val === void 0 || val == 'false') val = 'false';
                 else if (parseInt(val) == val) val = val;
