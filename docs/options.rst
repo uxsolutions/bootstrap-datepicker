@@ -31,6 +31,14 @@ A function that takes a date as a parameter and returns one of the following val
    * ``tooltip``: a tooltip to apply to this date, via the ``title`` HTML attribute
 
 
+beforeShowMonth
+---------------
+
+Function(Date).  Default: $.noop
+
+A function that takes a date as a parameter and returns a boolean indicating whether or not this month is selectable
+
+
 calendarWeeks
 -------------
 
