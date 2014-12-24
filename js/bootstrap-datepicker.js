@@ -596,11 +596,20 @@
 			else
 				top -= calendarHeight + parseInt(this.picker.css('padding-top'));
 
-			this.picker.css({
-				top: top,
-				left: left,
-				zIndex: zIndex
-			});
+			if (this.o.rtl) {
+				var right = windowWidth - (left + width);
+				this.picker.css({
+					top: top,
+					right: right,
+					zIndex: zIndex
+				});
+			} else {
+				this.picker.css({
+					top: top,
+					left: left,
+					zIndex: zIndex
+				});
+			}
 		},
 
 		_allow_update: true,
