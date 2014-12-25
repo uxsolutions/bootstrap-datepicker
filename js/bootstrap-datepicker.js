@@ -204,7 +204,7 @@
 					if (o.startDate instanceof Date)
 						o.startDate = this._local_to_utc(this._zero_time(o.startDate));
 					else
-						o.startDate = DPGlobal.parseDate(o.startDate, format, o.language);
+						o.startDate = DPGlobal.parseDate(o.startDate, format, o.language, o.autoCompute);
 				}
 				else {
 					o.startDate = -Infinity;
@@ -215,7 +215,7 @@
 					if (o.endDate instanceof Date)
 						o.endDate = this._local_to_utc(this._zero_time(o.endDate));
 					else
-						o.endDate = DPGlobal.parseDate(o.endDate, format, o.language);
+						o.endDate = DPGlobal.parseDate(o.endDate, format, o.language, o.autoCompute);
 				}
 				else {
 					o.endDate = Infinity;
@@ -505,6 +505,11 @@
 			else {
 				this.element.val(formatted).change();
 			}
+			if(this.o.invalidDate && formatted == ''){
+				this._trigger('invalidDate');
+			}
+			
+			this.o.invalidDate = false
 		},
 
 		getFormattedDate: function(format){
@@ -640,8 +645,13 @@
 			}
 
 			dates = $.map(dates, $.proxy(function(date){
-				return DPGlobal.parseDate(date, this.o.format, this.o.language);
+				return DPGlobal.parseDate(date, this.o.format, this.o.language, this.o.autoCompute);
 			}, this));
+			
+			if(!dates[0]) {
+				this.o.invalidDate = true;
+			}
+			
 			dates = $.grep(dates, $.proxy(function(date){
 				return (
 					date < this.o.startDate ||
@@ -1447,7 +1457,8 @@
 		startView: 0,
 		todayBtn: false,
 		todayHighlight: false,
-		weekStart: 0
+		weekStart: 0,
+		autoCompute: true
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',
@@ -1502,7 +1513,7 @@
 			}
 			return {separators: separators, parts: parts};
 		},
-		parseDate: function(date, format, language){
+		parseDate: function(date, format, language, autoCompute){
 			if (!date)
 				return undefined;
 			if (date instanceof Date)
@@ -1596,14 +1607,29 @@
 					}
 					parsed[part] = val;
 				}
-				var _date, s;
-				for (i=0; i < setters_order.length; i++){
-					s = setters_order[i];
-					if (s in parsed && !isNaN(parsed[s])){
-						_date = new Date(date);
-						setters_map[s](_date, parsed[s]);
-						if (!isNaN(_date))
-							date = _date;
+				if(!autoCompute){
+					function parseDateString(str) {
+						var t = str.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+						if(t!==null){
+						  var d=+t[2], m=+t[1], y=+t[3];
+						  var date = UTCDate(y,m-1,d,0,0,0);
+						  if(date.getUTCFullYear()===y && date.getUTCMonth()===m-1){
+						    return date;   
+						  }
+						}
+						return null;
+					}
+					date = parseDateString(parsed.mm + "/" + parsed.dd + "/" + parsed.yyyy)
+				} else {
+					var _date, s;
+					for (i=0; i < setters_order.length; i++){
+						s = setters_order[i];
+						if (s in parsed && !isNaN(parsed[s])){
+							_date = new Date(date);
+							setters_map[s](_date, parsed[s]);
+							if (!isNaN(_date))
+								date = _date;
+						}
 					}
 				}
 			}
