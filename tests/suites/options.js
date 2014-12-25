@@ -641,3 +641,34 @@ test('Multidate Separator', function(){
     target.click();
     equal(input.val(), '2012-03-05 2012-03-04 2012-03-12');
 });
+
+test('Template: Custom head template', function() {
+     var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    multidate: true,
+                    multidateSeparator: ' ',
+                    template: {
+                      headTemplate: '<thead>'+
+                                      '<tr>'+
+                                          '<th class="prev"><i class="icon-left"></i></th>'+
+                                          '<th colspan="5" class="datepicker-switch"></th>'+
+                                          '<th class="next"><i class="icon-right"></i></th>'+
+                                      '</tr>'+
+                                  '</thead>'
+                    }
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+
+    target = picker.find('.prev i.icon-left')
+    equal(target.length, 3)
+
+    target = picker.find('.next i.icon-right')
+    equal(target.length, 3)
+});
