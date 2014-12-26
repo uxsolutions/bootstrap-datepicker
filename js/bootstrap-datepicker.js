@@ -408,8 +408,8 @@
 		show: function(){
 			if (!this.isInline)
 				this.picker.appendTo('body');
-			this.picker.show();
 			this.place();
+			this.picker.show();
 			this._attachSecondaryEvents();
 			this._trigger('show');
 			if ((window.navigator.msMaxTouchPoints || 'ontouchstart' in document) && this.o.disableTouchKeyboard) {
