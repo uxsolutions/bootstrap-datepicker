@@ -478,7 +478,12 @@
 		},
 
 		getUTCDate: function(){
-			return new Date(this.dates.get(-1));
+			var selected_date = this.dates.get(-1);
+			if (typeof selected_date !== 'undefined') {
+				return new Date(selected_date);
+			} else {
+				return null;
+			}
 		},
 
 		setDates: function(){
