@@ -406,6 +406,10 @@
 		},
 
 		show: function(){
+			var element = this.isInput? this.element : this.element.find('input');
+			if (element.attr("readonly") || element.attr("disabled")) {
+				return;
+			}
 			if (!this.isInline)
 				this.picker.appendTo('body');
 			this.place();
