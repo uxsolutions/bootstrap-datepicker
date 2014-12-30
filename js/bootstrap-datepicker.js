@@ -406,6 +406,8 @@
 		},
 
 		show: function(){
+			if (this.element.attr('readonly'))
+				return;
 			if (!this.isInline)
 				this.picker.appendTo('body');
 			this.place();
