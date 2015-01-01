@@ -1200,8 +1200,11 @@
 					this.fill();
 					if (this.picker.is(':visible')){
 						e.preventDefault();
-						e.stopPropagation && e.stopPropagation();
-						e.cancelBubble = true; // IE6,7,8 support
+						if (typeof e.stopPropagation === 'function') {
+							e.stopPropagation(); // All modern browsers, IE9+
+						} else {
+							e.cancelBubble = true; // IE6,7,8 ignore "stopPropagation"
+						}
 						if (this.o.autoclose)
 							this.hide();
 					}
