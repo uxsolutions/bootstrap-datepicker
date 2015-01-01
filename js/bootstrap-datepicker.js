@@ -1210,7 +1210,7 @@
 						newViewDate = new Date(focusDate);
 						newViewDate.setUTCDate(focusDate.getUTCDate() + dir);
 					}
-					if (this.dateWithinRange(newDate)){
+					if (this.dateWithinRange(newViewDate)){
 						this.focusDate = this.viewDate = newViewDate;
 						this.setValue();
 						this.fill();
@@ -1238,7 +1238,7 @@
 						newViewDate = new Date(focusDate);
 						newViewDate.setUTCDate(focusDate.getUTCDate() + dir * 7);
 					}
-					if (this.dateWithinRange(newDate)){
+					if (this.dateWithinRange(newViewDate)){
 						this.focusDate = this.viewDate = newViewDate;
 						this.setValue();
 						this.fill();
