@@ -589,12 +589,18 @@
 			// auto x orientation is best-placement: if it crosses a window
 			// edge, fudge it sideways
 			else {
-				// Default to left
-				this.picker.addClass('datepicker-orient-left');
-				if (offset.left < 0)
+				if (offset.left < 0) {
+					// component is outside the window on the left side. Move it into visible range
+					this.picker.addClass('datepicker-orient-left');
 					left -= offset.left - visualPadding;
-				else if (offset.left + calendarWidth > windowWidth)
-					left = windowWidth - calendarWidth - visualPadding;
+				} else if (offset.left + calendarWidth > windowWidth) {
+					// the calendar passes the widow right edge. Align it to component right side
+					this.picker.addClass('datepicker-orient-right');
+					left = offset.left + width - calendarWidth;
+				} else {
+					// Default to left
+					this.picker.addClass('datepicker-orient-left');
+				}
 			}
 
 			// auto y orientation is best-situation: top or bottom, no fudging,
