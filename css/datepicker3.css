@@ -11,9 +11,6 @@
   padding: 4px;
   border-radius: 4px;
   direction: ltr;
-  /*.dow {
-		border-top: 1px solid #ddd !important;
-	}*/
 }
 .datepicker-inline {
   width: 220px;
@@ -731,8 +728,6 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 }
 .input-group.date .input-group-addon i {
   cursor: pointer;
-  width: 16px;
-  height: 16px;
 }
 .input-daterange input {
   text-align: center;
@@ -748,7 +743,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   min-width: 16px;
   padding: 4px 5px;
   font-weight: normal;
-  line-height: 1.428571429;
+  line-height: 1.42857143;
   text-align: center;
   text-shadow: 0 1px 0 #fff;
   vertical-align: middle;
@@ -780,11 +775,12 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   *border-right-width: 2px;
   *border-bottom-width: 2px;
   color: #333333;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
-  line-height: 1.428571429;
+  line-height: 1.42857143;
 }
 .datepicker.dropdown-menu th,
-.datepicker.dropdown-menu td {
-  padding: 4px 5px;
+.datepicker.datepicker-inline th,
+.datepicker.dropdown-menu td,
+.datepicker.datepicker-inline td {
+  padding: 0px 5px;
 }

@@ -4,7 +4,7 @@
  */
 ;(function($){
 	$.fn.datepicker.dates['sq'] = {
-		days: ["E Diel", "E Hënë", "E martē", "E mërkurë", "E Enjte", "E Premte", "E Shtunë", "E Diel"],
+		days: ["E Diel", "E Hënë", "E Martē", "E Mërkurë", "E Enjte", "E Premte", "E Shtunë", "E Diel"],
 		daysShort: ["Die", "Hën", "Mar", "Mër", "Enj", "Pre", "Shtu", "Die"],
 		daysMin: ["Di", "Hë", "Ma", "Më", "En", "Pr", "Sht", "Di"],
 		months: ["Janar", "Shkurt", "Mars", "Prill", "Maj", "Qershor", "Korrik", "Gusht", "Shtator", "Tetor", "Nëntor", "Dhjetor"],
