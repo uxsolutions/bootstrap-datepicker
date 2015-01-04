@@ -708,7 +708,7 @@
 					.attr('colspan', function(i, val){
 						return parseInt(val) + 1;
 					});
-				var cell = '<th class="cw">&nbsp;</th>';
+				var cell = '<th class="cw">&#160;</th>';
 				html += cell;
 			}
 			while (dowCnt < this.o.weekStart + 7){
@@ -1674,9 +1674,9 @@
 		},
 		headTemplate: '<thead>'+
 							'<tr>'+
-								'<th class="prev">&laquo;</th>'+
+								'<th class="prev">&#171;</th>'+
 								'<th colspan="5" class="datepicker-switch"></th>'+
-								'<th class="next">&raquo;</th>'+
+								'<th class="next">&#187;</th>'+
 							'</tr>'+
 						'</thead>',
 		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',
