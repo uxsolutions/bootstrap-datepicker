@@ -356,6 +356,39 @@ test('DaysOfWeekDisabled', function(){
     ok(target.hasClass('disabled'), 'Day of week is disabled');
 });
 
+
+test('DatesDisabled', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-10-26')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    datesDisabled: ['2012-10-1', '2012-10-10', '2012-10-20']
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+
+    input.focus();
+
+    target = picker.find('.datepicker-days tbody td:nth(1)');
+    ok(target.hasClass('disabled'), 'Day of week is disabled');
+    ok(target.hasClass('disabled-date'), 'Date is disabled');
+    target = picker.find('.datepicker-days tbody td:nth(2)');
+    ok(!target.hasClass('disabled'), 'Day of week is enabled');
+    target = picker.find('.datepicker-days tbody td:nth(10)');
+    ok(target.hasClass('disabled'), 'Day of week is disabled');
+    ok(target.hasClass('disabled-date'), 'Date is disabled');
+    target = picker.find('.datepicker-days tbody td:nth(11)');
+    ok(!target.hasClass('disabled'), 'Day of week is enabled');
+    target = picker.find('.datepicker-days tbody td:nth(20)');
+    ok(target.hasClass('disabled'), 'Day of week is disabled');
+    ok(target.hasClass('disabled-date'), 'Date is disabled');
+    target = picker.find('.datepicker-days tbody td:nth(21)');
+    ok(!target.hasClass('disabled'), 'Day of week is enabled');
+});
+
 test('BeforeShowDay', function(){
 
     var beforeShowDay = function(date) {
