@@ -785,7 +785,7 @@
 				cls.push('disabled');
 			}
 			if ( this.o.datesDisabled.length > 0 &&
-				 $.grep(this.o.datesDisabled, function(d) { return isUTCEquals(date, d); }).length > 0 ) {
+				$.grep(this.o.datesDisabled, function(d) { return isUTCEquals(date, d); }).length > 0 ) {
 				cls.push('disabled', 'disabled-date');
 			}
 
