@@ -31,6 +31,11 @@
 		var today = new Date();
 		return UTCDate(today.getFullYear(), today.getMonth(), today.getDate());
 	}
+	function isUTCEquals(date1, date2) {
+		return (	date1.getUTCFullYear() === date2.getUTCFullYear() &&
+					date1.getUTCMonth() === date2.getUTCMonth() &&
+					date1.getUTCDate() === date2.getUTCDate() );
+	}
 	function alias(method){
 		return function(){
 			return this[method].apply(this, arguments);
@@ -126,6 +131,7 @@
 		this.setStartDate(this._o.startDate);
 		this.setEndDate(this._o.endDate);
 		this.setDaysOfWeekDisabled(this.o.daysOfWeekDisabled);
+		this.setDatesDisabled(this.o.datesDisabled);
 
 		this.fillDow();
 		this.fillMonths();
@@ -227,6 +233,15 @@
 				o.daysOfWeekDisabled = o.daysOfWeekDisabled.split(/[,\s]*/);
 			o.daysOfWeekDisabled = $.map(o.daysOfWeekDisabled, function(d){
 				return parseInt(d, 10);
+			});
+
+			o.datesDisabled = o.datesDisabled||[];
+			if (!$.isArray(o.datesDisabled)) {
+				o.datesDisabled = [];
+				o.datesDisabled.push( DPGlobal.parseDate(o.datesDisabled, format, o.language) );
+			}
+			o.datesDisabled = $.map(o.datesDisabled, function (d) {
+				return DPGlobal.parseDate(d, format, o.language);
 			});
 
 			var plc = String(o.orientation).toLowerCase().split(/\s+/g),
@@ -554,6 +569,12 @@
 			return this;
 		},
 
+		setDatesDisabled: function(datesDisabled){
+			this._process_options({datesDisabled: datesDisabled});
+			this.update();
+			this.updateNavArrows();
+		},
+
 		place: function(){
 			if (this.isInline)
 				return this;
@@ -763,6 +784,11 @@
 				$.inArray(date.getUTCDay(), this.o.daysOfWeekDisabled) !== -1){
 				cls.push('disabled');
 			}
+			if ( this.o.datesDisabled.length > 0 &&
+				 $.grep(this.o.datesDisabled, function(d) { return isUTCEquals(date, d); }).length > 0 ) {
+				cls.push('disabled', 'disabled-date');
+			}
+
 			if (this.range){
 				if (date > this.range[0] && date < this.range[this.range.length-1]){
 					cls.push('range');
@@ -1469,6 +1495,7 @@
 		calendarWeeks: false,
 		clearBtn: false,
 		daysOfWeekDisabled: [],
+		datesDisabled: [],
 		endDate: Infinity,
 		forceParse: true,
 		format: 'mm/dd/yyyy',
