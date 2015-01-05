@@ -237,8 +237,9 @@
 
 			o.datesDisabled = o.datesDisabled||[];
 			if (!$.isArray(o.datesDisabled)) {
-				o.datesDisabled = [];
-				o.datesDisabled.push( DPGlobal.parseDate(o.datesDisabled, format, o.language) );
+				var datesDisabled = [];
+				datesDisabled.push( DPGlobal.parseDate(o.datesDisabled, format, o.language) );
+				o.datesDisabled = datesDisabled;
 			}
 			o.datesDisabled = $.map(o.datesDisabled, function (d) {
 				return DPGlobal.parseDate(d, format, o.language);
