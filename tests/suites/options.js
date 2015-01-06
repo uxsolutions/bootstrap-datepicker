@@ -674,3 +674,41 @@ test('Multidate Separator', function(){
     target.click();
     equal(input.val(), '2012-03-05 2012-03-04 2012-03-12');
 });
+
+test('Fill as you Go', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    startView: 'decade',
+                    autoclose: true,
+                    fillAsYouGo: true
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    ok(picker.find('.datepicker-years').is(':visible'), 'Years view visible');
+
+    // first choose a year
+    target = picker.find('.datepicker-years td span:nth(3)');
+    equal(target.text(), '2012');
+    target.click();
+    equal(input.val(), '2012-01-01');
+    ok(picker.find('.datepicker-months').is(':visible'), 'Months view visible');
+
+    // then choose a month
+    target = picker.find('.datepicker-months tbody span:nth(6)');
+    equal(target.text(), 'Jul');
+    target.click();
+    equal(input.val(), '2012-07-01');
+    ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
+
+    // last choose a day
+    target = picker.find('.datepicker-days tbody td:nth(26)');
+    equal(target.text(), '20');
+    target.click();
+    equal(input.val(), '2012-07-20');
+
+});

@@ -1043,6 +1043,12 @@
 								this._trigger('changeMonth', this.viewDate);
 								if (this.o.minViewMode === 1){
 									this._setDate(UTCDate(year, month, day));
+								} else if (this.o.fillAsYouGo){
+									if (this.o.minViewMode < 1) {
+										this._setDate(UTCDate(year, month, day));
+										this.showMode(-2);
+										this.show();
+									}
 								}
 							}
 							else {
@@ -1053,6 +1059,11 @@
 								this._trigger('changeYear', this.viewDate);
 								if (this.o.minViewMode === 2){
 									this._setDate(UTCDate(year, month, day));
+								} else if (this.o.fillAsYouGo){
+									if (this.o.minViewMode < 2) {
+										this._setDate(UTCDate(year, month, day));
+										this.show();
+									}
 								}
 							}
 							this.showMode(-1);
