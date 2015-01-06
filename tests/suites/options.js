@@ -655,7 +655,7 @@ test("Picker is shown on input focus when showOnFocus is not defined", function 
 
     input.focus();
 
-    ok(picker.is(":visible"), "Datepicker is hidden");
+    ok(picker.is(":visible"), "Datepicker is visible");
 
 });
 
@@ -672,7 +672,7 @@ test("Picker is shown on input focus when showOnFocus is true", function () {
 
     input.focus();
 
-    ok(picker.is(":visible"), "Datepicker is hidden");
+    ok(picker.is(":visible"), "Datepicker is visible");
 
 });
 
@@ -689,6 +689,6 @@ test("Picker is hidden on input focus when showOnFocus is false", function () {
 
     input.focus();
 
-    ok(picker.is(":hidden"), "Datepicker is visible");
+    ok(picker.is(":hidden"), "Datepicker is hidden");
 
 });
