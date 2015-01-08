@@ -276,9 +276,8 @@
 				});
 				o.orientation.y = _plc[0] || 'auto';
 			}
-
-            o.showOnFocus = o.showOnFocus !== undefined ? o.showOnFocus : true;
-
+			o.showOnFocus = o.showOnFocus !== undefined ? o.showOnFocus : true;
+			o.container = o.container ? o.container : 'body';
         },
 		_events: [],
 		_secondaryEvents: [],
@@ -426,7 +425,7 @@
 			if (this.element.attr('readonly'))
 				return;
 			if (!this.isInline)
-				this.picker.appendTo('body');
+				this.picker.appendTo(this.o.container);
 			this.place();
 			this.picker.show();
 			this._attachSecondaryEvents();
