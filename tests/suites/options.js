@@ -725,3 +725,20 @@ test("Picker is hidden on input focus when showOnFocus is false", function () {
     ok(picker.is(":hidden"), "Datepicker is hidden");
 
 });
+
+test('Container', function(){
+    var testContainer = $('<div class="date-picker-container"/>')
+            .appendTo('#qunit-fixture'),
+        input = $('<input />')
+            .appendTo('#qunit-fixture')
+                .val('2012-10-26')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    container: '.date-picker-container',
+                    startDate: new Date(2012, 9, 26)
+                }),
+        dp = input.data('datepicker'),
+        target = dp.picker;
+    input.focus();
+    equal(target.parent()[0], testContainer[0], 'Container is not the testContainer that was specificed');
+});

@@ -276,9 +276,7 @@
 				});
 				o.orientation.y = _plc[0] || 'auto';
 			}
-
-            o.showOnFocus = o.showOnFocus !== undefined ? o.showOnFocus : true;
-
+			o.showOnFocus = o.showOnFocus !== undefined ? o.showOnFocus : true;
         },
 		_events: [],
 		_secondaryEvents: [],
@@ -426,7 +424,7 @@
 			if (this.element.attr('readonly'))
 				return;
 			if (!this.isInline)
-				this.picker.appendTo('body');
+				this.picker.appendTo(this.o.container);
 			this.place();
 			this.picker.show();
 			this._attachSecondaryEvents();
@@ -1513,7 +1511,8 @@
 		todayBtn: false,
 		todayHighlight: false,
 		weekStart: 0,
-		disableTouchKeyboard: false
+		disableTouchKeyboard: false,
+		container: 'body'
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',
