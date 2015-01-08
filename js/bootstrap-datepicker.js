@@ -277,7 +277,6 @@
 				o.orientation.y = _plc[0] || 'auto';
 			}
 			o.showOnFocus = o.showOnFocus !== undefined ? o.showOnFocus : true;
-			o.container = o.container ? o.container : 'body';
         },
 		_events: [],
 		_secondaryEvents: [],
@@ -1512,7 +1511,8 @@
 		todayBtn: false,
 		todayHighlight: false,
 		weekStart: 0,
-		disableTouchKeyboard: false
+		disableTouchKeyboard: false,
+		container: 'body'
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',
