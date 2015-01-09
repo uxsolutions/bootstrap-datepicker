@@ -22,8 +22,6 @@
 
 (function($, undefined){
 
-	var $window = $(window);
-
 	function UTCDate(){
 		return new Date(Date.UTC.apply(Date, arguments));
 	}
@@ -581,9 +579,10 @@
 			var calendarWidth = this.picker.outerWidth(),
 				calendarHeight = this.picker.outerHeight(),
 				visualPadding = 10,
-				windowWidth = $window.width(),
-				windowHeight = $window.height(),
-				scrollTop = $window.scrollTop();
+				windowWidth = $(this.o.container).width(),
+				windowHeight = $(this.o.container).height(),
+				scrollTop = $(this.o.container).scrollTop(),
+				appendOffset = $(this.o.container).offset();
 
 			var parentsZindex = [];
 			this.element.parents().each(function() {
@@ -594,8 +593,8 @@
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(false);
 			var width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(false);
-			var left = offset.left,
-				top = offset.top;
+			var left = offset.left - appendOffset.left,
+				top = offset.top - appendOffset.top + scrollTop;
 
 			this.picker.removeClass(
 				'datepicker-orient-top datepicker-orient-bottom '+
@@ -614,7 +613,7 @@
 					// component is outside the window on the left side. Move it into visible range
 					this.picker.addClass('datepicker-orient-left');
 					left -= offset.left - visualPadding;
-				} else if (offset.left + calendarWidth > windowWidth) {
+				} else if (left + calendarWidth > windowWidth) {
 					// the calendar passes the widow right edge. Align it to component right side
 					this.picker.addClass('datepicker-orient-right');
 					left = offset.left + width - calendarWidth;
@@ -629,8 +628,8 @@
 			var yorient = this.o.orientation.y,
 				top_overflow, bottom_overflow;
 			if (yorient === 'auto'){
-				top_overflow = -scrollTop + offset.top - calendarHeight;
-				bottom_overflow = scrollTop + windowHeight - (offset.top + height + calendarHeight);
+				top_overflow = -scrollTop + top - calendarHeight;
+				bottom_overflow = scrollTop + windowHeight - (top + height + calendarHeight);
 				if (Math.max(top_overflow, bottom_overflow) === bottom_overflow)
 					yorient = 'top';
 				else
