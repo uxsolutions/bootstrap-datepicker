@@ -742,3 +742,19 @@ test('Container', function(){
     input.focus();
     equal(target.parent()[0], testContainer[0], 'Container is not the testContainer that was specificed');
 });
+
+test('Default View Date', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    defaultViewDate: { year: 1977, month: 04, day: 25 }
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+
+    equal(picker.find('.datepicker-days thead .datepicker-switch').text(), 'May 1977');
+});
