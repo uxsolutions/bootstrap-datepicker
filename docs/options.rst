@@ -60,14 +60,14 @@ If true, displays a "Clear" button at the bottom of the datepicker to clear the 
     :align: center
 
 toggleActive
---------
+------------
 
-Boolean. Default: true
+Boolean. Default: false
 
 If true, selecting the currently active date in the datepicker will unset the respective date. This option is always true when the multidate option is being used.
 
 container
------------
+---------
 
 String.  Default: "body"
 

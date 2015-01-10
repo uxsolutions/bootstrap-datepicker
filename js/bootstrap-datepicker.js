@@ -1105,26 +1105,22 @@
 			if (!date){
 				this.dates.clear();
 			}
-			else if (ix !== -1){
+
+			if (ix !== -1){
 				if(this.o.multidate === true || this.o.multidate > 1 || this.o.toggleActive){
 					this.dates.remove(ix);
 				}
-			}
-			else if (this.o.multidate === false) {
+			} else if (this.o.multidate === false) {
 				this.dates.clear();
 				this.dates.push(date);
 			}
 			else {
-				//if (ix !== -1){
-				//	this.dates.remove(ix);
-				//}
-				//else {
-					this.dates.push(date);
-				//}
-				//if (typeof this.o.multidate === 'number')
-				//	while (this.dates.length > this.o.multidate)
-				//		this.dates.remove(0);
+				this.dates.push(date);
 			}
+
+			if (typeof this.o.multidate === 'number')
+				while (this.dates.length > this.o.multidate)
+					this.dates.remove(0);
 		},
 
 		_setDate: function(date, which){
@@ -1504,7 +1500,7 @@
 		beforeShowMonth: $.noop,
 		calendarWeeks: false,
 		clearBtn: false,
-		toggleActive: true,
+		toggleActive: false,
 		daysOfWeekDisabled: [],
 		datesDisabled: [],
 		endDate: Infinity,

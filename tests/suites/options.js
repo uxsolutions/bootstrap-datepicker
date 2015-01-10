@@ -334,12 +334,38 @@ test('Clear Button: hides datepicker if autoclose is on', function(){
 
 });
 
-test('Active Toggle Default: when active date is selected it is unset', function(){
+test('Active Toggle Default: when active date is selected it is not unset', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    format: 'yyyy-mm-dd'
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+        // open our datepicker
+        input.focus();
+
+        // Initial value is selected
+        ok(dp.dates.contains(UTCDate(2012, 2, 5)) !== -1, '2012-03-05 selected');
+
+        // click on our active date
+        target = picker.find('.datepicker-days .day.active');
+        target.click();
+
+        // make sure it's still set
+        equal(input.val(), '2012-03-05', "Input value has not been cleared.");
+});
+
+test('Active Toggle Enabled (single date): when active date is selected it is unset', function(){
     var input = $('<input />')
                 .appendTo('#qunit-fixture')
                 .val('2012-03-05')
                 .datepicker({
                     format: 'yyyy-mm-dd',
+                    toggleActive: true
                 }),
         dp = input.data('datepicker'),
         picker = dp.picker,
@@ -356,7 +382,7 @@ test('Active Toggle Default: when active date is selected it is unset', function
         target.click();
 
         // make sure it's no longer set
-        equal(input.val(),'',"Input value has been cleared.");
+        equal(input.val(), '', "Input value has been cleared.");
 });
 
 test('Active Toggle Multidate Default: when one of the active dates is selected it is unset', function(){
