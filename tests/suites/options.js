@@ -334,6 +334,152 @@ test('Clear Button: hides datepicker if autoclose is on', function(){
 
 });
 
+test('Active Toggle Default: when active date is selected it is not unset', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    format: 'yyyy-mm-dd'
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+        // open our datepicker
+        input.focus();
+
+        // Initial value is selected
+        ok(dp.dates.contains(UTCDate(2012, 2, 5)) !== -1, '2012-03-05 selected');
+
+        // click on our active date
+        target = picker.find('.datepicker-days .day.active');
+        target.click();
+
+        // make sure it's still set
+        equal(input.val(), '2012-03-05', "Input value has not been cleared.");
+});
+
+test('Active Toggle Enabled (single date): when active date is selected it is unset', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    toggleActive: true
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+        // open our datepicker
+        input.focus();
+
+        // Initial value is selected
+        ok(dp.dates.contains(UTCDate(2012, 2, 5)) !== -1, '2012-03-05 selected');
+
+        // click on our active date
+        target = picker.find('.datepicker-days .day.active');
+        target.click();
+
+        // make sure it's no longer set
+        equal(input.val(), '', "Input value has been cleared.");
+});
+
+test('Active Toggle Multidate Default: when one of the active dates is selected it is unset', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    multidate: true
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+        // open our datepicker
+        input.focus();
+
+        // Initial value is selected
+        ok(dp.dates.contains(UTCDate(2012, 2, 5)) !== -1, '2012-03-05 in dates');
+
+        // Select additional date
+        target = picker.find('.datepicker-days tbody td:nth(7)');
+        target.click();
+        datesEqual(dp.dates.get(-1), UTCDate(2012, 2, 4), '2012-03-04 in dates');
+        datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
+        equal(input.val(), '2012-03-05,2012-03-04');
+
+        // Unselect additional date
+        target = picker.find('.datepicker-days tbody td:nth(7)');
+        target.click();
+        ok(dp.dates.contains(UTCDate(2012, 2, 4)) === -1, '2012-03-04 no longer in dates');
+        datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
+        equal(input.val(), '2012-03-05');
+});
+
+test('Active Toggle Disabled: when active date is selected it remains', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    toggleActive: false
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+        // open our datepicker
+        input.focus();
+
+        // Initial value is selected
+        ok(dp.dates.contains(UTCDate(2012, 2, 5)) !== -1, '2012-03-05 selected');
+
+        // click on our active date
+        target = picker.find('.datepicker-days .day.active');
+        target.click();
+
+        // make sure it's still set
+        ok(dp.dates.contains(UTCDate(2012, 2, 5)) !== -1, '2012-03-05 still selected');
+        datesEqual(dp.viewDate, UTCDate(2012, 2, 5));
+        equal(input.val(), '2012-03-05');
+});
+
+test('Active Toggle Multidate Disabled: when activeToggle is set to false, but multidate is set, the option is ignored and selecting an active date it is unset', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    multidate: true,
+                    toggleActive: false
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+        // open our datepicker
+        input.focus();
+
+        // Initial value is selected
+        ok(dp.dates.contains(UTCDate(2012, 2, 5)) !== -1, '2012-03-05 in dates');
+
+        // Select additional date
+        target = picker.find('.datepicker-days tbody td:nth(7)');
+        target.click();
+        datesEqual(dp.dates.get(-1), UTCDate(2012, 2, 4), '2012-03-04 in dates');
+        datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
+        equal(input.val(), '2012-03-05,2012-03-04');
+
+        // Unselect additional date
+        target = picker.find('.datepicker-days tbody td:nth(7)');
+        target.click();
+        ok(dp.dates.contains(UTCDate(2012, 2, 4)) === -1, '2012-03-04 no longer in dates');
+        datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
+        equal(input.val(), '2012-03-05');
+});
+
 test('DaysOfWeekDisabled', function(){
     var input = $('<input />')
                 .appendTo('#qunit-fixture')
