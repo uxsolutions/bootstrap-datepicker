@@ -153,6 +153,17 @@ Array.  Default: None
 
 A list of inputs to be used in a range picker, which will be attached to the selected element.  Allows for explicitly creating a range picker on a non-standard element.
 
+.. code-block:: html
+
+    <div class="form-group form-group-filled" id="event_period">
+       <input type="text" class="actual_range">
+       <input type="text" class="actual_range">
+    </div>
+
+    $('#event_period').datepicker({
+          inputs: $('.actual_range').toArray()
+    });
+
 
 keyboardNavigation
 ------------------
