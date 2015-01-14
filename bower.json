@@ -3,8 +3,7 @@
   "version": "1.4.0",
   "main": ["js/bootstrap-datepicker.js", "css/datepicker.css", "css/datepicker3.css"],
   "dependencies": {
-    "jquery" : ">=1.7.1",
-    "bootstrap" : ">=2.0.4 <4.0"
+    "jquery" : ">=1.7.1"
   },
   "ignore": {}
 }
