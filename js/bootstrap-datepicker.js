@@ -1352,8 +1352,7 @@
 		});
 		delete options.inputs;
 
-		$(this.inputs)
-			.datepicker(options)
+		datepickerPlugin.call($(this.inputs), options)
 			.bind('changeDate', $.proxy(this.dateUpdated, this));
 
 		this.pickers = $.map(this.inputs, function(i){
@@ -1456,7 +1455,7 @@
 	}
 
 	var old = $.fn.datepicker;
-	$.fn.datepicker = function(option){
+	var datepickerPlugin = function(option){
 		var args = Array.apply(null, arguments);
 		args.shift();
 		var internal_return;
@@ -1492,6 +1491,7 @@
 		else
 			return this;
 	};
+	$.fn.datepicker = datepickerPlugin;
 
 	var defaults = $.fn.datepicker.defaults = {
 		autoclose: false,
@@ -1771,11 +1771,11 @@
 				return;
 			e.preventDefault();
 			// component click requires us to explicitly show it
-			$this.datepicker('show');
+			datepickerPlugin.call($this, 'show');
 		}
 	);
 	$(function(){
-		$('[data-provide="datepicker-inline"]').datepicker();
+		datepickerPlugin.call($('[data-provide="datepicker-inline"]'));
 	});
 
 }(window.jQuery));
