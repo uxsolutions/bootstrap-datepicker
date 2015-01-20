@@ -2,6 +2,7 @@
   "name": "bootstrap-datepicker",
   "description": "A datepicker for twitter bootstrap forked from Stefan Petre's (of eyecon.ro), improvements by eternicode",
   "version": "1.4.0",
+  "license": "Apache-2.0",
   "keywords": [
     "datepicker",
     "twitter-bootstrap"

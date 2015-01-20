@@ -2,6 +2,7 @@
   "name": "bootstrap-datepicker",
   "version": "1.4.0",
   "main": ["js/bootstrap-datepicker.js", "css/datepicker.css", "css/datepicker3.css"],
+  "license": "Apache-2.0",
   "dependencies": {
     "jquery" : ">=1.7.1",
     "bootstrap" : ">=2.0.4 <4.0"
