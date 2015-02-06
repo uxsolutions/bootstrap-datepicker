@@ -18,9 +18,24 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * ========================================================= 
+ * Updated by mr47 aka
+ * (c) 2015, Dmitry Poddubniy
  * ========================================================= */
+(function(root, factory) {
 
-(function($, undefined){
+  if (typeof exports !== 'undefined') {
+    // Define as CommonJS export:
+    module.exports = factory(require("jquery"));
+  } else if (typeof define === 'function' && define.amd) {
+    // Define as AMD:
+    define(["jquery"], factory);
+  } else {
+    // Just run it:
+    factory(root.jQuery);
+  }
+
+}(this, function($) {
 
 	function UTCDate(){
 		return new Date(Date.UTC.apply(Date, arguments));
@@ -1787,4 +1802,4 @@
 		datepickerPlugin.call($('[data-provide="datepicker-inline"]'));
 	});
 
-}(window.jQuery));
+}));
