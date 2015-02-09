@@ -15,7 +15,7 @@ module.exports = function(grunt){
             ' * Copyright 2012 Stefan Petre',
             ' * Improvements by Andrew Rowls',
             ' * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)',
-            ' */\n'
+            ' */'
         ].join('\n'),
 
         // Task configuration.
@@ -87,9 +87,6 @@ module.exports = function(grunt){
             }
         },
         less: {
-            options: {
-                banner: '<%= banner %>'
-            },
             standalone: {
                 files: {
                     'dist/css/<%= pkg.name %>.standalone.css': 'build/build_standalone.less',
@@ -100,6 +97,17 @@ module.exports = function(grunt){
                 files: {
                     'dist/css/<%= pkg.name %>.css': 'build/build.less',
                     'dist/css/<%= pkg.name %>3.css': 'build/build3.less'
+                }
+            }
+        },
+        usebanner: {
+            options: {
+                position: 'top',
+                banner: '<%= banner %>'
+            },
+            css: {
+                files: {
+                    src: 'dist/css/*.css'
                 }
             }
         },
@@ -161,7 +169,7 @@ module.exports = function(grunt){
 
     // CSS distribution task.
     grunt.registerTask('less-compile', ['less:standalone', 'less:css']);
-    grunt.registerTask('dist-css', ['less-compile', 'cssmin:main', 'cssmin:standalone']);
+    grunt.registerTask('dist-css', ['less-compile', 'cssmin:main', 'cssmin:standalone', 'usebanner']);
 
     // Full distribution task.
     grunt.registerTask('dist', ['clean:dist', 'dist-js', 'dist-css']);
