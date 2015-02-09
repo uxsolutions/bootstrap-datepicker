@@ -106,7 +106,9 @@
   background-color: transparent;
 }
 .datepicker table tr td.day:hover,
-.datepicker table tr td.day.focused {
+.datepicker table tr td.day.focused,
+.datepicker table tr td span.month:hover,
+.datepicker table tr td span.month.focused {
   background: #eeeeee;
   cursor: pointer;
 }

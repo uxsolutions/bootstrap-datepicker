@@ -769,7 +769,8 @@
 			var html = '',
 			i = 0;
 			while (i < 12){
-				html += '<span class="month">'+dates[this.o.language].monthsShort[i++]+'</span>';
+                var focused = this.viewDate && this.viewDate.getMonth() === i ? ' focused' : '';
+				html += '<span class="month' + focused + '">'+dates[this.o.language].monthsShort[i++]+'</span>';
 			}
 			this.picker.find('.datepicker-months td').html(html);
 		},
@@ -1245,7 +1246,7 @@
 						newViewDate = this.moveYear(focusDate, dir);
 						this._trigger('changeYear', this.viewDate);
 					}
-					else if (e.shiftKey){
+					else if (e.shiftKey || this.viewMode === 1){
 						newDate = this.moveMonth(this.dates.get(-1) || UTCToday(), dir);
 						newViewDate = this.moveMonth(focusDate, dir);
 						this._trigger('changeMonth', this.viewDate);
@@ -1260,6 +1261,11 @@
 						this.focusDate = this.viewDate = newViewDate;
 						this.setValue();
 						this.fill();
+
+                        if (this.viewMode === 1){
+                            this.fillMonths();
+                        }
+
 						e.preventDefault();
 					}
 					break;
@@ -1278,7 +1284,14 @@
 						newViewDate = this.moveMonth(focusDate, dir);
 						this._trigger('changeMonth', this.viewDate);
 					}
-					else {
+                    else if (this.viewMode === 1) {
+                        for (var i=4; i>0; i--) {
+                            newDate = this.moveMonth(newDate || this.dates.get(-1) || UTCToday(), dir);
+                            newViewDate = this.moveMonth(newViewDate || focusDate, dir);
+                        }
+                        this._trigger('changeMonth', this.viewDate);
+                    }
+                    else {
 						newDate = new Date(this.dates.get(-1) || UTCToday());
 						newDate.setUTCDate(newDate.getUTCDate() + dir * 7);
 						newViewDate = new Date(focusDate);

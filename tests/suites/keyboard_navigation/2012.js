@@ -467,3 +467,45 @@ test('Toggle hide/show (escape); navigation while hidden is suppressed', functio
     datesEqual(this.dp.dates.get(-1), UTCDate(2012, 2, 31));
 });
 
+test('in month view mode, by month (up/down arrows)', function(){
+    this.picker.remove();
+
+    this.input = $('<input type="text" value="31-03-2012">')
+        .appendTo('#qunit-fixture')
+        .datepicker({format: "dd-mm-yyyy", minViewMode: 1, startView: 1})
+        .focus(); // Activate for visibility checks
+    this.dp = this.input.data('datepicker');
+    this.picker = this.dp.picker;
+
+    var target;
+
+    equal(this.dp.viewMode, 1);
+    target = this.picker.find('.datepicker-days thead th.datepicker-switch');
+    equal(target.text(), 'March 2012', 'Title is "March 2012"');
+
+    // Navigation: -4 months, up arrow key
+    this.input.trigger({
+        type: 'keydown',
+        keyCode: 38
+    });
+    // view and focus updated on keyboard navigation w/ graceful date ends, not selected
+    datesEqual(this.dp.viewDate, UTCDate(2011, 10, 29));
+    datesEqual(this.dp.dates.get(-1), UTCDate(2012, 2, 31));
+    datesEqual(this.dp.focusDate, UTCDate(2011, 10, 29));
+    // Month not changed
+    target = this.picker.find('.datepicker-days thead th.datepicker-switch');
+    equal(target.text(), 'November 2011', 'Title is "November 2011"');
+
+    // Navigation: +4 month,  down arrow key
+    this.input.trigger({
+        type: 'keydown',
+        keyCode: 40
+    });
+    datesEqual(this.dp.viewDate, UTCDate(2012, 2, 29));
+    datesEqual(this.dp.dates.get(-1), UTCDate(2012, 2, 31));
+    datesEqual(this.dp.focusDate, UTCDate(2012, 2, 29));
+    target = this.picker.find('.datepicker-days thead th.datepicker-switch');
+    equal(target.text(), 'March 2012', 'Title is "March 2012"');
+});
+
+
