@@ -1,11 +1,9 @@
 /*!
- * Datepicker for Bootstrap
+ * Datepicker for Bootstrap v1.4.0 (https://github.com/eternicode/bootstrap-datepicker)
  *
  * Copyright 2012 Stefan Petre
  * Improvements by Andrew Rowls
- * Licensed under the Apache License v2.0
- * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
  */
 .datepicker {
   padding: 4px;
@@ -729,6 +727,9 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .input-group.date .input-group-addon i {
   cursor: pointer;
 }
+.input-daterange {
+  width: 100%;
+}
 .input-daterange input {
   text-align: center;
 }
@@ -752,35 +753,4 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   border-width: 1px 0;
   margin-left: -5px;
   margin-right: -5px;
-}
-.datepicker.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 1000;
-  float: left;
-  display: none;
-  min-width: 160px;
-  list-style: none;
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding;
-  background-clip: padding-box;
-  *border-right-width: 2px;
-  *border-bottom-width: 2px;
-  color: #333333;
-  font-size: 13px;
-  line-height: 1.42857143;
-}
-.datepicker.dropdown-menu th,
-.datepicker.datepicker-inline th,
-.datepicker.dropdown-menu td,
-.datepicker.datepicker-inline td {
-  padding: 0px 5px;
 }
