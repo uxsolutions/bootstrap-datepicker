@@ -20,7 +20,7 @@ module.exports = function(grunt){
 
         // Task configuration.
         clean: {
-            dist: 'dist'
+            dist: ['dist', '*-dist.zip']
         },
         jshint: {
             options: {
@@ -78,7 +78,7 @@ module.exports = function(grunt){
                 files: [{
                     expand: true,
                     cwd: 'js/locales/',
-                    src: ['*.js', '!*.min.js'],
+                    src: '*.js',
                     dest: 'dist/locales/',
                     rename: function(dest, name){
                         return dest + name.replace(/\.js$/, '.min.js');
@@ -137,14 +137,14 @@ module.exports = function(grunt){
             dist: [
                 'dist/css/bootstrap-datepicker.css',
                 'dist/css/bootstrap-datepicker3.css',
-                'dist/css/bootstrap-datepicker_standalone.css',
-                'dist/css/bootstrap-datepicker3_standalone.css'
+                'dist/css/bootstrap-datepicker.standalone.css',
+                'dist/css/bootstrap-datepicker3.standalone.css'
             ]
         },
         compress: {
             main: {
                 options: {
-                    archive: 'bootstrap-datepicker-<%= pkg.version %>-dist.zip',
+                    archive: '<%= pkg.name %>-<%= pkg.version %>-dist.zip',
                     mode: 'zip',
                     level: 9,
                     pretty: true
@@ -153,7 +153,7 @@ module.exports = function(grunt){
                     {
                         expand: true,
                         cwd: 'dist/',
-                        src: ['**']
+                        src: '**'
                     }
                 ]
             }
