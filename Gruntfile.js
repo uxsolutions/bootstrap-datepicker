@@ -41,7 +41,7 @@ module.exports = function(grunt){
         },
         jscs: {
             options: {
-                config: '.jscsrc'
+                config: 'js/.jscsrc'
             },
             main: {
                 src: 'js/bootstrap-datepicker.js'

@@ -50,19 +50,15 @@
 			border-top:    6px solid #fff;
 		}
 	}
-	>div {
+	> div {
 		display: none;
 	}
-	&.days div.datepicker-days {
+	&.days .datepicker-days,
+	&.months .datepicker-months,
+	&.years .datepicker-years {
 		display: block;
 	}
-	&.months div.datepicker-months {
-		display: block;
-	}
-	&.years div.datepicker-years {
-		display: block;
-	}
-	table{
+	table {
 		margin: 0;
 		-webkit-touch-callout: none;
 		-webkit-user-select: none;
@@ -178,14 +174,14 @@
 		}
 	}
 
-	th.datepicker-switch {
+	.datepicker-switch {
 		width: 145px;
 	}
 
 	thead tr:first-child th,
 	tfoot tr th {
 		cursor: pointer;
-		&:hover{
+		&:hover {
 			background: @gray-lighter;
 		}
 	}
@@ -197,17 +193,13 @@
 		padding: 0 2px 0 5px;
 		vertical-align: middle;
 	}
-	thead tr:first-child th.cw {
+	thead tr:first-child .cw {
 		cursor: default;
 		background-color: transparent;
 	}
 }
-.input-group {
-	&.date {
-		.input-group-addon i {
-			cursor: pointer;
-		}
-	}
+.input-group.date .input-group-addon {
+	cursor: pointer;
 }
 .input-daterange {
 	width: 100%;
