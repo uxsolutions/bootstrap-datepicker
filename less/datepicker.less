@@ -50,19 +50,15 @@
 			border-top:    6px solid @white;
 		}
 	}
-	>div {
+	> div {
 		display: none;
 	}
-	&.days div.datepicker-days {
+	&.days .datepicker-days,
+	&.months .datepicker-months,
+	&.years .datepicker-years {
 		display: block;
 	}
-	&.months div.datepicker-months {
-		display: block;
-	}
-	&.years div.datepicker-years {
-		display: block;
-	}
-	table{
+	table {
 		margin: 0;
 		-webkit-touch-callout: none;
 		-webkit-user-select: none;
@@ -71,8 +67,7 @@
 		-ms-user-select: none;
 		user-select: none;
 	}
-	td,
-	th{
+	td, th {
 		text-align: center;
 		width: 20px;
 		height: 20px;
@@ -181,14 +176,14 @@
 		}
 	}
 
-	th.datepicker-switch {
+	.datepicker-switch {
 		width: 145px;
 	}
 
 	thead tr:first-child th,
 	tfoot tr th {
 		cursor: pointer;
-		&:hover{
+		&:hover {
 			background: @grayLighter;
 		}
 	}
@@ -200,18 +195,18 @@
 		padding: 0 2px 0 5px;
 		vertical-align: middle;
 	}
-	thead tr:first-child th.cw {
+	thead tr:first-child .cw {
 		cursor: default;
 		background-color: transparent;
 	}
 }
 .input-append,
 .input-prepend {
-	&.date {
-		.add-on i {
-			cursor: pointer;
-			width: 16px;
-			height: 16px;
+	&.date .add-on {
+		cursor: pointer;
+
+		i {
+			margin-top: 3px;
 		}
 	}
 }
