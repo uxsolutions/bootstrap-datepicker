@@ -191,6 +191,16 @@
 					o.minViewMode = 0;
 			}
 
+			switch(o.defaultDay){
+				case 'last':
+					o.defaultDay = 31;
+					break;
+				default:
+					o.defaultDay = o.defaultDay || 1;
+			}
+
+			o.defaultMonth = o.defaultMonth || 0;
+
 			o.startView = Math.max(o.startView, o.minViewMode);
 
 			// true, false, or Number > 0
@@ -1055,23 +1065,20 @@
 						if (!target.is('.disabled')){
 							this.viewDate.setUTCDate(1);
 							if (target.is('.month')){
-								day = 1;
 								month = target.parent().find('span').index(target);
 								year = this.viewDate.getUTCFullYear();
 								this.viewDate.setUTCMonth(month);
 								this._trigger('changeMonth', this.viewDate);
 								if (this.o.minViewMode === 1){
-									this._setDate(UTCDate(year, month, day));
+									this._setDate(this.getMinViewModeDate(year, month));
 								}
 							}
 							else {
-								day = 1;
-								month = 0;
 								year = parseInt(target.text(), 10)||0;
 								this.viewDate.setUTCFullYear(year);
 								this._trigger('changeYear', this.viewDate);
 								if (this.o.minViewMode === 2){
-									this._setDate(UTCDate(year, month, day));
+									this._setDate(this.getMinViewModeDate(year));
 								}
 							}
 							this.showMode(-1);
@@ -1355,6 +1362,33 @@
 				.filter('.datepicker-'+DPGlobal.modes[this.viewMode].clsName)
 					.css('display', 'block');
 			this.updateNavArrows();
+		},
+
+		getMinViewModeDate: function (year, month, day){
+			var date;
+
+			if (month === undefined || month === null) {
+				month = this.o.defaultMonth;
+			}
+			if (day === undefined || day === null) {
+				day = this.o.defaultDay;
+			}
+
+			if (day > new Date(year, month, day).getDate()){
+				month++;
+				day = 0;
+			}
+
+			date = UTCDate(year, month, day);
+
+			// stay within the bounds given by the startDate and endDate options
+			if (date < this.o.startDate) {
+				date = this.o.startDate;
+			} else if (this.o.endDate < date) {
+				date = this.o.endDate;
+			}
+
+			return date;
 		}
 	};
 
