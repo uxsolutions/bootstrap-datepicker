@@ -16,7 +16,7 @@ Versions are incremented according to [semver](http://semver.org/).
 
 ## Development
 
-Once you cloned the repo, you'll need to install [grunt](http://gruntjs.com/) and the development dependencies using [npm](https://npmjs.org/).
+Once you cloned the repo, you'll need to install [grunt](http://gruntjs.com/) and the development dependencies using [npm](https://www.npmjs.com/).
 
     npm install -g grunt-cli
     npm install
