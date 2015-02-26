@@ -32,6 +32,7 @@
     "grunt-contrib-cssmin": "~0.10.0",
     "grunt-contrib-clean": "~0.6.0",
     "grunt-contrib-concat": "~0.5.0",
+    "grunt-string-replace": "~1.0.0",
     "grunt-banner": "~0.2.3",
     "time-grunt": "~1.0.0",
     "phantomjs": "~1.9.0"
