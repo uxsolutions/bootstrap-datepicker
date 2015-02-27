@@ -898,6 +898,12 @@
 					if (before.tooltip)
 						tooltip = before.tooltip;
 				}
+		                $.each(this.dates, function(i, d){
+                    			if (d.getUTCFullYear() === prevMonth.getUTCFullYear() 
+                            			&& d.getUTCMonth() === prevMonth.getUTCMonth() 
+			                            && d.getUTCDate() === prevMonth.getUTCDate())
+			                        clsName.push('active');
+		                });
 
 				clsName = $.unique(clsName);
 				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + '>'+prevMonth.getUTCDate() + '</td>');
