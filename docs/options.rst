@@ -276,3 +276,17 @@ Day of the week start. 0 (Sunday) to 6 (Saturday)
 
 .. figure:: _static/screenshots/option_weekstart.png
     :align: center
+
+showOnFocus
+-----------
+
+Boolean.  Default: true
+
+If false, the datepicker will be prevented from showing when the input field associated with it receives focus.
+
+disableTouchKeyboard
+--------------------
+
+Boolean.  Default: false
+
+If true, no keyboard will show on mobile devices
