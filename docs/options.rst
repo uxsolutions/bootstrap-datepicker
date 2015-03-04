@@ -290,3 +290,10 @@ disableTouchKeyboard
 Boolean.  Default: false
 
 If true, no keyboard will show on mobile devices
+
+enableOnReadonly
+----------------
+
+Boolean. Default: true
+
+If false the datepicker will not show on a readonly datepicker field.

@@ -429,7 +429,7 @@
 		},
 
 		show: function(){
-			if (this.element.attr('readonly'))
+			if (this.element.attr('readonly') && this.o.enableOnReadonly === false)
 				return;
 			if (!this.isInline)
 				this.picker.appendTo(this.o.container);
@@ -1531,6 +1531,7 @@
 		todayHighlight: false,
 		weekStart: 0,
 		disableTouchKeyboard: false,
+        enableOnReadonly: true,
 		container: 'body'
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [

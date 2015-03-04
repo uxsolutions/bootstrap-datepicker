@@ -904,3 +904,32 @@ test('Default View Date', function(){
 
     equal(picker.find('.datepicker-days thead .datepicker-switch').text(), 'May 1977');
 });
+
+//datepicker-dropdown
+
+test('Enable on readonly options (default)', function(){
+    var input = $('<input readonly="readonly" />')
+            .appendTo('#qunit-fixture')
+            .datepicker({format: "dd-mm-yyyy"}),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+
+    ok(!picker.is(':visible'));
+    input.focus();
+    ok(picker.is(':visible'));
+});
+
+test('Enable on readonly options (false)', function(){
+    var input = $('<input readonly="readonly" />')
+            .appendTo('#qunit-fixture')
+            .datepicker({
+                format: "dd-mm-yyyy",
+                enableOnReadonly: false
+            }),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+
+    ok(!picker.is(':visible'));
+    input.focus();
+    ok(!picker.is(':visible'));
+});
