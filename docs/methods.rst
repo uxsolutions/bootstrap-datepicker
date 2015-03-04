@@ -47,6 +47,11 @@ If ``date`` is provided and is a Date object, it is assumed to be a "local" date
     $('.datepicker').datepicker('update', '2011-03-05');
     $('.datepicker').datepicker('update', new Date(2011, 2, 5));
 
+To reset the datepicker and clear the selected date, pass an empty string with ``update``:
+
+::
+
+    $('.datepicker').datepicker('update', '');
 
 setDate
 -------
