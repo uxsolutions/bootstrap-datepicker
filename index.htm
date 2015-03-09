@@ -323,6 +323,10 @@
             <input id="beforeShowMonth" name="beforeShowMonth" type="checkbox">
             Before-show-month callback
           </label>
+        <label for="datesDisabled" class="inline checkbox">
+            <input id="datesDisabled" name="datesDisabled" type="checkbox">
+            datesDisabled
+          </label>
 
           <br></br>
 
@@ -397,6 +401,14 @@
                       case 8:
                         return false;
                     }
+                }
+                else if (opt == 'datesDisabled'){
+                  var date = new Date();
+                  var month = date.getMonth() + 1;
+                  if (month.toString().length == 1) {
+                      month = "0" + month;
+                  }
+                  val = "['"+month+"/06/"+date.getFullYear()+"', '"+month+"/21/"+date.getFullYear()+"']";
                 }
                 else if (val == 'on' || val == 'true') val = 'true';
                 else if (val === void 0 || val == 'false') val = 'false';
