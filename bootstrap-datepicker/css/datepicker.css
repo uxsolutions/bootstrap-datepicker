@@ -1,11 +1,9 @@
 /*!
- * Datepicker for Bootstrap
+ * Datepicker for Bootstrap v1.4.0 (https://github.com/eternicode/bootstrap-datepicker)
  *
  * Copyright 2012 Stefan Petre
  * Improvements by Andrew Rowls
- * Licensed under the Apache License v2.0
- * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
  */
 .datepicker {
   padding: 4px;
@@ -77,13 +75,9 @@
 .datepicker > div {
   display: none;
 }
-.datepicker.days div.datepicker-days {
-  display: block;
-}
-.datepicker.months div.datepicker-months {
-  display: block;
-}
-.datepicker.years div.datepicker-years {
+.datepicker.days .datepicker-days,
+.datepicker.months .datepicker-months,
+.datepicker.years .datepicker-years {
   display: block;
 }
 .datepicker table {
@@ -419,7 +413,7 @@
 .datepicker table tr td span.new {
   color: #999999;
 }
-.datepicker th.datepicker-switch {
+.datepicker .datepicker-switch {
   width: 145px;
 }
 .datepicker thead tr:first-child th,
@@ -436,15 +430,17 @@
   padding: 0 2px 0 5px;
   vertical-align: middle;
 }
-.datepicker thead tr:first-child th.cw {
+.datepicker thead tr:first-child .cw {
   cursor: default;
   background-color: transparent;
 }
+.input-append.date .add-on,
+.input-prepend.date .add-on {
+  cursor: pointer;
+}
 .input-append.date .add-on i,
 .input-prepend.date .add-on i {
-  cursor: pointer;
-  width: 16px;
-  height: 16px;
+  margin-top: 3px;
 }
 .input-daterange input {
   text-align: center;
@@ -463,10 +459,10 @@
   display: inline-block;
   width: auto;
   min-width: 16px;
-  height: 20px;
+  height: 18px;
   padding: 4px 5px;
   font-weight: normal;
-  line-height: 20px;
+  line-height: 18px;
   text-align: center;
   text-shadow: 0 1px 0 #ffffff;
   vertical-align: middle;
@@ -474,37 +470,4 @@
   border: 1px solid #ccc;
   margin-left: -5px;
   margin-right: -5px;
-}
-.datepicker.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 1000;
-  float: left;
-  display: none;
-  min-width: 160px;
-  list-style: none;
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding;
-  background-clip: padding-box;
-  *border-right-width: 2px;
-  *border-bottom-width: 2px;
-  color: #333333;
-  font-size: 13px;
-  line-height: 20px;
-}
-.datepicker.dropdown-menu th,
-.datepicker.datepicker-inline th,
-.datepicker.dropdown-menu td,
-.datepicker.datepicker-inline td {
-  padding: 4px 5px;
 }

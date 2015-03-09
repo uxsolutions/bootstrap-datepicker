@@ -10,6 +10,8 @@
 		months: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
 		monthsShort: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"],
 		today: "Bugün",
+		clear: "Temizle",
+		weekStart: 1,
 		format: "dd.mm.yyyy"
 	};
 }(jQuery));
