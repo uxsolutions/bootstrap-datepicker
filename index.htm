@@ -327,6 +327,14 @@
             <input id="datesDisabled" name="datesDisabled" type="checkbox">
             datesDisabled
           </label>
+          <label for="toggleActive" class="inline checkbox">
+            <input id="toggleActive" name="toggleActive" type="checkbox">
+            Toggle Active
+          </label>
+          <label for="defaultViewDate" class="inline checkbox">
+            <input id="defaultViewDate" name="defaultViewDate" type="checkbox">
+            DefaultViewDate option
+          </label>
 
           <br></br>
 
@@ -379,6 +387,7 @@
             var js = "$('#sandbox-container "+selector+"').datepicker({\n",
                 val;
             for (var opt in $.extend({}, defaults, values)){
+                console.log(opt);
               if (values[opt] != defaults[opt]){
                 val = values[opt];
                 if (opt == 'daysOfWeekDisabled') val = '"'+val+'"'
@@ -410,6 +419,7 @@
                   }
                   val = "['"+month+"/06/"+date.getFullYear()+"', '"+month+"/21/"+date.getFullYear()+"']";
                 }
+                else if (opt === 'defaultViewDate') val = '{ year: 1977, month: 04, day: 25 }';
                 else if (val == 'on' || val == 'true') val = 'true';
                 else if (val === void 0 || val == 'false') val = 'false';
                 else if (parseInt(val) == val) val = val;
