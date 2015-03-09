@@ -1,5 +1,5 @@
 /*!
- * Datepicker for Bootstrap v1.4.0 (https://github.com/eternicode/bootstrap-datepicker)
+ * Datepicker for Bootstrap v1.5.0 (https://github.com/eternicode/bootstrap-datepicker)
  *
  * Copyright 2012 Stefan Petre
  * Improvements by Andrew Rowls
@@ -1758,7 +1758,7 @@
 
 	/* DATEPICKER VERSION
 	 * =================== */
-	$.fn.datepicker.version =  "1.4.0";
+	$.fn.datepicker.version =  "1.5.0";
 
 	/* DATEPICKER DATA-API
 	* ================== */
