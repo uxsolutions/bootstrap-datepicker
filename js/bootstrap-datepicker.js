@@ -1366,7 +1366,7 @@
 		delete options.inputs;
 
 		datepickerPlugin.call($(this.inputs), options)
-			.bind('changeDate', $.proxy(this.dateUpdated, this));
+			.on('changeDate', $.proxy(this.dateUpdated, this));
 
 		this.pickers = $.map(this.inputs, function(i){
 			return $(i).data('datepicker');
@@ -1531,7 +1531,7 @@
 		todayHighlight: false,
 		weekStart: 0,
 		disableTouchKeyboard: false,
-        enableOnReadonly: true,
+		enableOnReadonly: true,
 		container: 'body'
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [

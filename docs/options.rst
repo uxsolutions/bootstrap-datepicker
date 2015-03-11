@@ -80,9 +80,9 @@ Appends the date picker popup to a specific element; eg: container: '#picker-con
 daysOfWeekDisabled
 ------------------
 
-String, Array.  Default: '', []
+String, Array.  Default: []
 
-Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday). Multiple values should be comma-separated. Example: disable weekends: ``'0,6'`` or ``[0,6]``.
+Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday). Multiple values should be comma-separated. Example: disable weekends: ``06`` or ``'0,6'`` or ``[0,6]``.
 
 .. figure:: _static/screenshots/option_daysofweekdisabled.png
     :align: center
