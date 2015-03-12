@@ -322,7 +322,8 @@
                     if ($.inArray(e.keyCode, [27, 37, 39, 38, 40, 32, 13, 9]) === -1)
                         this.update();
                 }, this),
-                keydown: $.proxy(this.keydown, this)
+                keydown: $.proxy(this.keydown, this),
+                paste: $.proxy(this.paste, this)
             };
 
             if (this.o.showOnFocus === true) {
@@ -476,6 +477,23 @@
 				delete this.element.data().date;
 			}
 			return this;
+		},
+
+		paste: function(evt){
+			var dateString;
+			if (evt.originalEvent.clipboardData && evt.originalEvent.clipboardData.types
+				&& $.inArray('text/plain', evt.originalEvent.clipboardData.types) !== -1) {
+				dateString = evt.originalEvent.clipboardData.getData('text/plain');
+			}
+			else if (window.clipboardData) {
+				dateString = window.clipboardData.getData('Text');
+			}
+			else {
+				return;
+			}
+			this.setDate(dateString);
+			this.update();
+			evt.preventDefault();
 		},
 
 		_utc_to_local: function(utc){
