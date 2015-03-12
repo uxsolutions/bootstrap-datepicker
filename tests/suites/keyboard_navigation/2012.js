@@ -459,7 +459,7 @@ test('Toggle hide/show (escape); navigation while hidden is suppressed', functio
     // Show
     this.input.trigger({
         type: 'keydown',
-        keyCode: 27
+        keyCode: 40
     });
 
     ok(this.picker.is(':visible'), 'Picker is visible');
