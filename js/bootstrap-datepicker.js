@@ -1239,7 +1239,7 @@
 
 		keydown: function(e){
 			if (!this.picker.is(':visible')){
-				if (e.keyCode === 40) // allow down to re-show picker
+				if (e.keyCode === 40 || e.keyCode === 27) // allow down to re-show picker
 					this.show();
 				return;
 			}
