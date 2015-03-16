@@ -47,13 +47,24 @@
 			get: function(i){
 				return this.slice(i)[0];
 			},
-			contains: function(d){
+			contains: function(d, ignoreTime){
 				// Array.indexOf is not cross-browser;
 				// $.inArray doesn't work with Dates
 				var val = d && d.valueOf();
+				ignoreTime = typeof(ignoreTime) === 'undefined';
+				if (ignoreTime) {
+					val = d.getFullYear().toString() + d.getMonth() + d.getDate();
+				}
 				for (var i=0, l=this.length; i < l; i++)
-					if (this[i].valueOf() === val)
-						return i;
+					if (ignoreTime) {
+						var t = this[i].getUTCFullYear().toString() + this[i].getUTCMonth() + this[i].getUTCDate();
+						if (t === val) {
+							return i;
+						}
+					} else {
+						if (this[i].valueOf() === val)
+							return i;
+					}
 				return -1;
 			},
 			remove: function(i){
@@ -140,6 +151,7 @@
 
 		this.update();
 		this.showMode();
+		this.showTime();
 
 		if (this.isInline){
 			this.show();
@@ -372,6 +384,9 @@
 			this._secondaryEvents = [
 				[this.picker, {
 					click: $.proxy(this.click, this)
+				}],
+				[this.picker.find('button'), {
+					click: $.proxy(this.setTime, this)
 				}],
 				[$(window), {
 					resize: $.proxy(this.place, this)
@@ -986,6 +1001,24 @@
 				year += 1;
 			}
 			yearCont.html(html);
+
+			this._setTimeDropdowns(this.viewDate);
+		},
+
+		_setTimeDropdowns: function(viewDate){
+			var $timepicker = this.picker.find('.timepicker');
+			$('select[name=hour]', $timepicker).val(('0' + viewDate.getUTCHours()).slice(-2));
+			$('select[name=minute]', $timepicker).val(('0' + viewDate.getUTCMinutes()).slice(-2));
+			$('select[name=second]', $timepicker).val(('0' + viewDate.getUTCSeconds()).slice(-2));
+		},
+
+		_getTimeFromDropdowns: function(){
+			var $timepicker = this.picker.find('.timepicker');
+			return {
+				h: parseInt($('select[name=hour]', $timepicker).val()),
+				m: parseInt($('select[name=minute]', $timepicker).val()),
+				s: parseInt($('select[name=second]', $timepicker).val())
+			};
 		},
 
 		updateNavArrows: function(){
@@ -1028,9 +1061,22 @@
 			}
 		},
 
+		setTime: function(e){
+			e.preventDefault();
+			var newDate = this._utc_to_local(this.viewDate),
+				time = this._getTimeFromDropdowns();
+			newDate.setHours(time.h);
+			newDate.setMinutes(time.m);
+			newDate.setSeconds(time.s);
+			this.update(newDate);
+			if (this._o.autoclose || e.target.tagName === 'BUTTON') {
+				this.hide();
+			}
+		},
+
 		click: function(e){
 			e.preventDefault();
-			var target = $(e.target).closest('span, td, th'),
+			var target = $(e.target).closest('span, td, th, select'),
 				year, month, day;
 			if (target.length === 1){
 				switch (target[0].nodeName.toLowerCase()){
@@ -1119,13 +1165,25 @@
 									month += 1;
 								}
 							}
-							this._setDate(UTCDate(year, month, day));
+
+							var
+								h = this.viewDate.getUTCHours(),
+								m = this.viewDate.getUTCMinutes(),
+								s = this.viewDate.getUTCSeconds();
+
+							if (this.inputs && this.inputs[this.inputs.length - 1] === this.element[0]) {
+								h = 23; m = s = 59;
+							}
+
+							this._setDate(UTCDate(year, month, day, h, m, s));
 						}
 						break;
 				}
 			}
 			if (this.picker.is(':visible') && this._focused_from){
-				$(this._focused_from).focus();
+				if (target[0].nodeName.toLowerCase() !== 'select') {
+					$(this._focused_from).focus();
+				}
 			}
 			delete this._focused_from;
 		},
@@ -1174,7 +1232,7 @@
 			if (element){
 				element.change();
 			}
-			if (this.o.autoclose && (!which || which === 'date')){
+			if (this.o.autoclose && !this.o.showTime && (!which || which === 'date')){
 				this.hide();
 			}
 		},
@@ -1373,6 +1431,18 @@
 				.filter('.datepicker-' + DPGlobal.modes[this.viewMode].clsName)
 					.css('display', 'block');
 			this.updateNavArrows();
+		},
+
+		showTime: function(){
+			if (this.o.showTime) {
+				this.picker.find('[name=ampm]').hide();
+			} else {
+				if (!this.o.todayBtn && !this.o.clearBtn){
+					this.picker.find('tfoot').hide();
+				} else {
+					this.picker.find('.timepicker').hide();
+				}
+			}
 		}
 	};
 
@@ -1386,7 +1456,10 @@
 		datepickerPlugin.call($(this.inputs), options)
 			.on('changeDate', $.proxy(this.dateUpdated, this));
 
+		var rangeInputs = this.inputs;
 		this.pickers = $.map(this.inputs, function(i){
+			var data = $(i).data('datepicker');
+			data.inputs = rangeInputs;
 			return $(i).data('datepicker');
 		});
 		this.updateDates();
@@ -1543,6 +1616,7 @@
 		multidateSeparator: ',',
 		orientation: "auto",
 		rtl: false,
+		showTime: false,
 		startDate: -Infinity,
 		startView: 0,
 		todayBtn: false,
@@ -1593,7 +1667,7 @@
 		getDaysInMonth: function(year, month){
 			return [31, (DPGlobal.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
 		},
-		validParts: /dd?|DD?|mm?|MM?|yy(?:yy)?/g,
+		validParts: /dd?|DD?|mm?|MM?|yy(?:yy)?|h|H|i|s/g,
 		nonpunctuation: /[^ -\/:-@\[\u3400-\u9fff-`{-~\t\n\r]+/g,
 		parseFormat: function(format){
 			// IE treats \0 as a string end in inputs (truncating the value),
@@ -1640,7 +1714,9 @@
 			parts = date && date.match(this.nonpunctuation) || [];
 			date = new Date();
 			var parsed = {},
-				setters_order = ['yyyy', 'yy', 'M', 'MM', 'm', 'mm', 'd', 'dd'],
+				setters_order = ['yyyy', 'yy', 'M', 'MM', 'm', 'mm', 'd', 'dd',
+					'h', 'H', 'i', 's'
+				],
 				setters_map = {
 					yyyy: function(d,v){
 						return d.setUTCFullYear(v);
@@ -1661,11 +1737,21 @@
 					},
 					d: function(d,v){
 						return d.setUTCDate(v);
+					},
+					h: function(d,v){
+						return d.setUTCHours(v);
+					},
+					i: function(d,v){
+						return d.setUTCMinutes(v);
+					},
+					s: function(d,v){
+						return d.setUTCSeconds(v);
 					}
 				},
 				val, filtered;
 			setters_map['M'] = setters_map['MM'] = setters_map['mm'] = setters_map['m'];
 			setters_map['dd'] = setters_map['d'];
+			setters_map['H'] = setters_map['h'];
 			date = UTCDate(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
 			var fparts = format.parts.slice();
 			// Remove noop parts
@@ -1717,6 +1803,9 @@
 				return '';
 			if (typeof format === 'string')
 				format = DPGlobal.parseFormat(format);
+
+			var hh = ('00' + date.getUTCHours()).slice(-2);
+
 			var val = {
 				d: date.getUTCDate(),
 				D: dates[language].daysShort[date.getUTCDay()],
@@ -1725,8 +1814,13 @@
 				M: dates[language].monthsShort[date.getUTCMonth()],
 				MM: dates[language].months[date.getUTCMonth()],
 				yy: date.getUTCFullYear().toString().substring(2),
-				yyyy: date.getUTCFullYear()
+				yyyy: date.getUTCFullYear(),
+				h: hh,
+				H: hh,
+				i: ('00' + date.getUTCMinutes()).slice(-2),
+				s: ('00' + date.getUTCSeconds()).slice(-2)
 			};
+
 			val.dd = (val.d < 10 ? '0' : '') + val.d;
 			val.mm = (val.m < 10 ? '0' : '') + val.m;
 			date = [];
@@ -1738,6 +1832,39 @@
 			}
 			return date.join('');
 		},
+
+		timepickerTemplate: function(){
+			var optionTags = function(min, max){
+				var s = '';
+				for (var i = min; i < max; i++){
+					var val = ('0' + i).slice(-2);
+					s += '<option value="' + val + '">' + val + '</option>';
+				}
+				return s;
+			};
+
+			return '<tr>'+
+				'<th class="timepicker" colspan="7">'+
+					'<select class="time" name="hour">'+
+						optionTags(0, 24)+
+					'</select>'+
+					'<select class="time" name="minute">'+
+						optionTags(0, 60)+
+					'</select>'+
+					'<select class="time" name="second">'+
+						optionTags(0, 60)+
+					'</select>'+
+					'<select class="time" name="ampm">'+
+						'<option value="am">am</option>'+
+						'<option value="pm">pm</option>'+
+					'</select>'+
+					'<button class="btn btn-success">' +
+						'<span class="glyphicon glyphicon-ok"></span>' +
+					'</button>'+
+				'</th>'+
+			'</tr>';
+		},
+
 		headTemplate: '<thead>'+
 							'<tr>'+
 								'<th class="prev">&#171;</th>'+
@@ -1745,16 +1872,20 @@
 								'<th class="next">&#187;</th>'+
 							'</tr>'+
 						'</thead>',
-		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',
-		footTemplate: '<tfoot>'+
-							'<tr>'+
-								'<th colspan="7" class="today"></th>'+
-							'</tr>'+
-							'<tr>'+
-								'<th colspan="7" class="clear"></th>'+
-							'</tr>'+
-						'</tfoot>'
+		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>'
 	};
+
+	DPGlobal.footTemplate =
+		'<tfoot>' +
+			DPGlobal.timepickerTemplate()+
+			'<tr>'+
+				'<th colspan="7" class="today"></th>'+
+			'</tr>'+
+			'<tr>'+
+				'<th colspan="7" class="clear"></th>'+
+			'</tr>'+
+		'</tfoot>';
+
 	DPGlobal.template = '<div class="datepicker">'+
 							'<div class="datepicker-days">'+
 								'<table class=" table-condensed">'+

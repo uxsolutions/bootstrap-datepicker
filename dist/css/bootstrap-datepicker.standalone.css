@@ -1,9 +1,11 @@
 /*!
- * Datepicker for Bootstrap v1.5.0 (https://github.com/eternicode/bootstrap-datepicker)
+ * Datepicker for Bootstrap
  *
  * Copyright 2012 Stefan Petre
  * Improvements by Andrew Rowls
- * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
  */
 .datepicker {
   padding: 4px;
@@ -11,6 +13,9 @@
   -moz-border-radius: 4px;
   border-radius: 4px;
   direction: ltr;
+  /*.dow {
+		border-top: 1px solid #ddd !important;
+	}*/
 }
 .datepicker-inline {
   width: 220px;
@@ -75,9 +80,13 @@
 .datepicker > div {
   display: none;
 }
-.datepicker.days .datepicker-days,
-.datepicker.months .datepicker-months,
-.datepicker.years .datepicker-years {
+.datepicker.days div.datepicker-days {
+  display: block;
+}
+.datepicker.months div.datepicker-months {
+  display: block;
+}
+.datepicker.years div.datepicker-years {
   display: block;
 }
 .datepicker table {
@@ -413,7 +422,7 @@
 .datepicker table tr td span.new {
   color: #999999;
 }
-.datepicker .datepicker-switch {
+.datepicker th.datepicker-switch {
   width: 145px;
 }
 .datepicker thead tr:first-child th,
@@ -430,17 +439,22 @@
   padding: 0 2px 0 5px;
   vertical-align: middle;
 }
-.datepicker thead tr:first-child .cw {
+.datepicker thead tr:first-child th.cw {
   cursor: default;
   background-color: transparent;
 }
-.input-append.date .add-on,
-.input-prepend.date .add-on {
-  cursor: pointer;
+.datepicker .timepicker:hover {
+  background: none;
+}
+.datepicker .timepicker .time {
+  width: auto;
+  margin: 2px;
 }
 .input-append.date .add-on i,
 .input-prepend.date .add-on i {
-  margin-top: 3px;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
 }
 .input-daterange input {
   text-align: center;
@@ -495,6 +509,7 @@
   *border-right-width: 2px;
   *border-bottom-width: 2px;
   color: #333333;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
   line-height: 20px;
 }

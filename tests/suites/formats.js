@@ -104,6 +104,38 @@ test('yyyy: Year, four-digit.', function(){
     equal(this.input.val().split('-')[0], '2012');
 });
 
+test('h: Hours, 24-hour clock, leading zero.', function(){
+    this.input
+        .val('2012-03-5-9-33-59')
+        .datepicker({format: 'yyyy-mm-dd-h-i-s'})
+        .datepicker('setValue');
+    equal(this.input.val().split('-')[3], '09');
+});
+
+test('H: Hours, 24-hour clock, leading zero.', function(){
+    this.input
+        .val('2012-03-5-9-33-59')
+        .datepicker({format: 'yyyy-mm-dd-H-i-s'})
+        .datepicker('setValue');
+    equal(this.input.val().split('-')[3], '09');
+});
+
+test('i: Minutes, leading zero', function(){
+    this.input
+        .val('2012-03-5-15-9-59')
+        .datepicker({format: 'yyyy-mm-dd-h-i-s'})
+        .datepicker('setValue');
+    equal(this.input.val().split('-')[4], '09');
+});
+
+test('s: Seconds, leading zero', function(){
+    this.input
+        .val('2012-03-5-15-33-9')
+        .datepicker({format: 'yyyy-mm-dd-h-i-s'})
+        .datepicker('setValue');
+    equal(this.input.val().split('-')[5], '09');
+});
+
 test('dd-mm-yyyy: Regression: Prevent potential month overflow in small-to-large formats (Mar 31, 2012 -> Mar 01, 2012)', function(){
     this.input
         .val('31-03-2012')

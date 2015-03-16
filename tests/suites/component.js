@@ -8,7 +8,7 @@ module('Component', {
                         .datepicker({format: "dd-mm-yyyy"});
         this.input = this.component.find('input');
         this.addon = this.component.find('.add-on');
-        this.dp = this.component.data('datepicker')
+        this.dp = this.component.data('datepicker');
         this.picker = this.dp.picker;
     },
     teardown: function(){
@@ -152,8 +152,8 @@ test('Selecting date resets viewDate and date', function(){
 
     // Updated internally on click
     target.click();
-    datesEqual(this.dp.viewDate, UTCDate(2012, 1, 26))
-    datesEqual(this.dp.dates[0], UTCDate(2012, 1, 26))
+    datesEqual(this.dp.viewDate, UTCDate(2012, 1, 26));
+    datesEqual(this.dp.dates[0], UTCDate(2012, 1, 26));
 
     // Re-rendered on click
     target = this.picker.find('.datepicker-days tbody td:first');
