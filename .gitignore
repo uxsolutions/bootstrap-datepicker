@@ -1,3 +1,3 @@
 docs/_build
 node_modules/
-_build
+*-dist.zip

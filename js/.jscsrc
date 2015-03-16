@@ -11,17 +11,12 @@
     "disallowSpacesInsideParentheses": true,
     "disallowQuotedKeysInObjects": "allButReserved",
     "disallowSpaceAfterObjectKeys": true,
-    "disallowLeftStickedOperators": [
-        "?", "==", "===", "!=", "!==", ">", ">=", "<", "<="
-    ],
-    "disallowRightStickedOperators": [
-        "?", "==", "===", "!=", "!==", ">", ">=", "<", "<="
-    ],
-    "requireLeftStickedOperators": [","],
-    "requireRightStickedOperators": ["!"],
-    "disallowSpaceAfterPrefixUnaryOperators": ["++", "--", "+", "-", "~"],
+    "requireSpaceAfterBinaryOperators": ["==", "===", "!=", "!==", ">", "<", ">=", "<="],
+    "requireSpaceBeforeBinaryOperators": ["==", "===", "!=", "!==", ">", "<", ">=", "<="],
+    "disallowSpaceAfterPrefixUnaryOperators": ["++", "--", "+", "-", "~", "!"],
+    "disallowSpaceBeforeBinaryOperators": [","],
     "disallowSpaceBeforePostfixUnaryOperators": ["++", "--"],
     "validateLineBreaks": "LF",
-    "requireKeywordsOnNewLine": ["else", "return", "break", "delete"],
+    "requireKeywordsOnNewLine": ["return", "break", "delete"],
     "requireLineFeedAtFileEnd": true
 }

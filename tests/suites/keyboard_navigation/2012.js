@@ -456,7 +456,7 @@ test('Toggle hide/show (escape); navigation while hidden is suppressed', functio
     datesEqual(this.dp.viewDate, UTCDate(2012, 2, 31));
     datesEqual(this.dp.dates.get(-1), UTCDate(2012, 2, 31));
 
-    // Show
+    // Show - with escape key
     this.input.trigger({
         type: 'keydown',
         keyCode: 27
@@ -465,5 +465,19 @@ test('Toggle hide/show (escape); navigation while hidden is suppressed', functio
     ok(this.picker.is(':visible'), 'Picker is visible');
     datesEqual(this.dp.viewDate, UTCDate(2012, 2, 31));
     datesEqual(this.dp.dates.get(-1), UTCDate(2012, 2, 31));
+
+    // Hide
+    this.input.trigger({
+        type: 'keydown',
+        keyCode: 27
+    });
+
+    // Show - with down key
+    this.input.trigger({
+        type: 'keydown',
+        keyCode: 40
+    });
+
+    ok(this.picker.is(':visible'), 'Picker is visible');
 });
 

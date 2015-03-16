@@ -31,6 +31,8 @@ Adding the ``date`` class to an ``input-append`` or ``input-prepend`` bootstrap 
 .. figure:: _static/screenshots/markup_component.png
     :align: center
 
+.. _daterange:
+
 date-range
 ----------
 
@@ -58,3 +60,18 @@ Instantiating the datepicker on a simple div will give an embedded picker that i
 
 .. figure:: _static/screenshots/markup_inline.png
     :align: center
+
+
+Example to save the embedded datepicker value to a hidden field
+
+.. code-block:: html
+
+    <div id="datepicker" data-date="12/03/2012"></div>
+    <input type="hidden" id="my_hidden_input" />
+
+    $('#datepicker').datepicker();
+    $("#datepicker").on("changeDate", function(event) {
+        $("#my_hidden_input").val(
+            $("#datepicker").datepicker('getFormattedDate')
+         )
+    });
