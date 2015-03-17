@@ -132,6 +132,9 @@
 		this.setEndDate(this._o.endDate);
 		this.setDaysOfWeekDisabled(this.o.daysOfWeekDisabled);
 		this.setDatesDisabled(this.o.datesDisabled);
+		if (options.startDate){
+			this.setDate(new Date(options.startDate));
+		}
 
 		this.fillDow();
 		this.fillMonths();
