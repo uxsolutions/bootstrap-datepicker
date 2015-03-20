@@ -905,6 +905,33 @@ test('Default View Date', function(){
     equal(picker.find('.datepicker-days thead .datepicker-switch').text(), 'May 1977');
 });
 
+test('Immediate Updates', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2014-01-01')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    immediateUpdates: true
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+
+    // Change month
+    input.focus();
+    picker.find('.datepicker-days .next').click();
+    equal(input.val(), '2014-02-01');
+
+    // Change year
+    picker.find('.datepicker-days .datepicker-switch').click();
+    picker.find('.datepicker-months .next').click();
+    equal(input.val(), '2015-02-01');
+
+    // Change year set (doesn't update input)
+    picker.find('.datepicker-months .datepicker-switch').click();
+    picker.find('.datepicker-years .next').click();
+    equal(input.val(), '2015-02-01');
+});
+
 //datepicker-dropdown
 
 test('Enable on readonly options (default)', function(){
