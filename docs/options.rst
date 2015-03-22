@@ -297,3 +297,10 @@ enableOnReadonly
 Boolean. Default: true
 
 If false the datepicker will not show on a readonly datepicker field.
+
+immediateUpdates
+---------------------
+
+Boolean. Default: false
+
+If true, selecting a year or month in the datepicker will update the input value immediately. Otherwise, only selecting a day of the month will update the input value immediately.
