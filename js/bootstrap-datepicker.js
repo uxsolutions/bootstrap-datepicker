@@ -1089,6 +1089,9 @@
 								this._trigger('changeMonth', this.viewDate);
 								if (this.o.minViewMode === 1){
 									this._setDate(UTCDate(year, month, day));
+									this.showMode();
+								} else {
+									this.showMode(-1);
 								}
 							}
 							else {
@@ -1100,8 +1103,8 @@
 								if (this.o.minViewMode === 2){
 									this._setDate(UTCDate(year, month, day));
 								}
+								this.showMode(-1);
 							}
-							this.showMode(-1);
 							this.fill();
 						}
 						break;
