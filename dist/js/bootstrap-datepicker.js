@@ -1,5 +1,5 @@
 /*!
- * Datepicker for Bootstrap v1.5.0 (https://github.com/eternicode/bootstrap-datepicker)
+ * Datepicker for Bootstrap v1.4.1-dev (https://github.com/eternicode/bootstrap-datepicker)
  *
  * Copyright 2012 Stefan Petre
  * Improvements by Andrew Rowls
@@ -306,7 +306,8 @@
                     if ($.inArray(e.keyCode, [27, 37, 39, 38, 40, 32, 13, 9]) === -1)
                         this.update();
                 }, this),
-                keydown: $.proxy(this.keydown, this)
+                keydown: $.proxy(this.keydown, this),
+                paste: $.proxy(this.paste, this)
             };
 
             if (this.o.showOnFocus === true) {
@@ -360,7 +361,7 @@
 					resize: $.proxy(this.place, this)
 				}],
 				[$(document), {
-					'mousedown touchstart': $.proxy(function(e){
+					mousedown: $.proxy(function(e){
 						// Clicked outside the datepicker, hide it
 						if (!(
 							this.element.is(e.target) ||
@@ -368,7 +369,7 @@
 							this.picker.is(e.target) ||
 							this.picker.find(e.target).length
 						)){
-							this.hide();
+							$(this.picker).hide();
 						}
 					}, this)
 				}]
@@ -460,6 +461,23 @@
 				delete this.element.data().date;
 			}
 			return this;
+		},
+
+		paste: function(evt){
+			var dateString;
+			if (evt.originalEvent.clipboardData && evt.originalEvent.clipboardData.types
+				&& $.inArray('text/plain', evt.originalEvent.clipboardData.types) !== -1) {
+				dateString = evt.originalEvent.clipboardData.getData('text/plain');
+			}
+			else if (window.clipboardData) {
+				dateString = window.clipboardData.getData('Text');
+			}
+			else {
+				return;
+			}
+			this.setDate(dateString);
+			this.update();
+			evt.preventDefault();
 		},
 
 		_utc_to_local: function(utc){
@@ -1046,6 +1064,9 @@
 								this._trigger('changeMonth', this.viewDate);
 								if (this.o.minViewMode === 1){
 									this._setDate(UTCDate(year, month, day));
+									this.showMode();
+								} else {
+									this.showMode(-1);
 								}
 							}
 							else {
@@ -1057,8 +1078,8 @@
 								if (this.o.minViewMode === 2){
 									this._setDate(UTCDate(year, month, day));
 								}
+								this.showMode(-1);
 							}
-							this.showMode(-1);
 							this.fill();
 						}
 						break;
@@ -1350,7 +1371,7 @@
 		delete options.inputs;
 
 		datepickerPlugin.call($(this.inputs), options)
-			.bind('changeDate', $.proxy(this.dateUpdated, this));
+			.on('changeDate', $.proxy(this.dateUpdated, this));
 
 		this.pickers = $.map(this.inputs, function(i){
 			return $(i).data('datepicker');
@@ -1515,7 +1536,7 @@
 		todayHighlight: false,
 		weekStart: 0,
 		disableTouchKeyboard: false,
-        enableOnReadonly: true,
+		enableOnReadonly: true,
 		container: 'body'
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
@@ -1526,9 +1547,9 @@
 	$.fn.datepicker.Constructor = Datepicker;
 	var dates = $.fn.datepicker.dates = {
 		en: {
-			days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-			daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-			daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
+			days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+			daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+			daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
 			months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
 			monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 			today: "Today",
@@ -1758,7 +1779,7 @@
 
 	/* DATEPICKER VERSION
 	 * =================== */
-	$.fn.datepicker.version =  "1.5.0";
+	$.fn.datepicker.version =  "1.4.1-dev";
 
 	/* DATEPICKER DATA-API
 	* ================== */
