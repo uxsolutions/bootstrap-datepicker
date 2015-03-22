@@ -369,7 +369,7 @@
 							this.picker.is(e.target) ||
 							this.picker.find(e.target).length
 						)){
-							this.hide();
+							$(this.picker).hide();
 						}
 					}, this)
 				}]
@@ -1064,6 +1064,9 @@
 								this._trigger('changeMonth', this.viewDate);
 								if (this.o.minViewMode === 1){
 									this._setDate(UTCDate(year, month, day));
+									this.showMode();
+								} else {
+									this.showMode(-1);
 								}
 							}
 							else {
@@ -1075,8 +1078,8 @@
 								if (this.o.minViewMode === 2){
 									this._setDate(UTCDate(year, month, day));
 								}
+								this.showMode(-1);
 							}
-							this.showMode(-1);
 							this.fill();
 						}
 						break;
@@ -1776,7 +1779,7 @@
 
 	/* DATEPICKER VERSION
 	 * =================== */
-	$.fn.datepicker.version =  "1.5.0";
+	$.fn.datepicker.version =  "1.4.1-dev";
 
 	/* DATEPICKER DATA-API
 	* ================== */
