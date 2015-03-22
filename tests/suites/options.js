@@ -933,3 +933,37 @@ test('Enable on readonly options (false)', function(){
     input.focus();
     ok(!picker.is(':visible'));
 });
+
+/*
+
+ */
+
+test('Startview: year view visible after date pick', function(){
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .datepicker({
+                startView: 2,
+                minViewMode: 1,
+                autoclose: true
+            }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    ok(picker.find('.datepicker-days').is(':not(:visible)'), 'Days view hidden');
+    ok(picker.find('.datepicker-months').is(':not(:visible)'), 'Months view hidden');
+    ok(picker.find('.datepicker-years').is(':visible'), 'Years view visible');
+
+    target = picker.find('.datepicker-years tbody td:nth(7)');
+    target.click();
+    target = picker.find('.datepicker-years tbody td:nth(4)');
+    target.click();
+    target = picker.find('.datepicker-years tbody td:nth(20)');
+    target.click();
+
+    input.focus();
+    ok(picker.find('.datepicker-days').is(':not(:visible)'), 'Days view hidden');
+    ok(picker.find('.datepicker-months').is(':not(:visible)'), 'Months view hidden');
+    ok(picker.find('.datepicker-years').is(':visible'), 'Years view visible');
+});
