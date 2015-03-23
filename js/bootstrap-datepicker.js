@@ -686,7 +686,7 @@
 			if (yorient === 'auto'){
 				top_overflow = -scrollTop + top - calendarHeight;
 				bottom_overflow = scrollTop + windowHeight - (top + height + calendarHeight);
-				if (Math.max(top_overflow, bottom_overflow) === bottom_overflow)
+				if (Math.max(top_overflow, bottom_overflow) === bottom_overflow || scrollTop === 0)
 					yorient = 'top';
 				else
 					yorient = 'bottom';
