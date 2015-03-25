@@ -353,6 +353,15 @@
 				}]
 			);
 
+			if (this.o.immediateUpdates) {
+				// Trigger input updates immediately on changed year/month
+				this._events.push([this.element, {
+					'changeYear changeMonth': $.proxy(function(e){
+						this.update(e.date);
+					}, this)
+				}]);
+			}
+
 			this._secondaryEvents = [
 				[this.picker, {
 					click: $.proxy(this.click, this)
@@ -1537,7 +1546,8 @@
 		weekStart: 0,
 		disableTouchKeyboard: false,
 		enableOnReadonly: true,
-		container: 'body'
+		container: 'body',
+		immediateUpdates: false
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',
