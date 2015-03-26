@@ -1039,6 +1039,7 @@
 
 		click: function(e){
 			e.preventDefault();
+			e.stopPropagation();
 			var target = $(e.target).closest('span, td, th'),
 				year, month, day;
 			if (target.length === 1){
