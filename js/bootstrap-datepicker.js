@@ -773,6 +773,7 @@
 				this._trigger('clearDate');
 
 			this.fill();
+			this.element.change();
 			return this;
 		},
 
