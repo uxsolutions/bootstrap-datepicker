@@ -550,7 +550,7 @@
 			}
 
 			if (element) {
-				element.val('').change();
+				element.val('');
 			}
 
 			this.update();
