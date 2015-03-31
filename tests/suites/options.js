@@ -502,6 +502,28 @@ test('DaysOfWeekDisabled', function(){
     ok(target.hasClass('disabled'), 'Day of week is disabled');
 });
 
+test('DaysOfWeekHighlighted', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-10-26')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    daysOfWeekHighlighted: '1,5'
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+
+    input.focus();
+    target = picker.find('.datepicker-days tbody td:nth(22)');
+    ok(target.hasClass('highlighted'), 'Day of week is highlighted');
+    target = picker.find('.datepicker-days tbody td:nth(24)');
+    ok(!target.hasClass('highlighted'), 'Day of week is highlighted');
+    target = picker.find('.datepicker-days tbody td:nth(26)');
+    ok(target.hasClass('highlighted'), 'Day of week is highlighted');
+});
+
 
 test('DatesDisabled', function(){
     var input = $('<input />')
