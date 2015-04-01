@@ -1410,8 +1410,7 @@
 
 		showMode: function(dir){
 			if (dir){
-				this.viewMode = Math.max(this.o.minViewMode, Math.min(2, this.viewMode + dir));
-				this.viewMode = Math.max(this.o.minViewMode, Math.min(2, this.viewMode + dir, this.o.maxViewMode));
+				this.viewMode = Math.max(this.o.minViewMode, Math.min(this.o.maxViewMode, this.viewMode + dir));
 			}
 			this.picker
 				.children('div')
