@@ -83,7 +83,8 @@
 		}
 	}
 	table tr td {
-		&.day:hover, &.day.focused {
+		&.day:hover,
+		&.day.focused {
 			background: @grayLighter;
 			cursor: pointer;
 		}
@@ -96,6 +97,10 @@
 			background: none;
 			color: @grayLight;
 			cursor: default;
+		}
+		&.highlighted {
+			background: @infoBackground;
+			border-radius: 0;
 		}
 		&.today,
 		&.today:hover,
