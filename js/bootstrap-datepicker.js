@@ -192,6 +192,20 @@
 					o.minViewMode = 0;
 			}
 
+			switch (o.maxViewMode) {
+				case 0:
+				case 'days':
+					o.maxViewMode = 0;
+					break;
+				case 1:
+				case 'months':
+					o.maxViewMode = 1;
+					break;
+				default:
+					o.maxViewMode = 2;
+			}
+
+			o.startView = Math.min(o.startView, o.maxViewMode);
 			o.startView = Math.max(o.startView, o.minViewMode);
 
 			// true, false, or Number > 0
@@ -235,7 +249,7 @@
 			o.daysOfWeekDisabled = $.map(o.daysOfWeekDisabled, function(d){
 				return parseInt(d, 10);
 			});
-          
+
   			o.daysOfWeekHighlighted = o.daysOfWeekHighlighted||[];
 			if (!$.isArray(o.daysOfWeekHighlighted))
 				o.daysOfWeekHighlighted = o.daysOfWeekHighlighted.split(/[,\s]*/);
@@ -630,7 +644,7 @@
 			this.updateNavArrows();
 			return this;
 		},
-        
+
 		setDaysOfWeekHighlighted: function(daysOfWeekHighlighted){
 			this._process_options({daysOfWeekHighlighted: daysOfWeekHighlighted});
 			this.update();
@@ -889,8 +903,8 @@
 			if (isNaN(year) || isNaN(month))
 				return;
 			this.picker.find('.datepicker-days thead .datepicker-switch')
-						.text(dates[this.o.language].months[month]+' '+year);
-			this.picker.find('tfoot .today')
+            .text(dates[this.o.language].months[month]+' '+ (this.o.maxViewMode < 2 ? '' : year));
+      this.picker.find('tfoot .today')
 						.text(todaytxt)
 						.toggle(this.o.todayBtn !== false);
 			this.picker.find('tfoot .clear')
@@ -957,7 +971,7 @@
 
 			var months = this.picker.find('.datepicker-months')
 						.find('th:eq(1)')
-							.text(year)
+							.text(this.o.maxViewMode < 2 ? 'Months' : year)
 							.end()
 						.find('span').removeClass('active');
 
@@ -1040,13 +1054,13 @@
 					break;
 				case 1:
 				case 2:
-					if (this.o.startDate !== -Infinity && year <= this.o.startDate.getUTCFullYear()){
+					if (this.o.startDate !== -Infinity && year <= this.o.startDate.getUTCFullYear() || this.o.maxViewMode < 2){
 						this.picker.find('.prev').css({visibility: 'hidden'});
 					}
 					else {
 						this.picker.find('.prev').css({visibility: 'visible'});
 					}
-					if (this.o.endDate !== Infinity && year >= this.o.endDate.getUTCFullYear()){
+					if (this.o.endDate !== Infinity && year >= this.o.endDate.getUTCFullYear() || this.o.maxViewMode < 2){
 						this.picker.find('.next').css({visibility: 'hidden'});
 					}
 					else {
@@ -1397,7 +1411,7 @@
 
 		showMode: function(dir){
 			if (dir){
-				this.viewMode = Math.max(this.o.minViewMode, Math.min(2, this.viewMode + dir));
+				this.viewMode = Math.max(this.o.minViewMode, Math.min(this.o.maxViewMode, this.viewMode + dir));
 			}
 			this.picker
 				.children('div')
@@ -1572,6 +1586,7 @@
 		keyboardNavigation: true,
 		language: 'en',
 		minViewMode: 0,
+		maxViewMode: 2,
 		multidate: false,
 		multidateSeparator: ',',
 		orientation: "auto",
