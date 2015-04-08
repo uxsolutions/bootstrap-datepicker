@@ -20,7 +20,13 @@
  * limitations under the License.
  * ========================================================= */
 
-(function($, undefined){
+(function(factory){
+    if (typeof define === "function" && define.amd) {
+        define(["jquery"], factory);
+    } else {
+        factory(jQuery);
+    }
+}(function($, undefined){
 
 	function UTCDate(){
 		return new Date(Date.UTC.apply(Date, arguments));
@@ -1862,4 +1868,4 @@
 		datepickerPlugin.call($('[data-provide="datepicker-inline"]'));
 	});
 
-}(window.jQuery));
+}));
