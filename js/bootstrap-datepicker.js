@@ -820,8 +820,7 @@
 					.attr('colspan', function(i, val){
 						return parseInt(val) + 1;
 					});
-				var cell = '<th class="cw">&#160;</th>';
-				html += cell;
+				html += '<th class="cw">&#160;</th>';
 			}
 			while (dowCnt < this.o.weekStart + 7){
 				html += '<th class="dow">'+dates[this.o.language].daysMin[(dowCnt++)%7]+'</th>';
