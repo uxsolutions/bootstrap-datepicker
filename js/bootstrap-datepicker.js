@@ -669,10 +669,11 @@
 			var calendarWidth = this.picker.outerWidth(),
 				calendarHeight = this.picker.outerHeight(),
 				visualPadding = 10,
-				windowWidth = $(this.o.container).width(),
-				windowHeight = $(this.o.container).height(),
-				scrollTop = $(this.o.container).scrollTop(),
-				appendOffset = $(this.o.container).offset();
+				container = $(this.o.container),
+				windowWidth = container.width(),
+				windowHeight = container.height(),
+				scrollTop = container.scrollTop(),
+				appendOffset = container.offset();
 
 			var parentsZindex = [];
 			this.element.parents().each(function(){
