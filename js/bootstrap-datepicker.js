@@ -905,7 +905,9 @@
 				endMonth = this.o.endDate !== Infinity ? this.o.endDate.getUTCMonth() : Infinity,
 				todaytxt = dates[this.o.language].today || dates['en'].today || '',
 				cleartxt = dates[this.o.language].clear || dates['en'].clear || '',
-				tooltip;
+				tooltip,
+                		daysInWeek = 7;
+                		
 			if (isNaN(year) || isNaN(month))
 				return;
 			this.picker.find('.datepicker-days thead .datepicker-switch')
@@ -977,7 +979,7 @@
 						before = {classes: before};
 					if (before.enabled === false)
 						clsName.push('disabled');
-					if (before.classes)
+					if (before.classes && ( !this.o.onlyCurrentMonthDaysHighlighted || this.o.onlyCurrentMonthDaysHighlighted && prevMonth.getUTCMonth() === nextMonth.getUTCMonth() - 1))
 						clsName = clsName.concat(before.classes.split(/\s+/));
 					if (before.tooltip)
 						tooltip = before.tooltip;
@@ -1624,7 +1626,8 @@
 		enableOnReadonly: true,
 		container: 'body',
 		immediateUpdates: false,
-        	showYearInDaysView: false
+        	showYearInDaysView: false,
+        	onlyCurrentMonthDaysHighlighted: false
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',
