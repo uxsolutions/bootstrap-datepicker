@@ -932,15 +932,15 @@
 	
 	            	var offset = daysInWeek * 6;
 	
-	            	if ( offsetDate.getUTCDay() > 0 && offsetDate.getUTCDay() < 5 ) {
+	            	if (offsetDate.getUTCDay() > 0 && offsetDate.getUTCDay() < 5) {
 	                	offset = daysInWeek * 5;
 	            	}
 	
-	            	if ( offsetDate.getUTCDay() === 0 ) {
-	                	if ( offsetDate.getUTCMonth() === 1 && DPGlobal.getDaysInMonth(offsetDate.getUTCFullYear(), offsetDate.getUTCMonth()) === 28 ) {
+	            	if (offsetDate.getUTCDay() === 0) {
+	                	if (offsetDate.getUTCMonth() === 1 && DPGlobal.getDaysInMonth(offsetDate.getUTCFullYear(), offsetDate.getUTCMonth()) === 28) {
 	                    		offset = daysInWeek * 4;
 	                	}
-	                	prevMonth.setUTCDate( prevMonth.getUTCDate() + 7 );
+	                	prevMonth.setUTCDate(prevMonth.getUTCDate() + 7);
 	            	}
 	            	
 			nextMonth.setUTCDate(nextMonth.getUTCDate() + offset);
@@ -979,7 +979,7 @@
 						before = {classes: before};
 					if (before.enabled === false)
 						clsName.push('disabled');
-					if (before.classes && ( !this.o.onlyCurrentMonthDaysHighlighted || this.o.onlyCurrentMonthDaysHighlighted && prevMonth.getUTCMonth() === nextMonth.getUTCMonth() - 1))
+					if (before.classes && (!this.o.onlyCurrentMonthDaysHighlighted || this.o.onlyCurrentMonthDaysHighlighted && prevMonth.getUTCMonth() === nextMonth.getUTCMonth() - 1))
 						clsName = clsName.concat(before.classes.split(/\s+/));
 					if (before.tooltip)
 						tooltip = before.tooltip;
