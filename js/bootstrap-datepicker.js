@@ -793,6 +793,8 @@
 				this.viewDate = new Date(this.o.startDate);
 			else if (this.viewDate > this.o.endDate)
 				this.viewDate = new Date(this.o.endDate);
+			else
+				this.viewDate = this.o.defaultViewDate;
 
 			if (fromArgs){
 				// setting date by clicking
