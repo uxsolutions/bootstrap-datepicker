@@ -915,13 +915,13 @@
 			if (isNaN(year) || isNaN(month))
 				return;
 			this.picker.find('.datepicker-days thead .datepicker-switch')
-            .text(dates[this.o.language].months[month]+' '+ (this.o.maxViewMode < 2 ? '' : year));
-      this.picker.find('tfoot .today')
-						.text(todaytxt)
-						.toggle(this.o.todayBtn !== false);
+				.text(dates[this.o.language].months[month]+' '+ (this.o.maxViewMode < 2 ? '' : year));
+			this.picker.find('tfoot .today')
+				.text(todaytxt)
+				.toggle(this.o.todayBtn !== false);
 			this.picker.find('tfoot .clear')
-						.text(cleartxt)
-						.toggle(this.o.clearBtn !== false);
+				.text(cleartxt)
+				.toggle(this.o.clearBtn !== false);
 			this.updateNavArrows();
 			this.fillMonths();
 			var prevMonth = UTCDate(year, month-1, 28),
