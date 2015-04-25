@@ -1553,18 +1553,18 @@
 				data = $this.data('datepicker'),
 				options = typeof option === 'object' && option;
 			if (!data){
-				var objKeys = Object.keys(defaults);
-				var objKeysLowercase = jQuery.map(objKeys, function(key){
+				var defaultsKeys = Object.keys(defaults);
+				var defaultsKeysLowercase = jQuery.map(defaultsKeys, function(key){
 					return key.toLowerCase();
 				});
 				var elopts = {};
 				var elopts0 = opts_from_el(this, 'date');
 				$.each(elopts0, function(key,val){
-					var i = objKeysLowercase.indexOf(key.toLowerCase());
+					var i = defaultsKeysLowercase.indexOf(key.toLowerCase());
 					if (i == -1){
 						elopts[key] = val;
 					} else {
-						elopts[objKeys[i]] = val;
+						elopts[defaultsKeys[i]] = val;
 					}
 				});
 				// Preliminary otions
