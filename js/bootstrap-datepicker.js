@@ -134,6 +134,9 @@
 
 		this._allow_update = false;
 
+		// Allow access to DPGlobal from DatePicker
+		this.DPGlobal = DPGlobal;
+
 		this.setStartDate(this._o.startDate);
 		this.setEndDate(this._o.endDate);
 		this.setDaysOfWeekDisabled(this.o.daysOfWeekDisabled);
