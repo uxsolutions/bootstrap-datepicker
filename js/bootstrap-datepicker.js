@@ -231,7 +231,7 @@
 			var format = DPGlobal.parseFormat(o.format);
 			if (o.startDate !== -Infinity){
 				if (!!o.startDate){
-					if (o.startDate == 'today')
+					if (o.startDate === 'today')
 						o.startDate = this._local_to_utc(new Date());
 					else if (o.startDate instanceof Date)
 						o.startDate = this._local_to_utc(this._zero_time(o.startDate));
@@ -244,7 +244,7 @@
 			}
 			if (o.endDate !== Infinity){
 				if (!!o.endDate){
-					if (o.endDate == 'today')
+					if (o.endDate === 'today')
 						o.endDate = this._local_to_utc(new Date());
 					else if (o.endDate instanceof Date)
 						o.endDate = this._local_to_utc(this._zero_time(o.endDate));
@@ -1564,7 +1564,7 @@
 				var elopts0 = opts_from_el(this, 'date');
 				$.each(elopts0, function(key,val){
 					var i = defaultsKeysLowercase.indexOf(key.toLowerCase());
-					if (i == -1){
+					if (i === -1){
 						elopts[key] = val;
 					} else {
 						elopts[defaultsKeys[i]] = val;
