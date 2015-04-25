@@ -228,7 +228,9 @@
 			var format = DPGlobal.parseFormat(o.format);
 			if (o.startDate !== -Infinity){
 				if (!!o.startDate){
-					if (o.startDate instanceof Date)
+					if (o.startDate == 'today')
+						o.startDate = this._local_to_utc(new Date());
+					else if (o.startDate instanceof Date)
 						o.startDate = this._local_to_utc(this._zero_time(o.startDate));
 					else
 						o.startDate = DPGlobal.parseDate(o.startDate, format, o.language);
@@ -239,7 +241,9 @@
 			}
 			if (o.endDate !== Infinity){
 				if (!!o.endDate){
-					if (o.endDate instanceof Date)
+					if (o.endDate == 'today')
+						o.endDate = this._local_to_utc(new Date());
+					else if (o.endDate instanceof Date)
 						o.endDate = this._local_to_utc(this._zero_time(o.endDate));
 					else
 						o.endDate = DPGlobal.parseDate(o.endDate, format, o.language);
@@ -1549,9 +1553,22 @@
 				data = $this.data('datepicker'),
 				options = typeof option === 'object' && option;
 			if (!data){
-				var elopts = opts_from_el(this, 'date'),
-					// Preliminary otions
-					xopts = $.extend({}, defaults, elopts, options),
+				var objKeys = Object.keys(defaults);
+				var objKeysLowercase = jQuery.map(objKeys, function(key){
+					return key.toLowerCase();
+				});
+				var elopts = {};
+				var elopts0 = opts_from_el(this, 'date');
+				$.each(elopts0, function(key,val){
+					var i = objKeysLowercase.indexOf(key.toLowerCase());
+					if (i == -1){
+						elopts[key] = val;
+					} else {
+						elopts[objKeys[i]] = val;
+					}
+				});
+				// Preliminary otions
+				var xopts = $.extend({}, defaults, elopts, options),
 					locopts = opts_from_locale(xopts.language),
 					// Options priority: js args, data-attrs, locales, defaults
 					opts = $.extend({}, defaults, locopts, elopts, options);
