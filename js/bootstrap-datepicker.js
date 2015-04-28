@@ -979,8 +979,16 @@
 						before = {classes: before};
 					if (before.enabled === false)
 						clsName.push('disabled');
-					if (before.classes && (!this.o.onlyCurrentMonthDaysHighlighted || this.o.onlyCurrentMonthDaysHighlighted && prevMonth.getUTCMonth() === nextMonth.getUTCMonth() - 1))
-						clsName = clsName.concat(before.classes.split(/\s+/));
+					if (before.classes){
+                        			if (!this.o.onlyCurrentMonthDaysHighlighted)
+                            				clsName = clsName.concat(before.classes.split(/\s+/));
+                        			else if (this.o.onlyCurrentMonthDaysHighlighted){
+                            				if (prevMonth.getUTCMonth() === currMonth.getUTCMonth())
+                                				clsName = clsName.concat(before.classes.split(/\s+/));
+                            				else
+                                				clsName.push('disabled');
+                        			}
+                    			}
 					if (before.tooltip)
 						tooltip = before.tooltip;
 				}
