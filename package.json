@@ -1,11 +1,11 @@
 {
   "name": "bootstrap-datepicker",
-  "description": "A datepicker for twitter bootstrap forked from Stefan Petre's (of eyecon.ro), improvements by eternicode",
+  "description": "A datepicker for Bootstrap forked from Stefan Petre's (of eyecon.ro), improvements by eternicode",
   "version": "1.5.0-dev",
   "license": "Apache-2.0",
   "keywords": [
     "datepicker",
-    "twitter-bootstrap"
+    "bootstrap"
   ],
   "main": "./dist/js/bootstrap-datepicker.js",
   "homepage": "https://github.com/eternicode/bootstrap-datepicker",
