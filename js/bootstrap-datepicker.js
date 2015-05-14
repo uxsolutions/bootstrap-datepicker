@@ -420,7 +420,8 @@
 							this.element.is(e.target) ||
 							this.element.find(e.target).length ||
 							this.picker.is(e.target) ||
-							this.picker.find(e.target).length
+							this.picker.find(e.target).length ||
+							this.picker.hasClass('datepicker-inline')
 						)){
 							$(this.picker).hide();
 						}
