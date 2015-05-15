@@ -470,6 +470,8 @@
 			if (this.element.attr('readonly') && this.o.enableOnReadonly === false)
 				return;
 			if (!this.isInline)
+				this.o.container = $(this.element).closest(this.o.container);
+				
 				this.picker.appendTo(this.o.container);
 			this.place();
 			this.picker.show();
