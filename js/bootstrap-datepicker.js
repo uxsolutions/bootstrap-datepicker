@@ -894,6 +894,14 @@
 					cls.push('selected');
 				}
 			}
+
+			if (this.o.getClassName) {
+				var oClasses = this.o.getClassName.apply(this, arguments);
+				if (oClasses) {
+					cls.push(oClasses);
+				}
+			}
+
 			return cls;
 		},
 
