@@ -691,11 +691,16 @@
 				else
 					yorient = 'bottom';
 			}
-			this.picker.addClass('datepicker-orient-' + yorient);
-			if (yorient === 'top')
-				top += height;
-			else
-				top -= calendarHeight + parseInt(this.picker.css('padding-top'));
+            
+			//reset the orientation to Top if there is no space above the control
+            if (yorient === 'top' || top < calendarHeight){
+                top += height;
+                yorient = 'top'; 
+            }                
+            else 
+                top -= calendarHeight + parseInt(this.picker.css('padding-top'));
+
+            this.picker.addClass('datepicker-orient-' + yorient);
 
 			if (this.o.rtl) {
 				var right = windowWidth - (left + width);
