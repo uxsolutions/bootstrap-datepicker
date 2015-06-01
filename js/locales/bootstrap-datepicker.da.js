@@ -1,14 +1,15 @@
 /**
  * Danish translation for bootstrap-datepicker
  * Christian Pedersen <http://github.com/chripede>
+ * Ivan Mylyanyk <https://github.com/imylyanyk>
  */
 ;(function($){
 	$.fn.datepicker.dates['da'] = {
-		days: ["Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"],
-		daysShort: ["Søn", "Man", "Tir", "Ons", "Tor", "Fre", "Lør", "Søn"],
-		daysMin: ["Sø", "Ma", "Ti", "On", "To", "Fr", "Lø", "Sø"],
-		months: ["Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December"],
-		monthsShort: ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"],
+		days: ["søndag", "mandag", "tirsdag", "onsdag", "torsdag", "fredag", "lørdag"],
+		daysShort: ["søn", "man", "tir", "ons", "tor", "fre", "lør"],
+		daysMin: ["sø", "ma", "ti", "on", "to", "fr", "lø"],
+		months: ["januar", "februar", "marts", "april", "maj", "juni", "juli", "august", "september", "oktober", "november", "december"],
+		monthsShort: ["jan", "feb", "mar", "apr", "maj", "jun", "jul", "aug", "sep", "okt", "nov", "dec"],
 		today: "I Dag",
 		clear: "Nulstil"
 	};

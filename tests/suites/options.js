@@ -502,6 +502,28 @@ test('DaysOfWeekDisabled', function(){
     ok(target.hasClass('disabled'), 'Day of week is disabled');
 });
 
+test('DaysOfWeekHighlighted', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-10-26')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    daysOfWeekHighlighted: '1,5'
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+
+    input.focus();
+    target = picker.find('.datepicker-days tbody td:nth(22)');
+    ok(target.hasClass('highlighted'), 'Day of week is highlighted');
+    target = picker.find('.datepicker-days tbody td:nth(24)');
+    ok(!target.hasClass('highlighted'), 'Day of week is highlighted');
+    target = picker.find('.datepicker-days tbody td:nth(26)');
+    ok(target.hasClass('highlighted'), 'Day of week is highlighted');
+});
+
 
 test('DatesDisabled', function(){
     var input = $('<input />')
@@ -903,4 +925,94 @@ test('Default View Date', function(){
     input.focus();
 
     equal(picker.find('.datepicker-days thead .datepicker-switch').text(), 'May 1977');
+});
+
+test('Immediate Updates', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2014-01-01')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    immediateUpdates: true
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+
+    // Change month
+    input.focus();
+    picker.find('.datepicker-days .next').click();
+    equal(input.val(), '2014-02-01');
+
+    // Change year
+    picker.find('.datepicker-days .datepicker-switch').click();
+    picker.find('.datepicker-months .next').click();
+    equal(input.val(), '2015-02-01');
+
+    // Change year set (doesn't update input)
+    picker.find('.datepicker-months .datepicker-switch').click();
+    picker.find('.datepicker-years .next').click();
+    equal(input.val(), '2015-02-01');
+});
+
+//datepicker-dropdown
+
+test('Enable on readonly options (default)', function(){
+    var input = $('<input readonly="readonly" />')
+            .appendTo('#qunit-fixture')
+            .datepicker({format: "dd-mm-yyyy"}),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+
+    ok(!picker.is(':visible'));
+    input.focus();
+    ok(picker.is(':visible'));
+});
+
+test('Enable on readonly options (false)', function(){
+    var input = $('<input readonly="readonly" />')
+            .appendTo('#qunit-fixture')
+            .datepicker({
+                format: "dd-mm-yyyy",
+                enableOnReadonly: false
+            }),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+
+    ok(!picker.is(':visible'));
+    input.focus();
+    ok(!picker.is(':visible'));
+});
+
+/*
+
+ */
+
+test('Startview: year view visible after date pick', function(){
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .datepicker({
+                startView: 2,
+                minViewMode: 1,
+                autoclose: true
+            }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    ok(picker.find('.datepicker-days').is(':not(:visible)'), 'Days view hidden');
+    ok(picker.find('.datepicker-months').is(':not(:visible)'), 'Months view hidden');
+    ok(picker.find('.datepicker-years').is(':visible'), 'Years view visible');
+
+    target = picker.find('.datepicker-years tbody td:nth(7)');
+    target.click();
+    target = picker.find('.datepicker-years tbody td:nth(4)');
+    target.click();
+    target = picker.find('.datepicker-years tbody td:nth(20)');
+    target.click();
+
+    input.focus();
+    ok(picker.find('.datepicker-days').is(':not(:visible)'), 'Days view hidden');
+    ok(picker.find('.datepicker-months').is(':not(:visible)'), 'Months view hidden');
+    ok(picker.find('.datepicker-years').is(':visible'), 'Years view visible');
 });

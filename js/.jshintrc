@@ -1,4 +1,10 @@
 {
+    // Extra globals.
+    "predef" : [
+      "require",
+      "define",
+      "escape"
+    ],
     "jquery": true,
     "browser": true,
 

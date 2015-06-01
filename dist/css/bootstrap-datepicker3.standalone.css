@@ -1,14 +1,11 @@
 /*!
- * Datepicker for Bootstrap
+ * Datepicker for Bootstrap v1.5.0-dev (https://github.com/eternicode/bootstrap-datepicker)
  *
  * Copyright 2012 Stefan Petre
  * Improvements by Andrew Rowls
- * Licensed under the Apache License v2.0
- * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
  */
 .datepicker {
-  padding: 4px;
   border-radius: 4px;
   direction: ltr;
 }
@@ -75,13 +72,9 @@
 .datepicker > div {
   display: none;
 }
-.datepicker.days div.datepicker-days {
-  display: block;
-}
-.datepicker.months div.datepicker-months {
-  display: block;
-}
-.datepicker.years div.datepicker-years {
+.datepicker.days .datepicker-days,
+.datepicker.months .datepicker-months,
+.datepicker.years .datepicker-years {
   display: block;
 }
 .datepicker table {
@@ -705,7 +698,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .datepicker table tr td span.new {
   color: #999999;
 }
-.datepicker th.datepicker-switch {
+.datepicker .datepicker-switch {
   width: 145px;
 }
 .datepicker thead tr:first-child th,
@@ -722,12 +715,15 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   padding: 0 2px 0 5px;
   vertical-align: middle;
 }
-.datepicker thead tr:first-child th.cw {
+.datepicker thead tr:first-child .cw {
   cursor: default;
   background-color: transparent;
 }
-.input-group.date .input-group-addon i {
+.input-group.date .input-group-addon {
   cursor: pointer;
+}
+.input-daterange {
+  width: 100%;
 }
 .input-daterange input {
   text-align: center;

@@ -3,14 +3,15 @@
  * Robert <rtpm@gazeta.pl>
  */
 ;(function($){
-        $.fn.datepicker.dates['pl'] = {
-                days: ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela"],
-                daysShort: ["Nie", "Pn", "Wt", "Śr", "Czw", "Pt", "So", "Nie"],
-                daysMin: ["N", "Pn", "Wt", "Śr", "Cz", "Pt", "So", "N"],
-                months: ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"],
-                monthsShort: ["Sty", "Lu", "Mar", "Kw", "Maj", "Cze", "Lip", "Sie", "Wrz", "Pa", "Lis", "Gru"],
-                today: "Dzisiaj",
-                weekStart: 1,
-                clear: "Wyczyść"
-        };
+    $.fn.datepicker.dates['pl'] = {
+        days: ["niedziela", "poniedziałek", "wtorek", "środa", "czwartek", "piątek", "sobota"],
+        daysShort: ["niedz.", "pon.", "wt.", "śr.", "czw.", "piąt.", "sob."],
+        daysMin: ["ndz.", "pn.", "wt.", "śr.", "czw.", "pt.", "sob."],
+        months: ["styczeń", "luty", "marzec", "kwiecień", "maj", "czerwiec", "lipiec", "sierpień", "wrzesień", "październik", "listopad", "grudzień"],
+        monthsShort: ["sty.", "lut.", "mar.", "kwi.", "maj", "cze.", "lip.", "sie.", "wrz.", "paź.", "lis.", "gru."],
+        today: "dzisiaj",
+        weekStart: 1,
+        clear: "wyczyść",
+        format: "dd.mm.yyyy"
+    };
 }(jQuery));

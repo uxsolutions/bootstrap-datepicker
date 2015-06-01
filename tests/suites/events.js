@@ -301,6 +301,21 @@ test('setDate: triggers change and changeDate events', function(){
 
     this.dp.setDate(new Date(2011, 2, 5));
 
-    equal(triggered_change, 2);
+    equal(triggered_change, 1);
     equal(triggered_changeDate, 1);
+});
+
+test('paste must update the date', function() {
+    var dateToPaste = '22-07-2015';
+    var evt = {
+        type: 'paste',
+        originalEvent: {
+            clipboardData: {
+                types: ['text/plain'],
+                getData: function() { return dateToPaste; }
+            }
+        }
+    };
+    this.input.trigger(evt);
+    datesEqual(this.dp.dates[0], UTCDate(2015, 6, 22));
 });
