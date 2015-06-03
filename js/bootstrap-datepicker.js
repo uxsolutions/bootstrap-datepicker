@@ -677,9 +677,9 @@
 
 			// get zIndex from CSS or parent stack - allows explicit set in stylesheet
 			this.picker.css('z-index', ''); // reset zIndex
-			var zIndex = (this.picker.css('z-index') !== 'auto' ? this.picker.css('z-index') : (function (element) {
+			var zIndex = (this.picker.css('z-index') !== 'auto' ? this.picker.css('z-index') : (function(element){
 				var parentsZindex = [];
-				element.parents().each(function () {
+				element.parents().each(function(){
 					var itemZIndex = $(this).css('z-index');
 					if (itemZIndex !== 'auto' && itemZIndex !== 0) parentsZindex.push(parseInt(itemZIndex));
 				});
