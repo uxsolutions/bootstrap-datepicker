@@ -1022,7 +1022,7 @@ test('Custom class support: odd and even days', function() {
             .appendTo('#qunit-fixture')
             .val('2012-03-05')
             .datepicker({
-                getClassName: function (date) {
+                getDayClassName: function (date) {
                     return date.getDay() % 2 === 0 ? 'even' : 'odd';
                 }
             }),

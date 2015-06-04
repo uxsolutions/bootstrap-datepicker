@@ -895,8 +895,8 @@
 				}
 			}
 
-			if (this.o.getClassName) {
-				var oClasses = this.o.getClassName.apply(this, arguments);
+			if (this.o.getDayClassName) {
+				var oClasses = this.o.getDayClassName.apply(this, arguments);
 				if (oClasses) {
 					cls.push(oClasses);
 				}
