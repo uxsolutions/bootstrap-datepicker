@@ -321,3 +321,34 @@ immediateUpdates
 Boolean. Default: false
 
 If true, selecting a year or month in the datepicker will update the input value immediately. Otherwise, only selecting a day of the month will update the input value immediately.
+
+getDayClassName
+---------------------
+
+Function. Default: $.noop
+
+A function that takes a date as a parameter and returns a string containing additional classes for a given day.
+
+An example formatting odd and even days differently:
+
+.. code-block:: js
+
+    $('#datepicker').datepicker({
+        getClassName: function (date) {
+            return date.getDay() % 2 === 0 ? 'even' : 'odd';
+        }
+    });
+
+
+.. code-block:: css
+
+    .datepicker .day.odd {
+        background-color: lightblue;    
+    }
+    .datepicker .day.even {
+        background-color: lightpink;    
+    }
+
+
+.. figure:: _static/screenshots/odd_even_days.png
+    :align: center
