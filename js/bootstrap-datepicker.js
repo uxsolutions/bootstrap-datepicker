@@ -895,7 +895,7 @@
 				}
 			}
 
-			if (this.o.getDayClassName) {
+			if (this.o.getDayClassName !== $.noop) {
 				var oClasses = this.o.getDayClassName.apply(this, arguments);
 				if (oClasses) {
 					cls.push(oClasses);
@@ -1615,7 +1615,8 @@
 		disableTouchKeyboard: false,
 		enableOnReadonly: true,
 		container: 'body',
-		immediateUpdates: false
+		immediateUpdates: false,
+		getDayClassName: $.noop
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',
