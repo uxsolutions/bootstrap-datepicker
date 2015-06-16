@@ -1016,3 +1016,19 @@ test('Startview: year view visible after date pick', function(){
     ok(picker.find('.datepicker-months').is(':not(:visible)'), 'Months view hidden');
     ok(picker.find('.datepicker-years').is(':visible'), 'Years view visible');
 });
+
+test('Custom class support: odd and even days', function() {
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .val('2012-03-05')
+            .datepicker({
+                getDayClassName: function (date) {
+                    return date.getDay() % 2 === 0 ? 'even' : 'odd';
+                }
+            }),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+
+        ok(picker.find('.day.odd').length === 18, '18 odd days');
+        ok(picker.find('.day.even').length === 24, '24 even days');
+});
