@@ -1373,15 +1373,17 @@
 					// As such, its behavior should not be hijacked.
 					break;
 				case 13: // enter
-					focusDate = this.focusDate || this.dates.get(-1) || this.viewDate;
-					if (this.o.keyboardNavigation) {
+					focusDate = this.focusDate || this.dates.get(-1);
+					if (this.o.keyboardNavigation && focusDate) {
 						this._toggle_multidate(focusDate);
 						dateChanged = true;
 					}
 					this.focusDate = null;
 					this.viewDate = this.dates.get(-1) || this.viewDate;
-					this.setValue();
-					this.fill();
+					if (focusDate) {
+						this.setValue();
+						this.fill();
+					}
 					if (this.picker.is(':visible')){
 						e.preventDefault();
 						if (typeof e.stopPropagation === 'function') {
@@ -1767,8 +1769,9 @@
 							date = _date;
 					}
 				}
+				return date;
 			}
-			return date;
+			return false;
 		},
 		formatDate: function(date, format, language){
 			if (!date)
