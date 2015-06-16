@@ -729,9 +729,9 @@
 			}
 			this.picker.addClass('datepicker-orient-' + yorient);
 			if (yorient === 'top')
-				top += height;
-			else
 				top -= calendarHeight + parseInt(this.picker.css('padding-top'));
+			else
+				top += height;
 
 			if (this.o.rtl) {
 				var right = windowWidth - (left + width);
