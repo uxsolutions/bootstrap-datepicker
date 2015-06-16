@@ -908,11 +908,13 @@
 				endMonth = this.o.endDate !== Infinity ? this.o.endDate.getUTCMonth() : Infinity,
 				todaytxt = dates[this.o.language].today || dates['en'].today || '',
 				cleartxt = dates[this.o.language].clear || dates['en'].clear || '',
-				tooltip;
+				tooltip,
+                		daysInWeek = 7;
+                		
 			if (isNaN(year) || isNaN(month))
 				return;
 			this.picker.find('.datepicker-days thead .datepicker-switch')
-            .text(dates[this.o.language].months[month]+' '+ (this.o.maxViewMode < 2 ? '' : year));
+            .text(dates[this.o.language].months[month]+' '+ (this.o.maxViewMode >= 2 || this.o.showYearInDaysView ? year : ''));
       this.picker.find('tfoot .today')
 						.text(todaytxt)
 						.toggle(this.o.todayBtn !== false);
@@ -925,8 +927,26 @@
 				day = DPGlobal.getDaysInMonth(prevMonth.getUTCFullYear(), prevMonth.getUTCMonth());
 			prevMonth.setUTCDate(day);
 			prevMonth.setUTCDate(day - (prevMonth.getUTCDay() - this.o.weekStart + 7)%7);
-			var nextMonth = new Date(prevMonth);
-			nextMonth.setUTCDate(nextMonth.getUTCDate() + 42);
+			var currMonth = new Date();
+		        currMonth.setUTCMonth(prevMonth.getUTCMonth() + 1);
+		
+	            	var offsetDate = new Date(year, currMonth.getUTCMonth());
+	            	var nextMonth = new Date(prevMonth);
+	
+	            	var offset = daysInWeek * 6;
+	
+	            	if (offsetDate.getUTCDay() > 0 && offsetDate.getUTCDay() < 5) {
+	                	offset = daysInWeek * 5;
+	            	}
+	
+	            	if (offsetDate.getUTCDay() === 0) {
+	                	if (offsetDate.getUTCMonth() === 1 && DPGlobal.getDaysInMonth(offsetDate.getUTCFullYear(), offsetDate.getUTCMonth()) === 28) {
+	                    		offset = daysInWeek * 4;
+	                	}
+	                	prevMonth.setUTCDate(prevMonth.getUTCDate() + 7);
+	            	}
+	            	
+			nextMonth.setUTCDate(nextMonth.getUTCDate() + offset);
 			nextMonth = nextMonth.valueOf();
 			var html = [];
 			var clsName;
@@ -962,8 +982,16 @@
 						before = {classes: before};
 					if (before.enabled === false)
 						clsName.push('disabled');
-					if (before.classes)
-						clsName = clsName.concat(before.classes.split(/\s+/));
+					if (before.classes){
+                        			if (!this.o.onlyCurrentMonthDaysHighlighted)
+                            				clsName = clsName.concat(before.classes.split(/\s+/));
+                        			else if (this.o.onlyCurrentMonthDaysHighlighted){
+                            				if (prevMonth.getUTCMonth() === currMonth.getUTCMonth())
+                                				clsName = clsName.concat(before.classes.split(/\s+/));
+                            				else
+                                				clsName.push('disabled');
+                        			}
+                    			}
 					if (before.tooltip)
 						tooltip = before.tooltip;
 				}
@@ -1608,7 +1636,9 @@
 		disableTouchKeyboard: false,
 		enableOnReadonly: true,
 		container: 'body',
-		immediateUpdates: false
+		immediateUpdates: false,
+        	showYearInDaysView: false,
+        	onlyCurrentMonthDaysHighlighted: false
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',
