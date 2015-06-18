@@ -49,6 +49,12 @@ Using the ``input-daterange`` construct with multiple child inputs will instanti
 .. figure:: _static/screenshots/markup_daterange.png
     :align: center
 
+Note that that ``input-daterange`` itself does not implement the `datepicker`` methods. Methods should be directly called to the inputs. For example:
+
+    $('.input-daterange input').each(function (){
+      $(this).datepicker("clearDates");
+    });
+
 inline or embedded
 ------------------
 
