@@ -1022,10 +1022,10 @@
 			var years = $.map(this.dates, function(d){
 					return d.getUTCFullYear();
 				}),
-				classes, tooltip;
+				classes;
 			for (var i = -1; i < 11; i++){
 				classes = ['year'];
-				tooltip = "";
+				tooltip = null;
 
 				if (i === -1)
 					classes.push('old');
