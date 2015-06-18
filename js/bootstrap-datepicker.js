@@ -134,6 +134,9 @@
 
 		this._allow_update = false;
 
+		// Allow access to DPGlobal from DatePicker
+		this.DPGlobal = DPGlobal;
+
 		this.setStartDate(this._o.startDate);
 		this.setEndDate(this._o.endDate);
 		this.setDaysOfWeekDisabled(this.o.daysOfWeekDisabled);
@@ -228,7 +231,9 @@
 			var format = DPGlobal.parseFormat(o.format);
 			if (o.startDate !== -Infinity){
 				if (!!o.startDate){
-					if (o.startDate instanceof Date)
+					if (o.startDate === 'today')
+						o.startDate = this._local_to_utc(new Date());
+					else if (o.startDate instanceof Date)
 						o.startDate = this._local_to_utc(this._zero_time(o.startDate));
 					else
 						o.startDate = DPGlobal.parseDate(o.startDate, format, o.language);
@@ -239,7 +244,9 @@
 			}
 			if (o.endDate !== Infinity){
 				if (!!o.endDate){
-					if (o.endDate instanceof Date)
+					if (o.endDate === 'today')
+						o.endDate = this._local_to_utc(new Date());
+					else if (o.endDate instanceof Date)
 						o.endDate = this._local_to_utc(this._zero_time(o.endDate));
 					else
 						o.endDate = DPGlobal.parseDate(o.endDate, format, o.language);
@@ -345,33 +352,33 @@
 			}
 		},
 		_buildEvents: function(){
-            var events = {
-                keyup: $.proxy(function(e){
-                    if ($.inArray(e.keyCode, [27, 37, 39, 38, 40, 32, 13, 9]) === -1)
-                        this.update();
-                }, this),
-                keydown: $.proxy(this.keydown, this),
-                paste: $.proxy(this.paste, this)
-            };
+			var events = {
+				keyup: $.proxy(function(e){
+					if ($.inArray(e.keyCode, [27, 37, 39, 38, 40, 32, 13, 9]) === -1)
+						this.update();
+				}, this),
+				keydown: $.proxy(this.keydown, this),
+				paste: $.proxy(this.paste, this)
+			};
 
-            if (this.o.showOnFocus === true) {
-                events.focus = $.proxy(this.show, this);
-            }
+			if (this.o.showOnFocus === true) {
+				events.focus = $.proxy(this.show, this);
+			}
 
-            if (this.isInput) { // single input
-                this._events = [
-                    [this.element, events]
-                ];
-            }
-            else if (this.component && this.hasInput) { // component: input + button
-                this._events = [
-                    // For components that are not readonly, allow keyboard nav
-                    [this.element.find('input'), events],
-                    [this.component, {
-                        click: $.proxy(this.show, this)
-                    }]
-                ];
-            }
+			if (this.isInput) { // single input
+				this._events = [
+					[this.element, events]
+				];
+			}
+			else if (this.component && this.hasInput) { // component: input + button
+				this._events = [
+					// For components that are not readonly, allow keyboard nav
+					[this.element.find('input'), events],
+					[this.component, {
+						click: $.proxy(this.show, this)
+					}]
+				];
+			}
 			else if (this.element.is('div')){  // inline datepicker
 				this.isInline = true;
 			}
@@ -912,13 +919,13 @@
 			if (isNaN(year) || isNaN(month))
 				return;
 			this.picker.find('.datepicker-days thead .datepicker-switch')
-            .text(dates[this.o.language].months[month]+' '+ (this.o.maxViewMode < 2 ? '' : year));
-      this.picker.find('tfoot .today')
-						.text(todaytxt)
-						.toggle(this.o.todayBtn !== false);
+				.text(dates[this.o.language].months[month]+' '+ (this.o.maxViewMode < 2 ? '' : year));
+			this.picker.find('tfoot .today')
+				.text(todaytxt)
+				.toggle(this.o.todayBtn !== false);
 			this.picker.find('tfoot .clear')
-						.text(cleartxt)
-						.toggle(this.o.clearBtn !== false);
+				.text(cleartxt)
+				.toggle(this.o.clearBtn !== false);
 			this.updateNavArrows();
 			this.fillMonths();
 			var prevMonth = UTCDate(year, month-1, 28),
@@ -1550,9 +1557,22 @@
 				data = $this.data('datepicker'),
 				options = typeof option === 'object' && option;
 			if (!data){
-				var elopts = opts_from_el(this, 'date'),
-					// Preliminary otions
-					xopts = $.extend({}, defaults, elopts, options),
+				var defaultsKeys = Object.keys(defaults);
+				var defaultsKeysLowercase = jQuery.map(defaultsKeys, function(key){
+					return key.toLowerCase();
+				});
+				var elopts = {};
+				var elopts0 = opts_from_el(this, 'date');
+				$.each(elopts0, function(key,val){
+					var i = defaultsKeysLowercase.indexOf(key.toLowerCase());
+					if (i === -1){
+						elopts[key] = val;
+					} else {
+						elopts[defaultsKeys[i]] = val;
+					}
+				});
+				// Preliminary otions
+				var xopts = $.extend({}, defaults, elopts, options),
 					locopts = opts_from_locale(xopts.language),
 					// Options priority: js args, data-attrs, locales, defaults
 					opts = $.extend({}, defaults, locopts, elopts, options);
