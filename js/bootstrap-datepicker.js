@@ -819,7 +819,7 @@
 			var dowCnt = this.o.weekStart,
 				html = '<tr>';
 			if (this.o.calendarWeeks){
-				this.picker.find('.datepicker-days thead tr:first-child .datepicker-switch')
+				this.picker.find('.datepicker-days .datepicker-switch')
 					.attr('colspan', function(i, val){
 						return parseInt(val) + 1;
 					});
@@ -911,7 +911,7 @@
 				tooltip;
 			if (isNaN(year) || isNaN(month))
 				return;
-			this.picker.find('.datepicker-days thead .datepicker-switch')
+			this.picker.find('.datepicker-days .datepicker-switch')
             .text(dates[this.o.language].months[month]+' '+ (this.o.maxViewMode < 2 ? '' : year));
       this.picker.find('tfoot .today')
 						.text(todaytxt)
@@ -982,7 +982,7 @@
 			this.picker.find('.datepicker-days tbody').empty().append(html.join(''));
 
 			var months = this.picker.find('.datepicker-months')
-						.find('th:eq(1)')
+						.find('.datepicker-switch')
 							.text(this.o.maxViewMode < 2 ? 'Months' : year)
 							.end()
 						.find('span').removeClass('active');
@@ -1017,7 +1017,7 @@
 			html = '';
 			year = parseInt(year/10, 10) * 10;
 			var yearCont = this.picker.find('.datepicker-years')
-								.find('th:eq(1)')
+								.find('.datepicker-switch')
 									.text(year + '-' + (year + 9))
 									.end()
 								.find('td');
