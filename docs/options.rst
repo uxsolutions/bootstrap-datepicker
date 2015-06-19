@@ -39,7 +39,7 @@ Function(Date).  Default: $.noop
 A function that takes a date as a parameter and returns a boolean indicating whether or not this month is selectable
 
 beforeShowDecade
--------------
+----------------
 
 Function(Date).  Default: $.noop
 
@@ -293,7 +293,7 @@ Number, String.  Default: 0, "month"
 The view that the datepicker should show when it is opened.  Accepts values of 0 or "month" for month view (the default), 1 or "year" for the 12-month overview, 2 or "decade" for the 10-year overview, and 3 or "century" for the 10-decade overview.  Useful for date-of-birth datepickers.
 
 title
---------
+-----
 
 String. Default: ""
 
@@ -353,7 +353,7 @@ Boolean. Default: true
 If false the datepicker will not show on a readonly datepicker field.
 
 immediateUpdates
----------------------
+----------------
 
 Boolean. Default: false
 
