@@ -932,7 +932,8 @@
 				endMonth = this.o.endDate !== Infinity ? this.o.endDate.getUTCMonth() : Infinity,
 				todaytxt = dates[this.o.language].today || dates['en'].today || '',
 				cleartxt = dates[this.o.language].clear || dates['en'].clear || '',
-				tooltip;
+				tooltip,
+				before;
 			if (isNaN(year) || isNaN(month))
 				return;
 			this.picker.find('.datepicker-days .datepicker-switch')
@@ -980,7 +981,7 @@
 				clsName.push('day');
 
 				if (this.o.beforeShowDay !== $.noop){
-					var before = this.o.beforeShowDay(this._utc_to_local(prevMonth));
+					before = this.o.beforeShowDay(this._utc_to_local(prevMonth));
 					if (before === undefined)
 						before = {};
 					else if (typeof(before) === 'boolean')
