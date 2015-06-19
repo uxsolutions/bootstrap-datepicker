@@ -1016,3 +1016,39 @@ test('Startview: year view visible after date pick', function(){
     ok(picker.find('.datepicker-months').is(':not(:visible)'), 'Months view hidden');
     ok(picker.find('.datepicker-years').is(':visible'), 'Years view visible');
 });
+
+test('Title: none', function(){
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .datepicker({
+                format: 'yyyy-mm-dd'
+            }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    ok(picker.is(':visible'), 'Picker is visible');
+
+    target = picker.find('.datepicker-days thead .datepicker-title');
+    ok(target.is(':not(:visible)'), 'Title is hidden');
+});
+
+test('Title: with value', function(){
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .datepicker({
+                format: 'yyyy-mm-dd',
+                title: 'Some Title'
+            }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    ok(picker.is(':visible'), 'Picker is visible');
+
+    target = picker.find('.datepicker-days thead .datepicker-title');
+    ok(target.is(':visible'), 'Title is visible');
+    equal(target.text(), 'Some Title');
+});
