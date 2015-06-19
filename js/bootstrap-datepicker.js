@@ -819,7 +819,7 @@
 			var dowCnt = this.o.weekStart,
 				html = '<tr>';
 			if (this.o.calendarWeeks){
-				this.picker.find('.datepicker-days thead tr:first-child .datepicker-switch')
+				this.picker.find('.datepicker-days .datepicker-switch')
 					.attr('colspan', function(i, val){
 						return parseInt(val) + 1;
 					});
@@ -911,7 +911,7 @@
 				tooltip;
 			if (isNaN(year) || isNaN(month))
 				return;
-			this.picker.find('.datepicker-days thead .datepicker-switch')
+			this.picker.find('.datepicker-days .datepicker-switch')
             .text(dates[this.o.language].months[month]+' '+ (this.o.maxViewMode < 2 ? '' : year));
       this.picker.find('tfoot .today')
 						.text(todaytxt)
@@ -919,6 +919,9 @@
 			this.picker.find('tfoot .clear')
 						.text(cleartxt)
 						.toggle(this.o.clearBtn !== false);
+			this.picker.find('thead .datepicker-title')
+						.text(this.o.title)
+						.toggle(this.o.title !== '');
 			this.updateNavArrows();
 			this.fillMonths();
 			var prevMonth = UTCDate(year, month-1, 28),
@@ -979,7 +982,7 @@
 			this.picker.find('.datepicker-days tbody').empty().append(html.join(''));
 
 			var months = this.picker.find('.datepicker-months')
-						.find('th:eq(1)')
+						.find('.datepicker-switch')
 							.text(this.o.maxViewMode < 2 ? 'Months' : year)
 							.end()
 						.find('span').removeClass('active');
@@ -1014,7 +1017,7 @@
 			html = '';
 			year = parseInt(year/10, 10) * 10;
 			var yearCont = this.picker.find('.datepicker-years')
-								.find('th:eq(1)')
+								.find('.datepicker-switch')
 									.text(year + '-' + (year + 9))
 									.end()
 								.find('td');
@@ -1628,7 +1631,8 @@
 		disableTouchKeyboard: false,
 		enableOnReadonly: true,
 		container: 'body',
-		immediateUpdates: false
+		immediateUpdates: false,
+		title: ''
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',
@@ -1817,6 +1821,9 @@
 			return date.join('');
 		},
 		headTemplate: '<thead>'+
+			              '<tr>'+
+			                '<th colspan="7" class="datepicker-title"></th>'+
+			              '</tr>'+
 							'<tr>'+
 								'<th class="prev">&#171;</th>'+
 								'<th colspan="5" class="datepicker-switch"></th>'+
