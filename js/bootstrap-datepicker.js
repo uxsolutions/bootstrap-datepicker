@@ -1028,6 +1028,8 @@
 				classes;
 			for (var i = -1; i < 11; i++){
 				classes = ['year'];
+				tooltip = null;
+
 				if (i === -1)
 					classes.push('old');
 				else if (i === 10)
@@ -1036,7 +1038,24 @@
 					classes.push('active');
 				if (year < startYear || year > endYear)
 					classes.push('disabled');
-				html += '<span class="' + classes.join(' ') + '">' + year + '</span>';
+
+				if (this.o.beforeShowYear !== $.noop) {
+					var yrBefore = this.o.beforeShowYear(new Date(year, 0, 1));
+					if (yrBefore === undefined)
+						yrBefore = {};
+					else if (typeof(yrBefore) === 'boolean')
+						yrBefore = {enabled: yrBefore};
+					else if (typeof(yrBefore) === 'string')
+						yrBefore = {classes: yrBefore};
+					if (yrBefore.enabled === false)
+						classes.push('disabled');
+					if (yrBefore.classes)
+						classes = classes.concat(yrBefore.classes.split(/\s+/));
+					if (yrBefore.tooltip)
+						tooltip = yrBefore.tooltip;
+				}
+
+				html += '<span class="' + classes.join(' ') + '"' + (tooltip ? ' title="'+tooltip+'"' : '') + '>' + year + '</span>';
 				year += 1;
 			}
 			yearCont.html(html);
@@ -1586,6 +1605,7 @@
 		autoclose: false,
 		beforeShowDay: $.noop,
 		beforeShowMonth: $.noop,
+		beforeShowYear: $.noop,
 		calendarWeeks: false,
 		clearBtn: false,
 		toggleActive: false,
