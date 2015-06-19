@@ -1038,92 +1038,91 @@
 				});
 			}
 
+			var i;
+
+			// Generating decade/years picker
 			html = '';
-			year = parseInt(year/10, 10) * 10;
-			var yearCont = this.picker.find('.datepicker-years')
-								.find('.datepicker-switch')
-									.text(year + '-' + (year + 9))
-									.end()
-								.find('td');
-			year -= 1;
-			var years = $.map(this.dates, function(d){
-					return d.getUTCFullYear();
-				}),
-				classes;
-			for (var i = -1; i < 11; i++){
-				classes = ['year'];
+			var decade = parseInt(year/10, 10) * 10;
+			var years = $.map(this.dates, function(d){ return d.getUTCFullYear(); });
+
+			this.picker.find('.datepicker-years .datepicker-switch').text(decade + '-' + (decade + 9));
+
+			var thisYear = decade - 1;
+			for (i = -1; i < 11; i += 1){
+				clsName = ['year'];
 				tooltip = null;
 
 				if (i === -1)
-					classes.push('old');
+					clsName.push('old');
 				else if (i === 10)
-					classes.push('new');
-				if ($.inArray(year, years) !== -1)
-					classes.push('active');
-				if (year < startYear || year > endYear)
-					classes.push('disabled');
+					clsName.push('new');
+				if ($.inArray(thisYear, years) !== -1)
+					clsName.push('active');
+				if (thisYear < startYear || thisYear > endYear)
+					clsName.push('disabled');
 
 				if (this.o.beforeShowYear !== $.noop) {
-					var yrBefore = this.o.beforeShowYear(new Date(year, 0, 1));
-					if (yrBefore === undefined)
-						yrBefore = {};
-					else if (typeof(yrBefore) === 'boolean')
-						yrBefore = {enabled: yrBefore};
-					else if (typeof(yrBefore) === 'string')
-						yrBefore = {classes: yrBefore};
-					if (yrBefore.enabled === false)
-						classes.push('disabled');
-					if (yrBefore.classes)
-						classes = classes.concat(yrBefore.classes.split(/\s+/));
-					if (yrBefore.tooltip)
-						tooltip = yrBefore.tooltip;
+					before = this.o.beforeShowYear(new Date(thisYear, 0, 1));
+					if (before === undefined)
+						before = {};
+					else if (typeof(before) === 'boolean')
+						before = {enabled: before};
+					else if (typeof(before) === 'string')
+						before = {classes: before};
+					if (before.enabled === false)
+						clsName.push('disabled');
+					if (before.classes)
+						clsName = clsName.concat(before.classes.split(/\s+/));
+					if (before.tooltip)
+						tooltip = before.tooltip;
 				}
 
-				html += '<span class="' + classes.join(' ') + '"' + (tooltip ? ' title="'+tooltip+'"' : '') + '>' + year + '</span>';
-				year += 1;
+				html += '<span class="' + clsName.join(' ') + '"' + (tooltip ? ' title="' + tooltip + '"' : '') + '>' + thisYear + '</span>';
+				thisYear += 1;
 			}
-			yearCont.html(html);
+			this.picker.find('.datepicker-years td').html(html);
 
+			// Generating century/decades picker
 			html = '';
-			var decade = parseInt(year/100, 10) * 100;
-			this.picker.find('.datepicker-decades').find('th:eq(1)').text(decade + '-' + (decade + 90));
-			var decades = $.map(this.dates, function(d){
-				return parseInt(d.getUTCFullYear()/10, 10) * 10;
-			});
-			decade -= 10;
+			var century = parseInt(year/100, 10) * 100;
+			var decades = $.map(this.dates, function(d){ return parseInt(d.getUTCFullYear()/10, 10) * 10; });
 			var startDecade = parseInt(startYear/10, 10) * 10;
 			var endDecade = parseInt(endYear/10, 10) * 10;
-			for (i = -1; i < 11; i++) {
-				classes = ['decade'];
+
+			this.picker.find('.datepicker-decades .datepicker-switch').text(century + '-' + (century + 90));
+
+			var thisDecade = century - 10;
+			for (i = -1; i < 11; i += 1) {
+				clsName = ['decade'];
 				tooltip = null;
 
 				if (i === -1)
-					classes.push('old');
+					clsName.push('old');
 				else if (i === 10)
-					classes.push('new');
-				if ($.inArray(decade, decades) !== -1)
-					classes.push('active');
-				if (decade < startDecade || decade > endDecade)
-					classes.push('disabled');
+					clsName.push('new');
+				if ($.inArray(thisDecade, decades) !== -1)
+					clsName.push('active');
+				if (thisDecade < startDecade || thisDecade > endDecade)
+					clsName.push('disabled');
 
 				if (this.o.beforeShowDecade !== $.noop) {
-					var dcBefore = this.o.beforeShowDecade(new Date(decade, 0, 1));
-					if (dcBefore === undefined)
-						dcBefore = {};
-					else if (typeof(dcBefore) === 'boolean')
-						dcBefore = {enabled: dcBefore};
-					else if (typeof(dcBefore) === 'string')
-						dcBefore = {classes: dcBefore};
-					if (dcBefore.enabled === false)
-						classes.push('disabled');
-					if (dcBefore.classes)
-						classes = classes.concat(dcBefore.classes.split(/\s+/));
-					if (dcBefore.tooltip)
-						tooltip = dcBefore.tooltip;
+					before = this.o.beforeShowDecade(new Date(thisDecade, 0, 1));
+					if (before === undefined)
+						before = {};
+					else if (typeof(before) === 'boolean')
+						before = {enabled: before};
+					else if (typeof(before) === 'string')
+						before = {classes: before};
+					if (before.enabled === false)
+						clsName.push('disabled');
+					if (before.classes)
+						clsName = clsName.concat(before.classes.split(/\s+/));
+					if (before.tooltip)
+						tooltip = before.tooltip;
 				}
 
-				html += '<span class="' + classes.join(' ') + '"' + (tooltip ? ' title="'+tooltip+'"' : '') + '>' + decade + '</span>';
-				decade += 10;
+				html += '<span class="' + clsName.join(' ') + '"' + (tooltip ? ' title="' + tooltip + '"' : '') + '>' + thisDecade + '</span>';
+				thisDecade += 10;
 			}
 			this.picker.find('.datepicker-decades td').html(html);
 
@@ -1161,12 +1160,12 @@
 					if (before.enabled === false)
 						clsName.push('disabled');
 					if (before.classes)
-						clsName = classes.concat(before.classes.split(/\s+/));
+						clsName = clsName.concat(before.classes.split(/\s+/));
 					if (before.tooltip)
 						tooltip = before.tooltip;
 				}
 
-				html += '<span class="' + clsName.join(' ') + '"' + (tooltip ? ' title="'+tooltip+'"' : '') + '>' + thisCentury + '</span>';
+				html += '<span class="' + clsName.join(' ') + '"' + (tooltip ? ' title="' + tooltip + '"' : '') + '>' + thisCentury + '</span>';
 				thisCentury += 100;
 			}
 			this.picker.find('.datepicker-centuries td').html(html);
