@@ -173,6 +173,10 @@
 			o.language = lang;
 
 			switch (o.startView){
+				case 4:
+				case 'millennium':
+					o.startView = 4;
+					break;
 				case 3:
 				case 'century':
 					o.startView = 3;
@@ -202,6 +206,10 @@
 				case 'decades':
 					o.minViewMode = 3;
 					break;
+				case 4:
+				case 'centuries':
+					o.minViewMode = 4;
+					break;
 				default:
 					o.minViewMode = 0;
 			}
@@ -219,8 +227,12 @@
 				case 'years':
 					o.maxViewMode = 2;
 					break;
-				default:
+				case 3:
+				case 'decades':
 					o.maxViewMode = 3;
+					break;
+				default:
+					o.maxViewMode = 4;
 			}
 
 			o.startView = Math.min(o.startView, o.maxViewMode);
@@ -1114,6 +1126,50 @@
 				decade += 10;
 			}
 			this.picker.find('.datepicker-decades td').html(html);
+
+			// Generating millennium/centuries picker
+			html = '';
+			var millennium = parseInt(year/1000, 10) * 1000;
+			var centuries = $.map(this.dates, function(d){ return parseInt(d.getUTCFullYear()/100, 10) * 100; });
+			var startCentury = parseInt(startYear/100, 10) * 100;
+			var endCentury = parseInt(endYear/100, 10) * 100;
+
+			this.picker.find('.datepicker-centuries .datepicker-switch').text(millennium + '-' + (millennium + 900));
+
+			var thisCentury = millennium - 100;
+			for (i = -1; i < 11; i += 1) {
+				clsName = ['century'];
+				tooltip = null;
+
+				if (i === -1)
+					clsName.push('old');
+				else if (i === 10)
+					clsName.push('new');
+				if ($.inArray(thisCentury, centuries) !== -1)
+					clsName.push('active');
+				if (thisCentury < startCentury || thisCentury > endCentury)
+					clsName.push('disabled');
+
+				if (this.o.beforeShowCentury !== $.noop) {
+					before = this.o.beforeShowCentury(new Date(thisCentury, 0, 1));
+					if (before === undefined)
+						before = {};
+					else if (typeof(before) === 'boolean')
+						before = {enabled: before};
+					else if (typeof(before) === 'string')
+						before = {classes: before};
+					if (before.enabled === false)
+						clsName.push('disabled');
+					if (before.classes)
+						clsName = classes.concat(before.classes.split(/\s+/));
+					if (before.tooltip)
+						tooltip = before.tooltip;
+				}
+
+				html += '<span class="' + clsName.join(' ') + '"' + (tooltip ? ' title="'+tooltip+'"' : '') + '>' + thisCentury + '</span>';
+				thisCentury += 100;
+			}
+			this.picker.find('.datepicker-centuries td').html(html);
 		},
 
 		updateNavArrows: function(){
@@ -1141,6 +1197,7 @@
 				case 1:
 				case 2:
 				case 3:
+				case 4:
 					if (this.o.startDate !== -Infinity && year <= this.o.startDate.getUTCFullYear() || this.o.maxViewMode < 2){
 						this.picker.find('.prev').css({visibility: 'hidden'});
 					}
@@ -1180,6 +1237,7 @@
 									case 1:
 									case 2:
 									case 3:
+									case 4:
 										this.viewDate = this.moveYear(this.viewDate, dir);
 										if (this.viewMode === 1)
 											this._trigger('changeYear', this.viewDate);
@@ -1216,24 +1274,22 @@
 									this.showMode(-1);
 								}
 							}
-							else if (target.hasClass('year')){
-								day = 1;
-								month = 0;
-								year = parseInt(target.text(), 10)||0;
-								this.viewDate.setUTCFullYear(year);
-								this._trigger('changeYear', this.viewDate);
-								if (this.o.minViewMode === 2){
-									this._setDate(UTCDate(year, month, day));
-								}
-								this.showMode(-1);
-							}
 							else {
 								day = 1;
 								month = 0;
 								year = parseInt(target.text(), 10)||0;
 								this.viewDate.setUTCFullYear(year);
-								this._trigger('changeDecade', this.viewDate);
-								if (this.o.minViewMode === 3){
+
+								var trigger = target.hasClass('year') ? 'Year' : (
+									target.hasClass('decade') ? 'Decade' : 'Century'
+								);
+								this._trigger('change' + trigger, this.viewDate);
+
+								var shouldSetDate = (this.o.minViewMode === 4 ||
+									(this.o.minViewMode === 2 && target.hasClass('year')) ||
+									(this.o.minViewMode === 3 && target.hasClass('decade'))
+								);
+								if (shouldSetDate){
 									this._setDate(UTCDate(year, month, day));
 								}
 								this.showMode(-1);
@@ -1673,8 +1729,9 @@
 		autoclose: false,
 		beforeShowDay: $.noop,
 		beforeShowMonth: $.noop,
-		beforeShowDecade: $.noop,
 		beforeShowYear: $.noop,
+		beforeShowDecade: $.noop,
+		beforeShowCentury: $.noop,
 		calendarWeeks: false,
 		clearBtn: false,
 		toggleActive: false,
@@ -1687,7 +1744,7 @@
 		keyboardNavigation: true,
 		language: 'en',
 		minViewMode: 0,
-		maxViewMode: 3,
+		maxViewMode: 4,
 		multidate: false,
 		multidateSeparator: ',',
 		orientation: "auto",
@@ -1742,7 +1799,13 @@
 				clsName: 'decades',
 				navFnc: 'FullDecade',
 				navStep: 100
-		}],
+			},
+			{
+				clsName: 'centuries',
+				navFnc: 'FullCentury',
+				navStep: 1000
+			}
+		],
 		isLeapYear: function(year){
 			return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0));
 		},
@@ -1937,6 +2000,13 @@
 								'</table>'+
 							'</div>'+
 							'<div class="datepicker-decades">'+
+								'<table class="table-condensed">'+
+									DPGlobal.headTemplate+
+									DPGlobal.contTemplate+
+									DPGlobal.footTemplate+
+								'</table>'+
+							'</div>'+
+							'<div class="datepicker-centuries">'+
 								'<table class="table-condensed">'+
 									DPGlobal.headTemplate+
 									DPGlobal.contTemplate+
