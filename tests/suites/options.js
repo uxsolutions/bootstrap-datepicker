@@ -706,6 +706,96 @@ test('BeforeShowYear', function () {
     ok(!target.hasClass('disabled'), '2017, 9th is enabled');
 });
 
+test('beforeShowDecade', function () {
+    var beforeShowDecade = function (date) {
+        switch (date.getFullYear()) {
+            case 2030:
+                return {
+                    tooltip: 'Example tooltip',
+                    classes: 'active'
+                };
+            case 2040:
+                return "test2040";
+            case 2050:
+                return {enabled: false, classes: 'test2050'};
+            case 2060:
+                return false;
+        }
+    };
+
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .val('03/05/2012')
+            .datepicker({ beforeShowDecade: beforeShowDecade }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    target = picker.find('.datepicker-decades tbody span:nth(4)');
+    equal(target.attr('title'), 'Example tooltip', '5th has tooltip');
+    ok(!target.hasClass('disabled'), '2030, 5th is enabled');
+
+    target = picker.find('.datepicker-decades tbody span:nth(5)');
+    ok(target.hasClass('test2040'), '6th has test2040 class');
+    ok(!target.hasClass('disabled'), '2040, 6th is enabled');
+
+    target = picker.find('.datepicker-decades tbody span:nth(6)');
+    ok(target.hasClass('test2050'), '2050, 7th has test2050 class');
+    ok(target.hasClass('disabled'), '2050, 7th is disabled');
+
+    target = picker.find('.datepicker-decades tbody span:nth(7)');
+    ok(target.hasClass('disabled'), '2060, 8th is disabled');
+
+    target = picker.find('.datepicker-decades tbody span:nth(8)');
+    ok(!target.hasClass('disabled'), '2070, 9th is enabled');
+});
+
+test('beforeShowCentury', function () {
+    var beforeShowCentury = function (date) {
+        switch (date.getFullYear()) {
+            case 2300:
+                return {
+                    tooltip: 'Example tooltip',
+                    classes: 'active'
+                };
+            case 2400:
+                return "test2400";
+            case 2500:
+                return {enabled: false, classes: 'test2500'};
+            case 2600:
+                return false;
+        }
+    };
+
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .val('03/05/2012')
+            .datepicker({ beforeShowCentury: beforeShowCentury }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    target = picker.find('.datepicker-centuries tbody span:nth(4)');
+    equal(target.attr('title'), 'Example tooltip', '5th has tooltip');
+    ok(!target.hasClass('disabled'), '2300, 5th is enabled');
+
+    target = picker.find('.datepicker-centuries tbody span:nth(5)');
+    ok(target.hasClass('test2400'), '6th has test2400 class');
+    ok(!target.hasClass('disabled'), '2400, 6th is enabled');
+
+    target = picker.find('.datepicker-centuries tbody span:nth(6)');
+    ok(target.hasClass('test2500'), '2500, 7th has test2500 class');
+    ok(target.hasClass('disabled'), '2500, 7th is disabled');
+
+    target = picker.find('.datepicker-centuries tbody span:nth(7)');
+    ok(target.hasClass('disabled'), '2600, 8th is disabled');
+
+    target = picker.find('.datepicker-centuries tbody span:nth(8)');
+    ok(!target.hasClass('disabled'), '2700, 9th is enabled');
+});
+
 test('Orientation: values are parsed correctly', function(){
 
     var input = $('<input />')
