@@ -229,7 +229,7 @@ minViewMode
 
 Number, String.  Default: 0, "days"
 
-Set a minimum limit for the view mode.  Accepts: "days" or 0, "months" or 1, "years" or 2, and "decades" or 3.
+Set a minimum limit for the view mode.  Accepts: "days" or 0, "months" or 1, "years" or 2, "decades" or 3, and "centuries" or 4.
 Gives the ability to pick only a month or an year.  The day is set to the 1st for "months", and the month is set to January for "years".
 
 maxViewMode
@@ -237,7 +237,7 @@ maxViewMode
 
 Number, String.  Default: 2, "years"
 
-Set a maximum limit for the view mode.  Accepts: "days" or 0, "months" or 1, "years" or 2, and "decades" or 3.
+Set a maximum limit for the view mode.  Accepts: "days" or 0, "months" or 1, "years" or 2, "decades" or 3, and "centuries" or 4.
 Gives the ability to pick only a day or a month.  The day is set to the 1st for "months", and the month is set to January for "years".
 
 multidate
@@ -290,7 +290,7 @@ startView
 
 Number, String.  Default: 0, "month"
 
-The view that the datepicker should show when it is opened.  Accepts values of 0 or "month" for month view (the default), 1 or "year" for the 12-month overview, 2 or "decade" for the 10-year overview, and 3 or "century" for the 10-decade overview.  Useful for date-of-birth datepickers.
+The view that the datepicker should show when it is opened.  Accepts values of 0 or "month" for month view (the default), 1 or "year" for the 12-month overview, 2 or "decade" for the 10-year overview, 3 or "century" for the 10-decade overview, and 4 or "millennium" for the 10-century overview.  Useful for date-of-birth datepickers.
 
 title
 -----
