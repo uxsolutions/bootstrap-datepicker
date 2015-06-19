@@ -602,6 +602,51 @@ test('BeforeShowDay', function(){
     ok(!target.hasClass('disabled'), '29th is enabled');
 });
 
+test('BeforeShowYear', function () {
+
+    var beforeShowYear = function (date) {
+        switch (date.getFullYear()) {
+            case 2013:
+                return {
+                    tooltip: 'Example tooltip',
+                    classes: 'active'
+                };
+            case 2014:
+                return "test2014";
+            case 2015:
+                return {enabled: false, classes: 'test2015'};
+            case 2016:
+                return false;
+        }
+    };
+
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .val('2012-10-26')
+            .datepicker({
+                format: 'yyyy-mm-dd',
+                beforeShowYear: beforeShowYear
+            }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    target = picker.find('.datepicker-years tbody span:nth(4)');
+    equal(target.attr('title'), 'Example tooltip', '5th has tooltip');
+    ok(!target.hasClass('disabled'), '2013, 5th is enabled');
+    target = picker.find('.datepicker-years tbody span:nth(5)');
+    ok(target.hasClass('test2014'), '6th has test2014 class');
+    ok(!target.hasClass('disabled'), '2014, 6th is enabled');
+    target = picker.find('.datepicker-years tbody span:nth(6)');
+    ok(target.hasClass('test2015'), '2015, 7th has test2015 class');
+    ok(target.hasClass('disabled'), '2015, 7th is disabled');
+    target = picker.find('.datepicker-years tbody span:nth(7)');
+    ok(target.hasClass('disabled'), '2016, 8th is disabled');
+    target = picker.find('.datepicker-years tbody span:nth(8)');
+    ok(!target.hasClass('disabled'), '2017, 9th is enabled');
+});
+
 test('Orientation: values are parsed correctly', function(){
 
     var input = $('<input />')
