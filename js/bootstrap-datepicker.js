@@ -110,6 +110,15 @@
 			this.component = false;
 
 		this.picker = $(DPGlobal.template);
+
+		// Checking templates and inserting
+		if (this._check_template(this.o.templates.leftArrow)) {
+			this.picker.find('.prev').html(this.o.templates.leftArrow);
+		}
+		if (this._check_template(this.o.templates.rightArrow)) {
+			this.picker.find('.next').html(this.o.templates.rightArrow);
+		}
+
 		this._buildEvents();
 		this._attachEvents();
 
@@ -156,6 +165,24 @@
 	Datepicker.prototype = {
 		constructor: Datepicker,
 
+		_check_template: function(tmp) {
+			try {
+				// If empty
+				if (tmp === undefined || tmp === "") {
+					return false;
+				}
+				// If no html, everything ok
+				if ((tmp.match(/[<>]/g) || []).length <= 0) {
+					return true;
+				}
+				// Checking if html is fine
+				var jDom = $(tmp);
+				return jDom.length > 0;
+			}
+			catch (ex) {
+				return false;
+			}
+		},
 		_process_options: function(opts){
 			// Store raw options for reference
 			this._o = $.extend({}, this._o, opts);
@@ -1736,7 +1763,11 @@
 		enableOnReadonly: true,
 		container: 'body',
 		immediateUpdates: false,
-		title: ''
+		title: '',
+		templates: {
+			leftArrow: '<span class="glyphicon glyphicon-arrow-left"></span>',
+			rightArrow: '<span class="glyphicon glyphicon-arrow-right"></span>'
+		}
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',
