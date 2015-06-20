@@ -165,7 +165,7 @@
 	Datepicker.prototype = {
 		constructor: Datepicker,
 
-		_check_template: function(tmp) {
+		_check_template: function(tmp){
 			try {
 				// If empty
 				if (tmp === undefined || tmp === "") {

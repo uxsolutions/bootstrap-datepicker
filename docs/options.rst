@@ -283,6 +283,22 @@ String. Default: ""
 
 The string that will appear on top of the datepicker. If empty the title will be hidden.
 
+templates
+---------
+
+Object. Default:
+    {
+        leftArrow: '<span class="glyphicon glyphicon-arrow-left"></span>',
+        rightArrow: '<span class="glyphicon glyphicon-arrow-right"></span>'
+    }
+
+The templates used to generate some parts of the picker. Each property must be a string with only text, or valid html.
+You can use this property to use custom icons libs. for example :
+    {
+        leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+        rightArrow: '<i class="fa fa-long-arrow-right"></i>'
+    }
+
 todayBtn
 --------
 
