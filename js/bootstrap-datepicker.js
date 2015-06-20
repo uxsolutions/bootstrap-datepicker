@@ -1143,6 +1143,7 @@
 			}
 
 			if (!target.hasClass('disabled')) {
+				var day, year, month;
 
 				// Clicked on a day
 				if (target.hasClass('day')) {
