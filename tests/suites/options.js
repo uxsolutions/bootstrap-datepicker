@@ -1097,3 +1097,20 @@ test('Title: with value', function(){
     ok(target.is(':visible'), 'Title is visible');
     equal(target.text(), 'Some Title');
 });
+
+test('templates', function(){
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .datepicker({
+                templates: {
+                    leftArrow: '&laquo;',
+                    rightArrow: '</table>'
+                }
+            }),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+
+    input.focus();
+    equal(picker.find('.datepicker-days .prev').prop('innerHTML'), $('<div>').html('&laquo;').text());
+    equal(picker.find('.datepicker-days .next').prop('innerHTML'), '<span class="glyphicon glyphicon-arrow-right"></span>');
+});
