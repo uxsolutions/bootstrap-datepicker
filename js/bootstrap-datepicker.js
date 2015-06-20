@@ -1104,6 +1104,107 @@
 		click: function(e){
 			e.preventDefault();
 			e.stopPropagation();
+			var target = $(e.target);
+
+			// Clicked on the switch
+			if (target.hasClass('datepicker-switch')) {
+				this.showMode(1);
+			}
+
+			// Clicked on prev or next
+			if (target.closest('.prev, .next').length > 0) {
+				var dir = DPGlobal.modes[this.viewMode].navStep * (target.hasClass('prev') ? -1 : 1);
+				if (this.viewMode === 0) {
+					this.viewDate = this.moveMonth(this.viewDate, dir);
+					this._trigger('changeMonth', this.viewDate);
+				} else {
+					this.viewDate = this.moveYear(this.viewDate, dir);
+					if (this.viewMode === 1)
+						this._trigger('changeYear', this.viewDate);
+					else
+						this._trigger('changeDecade', this.viewDate);
+				}
+				this.fill();
+			}
+
+			// Clicked on today button
+			if (target.hasClass('today')) {
+				var date = new Date();
+				date = UTCDate(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
+
+				this.showMode(-2);
+				var which = this.o.todayBtn === 'linked' ? null : 'view';
+				this._setDate(date, which);
+			}
+
+			// Clicked on clear button
+			if (target.hasClass('clear')) {
+				this.clearDates();
+			}
+
+			if (!target.hasClass('disabled')) {
+
+				// Clicked on a day
+				if (target.hasClass('day')) {
+					day = parseInt(target.text(), 10) || 1;
+					year = this.viewDate.getUTCFullYear();
+					month = this.viewDate.getUTCMonth();
+
+					if (target.hasClass('old')) {
+						if (month === 0) {
+							month = 11;
+							year = year - 1;
+						} else {
+							month = month - 1;
+						}
+					}
+					if (target.hasClass('new')) {
+						if (month === 11){
+							month = 0;
+							year = year + 1;
+						}
+						else {
+							month = month + 1;
+						}
+					}
+					this._setDate(UTCDate(year, month, day));
+				}
+
+				// Clicked on a month
+				if (target.hasClass('month')) {
+					this.viewDate.setUTCDate(1);
+					day = 1;
+					month = target.parent().find('span').index(target);
+					year = this.viewDate.getUTCFullYear();
+					this.viewDate.setUTCMonth(month);
+					this._trigger('changeMonth', this.viewDate);
+					if (this.o.minViewMode === 1){
+						this._setDate(UTCDate(year, month, day));
+						this.showMode();
+					} else {
+						this.showMode(-1);
+					}
+					this.fill();
+				}
+
+				// Clicked on a year
+				if (target.hasClass('year')) {
+					this.viewDate.setUTCDate(1);
+					day = 1;
+					month = 0;
+					year = parseInt(target.text(), 10)||0;
+					this.viewDate.setUTCFullYear(year);
+					this._trigger('changeYear', this.viewDate);
+					if (this.o.minViewMode === 2){
+						this._setDate(UTCDate(year, month, day));
+					}
+					this.showMode(-1);
+					this.fill();
+				}
+			}
+
+			/*
+			 * Commenting old click event to avoid future conflict with decade picker
 			var target = $(e.target).closest('span, td, th'),
 				year, month, day;
 			if (target.length === 1){
@@ -1201,6 +1302,8 @@
 						break;
 				}
 			}
+			*/
+
 			if (this.picker.is(':visible') && this._focused_from){
 				$(this._focused_from).focus();
 			}
