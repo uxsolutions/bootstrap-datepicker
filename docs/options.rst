@@ -147,6 +147,11 @@ The latest date that may be selected; all later dates will be disabled.
 .. figure:: _static/screenshots/option_enddate.png
     :align: center
 
+.. code-block:: html
+  
+    <input type="text" bootstrap-datepicker data-date-end-date="0d"/>
+
+Will disable all dates after today.
 
 forceParse
 ----------
