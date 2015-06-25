@@ -1,3 +1,7 @@
+/**
+ * Malay translation for bootstrap-datepicker
+ * Nasrul Hazim <http://github.com/nasrulhazim>
+ */
 $.fn.datepicker.dates['my'] = {
     days: ["Ahad", "Isnin", "Selasa", "Rabu", "Khamis", "Jumaat", "Sabtu"],
     daysShort: ["Ahd", "Isn", "Sel", "Rab", "Kha", "Jum", "Sab"],
