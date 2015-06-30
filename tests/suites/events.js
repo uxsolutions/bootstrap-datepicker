@@ -319,3 +319,17 @@ test('paste must update the date', function() {
     this.input.trigger(evt);
     datesEqual(this.dp.dates[0], UTCDate(2015, 6, 22));
 });
+
+test('clicking outside datepicker triggers \'hide\' event', function(){
+    var $otherelement = $('<div />');
+    $('body').append($otherelement);
+	
+    var isHideTriggered;
+    this.input.on('hide', function() { isHideTriggered = true; });
+
+    $otherelement.trigger('mousedown');
+	
+    ok(isHideTriggered, '\'hide\' event is not triggered');
+
+    $otherelement.remove();
+});
