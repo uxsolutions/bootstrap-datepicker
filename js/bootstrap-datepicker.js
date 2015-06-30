@@ -1510,19 +1510,21 @@
 			// so be sure and escape them all
 			var regexReservedChars = /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g;
 			var regexReservedCharsReplace = '\\$&';
-			$.each(formatParts.parts, function(i, p) {
-				if (i == 0) { // before the first part can be a separator
+			$.each(formatParts.parts, function(i, p){
+				// before the first part can be a separator
+				if (i === 0){
 					formatPattern += formatParts.separators[i].replace(regexReservedChars, regexReservedCharsReplace);
 				}
 				// current part and separator
 				formatPattern += '[0-9]{' + p.length + '}' + formatParts.separators[i + 1].replace(regexReservedChars, regexReservedCharsReplace);
-				if (i == formatParts.parts.length - 1) { // after the last part can be a separator
+				// after the last part can be a separator
+				if (i === formatParts.parts.length - 1){
 					formatPattern += formatParts.separators[i + 1].replace(regexReservedChars, regexReservedCharsReplace);
 				}
 			});
 			// if the date entered within the input is not a full valid
 			// date, as we expect, don't update anything
-			if (!$(e.target).val().match(new RegExp(formatPattern))) {
+			if (!$(e.target).val().match(new RegExp(formatPattern))){
 				this.updating = false;
 				return;
 			}
