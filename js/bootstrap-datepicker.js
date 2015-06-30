@@ -1501,6 +1501,31 @@
 				l = this.inputs.length;
 			if (i === -1)
 				return;
+			// we need to test the date we currently parse so we don't
+			// share incomplete dates to update contrains
+			var formatPattern = '';
+			var formatParts = DPGlobal.parseFormat(dp.o.format);
+			// regular expressions have some reserved chars
+			// it can be that some of them are within in the date format
+			// so be sure and escape them all
+			var regexReservedChars = /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g;
+			var regexReservedCharsReplace = '\\$&';
+			$.each(formatParts.parts, function(i, p) {
+				if (i == 0) { // before the first part can be a separator
+					formatPattern += formatParts.separators[i].replace(regexReservedChars, regexReservedCharsReplace);
+				}
+				// current part and separator
+				formatPattern += '[0-9]{' + p.length + '}' + formatParts.separators[i + 1].replace(regexReservedChars, regexReservedCharsReplace);
+				if (i == formatParts.parts.length - 1) { // after the last part can be a separator
+					formatPattern += formatParts.separators[i + 1].replace(regexReservedChars, regexReservedCharsReplace);
+				}
+			});
+			// if the date entered within the input is not a full valid
+			// date, as we expect, don't update anything
+			if (!$(e.target).val().match(new RegExp(formatPattern))) {
+				this.updating = false;
+				return;
+			}
 
 			$.each(this.pickers, function(i, p){
 				if (!p.getUTCDate())
