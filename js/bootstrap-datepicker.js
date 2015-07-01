@@ -896,10 +896,10 @@
 				if ($.inArray(date.valueOf(), this.range) !== -1){
 					cls.push('selected');
 				}
-				if (date.valueOf() == this.range[0]){
+				if (date.valueOf() === this.range[0]){
           cls.push('range-start');
         }
-        if (date.valueOf() == this.range[this.range.length-1]){
+        if (date.valueOf() === this.range[this.range.length-1]){
           cls.push('range-end');
         }
 			}
