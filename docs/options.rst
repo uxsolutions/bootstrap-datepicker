@@ -39,7 +39,7 @@ Function(Date).  Default: $.noop
 A function that takes a date as a parameter and returns a boolean indicating whether or not this month is selectable
 
 beforeShowYear
--------------
+--------------
 
 Function(Date).  Default: $.noop
 
@@ -53,6 +53,38 @@ A function that takes a date as a parameter and returns one of the following val
    * ``enabled``: same as the Boolean value above
    * ``classes``: same as the String value above
    * ``tooltip``: a tooltip to apply to this year, via the ``title`` HTML attribute
+
+beforeShowDecade
+----------------
+
+Function(Date).  Default: $.noop
+
+A function that takes a date as a parameter and returns one of the following values:
+
+ * undefined to have no effect
+ * A Boolean, indicating whether or not this decade is selectable
+ * A String representing additional CSS classes to apply to the decade's cell
+ * An object with the following properties:
+
+   * ``enabled``: same as the Boolean value above
+   * ``classes``: same as the String value above
+   * ``tooltip``: a tooltip to apply to this decade, via the ``title`` HTML attribute
+
+beforeShowCentury
+-----------------
+
+Function(Date).  Default: $.noop
+
+A function that takes a date as a parameter and returns one of the following values:
+
+ * undefined to have no effect
+ * A Boolean, indicating whether or not this century is selectable
+ * A String representing additional CSS classes to apply to the century's cell
+ * An object with the following properties:
+
+   * ``enabled``: same as the Boolean value above
+   * ``classes``: same as the String value above
+   * ``tooltip``: a tooltip to apply to this century, via the ``title`` HTML attribute
 
 calendarWeeks
 -------------
@@ -218,7 +250,7 @@ minViewMode
 
 Number, String.  Default: 0, "days"
 
-Set a minimum limit for the view mode.  Accepts: "days" or 0, "months" or 1, and "years" or 2.
+Set a minimum limit for the view mode.  Accepts: "days" or 0, "months" or 1, "years" or 2, "decades" or 3, and "centuries" or 4.
 Gives the ability to pick only a month or an year.  The day is set to the 1st for "months", and the month is set to January for "years".
 
 maxViewMode
@@ -226,7 +258,7 @@ maxViewMode
 
 Number, String.  Default: 2, "years"
 
-Set a maximum limit for the view mode.  Accepts: "days" or 0, "months" or 1, and "years" or 2.
+Set a maximum limit for the view mode.  Accepts: "days" or 0, "months" or 1, "years" or 2, "decades" or 3, and "centuries" or 4.
 Gives the ability to pick only a day or a month.  The day is set to the 1st for "months", and the month is set to January for "years".
 
 multidate
@@ -279,10 +311,10 @@ startView
 
 Number, String.  Default: 0, "month"
 
-The view that the datepicker should show when it is opened.  Accepts values of 0 or "month" for month view (the default), 1 or "year" for the 12-month overview, and 2 or "decade" for the 10-year overview.  Useful for date-of-birth datepickers.
+The view that the datepicker should show when it is opened.  Accepts values of 0 or "month" for month view (the default), 1 or "year" for the 12-month overview, 2 or "decade" for the 10-year overview, 3 or "century" for the 10-decade overview, and 4 or "millennium" for the 10-century overview.  Useful for date-of-birth datepickers.
 
 title
---------
+-----
 
 String. Default: ""
 
@@ -342,7 +374,7 @@ Boolean. Default: true
 If false the datepicker will not show on a readonly datepicker field.
 
 immediateUpdates
----------------------
+----------------
 
 Boolean. Default: false
 
