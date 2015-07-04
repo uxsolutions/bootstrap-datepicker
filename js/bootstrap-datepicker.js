@@ -112,6 +112,15 @@
 			this.component = false;
 
 		this.picker = $(DPGlobal.template);
+
+		// Checking templates and inserting
+		if (this._check_template(this.o.templates.leftArrow)) {
+			this.picker.find('.prev').html(this.o.templates.leftArrow);
+		}
+		if (this._check_template(this.o.templates.rightArrow)) {
+			this.picker.find('.next').html(this.o.templates.rightArrow);
+		}
+
 		this._buildEvents();
 		this._attachEvents();
 
@@ -158,6 +167,24 @@
 	Datepicker.prototype = {
 		constructor: Datepicker,
 
+		_check_template: function(tmp){
+			try {
+				// If empty
+				if (tmp === undefined || tmp === "") {
+					return false;
+				}
+				// If no html, everything ok
+				if ((tmp.match(/[<>]/g) || []).length <= 0) {
+					return true;
+				}
+				// Checking if html is fine
+				var jDom = $(tmp);
+				return jDom.length > 0;
+			}
+			catch (ex) {
+				return false;
+			}
+		},
 		_process_options: function(opts){
 			// Store raw options for reference
 			this._o = $.extend({}, this._o, opts);
@@ -1107,6 +1134,108 @@
 		click: function(e){
 			e.preventDefault();
 			e.stopPropagation();
+			var target = $(e.target);
+
+			// Clicked on the switch
+			if (target.hasClass('datepicker-switch')) {
+				this.showMode(1);
+			}
+
+			// Clicked on prev or next
+			if (target.closest('.prev, .next').length > 0) {
+				var dir = DPGlobal.modes[this.viewMode].navStep * (target.hasClass('prev') ? -1 : 1);
+				if (this.viewMode === 0) {
+					this.viewDate = this.moveMonth(this.viewDate, dir);
+					this._trigger('changeMonth', this.viewDate);
+				} else {
+					this.viewDate = this.moveYear(this.viewDate, dir);
+					if (this.viewMode === 1)
+						this._trigger('changeYear', this.viewDate);
+					else
+						this._trigger('changeDecade', this.viewDate);
+				}
+				this.fill();
+			}
+
+			// Clicked on today button
+			if (target.hasClass('today')) {
+				var date = new Date();
+				date = UTCDate(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
+
+				this.showMode(-2);
+				var which = this.o.todayBtn === 'linked' ? null : 'view';
+				this._setDate(date, which);
+			}
+
+			// Clicked on clear button
+			if (target.hasClass('clear')) {
+				this.clearDates();
+			}
+
+			if (!target.hasClass('disabled')) {
+				var day, year, month;
+
+				// Clicked on a day
+				if (target.hasClass('day')) {
+					day = parseInt(target.text(), 10) || 1;
+					year = this.viewDate.getUTCFullYear();
+					month = this.viewDate.getUTCMonth();
+
+					if (target.hasClass('old')) {
+						if (month === 0) {
+							month = 11;
+							year = year - 1;
+						} else {
+							month = month - 1;
+						}
+					}
+					if (target.hasClass('new')) {
+						if (month === 11){
+							month = 0;
+							year = year + 1;
+						}
+						else {
+							month = month + 1;
+						}
+					}
+					this._setDate(UTCDate(year, month, day));
+				}
+
+				// Clicked on a month
+				if (target.hasClass('month')) {
+					this.viewDate.setUTCDate(1);
+					day = 1;
+					month = target.parent().find('span').index(target);
+					year = this.viewDate.getUTCFullYear();
+					this.viewDate.setUTCMonth(month);
+					this._trigger('changeMonth', this.viewDate);
+					if (this.o.minViewMode === 1){
+						this._setDate(UTCDate(year, month, day));
+						this.showMode();
+					} else {
+						this.showMode(-1);
+					}
+					this.fill();
+				}
+
+				// Clicked on a year
+				if (target.hasClass('year')) {
+					this.viewDate.setUTCDate(1);
+					day = 1;
+					month = 0;
+					year = parseInt(target.text(), 10)||0;
+					this.viewDate.setUTCFullYear(year);
+					this._trigger('changeYear', this.viewDate);
+					if (this.o.minViewMode === 2){
+						this._setDate(UTCDate(year, month, day));
+					}
+					this.showMode(-1);
+					this.fill();
+				}
+			}
+
+			/*
+			 * Commenting old click event to avoid future conflict with decade picker
 			var target = $(e.target).closest('span, td, th'),
 				year, month, day;
 			if (target.length === 1){
@@ -1204,6 +1333,8 @@
 						break;
 				}
 			}
+			*/
+
 			if (this.picker.is(':visible') && this._focused_from){
 				$(this._focused_from).focus();
 			}
@@ -1635,7 +1766,11 @@
 		enableOnReadonly: true,
 		container: 'body',
 		immediateUpdates: false,
-		title: ''
+		title: '',
+		templates: {
+			leftArrow: '<span class="glyphicon glyphicon-arrow-left"></span>',
+			rightArrow: '<span class="glyphicon glyphicon-arrow-right"></span>'
+		}
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',
@@ -1828,9 +1963,9 @@
 			                '<th colspan="7" class="datepicker-title"></th>'+
 			              '</tr>'+
 							'<tr>'+
-								'<th class="prev">&#171;</th>'+
+								'<th class="prev"><span class="glyphicon glyphicon-arrow-left"></span></th>'+
 								'<th colspan="5" class="datepicker-switch"></th>'+
-								'<th class="next">&#187;</th>'+
+								'<th class="next"><span class="glyphicon glyphicon-arrow-right"></span></th>'+
 							'</tr>'+
 						'</thead>',
 		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',
