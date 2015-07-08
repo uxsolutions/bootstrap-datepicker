@@ -1097,3 +1097,31 @@ test('Title: with value', function(){
     ok(target.is(':visible'), 'Title is visible');
     equal(target.text(), 'Some Title');
 });
+
+test('i18n: Leverage i18n titleFormat when available.', patch_date(function(Date){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2015年04月21日')
+                .datepicker({
+                    language: 'zh-CN'
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+
+    input.focus();
+    equal(picker.find('.datepicker-days thead .datepicker-switch').text(), '2015年04月', 'Title is in Chinese: 2015年04月');
+}));
+
+test('i18n: Leverage English (default) i18n titleFormat when translation key for specified language is not available.', patch_date(function(Date){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('04/21/2015')
+                .datepicker({
+                    language: 'aa-BB'
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+
+    input.focus();
+    equal(picker.find('.datepicker-days thead .datepicker-switch').text(), 'April 2015', 'Title is in default format: April 2015');
+}));

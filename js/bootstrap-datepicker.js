@@ -911,12 +911,13 @@
 				endMonth = this.o.endDate !== Infinity ? this.o.endDate.getUTCMonth() : Infinity,
 				todaytxt = dates[this.o.language].today || dates['en'].today || '',
 				cleartxt = dates[this.o.language].clear || dates['en'].clear || '',
+				titleFormat = dates[this.o.language].titleFormat || dates['en'].titleFormat,
 				tooltip;
 			if (isNaN(year) || isNaN(month))
 				return;
-			this.picker.find('.datepicker-days .datepicker-switch')
-            .text(dates[this.o.language].months[month]+' '+ (this.o.maxViewMode < 2 ? '' : year));
-      this.picker.find('tfoot .today')
+			this.picker.find('.datepicker-days thead .datepicker-switch')
+						.text(DPGlobal.formatDate(new Date(year, month), titleFormat, this.o.language));
+			this.picker.find('tfoot .today')
 						.text(todaytxt)
 						.toggle(this.o.todayBtn !== false);
 			this.picker.find('tfoot .clear')
@@ -1651,7 +1652,8 @@
 			months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
 			monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 			today: "Today",
-			clear: "Clear"
+			clear: "Clear",
+			titleFormat: "MM yyyy"
 		}
 	};
 
