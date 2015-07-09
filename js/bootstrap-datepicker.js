@@ -425,8 +425,7 @@
 							this.picker.find(e.target).length ||
 							this.picker.hasClass('datepicker-inline')
 						)){
-							$(this.picker).hide();
-							this._trigger('hide');
+							this.hide();
 						}
 					}, this)
 				}]
