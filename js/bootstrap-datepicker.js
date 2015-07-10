@@ -697,20 +697,11 @@
 			else
 				top -= calendarHeight + parseInt(this.picker.css('padding-top'));
 
-			if (this.o.rtl) {
-				var right = windowWidth - (left + width);
-				this.picker.css({
-					top: top,
-					right: right,
-					zIndex: zIndex
-				});
-			} else {
-				this.picker.css({
-					top: top,
-					left: left,
-					zIndex: zIndex
-				});
-			}
+			this.picker.css({
+				top: top,
+				left: left,
+				zIndex: zIndex
+			});
 			return this;
 		},
 
