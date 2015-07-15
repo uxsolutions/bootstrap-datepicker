@@ -1496,7 +1496,7 @@
 
 			var dp = $(e.target).data('datepicker');
 
-			if (typeof(dp) == "undefined") {
+			if (typeof(dp) === "undefined") {
 				return;
 			}
 
