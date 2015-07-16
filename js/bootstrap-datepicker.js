@@ -1494,8 +1494,13 @@
 				return;
 			this.updating = true;
 
-			var dp = $(e.target).data('datepicker'),
-				new_date = dp.getUTCDate(),
+			var dp = $(e.target).data('datepicker');
+
+			if (typeof(dp) === "undefined") {
+				return;
+			}
+
+			var new_date = dp.getUTCDate(),
 				i = $.inArray(e.target, this.inputs),
 				j = i - 1,
 				k = i + 1,
