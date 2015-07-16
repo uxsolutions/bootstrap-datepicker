@@ -1125,3 +1125,33 @@ test('i18n: Leverage English (default) i18n titleFormat when translation key for
     input.focus();
     equal(picker.find('.datepicker-days thead .datepicker-switch').text(), 'April 2015', 'Title is in default format: April 2015');
 }));
+
+test('Z-index Offset: none', function(){
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .datepicker(),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+    input.parent().css('z-index', 234);
+
+    input.focus();
+
+    equal(dp.o.zIndexOffset, 10, 'Z-index offset option defaults to 10.');
+    equal(picker.css('z-index'), 244, 'Picker Z-index offset is respected.');
+});
+
+test('Z-index Offset: with value', function(){
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .datepicker({
+                zIndexOffset: 1000
+            }),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+    input.parent().css('z-index', 234);
+
+    input.focus();
+
+    equal(dp.o.zIndexOffset, 1000, 'Z-index offset option is accepted.');
+    equal(picker.css('z-index'), 1234, 'Picker Z-index offset is respected.');
+});
