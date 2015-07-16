@@ -363,3 +363,11 @@ Day of the week start. 0 (Sunday) to 6 (Saturday)
 
 .. figure:: _static/screenshots/option_weekstart.png
     :align: center
+
+
+zIndexOffset
+------------
+
+Integer.  Default: 10
+
+The CSS z-index of the open datepicker is the maximum z-index of the input and all of its DOM ancestors *plus* the ``zIndexOffset``.
