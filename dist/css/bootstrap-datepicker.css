@@ -56,18 +56,18 @@
 .datepicker-dropdown.datepicker-orient-right:after {
   right: 7px;
 }
-.datepicker-dropdown.datepicker-orient-top:before {
+.datepicker-dropdown.datepicker-orient-bottom:before {
   top: -7px;
 }
-.datepicker-dropdown.datepicker-orient-top:after {
+.datepicker-dropdown.datepicker-orient-bottom:after {
   top: -6px;
 }
-.datepicker-dropdown.datepicker-orient-bottom:before {
+.datepicker-dropdown.datepicker-orient-top:before {
   bottom: -7px;
   border-bottom: 0;
   border-top: 7px solid #999;
 }
-.datepicker-dropdown.datepicker-orient-bottom:after {
+.datepicker-dropdown.datepicker-orient-top:after {
   bottom: -6px;
   border-bottom: 0;
   border-top: 6px solid #ffffff;
@@ -117,6 +117,10 @@
   background: none;
   color: #999999;
   cursor: default;
+}
+.datepicker table tr td.highlighted {
+  background: #d9edf7;
+  border-radius: 0;
 }
 .datepicker table tr td.today,
 .datepicker table tr td.today:hover,
