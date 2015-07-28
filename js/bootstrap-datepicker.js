@@ -678,12 +678,17 @@
 				scrollTop = container.scrollTop(),
 				appendOffset = container.offset();
 
-			var parentsZindex = [];
-			this.element.parents().each(function(){
-				var itemZIndex = $(this).css('z-index');
-				if (itemZIndex !== 'auto' && itemZIndex !== 0) parentsZindex.push(parseInt(itemZIndex));
-			});
-			var zIndex = Math.max.apply(Math, parentsZindex) + 10;
+			// get zIndex from CSS or parent stack - allows explicit set in stylesheet
+			this.picker.css('z-index', ''); // reset zIndex
+			var zIndex = (this.picker.css('z-index') !== 'auto' ? this.picker.css('z-index') : (function(element){
+				var parentsZindex = [];
+				element.parents().each(function(){
+					var itemZIndex = $(this).css('z-index');
+					if (itemZIndex !== 'auto' && itemZIndex !== 0) parentsZindex.push(parseInt(itemZIndex));
+				});
+				return Math.max.apply(Math, parentsZindex) + 10;
+			})(this.element));
+			
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(false);
 			var width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(false);
