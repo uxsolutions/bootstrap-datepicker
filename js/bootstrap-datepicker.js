@@ -1214,12 +1214,12 @@
 			}
 
       var picker = this;
-      var hideHandler = function() { picker.hide(); };
-      setTimeout(function () {
+      var hideHandler = function(){ picker.hide(); };
+      setTimeout(function(){
         $('.active').on('click', hideHandler);
         $('.active').on('dblclick', hideHandler);
       }, 0);
-      setTimeout(function () {
+      setTimeout(function(){
         $('.active').on('click', hideHandler);
         $('.active').on('dblclick', hideHandler);
       }, 200);
