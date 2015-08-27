@@ -524,6 +524,29 @@ test('DaysOfWeekHighlighted', function(){
     ok(target.hasClass('highlighted'), 'Day of week is highlighted');
 });
 
+test('Days before startDate and endDate are not highlighted', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-10-26')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    daysOfWeekHighlighted: '5',
+					startDate: '2012-10-26',
+                    endDate: '2012-10-26'
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+
+    input.focus();
+    target = picker.find('.datepicker-days tbody td:nth(25)');
+    ok(!target.hasClass('highlighted'), 'Day before startDate is highlighted');
+    target = picker.find('.datepicker-days tbody td:nth(26)');
+    ok(target.hasClass('highlighted'), 'Day of week is not highlighted');
+    target = picker.find('.datepicker-days tbody td:nth(27)');
+    ok(!target.hasClass('highlighted'), 'Day after endDate is highlighted');
+});
 
 test('DatesDisabled', function(){
     var input = $('<input />')
