@@ -21,6 +21,7 @@
 .datepicker-dropdown {
   top: 0;
   left: 0;
+  padding: 4px;
 }
 .datepicker-dropdown:before {
   content: '';
@@ -53,18 +54,18 @@
 .datepicker-dropdown.datepicker-orient-right:after {
   right: 7px;
 }
-.datepicker-dropdown.datepicker-orient-top:before {
+.datepicker-dropdown.datepicker-orient-bottom:before {
   top: -7px;
 }
-.datepicker-dropdown.datepicker-orient-top:after {
+.datepicker-dropdown.datepicker-orient-bottom:after {
   top: -6px;
 }
-.datepicker-dropdown.datepicker-orient-bottom:before {
+.datepicker-dropdown.datepicker-orient-top:before {
   bottom: -7px;
   border-bottom: 0;
   border-top: 7px solid #999;
 }
-.datepicker-dropdown.datepicker-orient-bottom:after {
+.datepicker-dropdown.datepicker-orient-top:after {
   bottom: -6px;
   border-bottom: 0;
   border-top: 6px solid #fff;
@@ -112,6 +113,10 @@
   background: none;
   color: #999999;
   cursor: default;
+}
+.datepicker table tr td.highlighted {
+  background: #d9edf7;
+  border-radius: 0;
 }
 .datepicker table tr td.today,
 .datepicker table tr td.today:hover,
@@ -701,11 +706,15 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .datepicker .datepicker-switch {
   width: 145px;
 }
-.datepicker thead tr:first-child th,
+.datepicker .datepicker-switch,
+.datepicker .prev,
+.datepicker .next,
 .datepicker tfoot tr th {
   cursor: pointer;
 }
-.datepicker thead tr:first-child th:hover,
+.datepicker .datepicker-switch:hover,
+.datepicker .prev:hover,
+.datepicker .next:hover,
 .datepicker tfoot tr th:hover {
   background: #eeeeee;
 }
@@ -714,10 +723,6 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   width: 12px;
   padding: 0 2px 0 5px;
   vertical-align: middle;
-}
-.datepicker thead tr:first-child .cw {
-  cursor: default;
-  background-color: transparent;
 }
 .input-group.date .input-group-addon {
   cursor: pointer;
