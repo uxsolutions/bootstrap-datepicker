@@ -1405,7 +1405,9 @@
 					// As such, its behavior should not be hijacked.
 					break;
 				case 13: // enter
-					if (!this.o.forceParse) break;
+					if (!this.o.forceParse) {
+							break;
+					}
 					focusDate = this.focusDate || this.dates.get(-1) || this.viewDate;
 					if (this.o.keyboardNavigation) {
 						this._toggle_multidate(focusDate);
