@@ -258,7 +258,7 @@
 				return parseInt(d, 10);
 			});
 
-  			o.daysOfWeekHighlighted = o.daysOfWeekHighlighted||[];
+			o.daysOfWeekHighlighted = o.daysOfWeekHighlighted||[];
 			if (!$.isArray(o.daysOfWeekHighlighted))
 				o.daysOfWeekHighlighted = o.daysOfWeekHighlighted.split(/[,\s]*/);
 			o.daysOfWeekHighlighted = $.map(o.daysOfWeekHighlighted, function(d){
@@ -880,8 +880,7 @@
 				$.inArray(date.getUTCDay(), this.o.daysOfWeekDisabled) !== -1){
 				cls.push('disabled');
 			}
-			if (date.valueOf() < this.o.startDate || date.valueOf() > this.o.endDate ||
-				$.inArray(date.getUTCDay(), this.o.daysOfWeekHighlighted) !== -1){
+			if ($.inArray(date.getUTCDay(), this.o.daysOfWeekHighlighted) !== -1){
 				cls.push('highlighted');
 			}
 			if (this.o.datesDisabled.length > 0 &&

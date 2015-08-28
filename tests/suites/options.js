@@ -508,6 +508,7 @@ test('DaysOfWeekHighlighted', function(){
                 .val('2012-10-26')
                 .datepicker({
                     format: 'yyyy-mm-dd',
+                    startDate: '2012-10-02',
                     daysOfWeekHighlighted: '1,5'
                 }),
         dp = input.data('datepicker'),
@@ -516,14 +517,15 @@ test('DaysOfWeekHighlighted', function(){
 
 
     input.focus();
+    target = picker.find('.datepicker-days tbody td:nth(0)');
+    ok(!target.hasClass('highlighted'), 'Day of week is not highlighted');
     target = picker.find('.datepicker-days tbody td:nth(22)');
     ok(target.hasClass('highlighted'), 'Day of week is highlighted');
     target = picker.find('.datepicker-days tbody td:nth(24)');
-    ok(!target.hasClass('highlighted'), 'Day of week is highlighted');
+    ok(!target.hasClass('highlighted'), 'Day of week is not highlighted');
     target = picker.find('.datepicker-days tbody td:nth(26)');
     ok(target.hasClass('highlighted'), 'Day of week is highlighted');
 });
-
 
 test('DatesDisabled', function(){
     var input = $('<input />')
