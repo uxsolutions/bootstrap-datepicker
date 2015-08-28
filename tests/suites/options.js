@@ -999,6 +999,36 @@ test('Immediate Updates', function(){
     equal(input.val(), '2015-02-01');
 });
 
+test('forceParse: false on enter on invalid date', function () {
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('123456789')
+                .datepicker({forceParse: false})
+                .focus();
+
+    input.trigger({
+        type: 'keydown',
+        keyCode: 13,
+        shiftKey: false
+    });
+
+    equal(input.val(), '123456789', 'date not parsed');
+});
+
+test('forceParse: false on mousedown on invalid date', function () {
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('123456789')
+                .datepicker({forceParse: false})
+                .focus();
+
+    $(document).trigger({
+        type: 'mousedown'
+    });
+
+    equal(input.val(), '123456789', 'date not parsed');
+});
+
 //datepicker-dropdown
 
 test('Enable on readonly options (default)', function(){
