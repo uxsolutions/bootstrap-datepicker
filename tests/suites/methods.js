@@ -127,5 +127,5 @@ test('moveMonth - can handle invalid date', function(){
     var invalidDate = new Date("invalid"),
         returnedObject = this.dp.moveMonth(invalidDate, 1);
     // ...
-    equal(returnedObject, undefined, "returnedObject");
+    equal(this.input.val(), "31-03-2011", "date is reset");
 });
