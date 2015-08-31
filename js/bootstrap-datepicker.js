@@ -49,6 +49,9 @@
 			return this[method].apply(this, arguments);
 		};
 	}
+	function isValidDate(d) {
+		return d && !isNaN(d.getTime());
+	}
 
 	var DateArray = (function(){
 		var extras = {
@@ -1269,8 +1272,8 @@
 		},
 
 		moveMonth: function(date, dir){
-			if (!date)
-				return undefined;
+			if (!isValidDate(date))
+				return this.o.defaultViewDate;
 			if (!dir)
 				return date;
 			var new_date = new Date(date.valueOf()),
