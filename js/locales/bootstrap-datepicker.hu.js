@@ -12,6 +12,7 @@
 		today: "ma",
 		weekStart: 1,
 		clear: "töröl",
+		titleFormat: "yyyy. MM",
 		format: "yyyy.mm.dd"
 	};
 }(jQuery));
