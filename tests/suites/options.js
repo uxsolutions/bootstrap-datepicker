@@ -1512,3 +1512,32 @@ test('date cells', function(){
         ok(this.hasAttribute('data-date'));
     });
 });
+
+test('keepEmptyValues: none (default is false)', function() {
+    var proxy_element = $('<div />').appendTo('#qunit-fixture'),
+        input_from = $('<input />').appendTo('#qunit-fixture'),
+        input_to = $('<input />').appendTo('#qunit-fixture'),
+        dp = proxy_element.datepicker({
+            inputs: [input_from, input_to]
+        });
+
+    input_from.val('2012-03-05');
+    input_from.datepicker('setValue');
+
+    equal(input_to.val(), input_from.val(), 'Input_from value should be distributed.');
+});
+
+test('keepEmptyValues: true', function() {
+    var proxy_element = $('<div />').appendTo('#qunit-fixture'),
+        input_from = $('<input />').appendTo('#qunit-fixture'),
+        input_to = $('<input />').appendTo('#qunit-fixture'),
+        dp = proxy_element.datepicker({
+            inputs: [input_from, input_to],
+            keepEmptyValues: true
+        });
+
+    input_from.val('2012-03-05');
+    input_from.datepicker('setValue');
+
+    equal(input_to.val(), '', 'Input_from value should NOT be distributed.');
+});
