@@ -1,6 +1,60 @@
 Changelog
 =========
 
+1.4.0
+-----
+
+Features:
+ * implemented beforeShowMonth option
+ * Added option to disable touch keyboard input
+ * All datepicker methods are chainable
+ * Added a datesDisable option
+ * Added option to prevent date picker to show when input field receives focus
+ * adding option to define the container the datepicker will be appended to
+ * Backported some placement fixes for the container option
+ * Option default view date
+ * Add toggleActive option
+ * Added clear method
+ * Added version property to datepicker object
+ * Added option to not show datepicker on readonly field
+
+Bugfixes:
+ * Removed blank space before the previous button when calendarWeeks is true;
+ * Fixed date deselection with single date picker
+ * Added case-neutral matching for text months
+ * Changed input-daterange to full width for bs3
+ * Fix placement for RTL languages
+ * fix for range picker when next date is before previous date
+ * Fix for moving box on first selection
+ * Do not show datepicker for readonly inputs
+ * Fix getUTCDate when datepicker has no selected date
+ * Only a linked today button should trigger the changeDate event
+ * Fixed bug with keyboard navigation when startdate/enddate was defined
+ * Right align calendar on right window edge conflict
+ * On "ENTER" keydown on picker, prevent the closest form to be submitted too
+ * fixed bower.json twitte bootstrap dependency
+ * Replaced named entities with decimal entities
+ * assigning plugin to a local variable to fix bug in noConflict
+
+Repo changes:
+ * Added empty ignore option in bower.json.
+ * Added .editorconfig
+ * Reworked grunt tasks
+
+Translations:
+ * Fix translation of French months
+ * Update cambodia translations
+ * added clear and weekStart to turkish translation
+ * Days/months should start lowercase in dutch
+ * Month/daynames should be lowercase in french
+ * Add 'clear' and 'format' to Ukrainian locale
+ * Added Montenegrin locale
+
+Docs:
+ * added example for inputs option
+ * added missing documentation for embedded mode
+ * Add additional documentaion to update method
+
 1.3.1
 -----
 

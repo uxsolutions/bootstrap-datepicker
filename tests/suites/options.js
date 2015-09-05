@@ -502,6 +502,30 @@ test('DaysOfWeekDisabled', function(){
     ok(target.hasClass('disabled'), 'Day of week is disabled');
 });
 
+test('DaysOfWeekHighlighted', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-10-26')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    startDate: '2012-10-02',
+                    daysOfWeekHighlighted: '1,5'
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+
+    input.focus();
+    target = picker.find('.datepicker-days tbody td:nth(0)');
+    ok(!target.hasClass('highlighted'), 'Day of week is not highlighted');
+    target = picker.find('.datepicker-days tbody td:nth(22)');
+    ok(target.hasClass('highlighted'), 'Day of week is highlighted');
+    target = picker.find('.datepicker-days tbody td:nth(24)');
+    ok(!target.hasClass('highlighted'), 'Day of week is not highlighted');
+    target = picker.find('.datepicker-days tbody td:nth(26)');
+    ok(target.hasClass('highlighted'), 'Day of week is highlighted');
+});
 
 test('DatesDisabled', function(){
     var input = $('<input />')
@@ -578,6 +602,51 @@ test('BeforeShowDay', function(){
     ok(target.hasClass('disabled'), '28th is disabled');
     target = picker.find('.datepicker-days tbody td:nth(29)');
     ok(!target.hasClass('disabled'), '29th is enabled');
+});
+
+test('BeforeShowYear', function () {
+
+    var beforeShowYear = function (date) {
+        switch (date.getFullYear()) {
+            case 2013:
+                return {
+                    tooltip: 'Example tooltip',
+                    classes: 'active'
+                };
+            case 2014:
+                return "test2014";
+            case 2015:
+                return {enabled: false, classes: 'test2015'};
+            case 2016:
+                return false;
+        }
+    };
+
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .val('2012-10-26')
+            .datepicker({
+                format: 'yyyy-mm-dd',
+                beforeShowYear: beforeShowYear
+            }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    target = picker.find('.datepicker-years tbody span:nth(4)');
+    equal(target.attr('title'), 'Example tooltip', '5th has tooltip');
+    ok(!target.hasClass('disabled'), '2013, 5th is enabled');
+    target = picker.find('.datepicker-years tbody span:nth(5)');
+    ok(target.hasClass('test2014'), '6th has test2014 class');
+    ok(!target.hasClass('disabled'), '2014, 6th is enabled');
+    target = picker.find('.datepicker-years tbody span:nth(6)');
+    ok(target.hasClass('test2015'), '2015, 7th has test2015 class');
+    ok(target.hasClass('disabled'), '2015, 7th is disabled');
+    target = picker.find('.datepicker-years tbody span:nth(7)');
+    ok(target.hasClass('disabled'), '2016, 8th is disabled');
+    target = picker.find('.datepicker-years tbody span:nth(8)');
+    ok(!target.hasClass('disabled'), '2017, 9th is enabled');
 });
 
 test('Orientation: values are parsed correctly', function(){
@@ -932,6 +1001,36 @@ test('Immediate Updates', function(){
     equal(input.val(), '2015-02-01');
 });
 
+test('forceParse: false on enter on invalid date', function () {
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('123456789')
+                .datepicker({forceParse: false})
+                .focus();
+
+    input.trigger({
+        type: 'keydown',
+        keyCode: 13,
+        shiftKey: false
+    });
+
+    equal(input.val(), '123456789', 'date not parsed');
+});
+
+test('forceParse: false on mousedown on invalid date', function () {
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('123456789')
+                .datepicker({forceParse: false})
+                .focus();
+
+    $(document).trigger({
+        type: 'mousedown'
+    });
+
+    equal(input.val(), '123456789', 'date not parsed');
+});
+
 //datepicker-dropdown
 
 test('Enable on readonly options (default)', function(){
@@ -993,4 +1092,98 @@ test('Startview: year view visible after date pick', function(){
     ok(picker.find('.datepicker-days').is(':not(:visible)'), 'Days view hidden');
     ok(picker.find('.datepicker-months').is(':not(:visible)'), 'Months view hidden');
     ok(picker.find('.datepicker-years').is(':visible'), 'Years view visible');
+});
+
+test('Title: none', function(){
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .datepicker({
+                format: 'yyyy-mm-dd'
+            }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    ok(picker.is(':visible'), 'Picker is visible');
+
+    target = picker.find('.datepicker-days thead .datepicker-title');
+    ok(target.is(':not(:visible)'), 'Title is hidden');
+});
+
+test('Title: with value', function(){
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .datepicker({
+                format: 'yyyy-mm-dd',
+                title: 'Some Title'
+            }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    ok(picker.is(':visible'), 'Picker is visible');
+
+    target = picker.find('.datepicker-days thead .datepicker-title');
+    ok(target.is(':visible'), 'Title is visible');
+    equal(target.text(), 'Some Title');
+});
+
+test('i18n: Leverage i18n titleFormat when available.', patch_date(function(Date){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2015年04月21日')
+                .datepicker({
+                    language: 'zh-CN'
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+
+    input.focus();
+    equal(picker.find('.datepicker-days thead .datepicker-switch').text(), '2015年04月', 'Title is in Chinese: 2015年04月');
+}));
+
+test('i18n: Leverage English (default) i18n titleFormat when translation key for specified language is not available.', patch_date(function(Date){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('04/21/2015')
+                .datepicker({
+                    language: 'aa-BB'
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+
+    input.focus();
+    equal(picker.find('.datepicker-days thead .datepicker-switch').text(), 'April 2015', 'Title is in default format: April 2015');
+}));
+
+test('Z-index Offset: none', function(){
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .datepicker(),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+    input.parent().css('z-index', 234);
+
+    input.focus();
+
+    equal(dp.o.zIndexOffset, 10, 'Z-index offset option defaults to 10.');
+    equal(picker.css('z-index'), 244, 'Picker Z-index offset is respected.');
+});
+
+test('Z-index Offset: with value', function(){
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .datepicker({
+                zIndexOffset: 1000
+            }),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+    input.parent().css('z-index', 234);
+
+    input.focus();
+
+    equal(dp.o.zIndexOffset, 1000, 'Z-index offset option is accepted.');
+    equal(picker.css('z-index'), 1234, 'Picker Z-index offset is respected.');
 });

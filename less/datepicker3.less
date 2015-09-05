@@ -1,6 +1,5 @@
 .datepicker {
-	padding: 4px;
-	border-radius: 4px;
+	border-radius: @border-radius-base;
 	&-inline {
 		width: 220px;
 	}
@@ -14,6 +13,7 @@
 	&-dropdown {
 		top: 0;
 		left: 0;
+		padding: 4px;
 		&:before {
 			content: '';
 			display: inline-block;
@@ -37,14 +37,14 @@
 		&.datepicker-orient-left:after    { left: 7px; }
 		&.datepicker-orient-right:before  { right: 6px; }
 		&.datepicker-orient-right:after   { right: 7px; }
-		&.datepicker-orient-top:before    { top: -7px; }
-		&.datepicker-orient-top:after     { top: -6px; }
-		&.datepicker-orient-bottom:before {
+		&.datepicker-orient-bottom:before    { top: -7px; }
+		&.datepicker-orient-bottom:after     { top: -6px; }
+		&.datepicker-orient-top:before {
 			bottom: -7px;
 			border-bottom: 0;
 			border-top:    7px solid #999;
 		}
-		&.datepicker-orient-bottom:after {
+		&.datepicker-orient-top:after {
 			bottom: -6px;
 			border-bottom: 0;
 			border-top:    6px solid #fff;
@@ -72,7 +72,6 @@
 				width: 30px;
 				height: 30px;
 				border-radius: 4px;
-
 				border: none;
 			}
 		}
@@ -81,11 +80,12 @@
 	// border and background colors.
 	.table-striped & table tr {
 		td, th {
-			background-color:transparent;
+			background-color: transparent;
 		}
 	}
 	table tr td {
-		&.day:hover, &.day.focused {
+		&.day:hover,
+		&.day.focused {
 			background: @gray-lighter;
 			cursor: pointer;
 		}
@@ -98,6 +98,10 @@
 			background: none;
 			color: @btn-link-disabled-color;
 			cursor: default;
+		}
+		&.highlighted {
+			background: @state-info-bg;
+			border-radius: 0;
 		}
 		&.today,
 		&.today:hover,
@@ -117,7 +121,7 @@
 		&.range:hover,
 		&.range.disabled,
 		&.range.disabled:hover {
-			background:@gray-lighter;
+			background: @gray-lighter;
 			border-radius: 0;
 		}
 		&.range.today,
@@ -178,7 +182,9 @@
 		width: 145px;
 	}
 
-	thead tr:first-child th,
+	.datepicker-switch,
+	.prev,
+	.next,
 	tfoot tr th {
 		cursor: pointer;
 		&:hover {
@@ -193,10 +199,6 @@
 		padding: 0 2px 0 5px;
 		vertical-align: middle;
 	}
-	thead tr:first-child .cw {
-		cursor: default;
-		background-color: transparent;
-	}
 }
 .input-group.date .input-group-addon {
 	cursor: pointer;
@@ -204,7 +206,7 @@
 .input-daterange {
 	width: 100%;
 	input {
-		text-align:center;
+		text-align: center;
 	}
 	input:first-child {
 		border-radius: 3px 0 0 3px;
@@ -224,7 +226,7 @@
 		background-color: @input-group-addon-bg;
 		border: solid @input-group-addon-border-color;
 		border-width: 1px 0;
-		margin-left:-5px;
-		margin-right:-5px;
+		margin-left: -5px;
+		margin-right: -5px;
 	}
 }

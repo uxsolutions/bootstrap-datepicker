@@ -121,3 +121,11 @@ test('place', function(){
     // ...
     strictEqual(returnedObject, this.dp, "is chainable");
 });
+
+test('moveMonth - can handle invalid date', function(){
+    // any input which results in an invalid date, f.e. an incorrectly formatted.
+    var invalidDate = new Date("invalid"),
+        returnedObject = this.dp.moveMonth(invalidDate, 1);
+    // ...
+    equal(this.input.val(), "31-03-2011", "date is reset");
+});

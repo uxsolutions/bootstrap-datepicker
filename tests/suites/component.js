@@ -200,3 +200,23 @@ test('date and viewDate must be between startDate and endDate when setEndDate ca
     datesEqual(this.dp.viewDate, UTCDate(2013, 5, 6));
     equal(this.dp.dates.length, 0);
 });
+
+test('picker should render fine when `$.fn.show` and `$.fn.hide` are overridden', patch_show_hide(function () {
+    var viewModes = $.fn.datepicker.DPGlobal.modes,
+        minViewMode = this.dp.o.minViewMode,
+        maxViewMode = this.dp.o.maxViewMode,
+        childDivs = this.picker.children('div');
+
+    this.dp.showMode(minViewMode);
+
+    // Overwritten `$.fn.hide` method adds the `foo` class to its matched elements
+    var curDivShowing = childDivs.filter('.datepicker-' + viewModes[minViewMode].clsName);
+    ok(!curDivShowing.hasClass('foo'), 'Shown div does not have overridden `$.fn.hide` side-effects');
+
+    // Check that other classes do have `foo` class
+    var divNotShown;
+    for (var curViewMode = minViewMode + 1; curViewMode <= maxViewMode; curViewMode++) {
+        divNotShown = childDivs.filter('.datepicker-' + viewModes[curViewMode].clsName);
+        ok(divNotShown.hasClass('foo'), 'Other divs do have overridden `$.fn.hide` side-effects');
+    }
+}));

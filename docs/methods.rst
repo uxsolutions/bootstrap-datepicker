@@ -165,6 +165,18 @@ Sets a new upper date limit on the datepicker.  See :ref:`enddate` for valid val
 Omit endDate (or provide an otherwise falsey value) to unset the limit.
 
 
+setDatesDisabled
+----------------
+
+Arguments:
+
+* datesDisabled (String|Array)
+
+Sets the days that should be disabled.  See :ref:`datesDisabled` for valid values.
+
+Omit datesDisabled (or provide an otherwise falsey value) to unset the disabled days.
+
+
 setDaysOfWeekDisabled
 ---------------------
 

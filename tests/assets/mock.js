@@ -23,4 +23,27 @@ window.patch_date = function patch(f){
     }
 }
 
+
+window.patch_show_hide = function patch(f){
+    var oldShow = $.fn.show,
+        newShow = function () {
+            $(this).removeClass('foo');
+            return oldShow.apply(this, arguments);
+        };
+
+    var oldHide = $.fn.hide,
+        newHide = function () {
+            $(this).addClass('foo');
+            return oldHide.apply(this, arguments);
+        };
+
+    return function(){
+        $.fn.show = newShow;
+        $.fn.hide = newHide;
+        f.apply(this, arguments);
+        $.fn.show = oldShow;
+        $.fn.hide = oldHide;
+    }
+}
+
 }());

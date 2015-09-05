@@ -1,7 +1,7 @@
 bootstrap-datepicker
 ====================
 
-Bootstrap-datepicker provides a flexible datepicker widget in the Twitter bootstrap style.
+Bootstrap-datepicker provides a flexible datepicker widget in the Bootstrap style.
 
 .. figure:: _static/screenshots/demo_head.png
     :align: center
@@ -21,7 +21,7 @@ Requirements
 * `Bootstrap`_ 2.0.4+
 * `jQuery`_ 1.7.1+
 
-.. _Bootstrap: http://twitter.github.com/bootstrap/
+.. _Bootstrap: http://getbootstrap.com/
 .. _jQuery: http://jquery.com/
 
 These are the specific versions bootstrap-datepicker is tested against (``js`` files) and built against (``css`` files).  Use other versions at your own risk.
