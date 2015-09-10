@@ -33,6 +33,9 @@
 			return this[method].apply(this, arguments);
 		};
 	}
+	function isValidDate(d) {
+		return d && !isNaN(d.getTime());
+	}
 
 	var DateArray = (function(){
 		var extras = {
@@ -242,7 +245,7 @@
 				return parseInt(d, 10);
 			});
 
-  			o.daysOfWeekHighlighted = o.daysOfWeekHighlighted||[];
+			o.daysOfWeekHighlighted = o.daysOfWeekHighlighted||[];
 			if (!$.isArray(o.daysOfWeekHighlighted))
 				o.daysOfWeekHighlighted = o.daysOfWeekHighlighted.split(/[,\s]*/);
 			o.daysOfWeekHighlighted = $.map(o.daysOfWeekHighlighted, function(d){
@@ -709,16 +712,23 @@
 			if (yorient === 'auto'){
 				top_overflow = -scrollTop + top - calendarHeight;
 				bottom_overflow = scrollTop + windowHeight - (top + height + calendarHeight);
-				if (Math.max(top_overflow, bottom_overflow) === bottom_overflow)
+				if (Math.max(top_overflow, bottom_overflow) === bottom_overflow || scrollTop === 0)
 					yorient = 'top';
 				else
 					yorient = 'bottom';
 			}
-			this.picker.addClass('datepicker-orient-' + yorient);
-			if (yorient === 'top')
-				top -= calendarHeight + parseInt(this.picker.css('padding-top'));
-			else
-				top += height;
+
+            
+			//reset the orientation to Top if there is no space above the control
+            if (yorient === 'top' || top < calendarHeight){
+                top += height;
+                yorient = 'top'; 
+            }                
+            else 
+                top -= calendarHeight + parseInt(this.picker.css('padding-top'));
+
+            this.picker.addClass('datepicker-orient-' + yorient);
+
 
 			if (this.o.rtl) {
 				var right = windowWidth - (left + width);
@@ -864,8 +874,7 @@
 				$.inArray(date.getUTCDay(), this.o.daysOfWeekDisabled) !== -1){
 				cls.push('disabled');
 			}
-			if (date.valueOf() < this.o.startDate || date.valueOf() > this.o.endDate ||
-				$.inArray(date.getUTCDay(), this.o.daysOfWeekHighlighted) !== -1){
+			if ($.inArray(date.getUTCDay(), this.o.daysOfWeekHighlighted) !== -1){
 				cls.push('highlighted');
 			}
 			if (this.o.datesDisabled.length > 0 &&
@@ -923,6 +932,9 @@
 			prevMonth.setUTCDate(day);
 			prevMonth.setUTCDate(day - (prevMonth.getUTCDay() - this.o.weekStart + 7)%7);
 			var nextMonth = new Date(prevMonth);
+			if (prevMonth.getUTCFullYear() < 100){
+        nextMonth.setUTCFullYear(prevMonth.getUTCFullYear());
+      }
 			nextMonth.setUTCDate(nextMonth.getUTCDate() + 42);
 			nextMonth = nextMonth.valueOf();
 			var html = [];
@@ -1251,8 +1263,8 @@
 		},
 
 		moveMonth: function(date, dir){
-			if (!date)
-				return undefined;
+			if (!isValidDate(date))
+				return this.o.defaultViewDate;
 			if (!dir)
 				return date;
 			var new_date = new Date(date.valueOf()),
@@ -1310,8 +1322,10 @@
 
 		keydown: function(e){
 			if (!this.picker.is(':visible')){
-				if (e.keyCode === 40 || e.keyCode === 27) // allow down to re-show picker
+				if (e.keyCode === 40 || e.keyCode === 27) { // allow down to re-show picker
 					this.show();
+					e.stopPropagation();
+        }
 				return;
 			}
 			var dateChanged = false,
@@ -1327,6 +1341,7 @@
 					else
 						this.hide();
 					e.preventDefault();
+					e.stopPropagation();
 					break;
 				case 37: // left
 				case 39: // right
@@ -1389,6 +1404,9 @@
 					// As such, its behavior should not be hijacked.
 					break;
 				case 13: // enter
+					if (!this.o.forceParse) {
+							break;
+					}
 					focusDate = this.focusDate || this.dates.get(-1) || this.viewDate;
 					if (this.o.keyboardNavigation) {
 						this._toggle_multidate(focusDate);
