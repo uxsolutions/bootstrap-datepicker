@@ -728,16 +728,23 @@
 			if (yorient === 'auto'){
 				top_overflow = -scrollTop + top - calendarHeight;
 				bottom_overflow = scrollTop + windowHeight - (top + height + calendarHeight);
-				if (Math.max(top_overflow, bottom_overflow) === bottom_overflow)
+				if (Math.max(top_overflow, bottom_overflow) === bottom_overflow || scrollTop === 0)
 					yorient = 'top';
 				else
 					yorient = 'bottom';
 			}
-			this.picker.addClass('datepicker-orient-' + yorient);
-			if (yorient === 'top')
-				top -= calendarHeight + parseInt(this.picker.css('padding-top'));
-			else
-				top += height;
+
+            
+			//reset the orientation to Top if there is no space above the control
+            if (yorient === 'top' || top < calendarHeight){
+                top += height;
+                yorient = 'top'; 
+            }                
+            else 
+                top -= calendarHeight + parseInt(this.picker.css('padding-top'));
+
+            this.picker.addClass('datepicker-orient-' + yorient);
+
 
 			if (this.o.rtl) {
 				var right = windowWidth - (left + width);
