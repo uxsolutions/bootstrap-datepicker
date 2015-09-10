@@ -217,7 +217,6 @@
 			}
 
 			o.startView = Math.min(o.startView, o.maxViewMode);
-			o.startView = Math.max(o.startView, o.minViewMode);
 
 			// true, false, or Number > 0
 			if (o.multidate !== true){
