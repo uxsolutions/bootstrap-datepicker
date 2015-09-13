@@ -678,8 +678,6 @@
 				visualPadding = 10,
 				container = $(this.o.container),
 				windowWidth = container.width(),
-				windowHeight = container.height(),
-				scrollTop = container.scrollTop(),
 				appendOffset = container.offset();
 
 			var parentsZindex = [];
@@ -723,28 +721,19 @@
 
 			// auto y orientation is best-situation: top or bottom, no fudging,
 			// decision based on which shows more of the calendar
-			var yorient = this.o.orientation.y,
-				top_overflow, bottom_overflow;
+			var yorient = this.o.orientation.y;
 			if (yorient === 'auto'){
-				top_overflow = -scrollTop + top - calendarHeight;
-				bottom_overflow = scrollTop + windowHeight - (top + height + calendarHeight);
-				if (Math.max(top_overflow, bottom_overflow) === bottom_overflow || scrollTop === 0)
-					yorient = 'top';
-				else
+				if (top < calendarHeight)
 					yorient = 'bottom';
+				else
+					yorient = 'top';
 			}
 
-            
-			//reset the orientation to Top if there is no space above the control
-            if (yorient === 'top' || top < calendarHeight){
-                top += height;
-                yorient = 'top'; 
-            }                
-            else 
-                top -= calendarHeight + parseInt(this.picker.css('padding-top'));
-
-            this.picker.addClass('datepicker-orient-' + yorient);
-
+			this.picker.addClass('datepicker-orient-' + yorient);
+			if (yorient === 'top')
+				top -= calendarHeight + parseInt(this.picker.css('padding-top'));
+			else
+				top += height;
 
 			if (this.o.rtl) {
 				var right = windowWidth - (left + width);
