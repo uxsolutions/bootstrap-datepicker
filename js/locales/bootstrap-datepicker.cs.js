@@ -13,6 +13,6 @@
 		today: "Dnes",
 		clear: "Vymazat",
 		weekStart: 1,
-		format: "d.m.yyyy"
+		format: "dd.m.yyyy"
 	};
 }(jQuery));

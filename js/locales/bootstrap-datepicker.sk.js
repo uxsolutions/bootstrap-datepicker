@@ -10,6 +10,7 @@
 		daysMin: ["Ne", "Po", "Ut", "St", "Št", "Pia", "So"],
 		months: ["Január", "Február", "Marec", "Apríl", "Máj", "Jún", "Júl", "August", "September", "Október", "November", "December"],
 		monthsShort: ["Jan", "Feb", "Mar", "Apr", "Máj", "Jún", "Júl", "Aug", "Sep", "Okt", "Nov", "Dec"],
-		today: "Dnes"
+		today: "Dnes",
+		format: "dd.mm.yyyy"
 	};
 }(jQuery));
