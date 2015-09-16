@@ -1761,7 +1761,7 @@
 						return d.setUTCFullYear(v);
 					},
 					yy: function(d,v){
-						return d.setUTCFullYear(2000+v);
+						return d.setUTCFullYear(v >= 1000 ? v : 2000+v);
 					},
 					m: function(d,v){
 						if (isNaN(d))
@@ -1828,9 +1828,13 @@
 				if (!autoCompute) {
 				    var dateStr = (parsed.M || parsed.MM || parsed.mm || parsed.m) + "/" + (parsed.dd || parsed.d) + "/" + (parsed.yyyy || parsed.yy);
 				    var t = dateStr.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-				    if (t === null) {
-				        date = null;
+				    if (t !== null) {
+                        var d=+t[2], m=+t[1], y=+t[3];
+                        if(date.getUTCFullYear() === y && date.getUTCMonth() === m-1) {
+                            return date;
+                        }
 				    }
+				    return null;
 				}
 			}
 			return date;
