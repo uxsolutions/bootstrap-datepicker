@@ -787,7 +787,7 @@
 				return DPGlobal.parseDate(date, this.o.format, this.o.language, this.o.autoCompute);
 			}, this));
 
-			if(!dates[0]){
+			if (!dates[0]){
 			    this.o.invalidDate = true;
 			}
 
