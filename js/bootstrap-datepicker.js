@@ -1829,7 +1829,7 @@
 				    var dateStr = (parsed.M || parsed.MM || parsed.mm || parsed.m) + "/" + (parsed.dd || parsed.d) + "/" + (parsed.yyyy || parsed.yy);
 				    var t = dateStr.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
 				    if (t !== null) {
-                        var d=+t[2], m=+t[1], y=+t[3];
+                        var m=+t[1], y=+t[3];
                         if(date.getUTCFullYear() === y && date.getUTCMonth() === m-1) {
                             return date;
                         }
