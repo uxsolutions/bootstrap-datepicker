@@ -1830,7 +1830,7 @@
 				    var t = dateStr.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
 				    if (t !== null) {
                         var m=+t[1], y=+t[3];
-                        if(date.getUTCFullYear() === y && date.getUTCMonth() === m-1) {
+                        if (date.getUTCFullYear() === y && date.getUTCMonth() === m-1) {
                             return date;
                         }
 				    }
