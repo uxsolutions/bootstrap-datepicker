@@ -180,6 +180,7 @@
 		width: 145px;
 	}
 
+    tr.week:hover,
 	.datepicker-switch,
 	.prev,
 	.next,
@@ -188,6 +189,13 @@
 		&:hover {
 			background: @grayLighter;
 		}
+	}
+
+    tr.week.active,
+  	tr.week.active:hover {
+        .buttonBackground(@btnPrimaryBackground, spin(@btnPrimaryBackground, 20));
+        color: #fff;
+        text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 	}
 
 	// Basic styling for calendar-week cells

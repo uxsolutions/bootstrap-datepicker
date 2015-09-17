@@ -177,6 +177,7 @@
 		width: 145px;
 	}
 
+    tr.week:hover,
 	.datepicker-switch,
 	.prev,
 	.next,
@@ -186,6 +187,12 @@
 			background: @gray-lighter;
 		}
 	}
+
+    tr.week.active,
+  	tr.week.active:hover {
+        .button-variant(@btn-primary-color, @btn-primary-bg, @btn-primary-border);
+  		text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+  	}
 
 	// Basic styling for calendar-week cells
 	.cw {
