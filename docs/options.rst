@@ -189,6 +189,36 @@ The date format, combination of d, dd, D, DD, m, mm, M, MM, yy, yyyy.
 * M, MM: Abbreviated and full month names, respectively.  Eg, Jan, January
 * yy, yyyy: 2- and 4-digit years, respectively.  Eg, 12, 2012.
 
+Object.
+
+Custom formatting options
+* format: function (date, format, language) to convert date object to string, that will be stored in input field
+* parse: function (date, format, language) to convert string object to date, that will be used in date selection
+
+::
+
+    $('.datepicker').datepicker({
+            format: {
+                /*
+                Say our UI should display a week ahead,
+                but textbox should store the actual date.
+                This is useful if we need UI to select local dates,
+                but store in UTC
+                */
+                format: function (date, format, language) {
+                    var d = new Date(date);
+                    d.setDate(d.getDate() - 7);
+                    return d.toISOString();
+                },
+                parse: function (date, format, language) {
+                    var d = new Date(date);
+                    d.setDate(d.getDate() + 7);
+                    return new Date(d);
+                }
+            },
+            autoclose: true
+        });
+
 
 immediateUpdates
 ----------------
