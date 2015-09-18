@@ -33,6 +33,53 @@ test('Autoclose', function(){
     datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
 });
 
+test('Custom date formatter functions', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2015-09-18T00:00:00.000Z')
+                .datepicker({
+                    format: {
+                        /*
+                        Say our UI should display a week ahead,
+                        but textbox should store the actual date.
+                        This is useful if we need UI to select local dates,
+                        but store in UTC
+                        */
+                        format: function (date, format, language) {
+                            var d = new Date(date);
+                            d.setDate(d.getDate() - 7);
+                            return d.toISOString();
+                        },
+                        parse: function (date, format, language) {
+                            var d = new Date(date);
+                            d.setDate(d.getDate() + 7);
+                            return new Date(d);
+                        }
+                    },
+                    autoclose: true
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+    //Value is ISO format and is 7 days older than UI
+    equal(input.val(), '2015-09-18T00:00:00.000Z');
+    datesEqual(dp.dates[0], UTCDate(2015, 8, 25));
+    datesEqual(dp.viewDate, UTCDate(2015, 8, 25));
+
+    input.focus();
+    ok(picker.is(':visible'), 'Picker is visible');
+    target = picker.find('.datepicker-days tbody td:nth(5)');
+    equal(target.text(), '4'); // Sep 4
+
+    target.click();
+    ok(picker.is(':not(:visible)'), 'Picker is hidden');
+    //Value is now 28th Aug 2015 in ISO format
+    //and is 7 days older than UI
+    equal(input.val(), '2015-08-28T00:00:00.000Z');
+    datesEqual(dp.dates[0], UTCDate(2015, 8, 4));
+    datesEqual(dp.viewDate, UTCDate(2015, 8, 4));
+});
+
 test('Startview: year view (integer)', function(){
     var input = $('<input />')
                 .appendTo('#qunit-fixture')
