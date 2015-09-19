@@ -79,14 +79,14 @@
 		}
 	}
 	table tr td {
-		&.day:hover,
-		&.day.focused {
-			background: @gray-lighter;
-			cursor: pointer;
-		}
 		&.old,
 		&.new {
 			color: @btn-link-disabled-color;
+		}
+		&.day:hover,
+		&.focused {
+			background: @gray-lighter;
+			cursor: pointer;
 		}
 		&.disabled,
 		&.disabled:hover {
@@ -95,49 +95,80 @@
 			cursor: default;
 		}
 		&.highlighted {
-			background: @state-info-bg;
+			@highlighted-bg: @state-info-bg;
+			.button-variant(#000, @highlighted-bg, darken(@highlighted-bg, 20%));
 			border-radius: 0;
+
+			&.focused {
+				background: darken(@highlighted-bg, 10%);
+			}
+
+			&.disabled,
+			&.disabled:active {
+				background: @highlighted-bg;
+				color: @btn-link-disabled-color;
+			}
 		}
-		&.today,
-		&.today:hover,
-		&.today.disabled,
-		&.today.disabled:hover {
+		&.today {
 			@today-bg: lighten(orange, 30%);
 			.button-variant(#000, @today-bg, darken(@today-bg, 20%));
+
+			&.focused {
+				background: darken(@today-bg, 10%);
+			}
+
+			&.disabled,
+			&.disabled:active {
+				background: @today-bg;
+				color: @btn-link-disabled-color;
+			}
 		}
-		&.today:hover:hover { // Thank bootstrap 2.0 for this selector...
-			// TODO: Bump min BS to 2.1, use @textColor in buttonBackground above
-			color: #000;
-		}
-		&.today.active:hover {
-			color: #fff;
-		}
-		&.range,
-		&.range:hover,
-		&.range.disabled,
-		&.range.disabled:hover {
-			background: @gray-lighter;
+		&.range {
+			@range-bg: @gray-lighter;
+			.button-variant(#000, @range-bg, darken(@range-bg, 20%));
 			border-radius: 0;
+
+			&.focused {
+				background: darken(@range-bg, 10%);
+			}
+
+			&.disabled,
+			&.disabled:active {
+				background: @range-bg;
+				color: @btn-link-disabled-color;
+			}
 		}
-		&.range.today,
-		&.range.today:hover,
-		&.range.today.disabled,
-		&.range.today.disabled:hover {
-			@today-bg: mix(orange, @gray-lighter, 50%);
-			.button-variant(#000, @today-bg, darken(@today-bg, 20%));
-			border-radius: 0;
+		&.range.highlighted {
+			@range-highlighted-bg: mix(@state-info-bg, @gray-lighter, 50%);
+			.button-variant(#000, @range-highlighted-bg, darken(@range-highlighted-bg, 20%));
+
+			&.focused {
+				background: darken(@range-highlighted-bg, 10%);
+			}
+
+			&.disabled,
+			&.disabled:active {
+				background: @range-highlighted-bg;
+				color: @btn-link-disabled-color;
+			}
+		}
+		&.range.today {
+			@range-today-bg: mix(orange, @gray-lighter, 50%);
+			.button-variant(#000, @range-today-bg, darken(@range-today-bg, 20%));
+
+			&.disabled,
+			&.disabled:active {
+				background: @range-today-bg;
+				color: @btn-link-disabled-color;
+			}
 		}
 		&.selected,
-		&.selected:hover,
-		&.selected.disabled,
-		&.selected.disabled:hover {
+		&.selected.highlighted {
 			.button-variant(#fff, @gray-light, @gray);
 			text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 		}
 		&.active,
-		&.active:hover,
-		&.active.disabled,
-		&.active.disabled:hover {
+		&.active.highlighted {
 			.button-variant(@btn-primary-color, @btn-primary-bg, @btn-primary-border);
 			text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 		}
