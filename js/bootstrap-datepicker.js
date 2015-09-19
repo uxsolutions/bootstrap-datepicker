@@ -1612,14 +1612,20 @@
 			}
 			if (typeof option === 'string' && typeof data[option] === 'function'){
 				internal_return = data[option].apply(data, args);
-				if (internal_return !== undefined)
-					return false;
 			}
 		});
-		if (internal_return !== undefined)
-			return internal_return;
-		else
+
+		if (
+			internal_return === undefined ||
+			internal_return instanceof Datepicker ||
+			internal_return instanceof DateRangePicker
+		)
 			return this;
+
+		if (this.length > 1)
+			throw new Error('Using only allowed for the collection of a single element (' + option + ' function)');
+		else
+			return internal_return;
 	};
 	$.fn.datepicker = datepickerPlugin;
 
