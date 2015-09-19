@@ -30,7 +30,7 @@
   display: inline-block;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-  border-bottom: 7px solid #ccc;
+  border-bottom: 7px solid #999999;
   border-top: 0;
   border-bottom-color: rgba(0, 0, 0, 0.2);
   position: absolute;
@@ -65,7 +65,7 @@
 .datepicker-dropdown.datepicker-orient-top:before {
   bottom: -7px;
   border-bottom: 0;
-  border-top: 7px solid #999;
+  border-top: 7px solid #999999;
 }
 .datepicker-dropdown.datepicker-orient-top:after {
   bottom: -6px;
@@ -74,11 +74,6 @@
 }
 .datepicker > div {
   display: none;
-}
-.datepicker.days .datepicker-days,
-.datepicker.months .datepicker-months,
-.datepicker.years .datepicker-years {
-  display: block;
 }
 .datepicker table {
   margin: 0;
