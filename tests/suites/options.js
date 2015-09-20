@@ -45,12 +45,12 @@ test('Custom date formatter functions', function(){
                         This is useful if we need UI to select local dates,
                         but store in UTC
                         */
-                        format: function (date, format, language) {
+                        toDisplay: function (date, format, language) {
                             var d = new Date(date);
                             d.setDate(d.getDate() - 7);
                             return d.toISOString();
                         },
-                        parse: function (date, format, language) {
+                        toValue: function (date, format, language) {
                             var d = new Date(date);
                             d.setDate(d.getDate() + 7);
                             return new Date(d);

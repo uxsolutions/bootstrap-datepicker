@@ -192,8 +192,8 @@ The date format, combination of d, dd, D, DD, m, mm, M, MM, yy, yyyy.
 Object.
 
 Custom formatting options
-* format: function (date, format, language) to convert date object to string, that will be stored in input field
-* parse: function (date, format, language) to convert string object to date, that will be used in date selection
+* toDisplay: function (date, format, language) to convert date object to string, that will be stored in input field
+* toValue: function (date, format, language) to convert string object to date, that will be used in date selection
 
 ::
 
@@ -205,12 +205,12 @@ Custom formatting options
                 This is useful if we need UI to select local dates,
                 but store in UTC
                 */
-                format: function (date, format, language) {
+                toDisplay: function (date, format, language) {
                     var d = new Date(date);
                     d.setDate(d.getDate() - 7);
                     return d.toISOString();
                 },
-                parse: function (date, format, language) {
+                toValue: function (date, format, language) {
                     var d = new Date(date);
                     d.setDate(d.getDate() + 7);
                     return new Date(d);

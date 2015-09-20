@@ -1701,7 +1701,7 @@
 		validParts: /dd?|DD?|mm?|MM?|yy(?:yy)?/g,
 		nonpunctuation: /[^ -\/:-@\[\u3400-\u9fff-`{-~\t\n\r]+/g,
 		parseFormat: function(format){
-			if (format.parse)
+			if (format.toValue && format.toDisplay)
                 return format;
             // IE treats \0 as a string end in inputs (truncating the value),
 			// so it's a bad format delimiter, anyway
@@ -1719,8 +1719,8 @@
 				return date;
 			if (typeof format === 'string')
 				format = DPGlobal.parseFormat(format);
-			if (format.parse)
-                return format.parse(date, format, language);
+			if (format.toValue)
+                return format.toValue(date, format, language);
             var part_re = /([\-+]\d+)([dmwy])/,
 				parts = date.match(/([\-+]\d+)([dmwy])/g),
 				part, dir, i;
@@ -1826,8 +1826,8 @@
 				return '';
 			if (typeof format === 'string')
 				format = DPGlobal.parseFormat(format);
-			if (format.format)
-                return format.format(date, format, language);
+			if (format.toDisplay)
+                return format.toDisplay(date, format, language);
             var val = {
 				d: date.getUTCDate(),
 				D: dates[language].daysShort[date.getUTCDay()],
