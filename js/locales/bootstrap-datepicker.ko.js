@@ -13,6 +13,6 @@
 		clear: "투명",
 		format: "YYYY-MM-DD",
 		titleFormat: "yyyy년mm월",
-		weekStart: 1
+		weekStart: 0
 	};
 }(jQuery));
