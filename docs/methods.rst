@@ -1,7 +1,9 @@
 Methods
 =======
 
-Methods are called on a datepicker by call the ``datepicker`` function with a string first argument, followed by any arguments the method takes::
+Methods are called on a datepicker by call the ``datepicker`` function with a string first argument, followed by any arguments the method takes
+
+::
 
     $('.datepicker').datepicker('method', arg1, arg2);
 
@@ -52,6 +54,7 @@ To reset the datepicker and clear the selected date, pass an empty string with `
 ::
 
     $('.datepicker').datepicker('update', '');
+
 
 setDate
 -------

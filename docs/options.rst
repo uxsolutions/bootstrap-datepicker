@@ -103,7 +103,7 @@ daysOfWeekDisabled
 
 String, Array.  Default: []
 
-Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday). Multiple values should be comma-separated. Example: disable weekends: ``06`` or ``'0,6'`` or ``[0,6]``.
+Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday). Multiple values should be comma-separated. Example: disable weekends: ``'06'`` or ``'0,6'`` or ``[0,6]``.
 
 .. figure:: _static/screenshots/option_daysofweekdisabled.png
     :align: center
@@ -116,7 +116,7 @@ daysOfWeekHighlighted
 
 String, Array.  Default: []
 
-Days of the week that should be highlighted. Values are 0 (Sunday) to 6 (Saturday). Multiple values should be comma-separated. Example: highlight weekends: ``06`` or ``'0,6'`` or ``[0,6]``.
+Days of the week that should be highlighted. Values are 0 (Sunday) to 6 (Saturday). Multiple values should be comma-separated. Example: highlight weekends: ``'06'`` or ``'0,6'`` or ``[0,6]``.
 
 .. _datesdisabled:
 
@@ -163,7 +163,7 @@ The latest date that may be selected; all later dates will be disabled.
 
 .. code-block:: html
 
-    <input type="text" bootstrap-datepicker data-date-end-date="0d"/>
+    <input type="text" data-provide="datepicker" data-date-end-date="0d">
 
 Will disable all dates after today.
 
@@ -201,7 +201,7 @@ If true, selecting a year or month in the datepicker will update the input value
 inputs
 ------
 
-Array.  Default: None
+Array, jQuery. Default: None
 
 A list of inputs to be used in a range picker, which will be attached to the selected element.  Allows for explicitly creating a range picker on a non-standard element.
 
@@ -212,8 +212,10 @@ A list of inputs to be used in a range picker, which will be attached to the sel
        <input type="text" class="actual_range">
     </div>
 
+::
+
     $('#event_period').datepicker({
-          inputs: $('.actual_range').toArray()
+       inputs: $('.actual_range')
     });
 
 
