@@ -1,11 +1,13 @@
 Events
 ======
 
-Datepicker triggers a number of events in certain circumstances.  All events have extra data attached to the event object that is passed to any event handlers::
+Datepicker triggers a number of events in certain circumstances.  All events have extra data attached to the event object that is passed to any event handlers
+
+::
 
     $('.datepicker').datepicker()
-        .on(picker_event, function(e){
-            # `e` here contains the extra attributes
+        .on(picker_event, function(e) {
+            // `e` here contains the extra attributes
         });
 
 * ``date``: the relevant Date object, in local timezone.  For a multidate picker, this will be the latest date picked.

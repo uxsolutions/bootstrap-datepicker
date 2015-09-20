@@ -46,30 +46,45 @@
   background-color: @background;
   border-color: @border;
 
-  &:hover,
   &:focus,
-  &:active,
-  &.active,
-  .open .dropdown-toggle& {
+  &.focus {
     color: @color;
-    background-color: darken(@background, 8%);
+    background-color: darken(@background, 10%);
+        border-color: darken(@border, 25%);
+  }
+  &:hover {
+    color: @color;
+    background-color: darken(@background, 10%);
         border-color: darken(@border, 12%);
   }
   &:active,
   &.active,
-  .open .dropdown-toggle& {
+  .open > .dropdown-toggle& {
+    color: @color;
+    background-color: darken(@background, 10%);
+        border-color: darken(@border, 12%);
+
+    &:hover,
+    &:focus,
+    &.focus {
+      color: @color;
+      background-color: darken(@background, 17%);
+          border-color: darken(@border, 25%);
+    }
+  }
+  &:active,
+  &.active,
+  .open > .dropdown-toggle& {
     background-image: none;
   }
   &.disabled,
   &[disabled],
   fieldset[disabled] & {
-    &,
     &:hover,
     &:focus,
-    &:active,
-    &.active {
+    &.focus {
       background-color: @background;
-          border-color: @border
+          border-color: @border;
     }
   }
 }
