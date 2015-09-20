@@ -455,6 +455,7 @@
 
 			this.element.trigger({
 				type: event,
+				namespace: 'bsDatepicker',
 				date: local_date,
 				dates: $.map(this.dates, this._utc_to_local),
 				format: $.proxy(function(ix, format){

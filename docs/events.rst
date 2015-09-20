@@ -5,6 +5,7 @@ Datepicker triggers a number of events in certain circumstances.  All events hav
 
     $('.datepicker').datepicker()
         .on(picker_event, function(e){
+            # all the events are qualified by the namespace `bsDatepicker`. `picker_event` looks something like this: `show.bsDatepicker`
             # `e` here contains the extra attributes
         });
 
