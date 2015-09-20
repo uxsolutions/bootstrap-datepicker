@@ -1,7 +1,9 @@
 I18N
 ====
 
-The plugin supports i18n for the month and weekday names and the ``weekStart`` option.  The default is English ("en"); other available translations are available in the ``js/locales/`` directory, simply include your desired locale after the plugin.  To add more languages, simply add a key to ``$.fn.datepicker.dates``, before calling ``.datepicker()``.  Example::
+The plugin supports i18n for the month and weekday names and the ``weekStart`` option.  The default is English ("en"); other available translations are available in the ``js/locales/`` directory, simply include your desired locale after the plugin.  To add more languages, simply add a key to ``$.fn.datepicker.dates``, before calling ``.datepicker()``.  Example
+
+::
 
     $.fn.datepicker.dates['en'] = {
         days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
