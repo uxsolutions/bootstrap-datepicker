@@ -1757,7 +1757,12 @@
 						return d.setUTCFullYear(v);
 					},
 					yy: function(d,v){
-						return d.setUTCFullYear(2000+v);
+						if (v < 20) {
+					    //TODO. take out "20" in settings
+							return d.setUTCFullYear(2000 + v);
+						} else {
+							return d.setUTCFullYear(1900 + v);
+						}
 					},
 					m: function(d,v){
 						if (isNaN(d))
