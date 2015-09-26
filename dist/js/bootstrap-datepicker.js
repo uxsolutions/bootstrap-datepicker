@@ -1596,14 +1596,20 @@
 			}
 			if (typeof option === 'string' && typeof data[option] === 'function'){
 				internal_return = data[option].apply(data, args);
-				if (internal_return !== undefined)
-					return false;
 			}
 		});
-		if (internal_return !== undefined)
-			return internal_return;
-		else
+
+		if (
+			internal_return === undefined ||
+			internal_return instanceof Datepicker ||
+			internal_return instanceof DateRangePicker
+		)
 			return this;
+
+		if (this.length > 1)
+			throw new Error('Using only allowed for the collection of a single element (' + option + ' function)');
+		else
+			return internal_return;
 	};
 	$.fn.datepicker = datepickerPlugin;
 
@@ -1685,7 +1691,9 @@
 		validParts: /dd?|DD?|mm?|MM?|yy(?:yy)?/g,
 		nonpunctuation: /[^ -\/:-@\[\u3400-\u9fff-`{-~\t\n\r]+/g,
 		parseFormat: function(format){
-			// IE treats \0 as a string end in inputs (truncating the value),
+			if (typeof format.toValue === 'function' && typeof format.toDisplay === 'function')
+                return format;
+            // IE treats \0 as a string end in inputs (truncating the value),
 			// so it's a bad format delimiter, anyway
 			var separators = format.replace(this.validParts, '\0').split('\0'),
 				parts = format.match(this.validParts);
@@ -1701,7 +1709,9 @@
 				return date;
 			if (typeof format === 'string')
 				format = DPGlobal.parseFormat(format);
-			var part_re = /([\-+]\d+)([dmwy])/,
+			if (format.toValue)
+                return format.toValue(date, format, language);
+            var part_re = /([\-+]\d+)([dmwy])/,
 				parts = date.match(/([\-+]\d+)([dmwy])/g),
 				part, dir, i;
 			if (/^[\-+]\d+[dmwy]([\s,]+[\-+]\d+[dmwy])*$/.test(date)){
@@ -1806,7 +1816,9 @@
 				return '';
 			if (typeof format === 'string')
 				format = DPGlobal.parseFormat(format);
-			var val = {
+			if (format.toDisplay)
+                return format.toDisplay(date, format, language);
+            var val = {
 				d: date.getUTCDate(),
 				D: dates[language].daysShort[date.getUTCDay()],
 				DD: dates[language].days[date.getUTCDay()],
