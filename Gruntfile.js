@@ -166,8 +166,8 @@ module.exports = function(grunt){
                 }],
                 options: {
                     replacements: [{
-                        pattern: '$.fn.datepicker.version =  "1.4.0";',
-                        replacement: '$.fn.datepicker.version =  "' + grunt.option('newver') + '";'
+                        pattern: /\$(\.fn\.datepicker\.version)\s=\s*("|\')[0-9\.a-z].*("|');/gi,
+                        replacement: "$.fn.datepicker.version = '" + grunt.option('newver') + "';"
                     }]
                 }
             },
@@ -178,7 +178,7 @@ module.exports = function(grunt){
                 }],
                 options: {
                     replacements: [{
-                        pattern: '"version": "1.4.0",',
+                        pattern: /\"version\":\s\"[0-9\.a-z].*",/gi,
                         replacement: '"version": "' + grunt.option('newver') + '",'
                     }]
                 }
@@ -190,7 +190,7 @@ module.exports = function(grunt){
                 }],
                 options: {
                     replacements: [{
-                        pattern: '"version": "1.4.0",',
+                        pattern: /\"version\":\s\"[0-9\.a-z].*",/gi,
                         replacement: '"version": "' + grunt.option('newver') + '",'
                     }]
                 }
