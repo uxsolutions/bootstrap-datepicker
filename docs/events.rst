@@ -48,3 +48,8 @@ changeMonth
 -----------
 
 Fired when the *view* month is changed from year view.
+
+afterChange
+-----------
+
+Fired after the view has been rendered.
