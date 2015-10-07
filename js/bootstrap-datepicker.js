@@ -1070,6 +1070,7 @@
 				year += 1;
 			}
 			yearCont.html(html);
+			this._trigger('afterFill');
 		},
 
 		updateNavArrows: function(){
