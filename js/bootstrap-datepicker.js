@@ -1089,8 +1089,8 @@
 						tooltip = before.tooltip;
 				}
 
-				html += '<span class="' + clsName.join(' ') + '"' + (tooltip ? ' title="'+tooltip+'"' : '') + '>' + year + '</span>';
-				year += 1;
+				html += '<span class="' + clsName.join(' ') + '"' + (tooltip ? ' title="'+tooltip+'"' : '') + '>' + thisYear + '</span>';
+				thisYear += 1;
 			}
 			this.picker.find('.datepicker-years td').html(html);
 
