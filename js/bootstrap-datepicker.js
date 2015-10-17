@@ -178,6 +178,14 @@
 			o.language = lang;
 
 			switch (o.startView){
+				case 4:
+				case 'millennium':
+					o.startView = 4;
+					break;
+				case 3:
+				case 'century':
+					o.startView = 3;
+					break;
 				case 2:
 				case 'decade':
 					o.startView = 2;
@@ -199,6 +207,14 @@
 				case 'years':
 					o.minViewMode = 2;
 					break;
+				case 3:
+				case 'decades':
+					o.minViewMode = 3;
+					break;
+				case 4:
+				case 'centuries':
+					o.minViewMode = 4;
+					break;
 				default:
 					o.minViewMode = 0;
 			}
@@ -212,8 +228,16 @@
 				case 'months':
 					o.maxViewMode = 1;
 					break;
-				default:
+				case 2:
+				case 'years':
 					o.maxViewMode = 2;
+					break;
+				case 3:
+				case 'decades':
+					o.maxViewMode = 3;
+					break;
+				default:
+					o.maxViewMode = 4;
 			}
 
 			o.startView = Math.min(o.startView, o.maxViewMode);
@@ -916,7 +940,8 @@
 				todaytxt = dates[this.o.language].today || dates['en'].today || '',
 				cleartxt = dates[this.o.language].clear || dates['en'].clear || '',
 				titleFormat = dates[this.o.language].titleFormat || dates['en'].titleFormat,
-				tooltip;
+				tooltip,
+				before;
 			if (isNaN(year) || isNaN(month))
 				return;
 			this.picker.find('.datepicker-days thead .datepicker-switch')
@@ -967,7 +992,7 @@
 				clsName.push('day');
 
 				if (this.o.beforeShowDay !== $.noop){
-					var before = this.o.beforeShowDay(this._utc_to_local(prevMonth));
+					before = this.o.beforeShowDay(this._utc_to_local(prevMonth));
 					if (before === undefined)
 						before = {};
 					else if (typeof(before) === 'boolean')
@@ -1025,51 +1050,137 @@
 				});
 			}
 
+			var i;
+
+			// Generating decade/years picker
 			html = '';
-			year = parseInt(year/10, 10) * 10;
-			var yearCont = this.picker.find('.datepicker-years')
-								.find('.datepicker-switch')
-									.text(year + '-' + (year + 9))
-									.end()
-								.find('td');
-			year -= 1;
-			var years = $.map(this.dates, function(d){
-					return d.getUTCFullYear();
-				}),
-				classes;
-			for (var i = -1; i < 11; i++){
-				classes = ['year'];
+			var decade = parseInt(year/10, 10) * 10;
+			var years = $.map(this.dates, function(d){ return d.getUTCFullYear(); });
+
+			this.picker.find('.datepicker-years .datepicker-switch').text(decade + '-' + (decade + 9));
+
+			var thisYear = decade - 1;
+			for (i = -1; i < 11; i++){
+				clsName = ['year'];
 				tooltip = null;
 
 				if (i === -1)
-					classes.push('old');
+					clsName.push('old');
 				else if (i === 10)
-					classes.push('new');
-				if ($.inArray(year, years) !== -1)
-					classes.push('active');
-				if (year < startYear || year > endYear)
-					classes.push('disabled');
+					clsName.push('new');
+				if ($.inArray(thisYear, years) !== -1)
+					clsName.push('active');
+				if (year < startYear || thisYear > endYear)
+					clsName.push('disabled');
 
 				if (this.o.beforeShowYear !== $.noop) {
-					var yrBefore = this.o.beforeShowYear(new Date(year, 0, 1));
-					if (yrBefore === undefined)
-						yrBefore = {};
-					else if (typeof(yrBefore) === 'boolean')
-						yrBefore = {enabled: yrBefore};
-					else if (typeof(yrBefore) === 'string')
-						yrBefore = {classes: yrBefore};
-					if (yrBefore.enabled === false)
-						classes.push('disabled');
-					if (yrBefore.classes)
-						classes = classes.concat(yrBefore.classes.split(/\s+/));
-					if (yrBefore.tooltip)
-						tooltip = yrBefore.tooltip;
+					before = this.o.beforeShowYear(new Date(thisYear, 0, 1));
+					if (before === undefined)
+						before = {};
+					else if (typeof(before) === 'boolean')
+						before = {enabled: before};
+					else if (typeof(before) === 'string')
+						before = {classes: before};
+					if (before.enabled === false)
+						clsName.push('disabled');
+					if (before.classes)
+						clsName = clsName.concat(before.classes.split(/\s+/));
+					if (before.tooltip)
+						tooltip = before.tooltip;
 				}
 
-				html += '<span class="' + classes.join(' ') + '"' + (tooltip ? ' title="'+tooltip+'"' : '') + '>' + year + '</span>';
+				html += '<span class="' + clsName.join(' ') + '"' + (tooltip ? ' title="'+tooltip+'"' : '') + '>' + year + '</span>';
 				year += 1;
 			}
-			yearCont.html(html);
+			this.picker.find('.datepicker-years td').html(html);
+
+			// Generating century/decades picker
+			html = '';
+			var century = parseInt(year/100, 10) * 100;
+			var decades = $.map(this.dates, function(d){ return parseInt(d.getUTCFullYear()/10, 10) * 10; });
+			var startDecade = parseInt(startYear/10, 10) * 10;
+			var endDecade = parseInt(endYear/10, 10) * 10;
+
+			this.picker.find('.datepicker-decades .datepicker-switch').text(century + '-' + (century + 90));
+
+			var thisDecade = century - 10;
+			for (i = -1; i < 11; i += 1) {
+				clsName = ['decade'];
+				tooltip = null;
+
+				if (i === -1)
+					clsName.push('old');
+				else if (i === 10)
+					clsName.push('new');
+				if ($.inArray(thisDecade, decades) !== -1)
+					clsName.push('active');
+				if (thisDecade < startDecade || thisDecade > endDecade)
+					clsName.push('disabled');
+
+				if (this.o.beforeShowDecade !== $.noop) {
+					before = this.o.beforeShowDecade(new Date(thisDecade, 0, 1));
+					if (before === undefined)
+						before = {};
+					else if (typeof(before) === 'boolean')
+						before = {enabled: before};
+					else if (typeof(before) === 'string')
+						before = {classes: before};
+					if (before.enabled === false)
+						clsName.push('disabled');
+					if (before.classes)
+						clsName = clsName.concat(before.classes.split(/\s+/));
+					if (before.tooltip)
+						tooltip = before.tooltip;
+				}
+
+				html += '<span class="' + clsName.join(' ') + '"' + (tooltip ? ' title="' + tooltip + '"' : '') + '>' + thisDecade + '</span>';
+				thisDecade += 10;
+			}
+			this.picker.find('.datepicker-decades td').html(html);
+
+			// Generating millennium/centuries picker
+			html = '';
+			var millennium = parseInt(year/1000, 10) * 1000;
+			var centuries = $.map(this.dates, function(d){ return parseInt(d.getUTCFullYear()/100, 10) * 100; });
+			var startCentury = parseInt(startYear/100, 10) * 100;
+			var endCentury = parseInt(endYear/100, 10) * 100;
+
+			this.picker.find('.datepicker-centuries .datepicker-switch').text(millennium + '-' + (millennium + 900));
+
+			var thisCentury = millennium - 100;
+			for (i = -1; i < 11; i += 1) {
+				clsName = ['century'];
+				tooltip = null;
+
+				if (i === -1)
+					clsName.push('old');
+				else if (i === 10)
+					clsName.push('new');
+				if ($.inArray(thisCentury, centuries) !== -1)
+					clsName.push('active');
+				if (thisCentury < startCentury || thisCentury > endCentury)
+					clsName.push('disabled');
+
+				if (this.o.beforeShowCentury !== $.noop) {
+					before = this.o.beforeShowCentury(new Date(thisCentury, 0, 1));
+					if (before === undefined)
+						before = {};
+					else if (typeof(before) === 'boolean')
+						before = {enabled: before};
+					else if (typeof(before) === 'string')
+						before = {classes: before};
+					if (before.enabled === false)
+						clsName.push('disabled');
+					if (before.classes)
+						clsName = clsName.concat(before.classes.split(/\s+/));
+					if (before.tooltip)
+						tooltip = before.tooltip;
+				}
+
+				html += '<span class="' + clsName.join(' ') + '"' + (tooltip ? ' title="' + tooltip + '"' : '') + '>' + thisCentury + '</span>';
+				thisCentury += 100;
+			}
+			this.picker.find('.datepicker-centuries td').html(html);
 		},
 
 		updateNavArrows: function(){
@@ -1096,6 +1207,8 @@
 					break;
 				case 1:
 				case 2:
+				case 3:
+				case 4:
 					if (this.o.startDate !== -Infinity && year <= this.o.startDate.getUTCFullYear() || this.o.maxViewMode < 2){
 						this.picker.find('.prev').css({visibility: 'hidden'});
 					}
@@ -1134,6 +1247,8 @@
 										break;
 									case 1:
 									case 2:
+									case 3:
+									case 4:
 										this.viewDate = this.moveYear(this.viewDate, dir);
 										if (this.viewMode === 1)
 											this._trigger('changeYear', this.viewDate);
@@ -1175,8 +1290,17 @@
 								month = 0;
 								year = parseInt(target.text(), 10)||0;
 								this.viewDate.setUTCFullYear(year);
-								this._trigger('changeYear', this.viewDate);
-								if (this.o.minViewMode === 2){
+
+								var trigger = target.hasClass('year') ? 'Year' : (
+									target.hasClass('decade') ? 'Decade' : 'Century'
+								);
+								this._trigger('change' + trigger, this.viewDate);
+
+								var shouldSetDate = (this.o.minViewMode === 4 ||
+									(this.o.minViewMode === 2 && target.hasClass('year')) ||
+									(this.o.minViewMode === 3 && target.hasClass('decade'))
+								);
+								if (shouldSetDate){
 									this._setDate(UTCDate(year, month, day));
 								}
 								this.showMode(-1);
@@ -1634,6 +1758,8 @@
 		beforeShowDay: $.noop,
 		beforeShowMonth: $.noop,
 		beforeShowYear: $.noop,
+		beforeShowDecade: $.noop,
+		beforeShowCentury: $.noop,
 		calendarWeeks: false,
 		clearBtn: false,
 		toggleActive: false,
@@ -1646,7 +1772,7 @@
 		keyboardNavigation: true,
 		language: 'en',
 		minViewMode: 0,
-		maxViewMode: 2,
+		maxViewMode: 4,
 		multidate: false,
 		multidateSeparator: ',',
 		orientation: "auto",
@@ -1697,6 +1823,16 @@
 				clsName: 'years',
 				navFnc: 'FullYear',
 				navStep: 10
+			},
+			{
+				clsName: 'decades',
+				navFnc: 'FullDecade',
+				navStep: 100
+			},
+			{
+				clsName: 'centuries',
+				navFnc: 'FullCentury',
+				navStep: 1000
 		}],
 		isLeapYear: function(year){
 			return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0));
@@ -1891,6 +2027,20 @@
 								'</table>'+
 							'</div>'+
 							'<div class="datepicker-years">'+
+								'<table class="table-condensed">'+
+									DPGlobal.headTemplate+
+									DPGlobal.contTemplate+
+									DPGlobal.footTemplate+
+								'</table>'+
+							'</div>'+
+							'<div class="datepicker-decades">'+
+								'<table class="table-condensed">'+
+									DPGlobal.headTemplate+
+									DPGlobal.contTemplate+
+									DPGlobal.footTemplate+
+								'</table>'+
+							'</div>'+
+							'<div class="datepicker-centuries">'+
 								'<table class="table-condensed">'+
 									DPGlobal.headTemplate+
 									DPGlobal.contTemplate+
