@@ -1067,8 +1067,6 @@
 				});
 			}
 
-			var i;
-
 			// Generating decade/years picker
 			this._fill_yearsView(
 				'.datepicker-years',
