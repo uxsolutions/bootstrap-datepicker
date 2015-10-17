@@ -161,6 +161,25 @@
 	Datepicker.prototype = {
 		constructor: Datepicker,
 
+		_resolveViewName: function(view, default_value){
+			if (view === 0 || view === 'days' || view === 'month') {
+				return 0;
+			}
+			if (view === 1 || view === 'months' || view === 'year') {
+				return 1;
+			}
+			if (view === 2 || view === 'years' || view === 'decade') {
+				return 2;
+			}
+			if (view === 3 || view === 'decades' || view === 'century') {
+				return 3;
+			}
+			if (view === 4 || view === 'centuries' || view === 'millennium') {
+				return 4;
+			}
+			return default_value === undefined ? false : default_value;
+		},
+
 		_process_options: function(opts){
 			// Store raw options for reference
 			this._o = $.extend({}, this._o, opts);
@@ -177,69 +196,12 @@
 			}
 			o.language = lang;
 
-			switch (o.startView){
-				case 4:
-				case 'millennium':
-					o.startView = 4;
-					break;
-				case 3:
-				case 'century':
-					o.startView = 3;
-					break;
-				case 2:
-				case 'decade':
-					o.startView = 2;
-					break;
-				case 1:
-				case 'year':
-					o.startView = 1;
-					break;
-				default:
-					o.startView = 0;
-			}
+			// Retrieve view index from any aliases
+			o.startView = this._resolveViewName(o.startView, 0);
+			o.minViewMode = this._resolveViewName(o.minViewMode, 0);
+			o.maxViewMode = this._resolveViewName(o.maxViewMode, 4);
 
-			switch (o.minViewMode){
-				case 1:
-				case 'months':
-					o.minViewMode = 1;
-					break;
-				case 2:
-				case 'years':
-					o.minViewMode = 2;
-					break;
-				case 3:
-				case 'decades':
-					o.minViewMode = 3;
-					break;
-				case 4:
-				case 'centuries':
-					o.minViewMode = 4;
-					break;
-				default:
-					o.minViewMode = 0;
-			}
-
-			switch (o.maxViewMode) {
-				case 0:
-				case 'days':
-					o.maxViewMode = 0;
-					break;
-				case 1:
-				case 'months':
-					o.maxViewMode = 1;
-					break;
-				case 2:
-				case 'years':
-					o.maxViewMode = 2;
-					break;
-				case 3:
-				case 'decades':
-					o.maxViewMode = 3;
-					break;
-				default:
-					o.maxViewMode = 4;
-			}
-
+			// Check that the start view is between min and max
 			o.startView = Math.min(o.startView, o.maxViewMode);
 			o.startView = Math.max(o.startView, o.minViewMode);
 
@@ -929,6 +891,61 @@
 			return cls;
 		},
 
+		_fill_yearsView: function (selector, cssClass, factor, step, currentYear, startYear, endYear, callback) {
+			var html, view, year, steps, startStep, endStep, thisYear, i, classes, tooltip, before;
+
+			html      = '';
+			view      = this.picker.find(selector);
+			year      = parseInt(currentYear / factor, 10) * factor;
+			steps     = $.map(this.dates, function (d) { return parseInt(d.getUTCFullYear() / step, 10) * step; });
+			startStep = parseInt(startYear / step, 10) * step;
+			endStep   = parseInt(endYear / step, 10) * step;
+
+			view.find('.datepicker-switch').text(year + '-' + (year + step * 9));
+
+			thisYear = year - step;
+			for (i = -1; i < 11; i += 1) {
+				classes = [cssClass];
+				tooltip = null;
+
+				if (i === -1) {
+					classes.push('old');
+				} else if (i === 10) {
+					classes.push('new');
+				}
+				if ($.inArray(thisYear, steps) !== -1) {
+					classes.push('active');
+				}
+				if (thisYear < startStep || thisYear > endStep) {
+					classes.push('disabled');
+				}
+
+				if (callback !== $.noop) {
+					before = callback(new Date(thisYear, 0, 1));
+					if (before === undefined) {
+						before = {};
+					} else if (typeof(before) === 'boolean') {
+						before = { enabled: before };
+					} else if (typeof(before) === 'string') {
+						before = { classes: before };
+					}
+					if (before.enabled === false) {
+						classes.push('disabled');
+					}
+					if (before.classes) {
+						classes = classes.concat(before.classes.split(/\s+/));
+					}
+					if (before.tooltip) {
+						tooltip = before.tooltip;
+					}
+				}
+
+				html += '<span class="' + classes.join(' ') + '"' + (tooltip ? ' title="' + tooltip + '"' : '') + '>' + thisYear + '</span>';
+				thisYear += step;
+			}
+			view.find('td').html(html);
+		},
+
 		fill: function(){
 			var d = new Date(this.viewDate),
 				year = d.getUTCFullYear(),
@@ -1053,134 +1070,40 @@
 			var i;
 
 			// Generating decade/years picker
-			html = '';
-			var decade = parseInt(year/10, 10) * 10;
-			var years = $.map(this.dates, function(d){ return d.getUTCFullYear(); });
-
-			this.picker.find('.datepicker-years .datepicker-switch').text(decade + '-' + (decade + 9));
-
-			var thisYear = decade - 1;
-			for (i = -1; i < 11; i++){
-				clsName = ['year'];
-				tooltip = null;
-
-				if (i === -1)
-					clsName.push('old');
-				else if (i === 10)
-					clsName.push('new');
-				if ($.inArray(thisYear, years) !== -1)
-					clsName.push('active');
-				if (year < startYear || thisYear > endYear)
-					clsName.push('disabled');
-
-				if (this.o.beforeShowYear !== $.noop) {
-					before = this.o.beforeShowYear(new Date(thisYear, 0, 1));
-					if (before === undefined)
-						before = {};
-					else if (typeof(before) === 'boolean')
-						before = {enabled: before};
-					else if (typeof(before) === 'string')
-						before = {classes: before};
-					if (before.enabled === false)
-						clsName.push('disabled');
-					if (before.classes)
-						clsName = clsName.concat(before.classes.split(/\s+/));
-					if (before.tooltip)
-						tooltip = before.tooltip;
-				}
-
-				html += '<span class="' + clsName.join(' ') + '"' + (tooltip ? ' title="'+tooltip+'"' : '') + '>' + thisYear + '</span>';
-				thisYear += 1;
-			}
-			this.picker.find('.datepicker-years td').html(html);
+			this._fill_yearsView(
+				'.datepicker-years',
+				'year',
+				10,
+				1,
+				year,
+				startYear,
+				endYear,
+				this.o.beforeShowYear
+			);
 
 			// Generating century/decades picker
-			html = '';
-			var century = parseInt(year/100, 10) * 100;
-			var decades = $.map(this.dates, function(d){ return parseInt(d.getUTCFullYear()/10, 10) * 10; });
-			var startDecade = parseInt(startYear/10, 10) * 10;
-			var endDecade = parseInt(endYear/10, 10) * 10;
-
-			this.picker.find('.datepicker-decades .datepicker-switch').text(century + '-' + (century + 90));
-
-			var thisDecade = century - 10;
-			for (i = -1; i < 11; i += 1) {
-				clsName = ['decade'];
-				tooltip = null;
-
-				if (i === -1)
-					clsName.push('old');
-				else if (i === 10)
-					clsName.push('new');
-				if ($.inArray(thisDecade, decades) !== -1)
-					clsName.push('active');
-				if (thisDecade < startDecade || thisDecade > endDecade)
-					clsName.push('disabled');
-
-				if (this.o.beforeShowDecade !== $.noop) {
-					before = this.o.beforeShowDecade(new Date(thisDecade, 0, 1));
-					if (before === undefined)
-						before = {};
-					else if (typeof(before) === 'boolean')
-						before = {enabled: before};
-					else if (typeof(before) === 'string')
-						before = {classes: before};
-					if (before.enabled === false)
-						clsName.push('disabled');
-					if (before.classes)
-						clsName = clsName.concat(before.classes.split(/\s+/));
-					if (before.tooltip)
-						tooltip = before.tooltip;
-				}
-
-				html += '<span class="' + clsName.join(' ') + '"' + (tooltip ? ' title="' + tooltip + '"' : '') + '>' + thisDecade + '</span>';
-				thisDecade += 10;
-			}
-			this.picker.find('.datepicker-decades td').html(html);
+			this._fill_yearsView(
+				'.datepicker-decades',
+				'decade',
+				100,
+				10,
+				year,
+				startYear,
+				endYear,
+				this.o.beforeShowDecade
+			);
 
 			// Generating millennium/centuries picker
-			html = '';
-			var millennium = parseInt(year/1000, 10) * 1000;
-			var centuries = $.map(this.dates, function(d){ return parseInt(d.getUTCFullYear()/100, 10) * 100; });
-			var startCentury = parseInt(startYear/100, 10) * 100;
-			var endCentury = parseInt(endYear/100, 10) * 100;
-
-			this.picker.find('.datepicker-centuries .datepicker-switch').text(millennium + '-' + (millennium + 900));
-
-			var thisCentury = millennium - 100;
-			for (i = -1; i < 11; i += 1) {
-				clsName = ['century'];
-				tooltip = null;
-
-				if (i === -1)
-					clsName.push('old');
-				else if (i === 10)
-					clsName.push('new');
-				if ($.inArray(thisCentury, centuries) !== -1)
-					clsName.push('active');
-				if (thisCentury < startCentury || thisCentury > endCentury)
-					clsName.push('disabled');
-
-				if (this.o.beforeShowCentury !== $.noop) {
-					before = this.o.beforeShowCentury(new Date(thisCentury, 0, 1));
-					if (before === undefined)
-						before = {};
-					else if (typeof(before) === 'boolean')
-						before = {enabled: before};
-					else if (typeof(before) === 'string')
-						before = {classes: before};
-					if (before.enabled === false)
-						clsName.push('disabled');
-					if (before.classes)
-						clsName = clsName.concat(before.classes.split(/\s+/));
-					if (before.tooltip)
-						tooltip = before.tooltip;
-				}
-
-				html += '<span class="' + clsName.join(' ') + '"' + (tooltip ? ' title="' + tooltip + '"' : '') + '>' + thisCentury + '</span>';
-				thisCentury += 100;
-			}
-			this.picker.find('.datepicker-centuries td').html(html);
+			this._fill_yearsView(
+				'.datepicker-centuries',
+				'century',
+				1000,
+				100,
+				year,
+				startYear,
+				endYear,
+				this.o.beforeShowCentury
+			);
 		},
 
 		updateNavArrows: function(){
