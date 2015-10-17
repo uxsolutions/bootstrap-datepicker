@@ -1234,3 +1234,20 @@ test('Z-index Offset: with value', function(){
     equal(dp.o.zIndexOffset, 1000, 'Z-index offset option is accepted.');
     equal(picker.css('z-index'), 1234, 'Picker Z-index offset is respected.');
 });
+
+test('templates', function(){
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .datepicker({
+                templates: {
+                    leftArrow: '&laquo;',
+                    rightArrow: '</table>'
+                }
+            }),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+
+    input.focus();
+    equal(picker.find('.datepicker-days .prev').prop('innerHTML'), $('<div>').html('&laquo;').text());
+    equal(picker.find('.datepicker-days .next').prop('innerHTML'), '<span class="glyphicon glyphicon-arrow-right"></span>');
+});
