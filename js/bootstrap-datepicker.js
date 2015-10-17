@@ -891,15 +891,17 @@
 			return cls;
 		},
 
-		_fill_yearsView: function (selector, cssClass, factor, step, currentYear, startYear, endYear, callback) {
+		_fill_yearsView: function(selector, cssClass, factor, step, currentYear, startYear, endYear, callback){
 			var html, view, year, steps, startStep, endStep, thisYear, i, classes, tooltip, before;
 
 			html      = '';
 			view      = this.picker.find(selector);
 			year      = parseInt(currentYear / factor, 10) * factor;
-			steps     = $.map(this.dates, function (d) { return parseInt(d.getUTCFullYear() / step, 10) * step; });
 			startStep = parseInt(startYear / step, 10) * step;
 			endStep   = parseInt(endYear / step, 10) * step;
+			steps     = $.map(this.dates, function(d){
+				return parseInt(d.getUTCFullYear() / step, 10) * step;
+			});
 
 			view.find('.datepicker-switch').text(year + '-' + (year + step * 9));
 
@@ -925,9 +927,9 @@
 					if (before === undefined) {
 						before = {};
 					} else if (typeof(before) === 'boolean') {
-						before = { enabled: before };
+						before = {enabled: before};
 					} else if (typeof(before) === 'string') {
-						before = { classes: before };
+						before = {classes: before};
 					}
 					if (before.enabled === false) {
 						classes.push('disabled');
