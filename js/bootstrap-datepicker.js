@@ -636,12 +636,20 @@
 				return DPGlobal.formatDate(d, format, lang);
 			}).join(this.o.multidateSeparator);
 		},
+		
+		getStartDate: function(){
+			return this._utc_to_local(this.o.startDate);
+		},
 
 		setStartDate: function(startDate){
 			this._process_options({startDate: startDate});
 			this.update();
 			this.updateNavArrows();
 			return this;
+		},
+		
+		getEndDate: function(){
+			return this._utc_to_local(this.o.endDate);
 		},
 
 		setEndDate: function(endDate){
