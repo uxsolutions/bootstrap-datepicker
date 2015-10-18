@@ -1912,7 +1912,7 @@
 
 	/* DATEPICKER VERSION
 	 * =================== */
-	$.fn.datepicker.version = '1.5.0';
+	$.fn.datepicker.version = '1.6.0-dev';
 
 	/* DATEPICKER DATA-API
 	* ================== */
