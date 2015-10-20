@@ -693,6 +693,10 @@
 			var left = offset.left - appendOffset.left,
 				top = offset.top - appendOffset.top;
 
+			if (this.o.container !== 'body') {
+				top += scrollTop;
+			}
+
 			this.picker.removeClass(
 				'datepicker-orient-top datepicker-orient-bottom '+
 				'datepicker-orient-right datepicker-orient-left'
