@@ -100,6 +100,7 @@
 	// Picker object
 
 	var Datepicker = function(element, options){
+		$(element).data('datepicker', this);
 		this._process_options(options);
 
 		this.dates = new DateArray();
@@ -1471,6 +1472,7 @@
 	};
 
 	var DateRangePicker = function(element, options){
+		$(element).data('datepicker', this);
 		this.element = $(element);
 		this.inputs = $.map(options.inputs, function(i){
 			return i.jquery ? i[0] : i;
@@ -1604,10 +1606,10 @@
 					var ropts = {
 						inputs: opts.inputs || $this.find('input').toArray()
 					};
-					$this.data('datepicker', (data = new DateRangePicker(this, $.extend(opts, ropts))));
+					data = new DateRangePicker(this, $.extend(opts, ropts));
 				}
 				else {
-					$this.data('datepicker', (data = new Datepicker(this, opts)));
+					data =new Datepicker(this, opts);
 				}
 			}
 			if (typeof option === 'string' && typeof data[option] === 'function'){
