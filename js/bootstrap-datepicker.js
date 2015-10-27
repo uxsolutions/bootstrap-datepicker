@@ -629,7 +629,9 @@
 
 		setStartDate: function(startDate){
 			this._process_options({startDate: startDate});
+			this._allow_update_viewdate = false;
 			this.update();
+			this._allow_update_viewdate = true;
 			this.updateNavArrows();
 			return this;
 		},
@@ -640,26 +642,34 @@
 
 		setEndDate: function(endDate){
 			this._process_options({endDate: endDate});
+			this._allow_update_viewdate = false;
 			this.update();
+			this._allow_update_viewdate = true;
 			this.updateNavArrows();
 			return this;
 		},
 
 		setDaysOfWeekDisabled: function(daysOfWeekDisabled){
 			this._process_options({daysOfWeekDisabled: daysOfWeekDisabled});
+			this._allow_update_viewdate = false;
 			this.update();
+			this._allow_update_viewdate = true;
 			return this;
 		},
 
 		setDaysOfWeekHighlighted: function(daysOfWeekHighlighted){
 			this._process_options({daysOfWeekHighlighted: daysOfWeekHighlighted});
+			this._allow_update_viewdate = false;
 			this.update();
+			this._allow_update_viewdate = true;
 			return this;
 		},
 
 		setDatesDisabled: function(datesDisabled){
 			this._process_options({datesDisabled: datesDisabled});
+			this._allow_update_viewdate = false;
 			this.update();
+			this._allow_update_viewdate = true;
 			return this;
 		},
 
@@ -755,6 +765,7 @@
 		},
 
 		_allow_update: true,
+		_allow_update_viewdate: true,
 		update: function(){
 			if (!this._allow_update)
 				return this;
@@ -792,13 +803,13 @@
 			this.dates.replace(dates);
 
 			if (this.o.updateViewDate) {
-				if (this.dates.length)
+				if (this.dates.length && this._allow_update_viewdate)
 					this.viewDate = new Date(this.dates.get(-1));
 				else if (this.viewDate < this.o.startDate)
 					this.viewDate = new Date(this.o.startDate);
 				else if (this.viewDate > this.o.endDate)
 					this.viewDate = new Date(this.o.endDate);
-				else
+				else if (this._allow_update_viewdate)
 					this.viewDate = this.o.defaultViewDate;
 			}
 
