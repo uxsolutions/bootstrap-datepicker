@@ -678,7 +678,7 @@
 				visualPadding = 10,
 				container = $(this.o.container),
 				windowWidth = container.width(),
-				scrollTop = container.scrollTop(),
+				scrollTop = this.o.container === 'body' ? $(document).scrollTop() : container.scrollTop(),
 				appendOffset = container.offset();
 
 			var parentsZindex = [];
