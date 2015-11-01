@@ -1,7 +1,7 @@
 Methods
 =======
 
-Methods are called on a datepicker by call the ``datepicker`` function with a string first argument, followed by any arguments the method takes
+Methods are called on a datepicker by calling the ``datepicker`` function with a string first argument, followed by any arguments the method takes
 
 ::
 
