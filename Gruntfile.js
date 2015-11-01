@@ -135,7 +135,8 @@ module.exports = function(grunt){
             options: {
                 compatibility: 'ie8',
                 keepSpecialComments: '*',
-                noAdvanced: true
+                sourceMap: true,
+                advanced: false
             },
             main: {
                 files: {

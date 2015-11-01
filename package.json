@@ -30,7 +30,7 @@
     "grunt-contrib-compress": "~0.13.0",
     "grunt-contrib-uglify": "~0.6.0",
     "grunt-contrib-csslint": "~0.3.1",
-    "grunt-contrib-cssmin": "~0.10.0",
+    "grunt-contrib-cssmin": "~0.14.0",
     "grunt-contrib-clean": "~0.6.0",
     "grunt-contrib-concat": "~0.5.0",
     "grunt-string-replace": "~1.0.0",
