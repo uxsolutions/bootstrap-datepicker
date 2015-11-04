@@ -54,7 +54,8 @@ module.exports = function(grunt){
             }
         },
         qunit: {
-            all: 'tests/tests.html'
+            main: 'tests/tests.html',
+            timezone: 'tests/timezone.html'
         },
         concat: {
             options: {
@@ -215,7 +216,8 @@ module.exports = function(grunt){
     // Code check tasks.
     grunt.registerTask('lint-js', 'Lint all js files with jshint and jscs', ['jshint', 'jscs']);
     grunt.registerTask('lint-css', 'Lint all css files', ['dist-css', 'csslint:dist']);
-    grunt.registerTask('test', 'Lint files and run unit tests', ['lint-js', /*'lint-css',*/ 'qunit']);
+    grunt.registerTask('qunit-all', 'Run qunit tests', ['qunit:main', 'qunit-timezone']);
+    grunt.registerTask('test', 'Lint files and run unit tests', ['lint-js', /*'lint-css',*/ 'qunit-all']);
 
     // Version numbering task.
     // grunt bump-version --newver=X.Y.Z
@@ -245,5 +247,10 @@ module.exports = function(grunt){
                 args: ['docs/_screenshots/script/screenshot.js', abspath, outfile]
             });
         });
+    });
+
+    grunt.registerTask('qunit-timezone', 'Run timezone tests', function(){
+        process.env.TZ = 'Europe/Moscow';
+        grunt.task.run('qunit:timezone');
     });
 };
