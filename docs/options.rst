@@ -14,6 +14,26 @@ Boolean.  Default: false
 Whether or not to close the datepicker immediately when a date is selected.
 
 
+autoCompute
+-----------
+
+Boolean. Default: false
+
+Whether or not to parse the date if an incomplete or invalid date is entered.
+
+* false: Parse the date once a complete and valid date has been entered.
+ 
+  * ``Date ranges prevent either date field from adjusting the other until a valid date is entered``
+  * 10/11/2012 (mm/dd/yyyy) to October 11, 2012
+  * 44/44/4444 (yyyy/mm/dd) will not parse
+  
+
+* true: Parse the date on every entered date, even if it is invalid.
+
+  * ``Date ranges attempt to smartly adjust the other field as they date is being input`` 
+  * 10/11/2012 (mm/dd/yyyy) to October 11, 2012
+  * 44/44/4444 (yyyy/mm/dd) to Sepetember 30, 2056
+ 
 beforeShowDay
 -------------
 

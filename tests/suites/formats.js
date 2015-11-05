@@ -230,7 +230,7 @@ test('Invalid formats are force-parsed into a valid date on tab', patch_date(fun
     Date.now = UTCDate(2012, 4, 31);
     this.input
         .val('44-44-4444')
-        .datepicker({format: 'yyyy-MM-dd'})
+        .datepicker({format: 'yyyy-MM-dd', autoCompute: true})
         .focus();
 
     this.input.trigger({

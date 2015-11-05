@@ -237,7 +237,7 @@
 					if (o.startDate instanceof Date)
 						o.startDate = this._local_to_utc(this._zero_time(o.startDate));
 					else
-						o.startDate = DPGlobal.parseDate(o.startDate, format, o.language);
+						o.startDate = DPGlobal.parseDate(o.startDate, format, o.language, o.autoCompute);
 				}
 				else {
 					o.startDate = -Infinity;
@@ -248,7 +248,7 @@
 					if (o.endDate instanceof Date)
 						o.endDate = this._local_to_utc(this._zero_time(o.endDate));
 					else
-						o.endDate = DPGlobal.parseDate(o.endDate, format, o.language);
+						o.endDate = DPGlobal.parseDate(o.endDate, format, o.language, o.autoCompute);
 				}
 				else {
 					o.endDate = Infinity;
@@ -625,6 +625,10 @@
 			else {
 				this.element.val(formatted);
 			}
+			if (this.o.invalidDate && formatted === '') {
+			    this._trigger('invalidDate');
+			}
+			this.o.invalidDate = false;
 			return this;
 		},
 
@@ -785,8 +789,13 @@
 			}
 
 			dates = $.map(dates, $.proxy(function(date){
-				return DPGlobal.parseDate(date, this.o.format, this.o.language);
+				return DPGlobal.parseDate(date, this.o.format, this.o.language, this.o.autoCompute);
 			}, this));
+
+			if (!dates[0]){
+			    this.o.invalidDate = true;
+			}
+
 			dates = $.grep(dates, $.proxy(function(date){
 				return (
 					date < this.o.startDate ||
@@ -1636,7 +1645,8 @@
 	$.fn.datepicker = datepickerPlugin;
 
 	var defaults = $.fn.datepicker.defaults = {
-		autoclose: false,
+	    autoclose: false,
+        autoCompute: false,
 		beforeShowDay: $.noop,
 		beforeShowMonth: $.noop,
 		beforeShowYear: $.noop,
@@ -1724,7 +1734,7 @@
 			}
 			return {separators: separators, parts: parts};
 		},
-		parseDate: function(date, format, language){
+		parseDate: function(date, format, language, autoCompute){
 			if (!date)
 				return undefined;
 			if (date instanceof Date)
@@ -1767,7 +1777,7 @@
 						return d.setUTCFullYear(v);
 					},
 					yy: function(d,v){
-						return d.setUTCFullYear(2000+v);
+						return d.setUTCFullYear(v >= 1000 ? v : 2000+v);
 					},
 					m: function(d,v){
 						if (isNaN(d))
@@ -1801,6 +1811,7 @@
 					p = parts[i].slice(0, m.length);
 				return m.toLowerCase() === p.toLowerCase();
 			}
+			
 			if (parts.length === fparts.length){
 				var cnt;
 				for (i=0, cnt = fparts.length; i < cnt; i++){
@@ -1829,6 +1840,17 @@
 						if (!isNaN(_date))
 							date = _date;
 					}
+				}
+				if (!autoCompute) {
+				    var dateStr = (parsed.M || parsed.MM || parsed.mm || parsed.m) + "/" + (parsed.dd || parsed.d) + "/" + (parsed.yyyy || parsed.yy);
+				    var t = dateStr.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+				    if (t !== null) {
+                        var m=+t[1], y=+t[3];
+                        if (date.getUTCFullYear() === y && date.getUTCMonth() === m-1) {
+                            return date;
+                        }
+				    }
+				    return null;
 				}
 			}
 			return date;
