@@ -237,7 +237,7 @@
 					if (o.startDate instanceof Date)
 						o.startDate = this._local_to_utc(this._zero_time(o.startDate));
 					else
-						o.startDate = DPGlobal.parseDate(o.startDate, format, o.language);
+						o.startDate = DPGlobal.parseDate(o.startDate, format, o.language, o.assumeNearbyYear);
 				}
 				else {
 					o.startDate = -Infinity;
@@ -248,7 +248,7 @@
 					if (o.endDate instanceof Date)
 						o.endDate = this._local_to_utc(this._zero_time(o.endDate));
 					else
-						o.endDate = DPGlobal.parseDate(o.endDate, format, o.language);
+						o.endDate = DPGlobal.parseDate(o.endDate, format, o.language, o.assumeNearbyYear);
 				}
 				else {
 					o.endDate = Infinity;
@@ -272,11 +272,11 @@
 			o.datesDisabled = o.datesDisabled||[];
 			if (!$.isArray(o.datesDisabled)) {
 				var datesDisabled = [];
-				datesDisabled.push(DPGlobal.parseDate(o.datesDisabled, format, o.language));
+				datesDisabled.push(DPGlobal.parseDate(o.datesDisabled, format, o.language, o.assumeNearbyYear));
 				o.datesDisabled = datesDisabled;
 			}
 			o.datesDisabled = $.map(o.datesDisabled,function(d){
-				return DPGlobal.parseDate(d, format, o.language);
+				return DPGlobal.parseDate(d, format, o.language, o.assumeNearbyYear);
 			});
 
 			var plc = String(o.orientation).toLowerCase().split(/\s+/g),
@@ -785,7 +785,7 @@
 			}
 
 			dates = $.map(dates, $.proxy(function(date){
-				return DPGlobal.parseDate(date, this.o.format, this.o.language);
+				return DPGlobal.parseDate(date, this.o.format, this.o.language, this.o.assumeNearbyYear);
 			}, this));
 			dates = $.grep(dates, $.proxy(function(date){
 				return (
@@ -1636,6 +1636,7 @@
 	$.fn.datepicker = datepickerPlugin;
 
 	var defaults = $.fn.datepicker.defaults = {
+		assumeNearbyYear: false,
 		autoclose: false,
 		beforeShowDay: $.noop,
 		beforeShowMonth: $.noop,
@@ -1724,7 +1725,7 @@
 			}
 			return {separators: separators, parts: parts};
 		},
-		parseDate: function(date, format, language){
+		parseDate: function(date, format, language, assumeNearby){
 			if (!date)
 				return undefined;
 			if (date instanceof Date)
@@ -1760,14 +1761,31 @@
 			}
 			parts = date && date.match(this.nonpunctuation) || [];
 			date = new Date();
+
+			function applyNearbyYear(year, threshold){
+				if (threshold === true)
+					threshold = 10;
+
+				// if year is 2 digits or less, than the user most likely is trying to get a recent century
+				if (year < 100){
+					year += 2000;
+					// if the new year is more than threshold years in advance, use last century
+					if (year > ((new Date()).getFullYear()+threshold)){
+						year -= 100;
+					}
+				}
+
+				return year;
+			}
+
 			var parsed = {},
 				setters_order = ['yyyy', 'yy', 'M', 'MM', 'm', 'mm', 'd', 'dd'],
 				setters_map = {
 					yyyy: function(d,v){
-						return d.setUTCFullYear(v);
+						return d.setUTCFullYear(assumeNearby ? applyNearbyYear(v, assumeNearby) : v);
 					},
 					yy: function(d,v){
-						return d.setUTCFullYear(2000+v);
+						return d.setUTCFullYear(assumeNearby ? applyNearbyYear(v, assumeNearby) : v);
 					},
 					m: function(d,v){
 						if (isNaN(d))
