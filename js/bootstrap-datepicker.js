@@ -1764,6 +1764,7 @@
 				setters_order = ['yyyy', 'yy', 'M', 'MM', 'm', 'mm', 'd', 'dd'],
 				setters_map = {
 					yyyy: function(d,v){
+					  if (format.parts.indexOf('yyyy') > -1 && v < 1000) v = 2000+v;
 						return d.setUTCFullYear(v);
 					},
 					yy: function(d,v){
