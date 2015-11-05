@@ -1760,14 +1760,28 @@
 			}
 			parts = date && date.match(this.nonpunctuation) || [];
 			date = new Date();
+
+			function adjustYear(year){
+				// if year is 2 digits or less, than the user most likely is trying to get a recent century
+				if (year < 100){
+					year += 2000;
+					// if the new year is more than 10 years in advance, use last century
+					if (year > ((new Date()).getFullYear()+10)){
+						year -= 100;
+					}
+				}
+
+				return year;
+			}
+
 			var parsed = {},
 				setters_order = ['yyyy', 'yy', 'M', 'MM', 'm', 'mm', 'd', 'dd'],
 				setters_map = {
 					yyyy: function(d,v){
-						return d.setUTCFullYear(v);
+						return d.setUTCFullYear(adjustYear(v));
 					},
 					yy: function(d,v){
-						return d.setUTCFullYear(2000+v);
+						return d.setUTCFullYear(adjustYear(v));
 					},
 					m: function(d,v){
 						if (isNaN(d))

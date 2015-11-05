@@ -238,7 +238,7 @@ test('Invalid formats are force-parsed into a valid date on tab', patch_date(fun
         keyCode: 9
     });
 
-    equal(this.input.val(), '56-September-30');
+    equal(this.input.val(), '1956-September-30');
 }));
 
 test('Trailing separators', patch_date(function(Date){
