@@ -1075,6 +1075,7 @@
 				year += 1;
 			}
 			yearCont.html(html);
+			this._trigger('afterRender');
 		},
 
 		updateNavArrows: function(){
