@@ -360,6 +360,23 @@ Number, String.  Default: 0, "month"
 The view that the datepicker should show when it is opened.  Accepts values of 0 or "month" for month view (the default), 1 or "year" for the 12-month overview, and 2 or "decade" for the 10-year overview.  Useful for date-of-birth datepickers.
 
 
+templates
+---------
+
+Object. Default:
+    {
+        leftArrow: '<span class="glyphicon glyphicon-arrow-left"></span>',
+        rightArrow: '<span class="glyphicon glyphicon-arrow-right"></span>'
+    }
+
+The templates used to generate some parts of the picker. Each property must be a string with only text, or valid html.
+You can use this property to use custom icons libs. for example :
+    {
+        leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+        rightArrow: '<i class="fa fa-long-arrow-right"></i>'
+    }
+
+
 title
 -----
 
