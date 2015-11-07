@@ -87,17 +87,37 @@ module.exports = function(grunt){
             }
         },
         less: {
-            standalone: {
-                files: {
-                    'dist/css/<%= pkg.name %>.standalone.css': 'build/build_standalone.less',
-                    'dist/css/<%= pkg.name %>3.standalone.css': 'build/build_standalone3.less'
-                }
+            options: {
+                sourceMap: true,
+                outputSourceFiles: true
             },
-            css: {
-                files: {
-                    'dist/css/<%= pkg.name %>.css': 'build/build.less',
-                    'dist/css/<%= pkg.name %>3.css': 'build/build3.less'
-                }
+            standalone_bs2: {
+                options: {
+                    sourceMapURL: '<%= pkg.name %>.standalone.css.map'
+                },
+                src: 'build/build_standalone.less',
+                dest: 'dist/css/<%= pkg.name %>.standalone.css'
+            },
+            standalone_bs3: {
+                options: {
+                    sourceMapURL: '<%= pkg.name %>3.standalone.css.map'
+                },
+                src: 'build/build_standalone3.less',
+                dest: 'dist/css/<%= pkg.name %>3.standalone.css'
+            },
+            main_bs2: {
+                options: {
+                    sourceMapURL: '<%= pkg.name %>.css.map'
+                },
+                src: 'build/build.less',
+                dest: 'dist/css/<%= pkg.name %>.css'
+            },
+            main_bs3: {
+                options: {
+                    sourceMapURL: '<%= pkg.name %>3.css.map'
+                },
+                src: 'build/build3.less',
+                dest: 'dist/css/<%= pkg.name %>3.css'
             }
         },
         usebanner: {
@@ -115,7 +135,8 @@ module.exports = function(grunt){
             options: {
                 compatibility: 'ie8',
                 keepSpecialComments: '*',
-                noAdvanced: true
+                sourceMap: true,
+                advanced: false
             },
             main: {
                 files: {
@@ -206,7 +227,7 @@ module.exports = function(grunt){
     grunt.registerTask('dist-js', ['concat', 'uglify:main', 'uglify:locales']);
 
     // CSS distribution task.
-    grunt.registerTask('less-compile', ['less:standalone', 'less:css']);
+    grunt.registerTask('less-compile', 'less');
     grunt.registerTask('dist-css', ['less-compile', 'cssmin:main', 'cssmin:standalone', 'usebanner']);
 
     // Full distribution task.
