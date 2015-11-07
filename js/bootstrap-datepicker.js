@@ -1293,9 +1293,21 @@
 					this.dates.remove(0);
 		},
 
+		_toggle_singledate: function(date){
+			this.dates.clear();
+			if (date) {
+				this.dates.push(date);
+			}
+		},
+
 		_setDate: function(date, which){
-			if (!which || which === 'date')
-				this._toggle_multidate(date && new Date(date));
+			if ((!which || which === 'date')) {
+				if (this._o.multidate) {
+					this._toggle_multidate(date && new Date(date));
+				}else {
+					this._toggle_singledate(date && new Date(date));
+				}
+			}
 			if (!which || which  === 'view')
 				this.viewDate = date && new Date(date);
 
