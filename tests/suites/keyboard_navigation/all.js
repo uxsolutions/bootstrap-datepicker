@@ -24,3 +24,39 @@ test('TAB hides picker', function(){
 
     ok(this.picker.is(':not(:visible)'), 'Picker is hidden');
 });
+
+test('by day (right/left arrows) with daysOfWeekDisabled', function(){
+    var target;
+
+    this.input.val('04-03-2013');
+    this.dp.setDaysOfWeekDisabled('0,6');
+    this.dp.update();
+
+    this.input.focus();
+
+    // Navigation: -1 day left arrow key
+    this.input.trigger({
+        type: 'keydown',
+        keyCode: 37
+    });
+
+    datesEqual(this.dp.viewDate, UTCDate(2013, 2, 1));
+});
+
+test('by day (right/left arrows) with datesDisabled', function(){
+    var target;
+
+    this.input.val('04-03-2013');
+    this.dp.setDatesDisabled(['05-03-2013']);
+    this.dp.update();
+
+    this.input.focus();
+
+    // Navigation: +1 day right arrow key
+    this.input.trigger({
+        type: 'keydown',
+        keyCode: 39
+    });
+
+    datesEqual(this.dp.viewDate, UTCDate(2013, 2, 6));
+});
