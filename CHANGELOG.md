@@ -1,6 +1,59 @@
 Changelog
 =========
 
+1.5.0
+-----
+
+Features
+ * Added down key as datepicker show trigger
+ * immediateUpdates option (updates input when a year or month is selected)
+ * Highlight days of week
+ * maxViewMode option
+ * Include "main" property in package.json
+ * Require.js support. (Fixes: #280)
+ * Allow overriding `$.fn.show` and `$.fn.hide` (Fixes: #1424)
+ * Adding border-radius variable for LESS (Fixes: #1429)
+ * Add support for dropdown border variables
+ * Add the posibility to have a title on the picker (Fixes: #1410)
+ * Implement `beforeShowYear` (Fixes: #1226)
+ * Add commonjs support
+ * Trigger 'hide' event when clicking outside datepicker
+ * Add css-classes for range-start and range-end
+ * Update hover effect for "buttons" (matches  Bootstrap 3.3.5 mixin)
+ * Custom formatting options
+
+Bugfixes:
+ * Scrolling on mobile device closes datepicker
+ * Use $.on() instead $.bind()
+ * Fixed right-click and edit-menu paste 
+ * Ported prototype fix for Prototype Compability
+ * Fixed issue with startview year
+ * Fixed padding inconsistency with twitter bootstrap 3
+ * prevents the click event from bubbling to any user defined click handlers
+ * Added padding for .datepicker-dropdown
+ * Fixes the issue with a date change firing mulitple change events
+ * removed hard dependency on bootstrap (because of twbs-sass package)
+ * Clearing the date should reset to defaultViewDate
+ * Datepicker orientation mix up - top = bottom and bottom = top 
+ * Fix cursor thead styles
+ * Fix date-reset issue when navigating to next with invalid date
+ * Using orientation:auto but date picker still appears above, cut off, when there plenty of space below. 
+ * lots of orientation fixes
+
+Locale changes:
+ * Remove unused eighth element on week arrays )
+ * Add Esperanto translation
+ * Better Polish language date shortcuts translation and default date format
+ * lowercase danish translation
+ * Add Mongolian localization
+ * update Hungarian translation
+
+Docs:
+ * added day to end-date to avoid confusion about example
+ * added setDatesDisabled method to documentation
+
+
+
 1.4.0
 -----
 
