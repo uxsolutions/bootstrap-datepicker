@@ -11,6 +11,8 @@
 		months: ["Január", "Február", "Marec", "Apríl", "Máj", "Jún", "Júl", "August", "September", "Október", "November", "December"],
 		monthsShort: ["Jan", "Feb", "Mar", "Apr", "Máj", "Jún", "Júl", "Aug", "Sep", "Okt", "Nov", "Dec"],
 		today: "Dnes",
-		format: "dd.mm.yyyy"
+		clear: "Vymazať",
+		weekStart: 1,
+		format: "d.m.yyyy"
 	};
 }(jQuery));
