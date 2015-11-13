@@ -2006,9 +2006,13 @@
 
 	$(document).on(
 		'focus.datepicker.data-api click.datepicker.data-api',
-		'[data-provide="datepicker"]',
+		'[data-provide="datepicker"]:enabled:not([readonly]), [data-provide="datepicker"]:enabled:not([readonly])+.input-group-addon, [data-provide="datepicker"]:enabled:not([readonly])+.addon',
 		function(e){
 			var $this = $(this);
+			if ($this.closest('.input-group,.input-append').length !== 0 && ($this.is('[data-provide="datepicker"]') ? $this.next().is('.input-group-addon, .btn') : $this.prev().is('[data-provide="datepicker"]'))) {
+				// Manage add-on
+				$this = $this.closest('.input-group,.input-append').addClass('date');
+			}
 			if ($this.data('datepicker'))
 				return;
 			e.preventDefault();
