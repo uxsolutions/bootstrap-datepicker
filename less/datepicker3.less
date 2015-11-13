@@ -226,7 +226,8 @@
 		vertical-align: middle;
 	}
 }
-.input-group.date .input-group-addon {
+.input-group.date .input-group-addon,
+[data-provide="datepicker"]+.input-group-addon {
 	cursor: pointer;
 }
 .input-daterange {
@@ -255,4 +256,12 @@
 		margin-left: -5px;
 		margin-right: -5px;
 	}
+}
+[data-provide="datepicker"] {
+  &[disabled],
+  &[readonly] {
+    +.input-group-addon {
+      pointer-events: none;
+    }
+  }
 }
