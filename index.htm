@@ -15,14 +15,14 @@
           bscss.prop('href', '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css');
           bsdpcss.prop('href', 'bootstrap-datepicker/css/datepicker.css');
           page.bootstrap = 2;
-          $(page).trigger('change:bootstrap', 2)
         }
         else{
           bscss.prop('href', '//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css');
           bsdpcss.prop('href', 'bootstrap-datepicker/css/datepicker3.css');
           page.bootstrap = 3;
-          $(page).trigger('change:bootstrap', 3)
         }
+
+        $(page).trigger('change:bootstrap', page.bootstrap);
       }
     </script>
     <style>
@@ -232,6 +232,13 @@
               <option value="2">2 / years</option>
             </select>
           </label>
+          <label for="maxViewMode">Max view mode
+            <select class="span2 col-md-2 form-control" id="maxViewMode" name="maxViewMode">
+              <option value="0">0 / days</option>
+              <option value="1">1 / months</option>
+              <option value="2" selected>2 / years</option>
+            </select>
+          </label>
           <label for="todayBtn" class="inline checkbox">Today button
             <select class="span2 col-md-2 form-control" id="todayBtn" name="todayBtn">
               <option value="false">disabled</option>
@@ -295,6 +302,18 @@
 
           <br>
 
+          <span>Days of week highlighted:
+            <label class="checkbox"><input type="checkbox" name="daysOfWeekHighlighted" value="0"> 0</label>
+            <label class="checkbox"><input type="checkbox" name="daysOfWeekHighlighted" value="1"> 1</label>
+            <label class="checkbox"><input type="checkbox" name="daysOfWeekHighlighted" value="2"> 2</label>
+            <label class="checkbox"><input type="checkbox" name="daysOfWeekHighlighted" value="3"> 3</label>
+            <label class="checkbox"><input type="checkbox" name="daysOfWeekHighlighted" value="4"> 4</label>
+            <label class="checkbox"><input type="checkbox" name="daysOfWeekHighlighted" value="5"> 5</label>
+            <label class="checkbox"><input type="checkbox" name="daysOfWeekHighlighted" value="6"> 6</label>
+          </span>
+
+          <br>
+
           <label for="calendarWeeks" class="inline checkbox">
             <input id="calendarWeeks" name="calendarWeeks" type="checkbox">
             Calendar weeks
@@ -323,7 +342,11 @@
             <input id="beforeShowMonth" name="beforeShowMonth" type="checkbox">
             Before-show-month callback
           </label>
-        <label for="datesDisabled" class="inline checkbox">
+          <label for="beforeShowYear" class="inline checkbox">
+            <input id="beforeShowYear" name="beforeShowYear" type="checkbox">
+            Before-show-year callback
+          </label>
+          <label for="datesDisabled" class="inline checkbox">
             <input id="datesDisabled" name="datesDisabled" type="checkbox">
             datesDisabled
           </label>
@@ -387,29 +410,32 @@
             var js = "$('#sandbox-container "+selector+"').datepicker({\n",
                 val;
             for (var opt in $.extend({}, defaults, values)){
-                console.log(opt);
               if (values[opt] != defaults[opt]){
                 val = values[opt];
-                if (opt == 'daysOfWeekDisabled') val = '"'+val+'"'
+                if (opt == 'daysOfWeekDisabled' || opt == 'daysOfWeekHighlighted') val = '"'+val+'"'
                 else if (opt == 'beforeShowDay') val = function(date){
-                    if (date.getMonth() == (new Date()).getMonth())
-                      switch (date.getDate()){
-                        case 4:
-                          return {
-                            tooltip: 'Example tooltip',
-                            classes: 'active'
-                          };
-                        case 8:
-                          return false;
-                        case 12:
-                          return "green";
-                    }
-                }
-                else if (opt == 'beforeShowMonth') val = function(date){
-                    switch (date.getMonth()){
+                  if (date.getMonth() == (new Date()).getMonth())
+                    switch (date.getDate()){
+                      case 4:
+                        return {
+                          tooltip: 'Example tooltip',
+                          classes: 'active'
+                        };
                       case 8:
                         return false;
-                    }
+                      case 12:
+                        return "green";
+                  }
+                }
+                else if (opt == 'beforeShowMonth') val = function(date){
+                  if (date.getMonth() == 8) {
+                    return false;
+                  }
+                }
+                else if (opt == 'beforeShowYear') val = function(date){
+                  if (date.getFullYear() == 2007) {
+                    return false;
+                  }
                 }
                 else if (opt == 'datesDisabled'){
                   var date = new Date();
