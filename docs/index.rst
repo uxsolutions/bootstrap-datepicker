@@ -54,6 +54,17 @@ As with bootstrap's own plugins, datepicker provides a data-api that can be used
 
     <input data-provide="datepicker">
 
+Markup with component
+
+.. code-block:: html
+
+    <div class="input-group date" data-provide="datepicker">
+        <input type="text" class="form-control">
+        <div class="input-group-addon">
+            <span class="glyphicon glyphicon-th"></span>
+        </div>
+    </div>
+
 You can disable datepicker's data-api in the same way as you would disable other bootstrap plugins::
 
     $(document).off('.datepicker.data-api');
