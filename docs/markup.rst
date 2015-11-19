@@ -82,7 +82,7 @@ Example to save the embedded datepicker value to a hidden field
 ::
 
     $('#datepicker').datepicker();
-    $('#dateipicker').on("changeDate", function() {
+    $('#datepicker').on("changeDate", function() {
         $('#my_hidden_input').val(
             $('#datepicker').datepicker('getFormattedDate')
         );
