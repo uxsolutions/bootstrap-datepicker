@@ -475,7 +475,8 @@
 		},
 
 		show: function(){
-			if (this.element.attr('readonly') && this.o.enableOnReadonly === false)
+      var element = this.component ? this.element.find('input') : this.element;
+			if (element.attr('readonly') && this.o.enableOnReadonly === false)
 				return;
 			if (!this.isInline)
 				this.picker.appendTo(this.o.container);
