@@ -638,7 +638,7 @@
 		},
 		
 		getStartDate: function(){
-			return this._utc_to_local(this.o.startDate);
+			return this.o.startDate;
 		},
 
 		setStartDate: function(startDate){
@@ -649,7 +649,7 @@
 		},
 		
 		getEndDate: function(){
-			return this._utc_to_local(this.o.endDate);
+			return this.o.endDate;
 		},
 
 		setEndDate: function(endDate){
