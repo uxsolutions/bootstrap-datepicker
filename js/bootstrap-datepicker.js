@@ -399,7 +399,7 @@
 				}]);
 			}
 
-			this._secondaryEvents = [
+      this._secondaryEvents = [
 				[this.picker, {
 					click: $.proxy(this.click, this)
 				}],
@@ -1157,6 +1157,7 @@
 		click: function(e){
 			e.preventDefault();
 			e.stopPropagation();
+
 			var target = $(e.target).closest('span, td, th'),
 				year, month, day;
 			if (target.length === 1){
@@ -1262,6 +1263,18 @@
 						break;
 				}
 			}
+
+      var picker = this;
+      var hideHandler = function(){ picker.hide(); };
+      setTimeout(function(){
+        $('.active').on('click', hideHandler);
+        $('.active').on('dblclick', hideHandler);
+      }, 0);
+      setTimeout(function(){
+        $('.active').on('click', hideHandler);
+        $('.active').on('dblclick', hideHandler);
+      }, 200);
+
 			if (this.picker.is(':visible') && this._focused_from){
 				$(this._focused_from).focus();
 			}
