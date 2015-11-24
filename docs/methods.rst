@@ -144,6 +144,22 @@ Arguments: None
 Returns the internal list of UTC date objects, as they are and unconverted to local time, of the first datepicker in the selection.  For use with multidate pickers.
 
 
+getStartDate
+------------
+
+Arguments: None
+
+Returns the lower date limit on the datepicker.
+
+
+getEndDate
+----------
+
+Arguments: None
+
+Returns the upper date limit on the datepicker.
+
+
 setStartDate
 ------------
 

@@ -92,6 +92,24 @@ test('setEndDate', function(){
     strictEqual(returnedObject, this.dp, "is chainable");
 });
 
+test('getStartDate', function(){
+    var date_in = new Date(Date.UTC(2012, 3, 5)),
+        expected_date = date_in,
+        returnedObject = this.dp.setStartDate(date_in);
+    // ...
+    datesEqual(returnedObject.getStartDate(), expected_date);
+    strictEqual(returnedObject, this.dp, "is chainable");
+});
+
+test('getEndDate', function(){
+    var date_in = new Date(Date.UTC(2012, 3, 5)),
+        expected_date = date_in,
+        returnedObject = this.dp.setEndDate(date_in);
+    // ...
+    datesEqual(returnedObject.getEndDate(), expected_date);
+    strictEqual(returnedObject, this.dp, "is chainable");
+});
+
 test('setDaysOfWeekDisabled - String', function(){
     var days_in = "0,6",
         expected_days = [0,6],
