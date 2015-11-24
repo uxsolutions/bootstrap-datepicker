@@ -1159,7 +1159,7 @@
 			e.stopPropagation();
 			var target = $(e.target).closest('span, td, th'),
 				year, month, day;
-			if (target.length === 1){
+			if (target.length === 1 && $.contains(this.picker.get(0), target.get(0))){
 				switch (target[0].nodeName.toLowerCase()){
 					case 'th':
 						switch (target[0].className){
