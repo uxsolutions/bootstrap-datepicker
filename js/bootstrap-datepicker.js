@@ -1186,7 +1186,7 @@
 			e.preventDefault();
 			e.stopPropagation();
 
-			var target, dir, date, which, day, year, month;
+			var target, dir, day, year, month;
 			target = $(e.target);
 
 			// Clicked on the switch
@@ -1212,8 +1212,7 @@
 			// Clicked on today button
 			if (target.hasClass('today')){
 				this.showMode(-2);
-				which = this.o.todayBtn === 'linked' ? null : 'view';
-				this._setDate(UTCToday(), which);
+				this._setDate(UTCToday(), this.o.todayBtn === 'linked' ? null : 'view');
 			}
 
 			// Clicked on clear button
