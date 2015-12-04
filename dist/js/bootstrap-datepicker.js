@@ -607,12 +607,20 @@
 				return DPGlobal.formatDate(d, format, lang);
 			}).join(this.o.multidateSeparator);
 		},
+		
+		getStartDate: function(){
+			return this.o.startDate;
+		},
 
 		setStartDate: function(startDate){
 			this._process_options({startDate: startDate});
 			this.update();
 			this.updateNavArrows();
 			return this;
+		},
+		
+		getEndDate: function(){
+			return this.o.endDate;
 		},
 
 		setEndDate: function(endDate){
@@ -874,7 +882,7 @@
 		},
 
 		_fill_yearsView: function(selector, cssClass, factor, step, currentYear, startYear, endYear, callback){
-			var html, view, year, steps, startStep, endStep, thisYear, i, classes, tooltip, before;
+			var html, view, year, month, steps, startStep, endStep, thisYear, i, classes, tooltip, before;
 
 			html      = '';
 			view      = this.picker.find(selector);
@@ -884,8 +892,11 @@
 			steps     = $.map(this.dates, function(d){
 				return parseInt(d.getUTCFullYear() / step, 10) * step;
 			});
+            month     = new Date(this.viewDate).getUTCMonth();
 
 			view.find('.datepicker-switch').text(year + '-' + (year + step * 9));
+            view.find('.datepicker-switch-month').text(dates[this.o.language].months[month]);
+            view.find('.datepicker-switch-year').text(currentYear);
 
 			thisYear = year - step;
 			for (i = -1; i < 11; i += 1) {
@@ -945,8 +956,22 @@
 				before;
 			if (isNaN(year) || isNaN(month))
 				return;
-			this.picker.find('.datepicker-days thead .datepicker-switch')
-						.text(DPGlobal.formatDate(new UTCDate(year, month), titleFormat, this.o.language));
+			this.picker.find('.datepicker-days .datepicker-switch')
+						.text(DPGlobal.formatDate(d, titleFormat, this.o.language));
+            this.picker.find('.datepicker-days .datepicker-switch-month')
+                        .text(dates[this.o.language].months[month]);
+            this.picker.find('.datepicker-days .datepicker-switch-year')
+                        .text(year);
+            this.picker.find('thead th.datepicker-switch')
+                        .toggle(this.o.separateMonthYear !== true);
+            this.picker.find('thead th.datepicker-switch-month')
+                        .toggle(this.o.separateMonthYear !== false);
+            this.picker.find('thead th.datepicker-switch-year')
+                        .toggle(this.o.separateMonthYear !== false);
+            this.picker.find('.datepicker-months table.table-condensed')
+                        .css('width', '100%');
+            this.picker.find('.datepicker-years table.table-condensed')
+                        .css('width', '100%');
 			this.picker.find('tfoot .today')
 						.text(todaytxt)
 						.toggle(this.o.todayBtn !== false);
@@ -1023,6 +1048,18 @@
 							.text(this.o.maxViewMode < 2 ? 'Months' : year)
 							.end()
 						.find('span').removeClass('active');
+                        
+            var separateMonthButton = this.picker.find('.datepicker-months')
+                                        .find('th.datepicker-switch-month')
+                                            .text(dates[this.o.language].months[month])
+                                            .end()
+                                        .find('span').removeClass('active');
+                                        
+            var separateYearButton = this.picker.find('.datepicker-months')
+                                        .find('th.datepicker-switch-year')
+                                            .text(year)
+                                            .end()
+                                        .find('span').removeClass('active');
 
 			$.each(this.dates, function(i, d){
 				if (d.getUTCFullYear() === year)
@@ -1142,6 +1179,12 @@
 							case 'datepicker-switch':
 								this.showMode(1);
 								break;
+                            case 'datepicker-switch-month':
+                                this.showMode(1);
+                                break;
+                            case 'datepicker-switch-year':
+                                this.showMode(2);
+                                break;
 							case 'prev':
 							case 'next':
 								var dir = DPGlobal.modes[this.viewMode].navStep * (target[0].className === 'prev' ? -1 : 1);
@@ -1180,12 +1223,16 @@
 								year = this.viewDate.getUTCFullYear();
 								this.viewDate.setUTCMonth(month);
 								this._trigger('changeMonth', this.viewDate);
-								if (this.o.minViewMode === 1){
-									this._setDate(UTCDate(year, month, day));
-									this.showMode();
-								} else {
-									this.showMode(-1);
-								}
+                                if (this.o.separateMonthYear !== false) {
+                                    this.showMode(0);
+                                } else {
+                                    if (this.o.minViewMode === 1){
+    									this._setDate(UTCDate(year, month, day));
+    									this.showMode();
+    								} else {
+    									this.showMode(-1);
+    								}
+                                }
 							}
 							else {
 								day = 1;
@@ -1205,7 +1252,11 @@
 								if (shouldSetDate){
 									this._setDate(UTCDate(year, month, day));
 								}
-								this.showMode(-1);
+                                if (this.o.separateMonthYear !== false) {
+                                    this.showMode(0);
+                                } else {
+								    this.showMode(-1);
+                                }
 							}
 							this.fill();
 						}
@@ -1489,8 +1540,12 @@
 		},
 
 		showMode: function(dir){
-			if (dir){
-				this.viewMode = Math.max(this.o.minViewMode, Math.min(this.o.maxViewMode, this.viewMode + dir));
+			if (dir || dir === 0){
+                if (this.o.separateMonthYear !== false) {
+                    this.viewMode = Math.max(this.o.minViewMode, Math.min(this.o.maxViewMode, dir));
+                } else {
+                    this.viewMode = Math.max(this.o.minViewMode, Math.min(this.o.maxViewMode, this.viewMode + dir));
+                }
 			}
 			this.picker
 				.children('div')
@@ -1687,6 +1742,7 @@
 		multidateSeparator: ',',
 		orientation: "auto",
 		rtl: false,
+        separateMonthYear: false,
 		startDate: -Infinity,
 		startView: 0,
 		todayBtn: false,
@@ -1751,7 +1807,7 @@
 			return [31, (DPGlobal.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
 		},
 		validParts: /dd?|DD?|mm?|MM?|yy(?:yy)?/g,
-		nonpunctuation: /[^ -\/:-@\[\u3400-\u9fff-`{-~\t\n\r]+/g,
+		nonpunctuation: /[^ -\/:-@\u5e74\u6708\u65e5\[-`{-~\t\n\r]+/g,
 		parseFormat: function(format){
 			if (typeof format.toValue === 'function' && typeof format.toDisplay === 'function')
                 return format;
@@ -1781,6 +1837,11 @@
 					w: 'moveWeek',
 					y: 'moveYear'
 				},
+				dateAliases = {
+					yesterday: '-1d',
+					today: '+0d',
+					tomorrow: '+1d'
+				},
 				part, dir, i, fn;
 			if (/^[\-+]\d+[dmwy]([\s,]+[\-+]\d+[dmwy])*$/.test(date)){
 				date = new Date();
@@ -1792,6 +1853,24 @@
 				}
 				return UTCDate(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
 			}
+
+			if (typeof dateAliases[date] !== 'undefined') {
+				date = dateAliases[date];
+				parts = date.match(/([\-+]\d+)([dmwy])/g);
+
+				if (/^[\-+]\d+[dmwy]([\s,]+[\-+]\d+[dmwy])*$/.test(date)){
+					date = new Date();
+				  	for (i=0; i < parts.length; i++){
+						part = part_re.exec(parts[i]);
+						dir = parseInt(part[1]);
+						fn = fn_map[part[2]];
+						date = Datepicker.prototype[fn](date, dir);
+				  	}
+
+			  		return UTCDate(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+				}
+			}
+
 			parts = date && date.match(this.nonpunctuation) || [];
 			date = new Date();
 
@@ -1919,6 +1998,8 @@
 							'<tr>'+
 								'<th class="prev">&#171;</th>'+
 								'<th colspan="5" class="datepicker-switch"></th>'+
+                                '<th colspan="3" class="datepicker-switch-month"></th>'+
+                                '<th colspan="2" class="datepicker-switch-year"></th>'+
 								'<th class="next">&#187;</th>'+
 							'</tr>'+
 						'</thead>',
