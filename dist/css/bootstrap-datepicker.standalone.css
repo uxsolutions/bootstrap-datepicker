@@ -416,16 +416,12 @@
   width: 145px;
 }
 .datepicker .datepicker-switch,
-.datepicker .datepicker-switch-month,
-.datepicker .datepicker-switch-year,
 .datepicker .prev,
 .datepicker .next,
 .datepicker tfoot tr th {
   cursor: pointer;
 }
 .datepicker .datepicker-switch:hover,
-.datepicker .datepicker-switch-month:hover,
-.datepicker .datepicker-switch-year:hover,
 .datepicker .prev:hover,
 .datepicker .next:hover,
 .datepicker tfoot tr th:hover {
