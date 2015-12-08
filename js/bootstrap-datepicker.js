@@ -990,9 +990,10 @@
 			}
 			this.picker.find('.datepicker-days tbody').empty().append(html.join(''));
 
+			var monthsTitle = dates[this.o.language].monthsTitle || dates['en'].monthsTitle || 'Months';
 			var months = this.picker.find('.datepicker-months')
 						.find('.datepicker-switch')
-							.text(this.o.maxViewMode < 2 ? 'Months' : year)
+							.text(this.o.maxViewMode < 2 ? monthsTitle : year)
 							.end()
 						.find('span').removeClass('active');
 
