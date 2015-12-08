@@ -13,6 +13,7 @@
 		months: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
 		monthsShort: ["Jan", "Fév", "Mar", "Avr", "Mai", "Jui", "Jul", "Aou", "Sep", "Oct", "Nov", "Déc"],
 		today: "Aujourd'hui",
+		monthsTitle: "Mois",
 		clear: "Effacer",
 		weekStart: 1,
 		format: "dd.mm.yyyy"
