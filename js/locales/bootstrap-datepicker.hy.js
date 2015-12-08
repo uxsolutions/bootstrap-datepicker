@@ -1,6 +1,7 @@
 /**
  * Armenian translation for bootstrap-datepicker
  * Hayk Chamyan <hamshen@gmail.com>
+ * Tigran Balayan <balayan.tigran@gmail.com>
  */
 ;(function($){
 	$.fn.datepicker.dates['hy'] = {
