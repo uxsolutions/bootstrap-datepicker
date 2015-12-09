@@ -212,8 +212,7 @@ Whether or not to force parsing of the input value when the picker is closed.  T
 
 
 assumeNearbyYear
-
-----------
+----------------
 
 Boolean or Integer.  Default: false
 
