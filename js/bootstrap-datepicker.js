@@ -1195,8 +1195,9 @@
 			}
 
 			// Clicked on prev or next
-			if (target.closest('.prev, .next').length > 0){
-				dir = DPGlobal.modes[this.viewMode].navStep * (target.hasClass('prev') ? -1 : 1);
+			var navArrow = target.closest('.prev, .next');
+			if (navArrow.length > 0) {
+				dir = DPGlobal.modes[this.viewMode].navStep * (navArrow.hasClass('prev') ? -1 : 1);
 				if (this.viewMode === 0){
 					this.viewDate = this.moveMonth(this.viewDate, dir);
 					this._trigger('changeMonth', this.viewDate);
