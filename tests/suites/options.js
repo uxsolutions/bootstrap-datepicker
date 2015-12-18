@@ -1426,3 +1426,20 @@ test('templates', function(){
     equal(picker.find('.datepicker-days .prev').prop('innerHTML'), $('<div>').html('&laquo;').text());
     equal(picker.find('.datepicker-days .next').prop('innerHTML'), '<span class="glyphicon glyphicon-arrow-right"></span>');
 });
+
+test('date cells', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    dateCells: true
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+        input.focus();
+		picker.find('.datepicker-days .day').each(function(){
+			ok($(this)[0].hasAttribute('data-date'))
+		});
+});

@@ -1062,7 +1062,8 @@
 				}
 
 				clsName = $.unique(clsName);
-				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + '>'+prevMonth.getUTCDate() + '</td>');
+				
+				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + (this.o.dateCells ? ' data-date="'+(prevMonth.getTime().toString())+'"' : '') + '>'+prevMonth.getUTCDate() + '</td>');
 				tooltip = null;
 				if (prevMonth.getUTCDay() === this.o.weekEnd){
 					html.push('</tr>');
@@ -1761,6 +1762,7 @@
 		enableOnReadonly: true,
 		container: 'body',
 		immediateUpdates: false,
+		dateCells:false,
 		title: '',
 		templates: {
 			leftArrow: '<span class="glyphicon glyphicon-arrow-left"></span>',
