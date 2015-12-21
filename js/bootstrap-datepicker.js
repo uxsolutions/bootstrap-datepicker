@@ -332,8 +332,6 @@
 			} else {
 				o.defaultViewDate = UTCToday();
 			}
-			o.showOnFocus = o.showOnFocus !== undefined ? o.showOnFocus : true;
-			o.zIndexOffset = o.zIndexOffset !== undefined ? o.zIndexOffset : 10;
 		},
 		_events: [],
 		_secondaryEvents: [],
@@ -1763,6 +1761,8 @@
 		weekStart: 0,
 		disableTouchKeyboard: false,
 		enableOnReadonly: true,
+		showOnFocus: true,
+		zIndexOffset: 10,
 		container: 'body',
 		immediateUpdates: false,
 		title: '',
