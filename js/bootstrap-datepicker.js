@@ -1196,7 +1196,7 @@
 			e.preventDefault();
 			e.stopPropagation();
 
-			var target, dir, day, year, month;
+			var target, dir, day, year, month, monthChanged, yearChanged;
 			target = $(e.target);
 
 			// Clicked on the switch
@@ -1243,8 +1243,11 @@
 						if (month === 0) {
 							month = 11;
 							year = year - 1;
+							monthChanged = true;
+							yearChanged = true;
 						} else {
 							month = month - 1;
+							monthChanged = true;
  						}
  					}
 
@@ -1253,11 +1256,20 @@
 						if (month === 11){
 							month = 0;
 							year = year + 1;
+							monthChanged = true;
+							yearChanged = true;
  						} else {
 							month = month + 1;
+							monthChanged = true;
  						}
 					}
 					this._setDate(UTCDate(year, month, day));
+					if (yearChanged) {
+						this._trigger('changeYear', this.viewDate);
+					}
+					if (monthChanged) {
+						this._trigger('changeMonth', this.viewDate);
+					}
 				}
 
 				// Clicked on a month

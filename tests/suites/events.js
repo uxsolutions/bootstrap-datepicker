@@ -333,3 +333,85 @@ test('clicking outside datepicker triggers \'hide\' event', function(){
 
     $otherelement.remove();
 });
+
+test('Selecting date from previous month triggers changeMonth', function() {
+    var target,
+        triggered = 0;
+
+    this.input.on('changeMonth', function(){
+        triggered++;
+    });
+
+    // find first day of previous month
+    target = this.picker.find('.datepicker-days tbody td:first');
+    target.click();
+
+    // ensure event has been triggered
+    equal(triggered, 1);
+})
+
+test('Selecting date from previous month in january triggers changeMonth/changeYear', function() {
+    var target,
+        triggeredM = 0,
+        triggeredY = 0;
+
+    this.input.val('01-01-2011');
+    this.dp.update();
+
+    this.input.on('changeMonth', function(){
+        triggeredM++;
+    });
+
+    this.input.on('changeYear', function(){
+        triggeredY++;
+    });
+
+    // find first day of previous month
+    target = this.picker.find('.datepicker-days tbody td:first');
+    target.click();
+
+    // ensure event has been triggered
+    equal(triggeredM, 1);
+    equal(triggeredY, 1);
+})
+
+test('Selecting date from next month triggers changeMonth', function() {
+    var target,
+        triggered = 0;
+
+    this.input.on('changeMonth', function(){
+        triggered++;
+    });
+
+    // find first day of previous month
+    target = this.picker.find('.datepicker-days tbody td:last');
+    target.click();
+
+    // ensure event has been triggered
+    equal(triggered, 1);
+})
+
+test('Selecting date from next month in december triggers changeMonth/changeYear', function() {
+    var target,
+        triggeredM = 0,
+        triggeredY = 0;
+
+    this.input.val('01-12-2011');
+    this.dp.update();
+
+    this.input.on('changeMonth', function(){
+        triggeredM++;
+    });
+
+    this.input.on('changeYear', function(){
+        triggeredY++;
+    });
+
+    // find first day of previous month
+    target = this.picker.find('.datepicker-days tbody td:last');
+    target.click();
+
+    // ensure event has been triggered
+    equal(triggeredM, 1);
+    equal(triggeredY, 1);
+})
