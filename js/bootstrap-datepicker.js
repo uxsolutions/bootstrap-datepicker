@@ -865,10 +865,12 @@
 		},
 
 		fillMonths: function(){
+      var localDate = this._utc_to_local(this.viewDate);
 			var html = '',
 			i = 0;
 			while (i < 12){
-				html += '<span class="month">'+dates[this.o.language].monthsShort[i++]+'</span>';
+        var focused = localDate && localDate.getMonth() === i ? ' focused' : '';
+				html += '<span class="month' + focused + '">' + dates[this.o.language].monthsShort[i++]+'</span>';
 			}
 			this.picker.find('.datepicker-months td').html(html);
 		},
@@ -959,6 +961,9 @@
 				if (thisYear < startStep || thisYear > endStep) {
 					classes.push('disabled');
 				}
+        if (thisYear === this.viewDate.getFullYear()) {
+				  classes.push('focused');
+        }
 
 				if (callback !== $.noop) {
 					before = callback(new Date(thisYear, 0, 1));
@@ -1488,24 +1493,36 @@
 					if (!this.o.keyboardNavigation || this.o.daysOfWeekDisabled.length === 7)
 						break;
 					dir = e.keyCode === 37 || e.keyCode === 38 ? -1 : 1;
-					if (e.ctrlKey){
-						newViewDate = this.moveAvailableDate(focusDate, dir, 'moveYear');
+          if (this.viewMode === 0) {
+  					if (e.ctrlKey){
+  						newViewDate = this.moveAvailableDate(focusDate, dir, 'moveYear');
 
-						if (newViewDate)
-							this._trigger('changeYear', this.viewDate);
-					}
-					else if (e.shiftKey){
-						newViewDate = this.moveAvailableDate(focusDate, dir, 'moveMonth');
+  						if (newViewDate)
+  							this._trigger('changeYear', this.viewDate);
+  					}
+  					else if (e.shiftKey){
+  						newViewDate = this.moveAvailableDate(focusDate, dir, 'moveMonth');
 
-						if (newViewDate)
-							this._trigger('changeMonth', this.viewDate);
-					}
-					else if (e.keyCode === 37 || e.keyCode === 39){
-						newViewDate = this.moveAvailableDate(focusDate, dir, 'moveDay');
-					}
-					else if (!this.weekOfDateIsDisabled(focusDate)){
-						newViewDate = this.moveAvailableDate(focusDate, dir, 'moveWeek');
-					}
+  						if (newViewDate)
+  							this._trigger('changeMonth', this.viewDate);
+  					}
+  					else if (e.keyCode === 37 || e.keyCode === 39){
+  						newViewDate = this.moveAvailableDate(focusDate, dir, 'moveDay');
+  					}
+  					else if (!this.weekOfDateIsDisabled(focusDate)){
+  						newViewDate = this.moveAvailableDate(focusDate, dir, 'moveWeek');
+  					}
+          } else if (this.viewMode === 1) {
+            if (e.keyCode === 38 || e.keyCode === 40) {
+              dir = dir * 4;
+            }
+            newViewDate = this.moveAvailableDate(focusDate, dir, 'moveMonth');
+          } else if (this.viewMode === 2) {
+            if (e.keyCode === 38 || e.keyCode === 40) {
+              dir = dir * 4;
+            }
+            newViewDate = this.moveAvailableDate(focusDate, dir, 'moveYear');
+          }
 					if (newViewDate){
 						this.focusDate = this.viewDate = newViewDate;
 						this.setValue();
