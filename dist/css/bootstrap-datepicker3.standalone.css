@@ -510,7 +510,8 @@ fieldset[disabled] .datepicker table tr td.active.highlighted.focus {
   cursor: pointer;
   border-radius: 4px;
 }
-.datepicker table tr td span:hover {
+.datepicker table tr td span:hover,
+.datepicker table tr td span.focused {
   background: #eeeeee;
 }
 .datepicker table tr td span.disabled,

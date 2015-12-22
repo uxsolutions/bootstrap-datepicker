@@ -348,7 +348,8 @@
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
-.datepicker table tr td span:hover {
+.datepicker table tr td span:hover,
+.datepicker table tr td span.focused {
   background: #eeeeee;
 }
 .datepicker table tr td span.disabled,
