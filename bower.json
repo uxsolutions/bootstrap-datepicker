@@ -7,7 +7,9 @@
   ],
   "license": "Apache-2.0",
   "dependencies": {
-    "jquery" : ">=1.7.1"
+    "jquery": ">=1.7.1",
+    "sinon-qunit": "~2.0.0",
+    "sinon-1.17.2": "http://sinonjs.org/releases/sinon-1.17.2.js"
   },
   "ignore": []
 }

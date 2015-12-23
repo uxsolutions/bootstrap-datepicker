@@ -10,6 +10,7 @@ module('Component', {
         this.addon = this.component.find('.add-on');
         this.dp = this.component.data('datepicker')
         this.picker = this.dp.picker;
+        sinon.spy(this.dp, 'destroy');
     },
     teardown: function(){
         this.picker.remove();
@@ -160,15 +161,20 @@ test('Selecting date resets viewDate and date', function(){
     equal(target.text(), '29'); // Should be Jan 29
 });
 
-test('"remove" removes associated HTML', function(){
+test('"detroy" removes associated HTML', function(){
     var datepickerDivSelector = '.datepicker';
 
     $('#datepicker').datepicker('show');
 
     //there should be one datepicker initiated so that means one hidden .datepicker div
     equal($(datepickerDivSelector).length, 1);
-    this.component.datepicker('remove');
+    this.component.datepicker('destroy');
     equal($(datepickerDivSelector).length, 0);//hidden HTML should be gone
+});
+
+test('"remove" is an alias for "destroy"', function(){
+    this.dp.remove();
+    ok(this.dp.destroy.calledOnce);
 });
 
 test('Does not block events', function(){

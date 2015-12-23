@@ -8,13 +8,14 @@ Methods are called on a datepicker by calling the ``datepicker`` function with a
     $('.datepicker').datepicker('method', arg1, arg2);
 
 
-remove
+destroy
 ------
 
 Arguments: None
 
 Remove the datepicker.  Removes attached events, internal attached objects, and added HTML elements.
 
+*Alias: remove*
 
 show
 ----
