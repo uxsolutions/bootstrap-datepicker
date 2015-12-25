@@ -1967,9 +1967,13 @@
 			var fparts = format.parts.slice();
 			// Remove noop parts
 			if (parts.length !== fparts.length){
-				fparts = $(fparts).filter(function(i,p){
-					return $.inArray(p, setters_order) !== -1;
-				}).toArray();
+				if (parts.length < fparts.length){
+                    fparts = $(fparts).filter(function(i, p){
+                        return $.inArray(p, setters_order) !== -1;
+                    }).toArray();
+                } else {
+                    parts = parts.slice(0, fparts.length);
+                }
 			}
 			// Process remainder
 			function match_part(){
