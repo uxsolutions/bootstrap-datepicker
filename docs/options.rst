@@ -244,26 +244,26 @@ Custom formatting options
 ::
 
     $('.datepicker').datepicker({
-            format: {
-                /*
-                Say our UI should display a week ahead,
-                but textbox should store the actual date.
-                This is useful if we need UI to select local dates,
-                but store in UTC
-                */
-                toDisplay: function (date, format, language) {
-                    var d = new Date(date);
-                    d.setDate(d.getDate() - 7);
-                    return d.toISOString();
-                },
-                toValue: function (date, format, language) {
-                    var d = new Date(date);
-                    d.setDate(d.getDate() + 7);
-                    return new Date(d);
-                }
+        format: {
+            /*
+             * Say our UI should display a week ahead,
+             * but textbox should store the actual date.
+             * This is useful if we need UI to select local dates,
+             * but store in UTC
+             */
+            toDisplay: function (date, format, language) {
+                var d = new Date(date);
+                d.setDate(d.getDate() - 7);
+                return d.toISOString();
             },
-            autoclose: true
-        });
+            toValue: function (date, format, language) {
+                var d = new Date(date);
+                d.setDate(d.getDate() + 7);
+                return new Date(d);
+            }
+        },
+        autoclose: true
+    });
 
 
 immediateUpdates
@@ -284,14 +284,14 @@ A list of inputs to be used in a range picker, which will be attached to the sel
 .. code-block:: html
 
     <div class="form-group form-group-filled" id="event_period">
-       <input type="text" class="actual_range">
-       <input type="text" class="actual_range">
+        <input type="text" class="actual_range">
+        <input type="text" class="actual_range">
     </div>
 
 ::
 
     $('#event_period').datepicker({
-       inputs: $('.actual_range')
+        inputs: $('.actual_range')
     });
 
 
@@ -398,13 +398,19 @@ templates
 ---------
 
 Object. Default:
+
+::
+
     {
-        leftArrow: '<span class="glyphicon glyphicon-arrow-left"></span>',
-        rightArrow: '<span class="glyphicon glyphicon-arrow-right"></span>'
+        leftArrow: '&laquo;',
+        rightArrow: '&raquo;'
     }
 
 The templates used to generate some parts of the picker. Each property must be a string with only text, or valid html.
-You can use this property to use custom icons libs. for example :
+You can use this property to use custom icons libs. for example:
+
+::
+
     {
         leftArrow: '<i class="fa fa-long-arrow-left"></i>',
         rightArrow: '<i class="fa fa-long-arrow-right"></i>'

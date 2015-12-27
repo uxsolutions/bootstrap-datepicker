@@ -42,7 +42,7 @@ Usage
 
 Call the datepicker via javascript::
 
-    $('.datepicker').datepicker()
+    $('.datepicker').datepicker();
 
 
 Data API
@@ -78,7 +78,7 @@ Configuration
     $('.datepicker').datepicker({
         format: 'mm/dd/yyyy',
         startDate: '-3d'
-    })
+    });
 
 Most options may be provided as data-attributes on the target element:
 
@@ -90,14 +90,14 @@ Most options may be provided as data-attributes on the target element:
 
     $('.datepicker').datepicker({
         startDate: '-3d'
-    })
+    });
 
 Defaults for all options can be modified directly by changing values in the ``$.fn.datepicker.defaults`` hash::
 
     $.fn.datepicker.defaults.format = "mm/dd/yyyy";
     $('.datepicker').datepicker({
         startDate: '-3d'
-    })
+    });
 
 
 Stylesheets

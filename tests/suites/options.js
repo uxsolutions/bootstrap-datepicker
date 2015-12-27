@@ -1415,7 +1415,7 @@ test('templates', function(){
             .appendTo('#qunit-fixture')
             .datepicker({
                 templates: {
-                    leftArrow: '&laquo;',
+                    leftArrow: '<span class="glyphicon glyphicon-arrow-left"></span>',
                     rightArrow: '</table>'
                 }
             }),
@@ -1423,6 +1423,6 @@ test('templates', function(){
         picker = dp.picker;
 
     input.focus();
-    equal(picker.find('.datepicker-days .prev').prop('innerHTML'), $('<div>').html('&laquo;').text());
-    equal(picker.find('.datepicker-days .next').prop('innerHTML'), '<span class="glyphicon glyphicon-arrow-right"></span>');
+    equal(picker.find('.datepicker-days .prev').prop('innerHTML'), '<span class="glyphicon glyphicon-arrow-left"></span>');
+    equal(picker.find('.datepicker-days .next').prop('innerHTML'), $('<div>').html('&raquo;').text());
 });
