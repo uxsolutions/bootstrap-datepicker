@@ -1,6 +1,31 @@
 Changelog
 =========
 
+1.5.1
+-----
+
+Bugfixes
+ * Fix calculation for new position when datepicker goes offscreen when inside a container (Fixes: #1619)
+ * Fix datepicker title not centered when displaying calendar weeks (Fixes: #1625)
+ * Fixing looping when calling dp inside change event (Fixes: #1628)
+ * Add scrollTop to position if container is not body (Fixes: #1616)
+ * Use document scrollTop instead of body scrollTop when using the body container
+ * Fix focus for disabled week days (Fixes: #1365, #1187, #1648)
+ * Fixes enableOnReadOnly bug when datepicker is of type component
+ 
+Translations
+ * Added missing translations for slovak translation. (Fixes: #1521)
+ * Added missing date format for norwegian (nb) locale (Fixes #1690)
+ * Armenian translation short names
+ * adding Today translation, default date format for the lithuanian translation
+ 
+Docs
+ * Document data-api on container
+ * Added docs for the different stylesheet files. (Fixes #1459)
+ 
+Repository
+ * Enable travis container builds for faster builds
+
 1.5.0
 -----
 
