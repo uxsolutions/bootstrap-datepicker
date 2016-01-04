@@ -10,7 +10,6 @@ module('Component', {
         this.addon = this.component.find('.add-on');
         this.dp = this.component.data('datepicker')
         this.picker = this.dp.picker;
-        sinon.spy(this.dp, 'destroy');
     },
     teardown: function(){
         this.picker.remove();
@@ -173,8 +172,13 @@ test('"destroy" removes associated HTML', function(){
 });
 
 test('"remove" is an alias for "destroy"', function(){
+    var called, originalDestroy = this.dp.destroy;
+    this.dp.destroy = function () {
+        called = true;
+        return originalDestroy.apply(this, arguments);
+    };
     this.dp.remove();
-    ok(this.dp.destroy.calledOnce);
+    ok(called);
 });
 
 test('Does not block events', function(){
