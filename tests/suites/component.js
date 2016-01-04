@@ -161,7 +161,7 @@ test('Selecting date resets viewDate and date', function(){
     equal(target.text(), '29'); // Should be Jan 29
 });
 
-test('"detroy" removes associated HTML', function(){
+test('"destroy" removes associated HTML', function(){
     var datepickerDivSelector = '.datepicker';
 
     $('#datepicker').datepicker('show');
