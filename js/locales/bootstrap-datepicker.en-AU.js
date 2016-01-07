@@ -13,6 +13,6 @@
 		monthsTitle: "Months",
 		clear: "Clear",
 		weekStart: 1,
-		format: "dd/mm/yyyy"
+		format: "d/mm/yyyy"
 	};
 }(jQuery));
