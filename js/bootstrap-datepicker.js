@@ -525,7 +525,7 @@
 			return this;
 		},
 
-		remove: function(){
+		destroy: function(){
 			this.hide();
 			this._detachEvents();
 			this._detachSecondaryEvents();
@@ -627,6 +627,7 @@
 
 		setDate: alias('setDates'),
 		setUTCDate: alias('setUTCDates'),
+		remove: alias('destroy'),
 
 		setValue: function(){
 			var formatted = this.getFormattedDate();
