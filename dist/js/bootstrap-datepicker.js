@@ -1,5 +1,5 @@
 /*!
- * Datepicker for Bootstrap v1.6.0-dev (https://github.com/eternicode/bootstrap-datepicker)
+ * Datepicker for Bootstrap v1.6.0-alpha (https://github.com/eternicode/bootstrap-datepicker)
  *
  * Copyright 2012 Stefan Petre
  * Improvements by Andrew Rowls
@@ -509,7 +509,7 @@
 			return this;
 		},
 
-		remove: function(){
+		destroy: function(){
 			this.hide();
 			this._detachEvents();
 			this._detachSecondaryEvents();
@@ -611,6 +611,7 @@
 
 		setDate: alias('setDates'),
 		setUTCDate: alias('setUTCDates'),
+		remove: alias('destroy'),
 
 		setValue: function(){
 			var formatted = this.getFormattedDate();
@@ -1780,8 +1781,8 @@
 		immediateUpdates: false,
 		title: '',
 		templates: {
-			leftArrow: '<span class="glyphicon glyphicon-arrow-left"></span>',
-			rightArrow: '<span class="glyphicon glyphicon-arrow-right"></span>'
+			leftArrow: '&laquo;',
+			rightArrow: '&raquo;'
 		}
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
@@ -2026,9 +2027,9 @@
 			                '<th colspan="7" class="datepicker-title"></th>'+
 			              '</tr>'+
 							'<tr>'+
-								'<th class="prev"><span class="glyphicon glyphicon-arrow-left"></span></th>'+
+								'<th class="prev">&laquo;</th>'+
 								'<th colspan="5" class="datepicker-switch"></th>'+
-								'<th class="next"><span class="glyphicon glyphicon-arrow-right"></span></th>'+
+								'<th class="next">&raquo;</th>'+
 							'</tr>'+
 						'</thead>',
 		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',
@@ -2092,7 +2093,7 @@
 
 	/* DATEPICKER VERSION
 	 * =================== */
-	$.fn.datepicker.version = '1.6.0-dev';
+	$.fn.datepicker.version = '1.6.0-alpha';
 
 	/* DATEPICKER DATA-API
 	* ================== */
