@@ -1,12 +1,11 @@
 {
     // Extra globals.
     "predef" : [
-      "require",
-      "define",
-      "escape"
+      "define"
     ],
     "jquery": true,
     "browser": true,
+    "node": true,
 
     "eqeqeq": true,
     "freeze": true,

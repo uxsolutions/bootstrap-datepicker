@@ -24,7 +24,7 @@ module.exports = function(grunt){
         },
         jshint: {
             options: {
-                jshintrc: 'grunt/.jshintrc'
+                jshintrc: 'js/.jshintrc'
             },
             main: {
                 src: 'js/bootstrap-datepicker.js'
@@ -34,7 +34,7 @@ module.exports = function(grunt){
             },
             gruntfile: {
                 options: {
-                    jshintrc: 'grunt/.jshintrc'
+                    jshintrc: 'js/.jshintrc'
                 },
                 src: 'Gruntfile.js'
             }
