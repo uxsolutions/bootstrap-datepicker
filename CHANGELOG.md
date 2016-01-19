@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.6.0
+-----
+
+Features
+ * Updated to new use UMD.js format, permits headless and shared jQuery in CommonJS. (Fixes #1761)
+
 1.5.1
 -----
 
