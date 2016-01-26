@@ -58,8 +58,8 @@ Markup with component
 
 .. code-block:: html
 
-    <div class="input-group date" data-provide="datepicker">
-        <input type="text" class="form-control">
+    <div class="input-group date">
+        <input type="text" class="form-control" data-provide="datepicker">
         <div class="input-group-addon">
             <span class="glyphicon glyphicon-th"></span>
         </div>
