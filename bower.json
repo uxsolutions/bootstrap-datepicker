@@ -1,6 +1,5 @@
 {
   "name": "bootstrap-datepicker",
-  "version": "1.6.0-alpha",
   "main": [
     "dist/css/bootstrap-datepicker3.css",
     "dist/js/bootstrap-datepicker.min.js"

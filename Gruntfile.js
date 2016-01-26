@@ -204,18 +204,6 @@ module.exports = function(grunt){
                         replacement: '"version": "' + grunt.option('newver') + '",'
                     }]
                 }
-            },
-            bower: {
-                files: [{
-                    src: 'bower.json',
-                    dest: 'bower.json'
-                }],
-                options: {
-                    replacements: [{
-                        pattern: /\"version\":\s\"[0-9\.a-z].*",/gi,
-                        replacement: '"version": "' + grunt.option('newver') + '",'
-                    }]
-                }
             }
         }
     });
