@@ -740,7 +740,7 @@ test('BeforeShowDay', function(){
 test('BeforeShowMonth', function () {
 
     var beforeShowMonth = function (date) {
-        switch (date.getMonth()()) {
+        switch (date.getMonth()) {
             case 0:
                 return {
                     tooltip: 'Example tooltip',
