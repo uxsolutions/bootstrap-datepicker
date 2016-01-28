@@ -736,6 +736,53 @@ test('BeforeShowDay', function(){
     ok(!target.hasClass('disabled'), '29th is enabled');
 });
 
+
+test('BeforeShowMonth', function () {
+
+    var beforeShowMonth = function (date) {
+        switch (date.getMonth()) {
+            case 0:
+                return {
+                    tooltip: 'Example tooltip',
+                    classes: 'active'
+                };
+            case 2:
+                return "testMarch";
+            case 4:
+                return {enabled: false, classes: 'testMay'};
+            case 5:
+                return false;
+        }
+    };
+
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .val('2012-10-26')
+            .datepicker({
+                format: 'yyyy-mm-dd',
+                beforeShowMonth: beforeShowMonth
+            }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    target = picker.find('.datepicker-months tbody span:nth(0)');
+    equal(target.attr('title'), 'Example tooltip', '1st has tooltip');
+    ok(!target.hasClass('disabled'), 'January is enabled');
+    target = picker.find('.datepicker-months tbody span:nth(2)');
+    ok(target.hasClass('testMarch'), 'March has testMarch class');
+    ok(!target.hasClass('disabled'), 'March enabled');
+    target = picker.find('.datepicker-months tbody span:nth(4)');
+    ok(target.hasClass('testMay'), 'May has testMay class');
+    ok(target.hasClass('disabled'), 'May is disabled');
+    target = picker.find('.datepicker-months tbody span:nth(5)');
+    ok(target.hasClass('disabled'), 'June is disabled');
+    target = picker.find('.datepicker-months tbody span:nth(6)');
+    ok(!target.hasClass('disabled'), 'July is enabled');
+});
+
+
 test('BeforeShowYear', function () {
 
     var beforeShowYear = function (date) {
