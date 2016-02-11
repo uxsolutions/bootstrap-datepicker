@@ -679,14 +679,17 @@ test('DatesDisabled', function(){
 
     target = picker.find('.datepicker-days tbody td:nth(1)');
     ok(target.hasClass('disabled'), 'Day of week is disabled');
+    ok(target.hasClass('disabled-date'), 'Date is disabled');
     target = picker.find('.datepicker-days tbody td:nth(2)');
     ok(!target.hasClass('disabled'), 'Day of week is enabled');
     target = picker.find('.datepicker-days tbody td:nth(10)');
     ok(target.hasClass('disabled'), 'Day of week is disabled');
+    ok(target.hasClass('disabled-date'), 'Date is disabled');
     target = picker.find('.datepicker-days tbody td:nth(11)');
     ok(!target.hasClass('disabled'), 'Day of week is enabled');
     target = picker.find('.datepicker-days tbody td:nth(20)');
     ok(target.hasClass('disabled'), 'Day of week is disabled');
+    ok(target.hasClass('disabled-date'), 'Date is disabled');
     target = picker.find('.datepicker-days tbody td:nth(21)');
     ok(!target.hasClass('disabled'), 'Day of week is enabled');
 });
