@@ -168,3 +168,23 @@ test('parseDate - outputs correct value for dates containing unicodes', function
     equal(parsedDate.getMonth(), "10", "month is correct");
     equal(parsedDate.getFullYear(), "2015", "fullyear is correct");
 });
+
+test('parseDate - outputs correct value for valid range', function(){
+    var parsedDate = $.fn.datepicker.DPGlobal.parseDate('275760/09/13',$.fn.datepicker.DPGlobal.parseFormat('yyyy/mm/dd'),'en');
+    console.log(parsedDate);
+    equal(parsedDate.getDate(), "13", "date is correct");
+    equal(parsedDate.getMonth(), "8", "month is correct");
+    equal(parsedDate.getFullYear(), "275760", "fullyear is correct");
+});
+
+test('parseDate - outputs correct value for invalid range', function(){
+  var parsedDate = $.fn.datepicker.DPGlobal.parseDate('275760/09/14',$.fn.datepicker.DPGlobal.parseFormat('yyyy/mm/dd'),'en');
+  if (/PhantomJS/.test(window.navigator.userAgent)) {
+    // in PhantomJS, there is bug in date implements that datetime can be over 8.64e+15, so skip
+    ok(true);
+  } else {
+    ok(isNaN(parsedDate.getDate()), "date is correct");
+    ok(isNaN(parsedDate.getMonth()), "month is correct");
+    ok(isNaN(parsedDate.getFullYear()), "fullyear is correct");
+  }
+});
