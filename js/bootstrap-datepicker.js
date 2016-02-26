@@ -136,7 +136,7 @@
 		}
 		
 		if (this.o.class){
-      this.picker.addClass(options.class);
+      this.picker.addClass(this.o.class);
     }
 
 		if (this.o.rtl){
