@@ -135,8 +135,7 @@
 			this.picker.addClass('datepicker-dropdown dropdown-menu');
 		}
 		
-		if (options.class)
-    {
+		if (this.o.class){
       this.picker.addClass(options.class);
     }
 
