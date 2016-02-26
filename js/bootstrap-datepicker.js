@@ -136,6 +136,11 @@
 		else {
 			this.picker.addClass('datepicker-dropdown dropdown-menu');
 		}
+		
+		if (options.class)
+    {
+      this.picker.addClass(options.class);
+    }
 
 		if (this.o.rtl){
 			this.picker.addClass('datepicker-rtl');
