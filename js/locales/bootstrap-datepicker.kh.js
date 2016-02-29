@@ -1,6 +1,10 @@
 /**
  * Cambodia (Khmer) translation for bootstrap-datepicker
  * Lytay TOUCH <lytaytouch@gmail.com>
+ *
+ * DEPRECATED: This language code 'kh' is deprecated and will be removed in 2.0.
+ * Khmer support is now in a 'km' translation file to follow the ISO language
+ * code - http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
  */
 ;(function($){
 	$.fn.datepicker.dates['kh'] = {
