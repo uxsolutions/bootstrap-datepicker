@@ -75,8 +75,8 @@ test('setUTCDate', function(){
 });
 
 test('setStartDate', function(){
-    var date_in = new Date(Date.UTC(2012, 3, 5)),
-        expected_date = date_in,
+    var date_in = new Date(2012, 3, 5),
+        expected_date = new Date(Date.UTC(2012, 3, 5)),
         returnedObject = this.dp.setStartDate(date_in);
     // ...
     datesEqual(this.dp.o.startDate, expected_date);
@@ -84,8 +84,8 @@ test('setStartDate', function(){
 });
 
 test('setEndDate', function(){
-    var date_in = new Date(Date.UTC(2012, 3, 5)),
-        expected_date = date_in,
+    var date_in = new Date(2012, 3, 5),
+        expected_date = new Date(Date.UTC(2012, 3, 5)),
         returnedObject = this.dp.setEndDate(date_in);
     // ...
     datesEqual(this.dp.o.endDate, expected_date);
@@ -93,8 +93,8 @@ test('setEndDate', function(){
 });
 
 test('getStartDate', function(){
-    var date_in = new Date(Date.UTC(2012, 3, 5)),
-        expected_date = date_in,
+    var date_in = new Date(2012, 3, 5),
+        expected_date = new Date(Date.UTC(2012, 3, 5)),
         returnedObject = this.dp.setStartDate(date_in);
     // ...
     datesEqual(returnedObject.getStartDate(), expected_date);
@@ -102,8 +102,8 @@ test('getStartDate', function(){
 });
 
 test('getEndDate', function(){
-    var date_in = new Date(Date.UTC(2012, 3, 5)),
-        expected_date = date_in,
+    var date_in = new Date(2012, 3, 5),
+        expected_date = new Date(Date.UTC(2012, 3, 5)),
         returnedObject = this.dp.setEndDate(date_in);
     // ...
     datesEqual(returnedObject.getEndDate(), expected_date);
@@ -150,21 +150,21 @@ test('moveMonth - can handle invalid date', function(){
 
 test('parseDate - outputs correct value', function(){
     var parsedDate = $.fn.datepicker.DPGlobal.parseDate('11/13/2015',$.fn.datepicker.DPGlobal.parseFormat('mm/dd/yyyy'),'en');
-    equal(parsedDate.getDate(), "13", "date is correct");
-    equal(parsedDate.getMonth(), "10", "month is correct");
-    equal(parsedDate.getFullYear(), "2015", "fullyear is correct");
+    equal(parsedDate.getUTCDate(), "13", "date is correct");
+    equal(parsedDate.getUTCMonth(), "10", "month is correct");
+    equal(parsedDate.getUTCFullYear(), "2015", "fullyear is correct");
 });
 
 test('parseDate - outputs correct value for yyyy\u5E74mm\u6708dd\u65E5 format', function(){
     var parsedDate = $.fn.datepicker.DPGlobal.parseDate('2015\u5E7411\u670813',$.fn.datepicker.DPGlobal.parseFormat('yyyy\u5E74mm\u6708dd\u65E5'),'ja');
-    equal(parsedDate.getDate(), "13", "date is correct");
-    equal(parsedDate.getMonth(), "10", "month is correct");
-    equal(parsedDate.getFullYear(), "2015", "fullyear is correct");
+    equal(parsedDate.getUTCDate(), "13", "date is correct");
+    equal(parsedDate.getUTCMonth(), "10", "month is correct");
+    equal(parsedDate.getUTCFullYear(), "2015", "fullyear is correct");
 });
 
 test('parseDate - outputs correct value for dates containing unicodes', function(){
     var parsedDate = $.fn.datepicker.DPGlobal.parseDate('\u5341\u4E00\u6708 13 2015',$.fn.datepicker.DPGlobal.parseFormat('MM dd yyyy'),'zh-CN');
-    equal(parsedDate.getDate(), "13", "date is correct");
-    equal(parsedDate.getMonth(), "10", "month is correct");
-    equal(parsedDate.getFullYear(), "2015", "fullyear is correct");
+    equal(parsedDate.getUTCDate(), "13", "date is correct");
+    equal(parsedDate.getUTCMonth(), "10", "month is correct");
+    equal(parsedDate.getUTCFullYear(), "2015", "fullyear is correct");
 });
