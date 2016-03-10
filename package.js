@@ -6,11 +6,9 @@ Package.describe({
   documentation: 'README.md'
 });
 
-Npm.depends({
-    'bootstrap-datepicker': '1.5.1'
-});
-
 Package.onUse(function(api) {
   api.addFiles([
+    "dist/css/bootstrap-datepicker3.css",
+    "dist/js/bootstrap-datepicker.js"
   ], 'client');
 });
