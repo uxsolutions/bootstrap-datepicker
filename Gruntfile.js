@@ -123,20 +123,14 @@ module.exports = function(grunt){
         },
         usebanner: {
             options: {
-                position: 'top',
                 banner: '<%= banner %>'
             },
-            css: {
-                files: {
-                    src: 'dist/css/*.css'
-                }
-            }
+            css: 'dist/css/*.css'
         },
         cssmin: {
             options: {
                 compatibility: 'ie8',
                 keepSpecialComments: '*',
-                sourceMap: true,
                 advanced: false
             },
             main: {
