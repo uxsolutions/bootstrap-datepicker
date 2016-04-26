@@ -796,6 +796,7 @@
 			}, this));
 			dates = $.grep(dates, $.proxy(function(date){
 				return (
+					!this.o.allowDisabledDateValue &&
 					!this.dateWithinRange(date) ||
 					!date
 				);
@@ -1758,6 +1759,7 @@
 	var defaults = $.fn.datepicker.defaults = {
 		assumeNearbyYear: false,
 		autoclose: false,
+    allowDisabledDateValue: true,
 		beforeShowDay: $.noop,
 		beforeShowMonth: $.noop,
 		beforeShowYear: $.noop,
