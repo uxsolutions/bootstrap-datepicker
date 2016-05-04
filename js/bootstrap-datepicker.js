@@ -1370,11 +1370,11 @@
 			if (!which || which === 'view')
 				this.viewDate = date && new Date(date);
 
-			this.fill();
 			this.setValue();
 			if (!which || which !== 'view') {
 				this._trigger('changeDate');
 			}
+			this.fill();
 			var element;
 			if (this.isInput){
 				element = this.element;
