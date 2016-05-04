@@ -1216,7 +1216,7 @@
 			}
 
 			// Clicked on today button
-			if (target.hasClass('today')){
+			if (target.hasClass('today') && !target.hasClass('day')){
 				this.showMode(-2);
 				this._setDate(UTCToday(), this.o.todayBtn === 'linked' ? null : 'view');
 			}
