@@ -249,3 +249,18 @@ test('Selecting date from next month resets viewDate and date, changing month di
     target = this.picker.find('.datepicker-days tbody td:first');
     equal(target.text(), '29'); // Should be Apr 29
 });
+
+test('Selecting today from next month', patch_date(function(Date){
+    var target;
+    this.dp.o.todayHighlight = true;
+    Date.now = new Date(2012, 2, 3); // Mar 3
+    this.input.val('01-02-2012');    // Feb 1
+    this.dp.update();
+
+    // Click the today button
+    target = this.picker.find('.datepicker-days tbody td.today');
+    equal(target.text(), '3'); // Should be Mar 3
+    target.click();
+
+    datesEqual(this.dp.viewDate, UTCDate(2012, 2, 3));
+}));
