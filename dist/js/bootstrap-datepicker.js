@@ -1031,7 +1031,8 @@
 				}
 
 				clsName = $.unique(clsName);
-				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + '>'+prevMonth.getUTCDate() + '</td>');
+				
+				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + (this.o.dateCells ? ' data-date="'+(prevMonth.getTime().toString())+'"' : '') + '>'+prevMonth.getUTCDate() + '</td>');
 				tooltip = null;
 				if (prevMonth.getUTCDay() === this.o.weekEnd){
 					html.push('</tr>');
@@ -1751,6 +1752,7 @@
 		zIndexOffset: 10,
 		container: 'body',
 		immediateUpdates: false,
+		dateCells:false,
 		title: '',
 		templates: {
 			leftArrow: '&laquo;',
