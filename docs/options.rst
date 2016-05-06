@@ -6,6 +6,7 @@ There are also aliases for the relative timedelta's: "yesterday" equals "-1d", "
 
 Most options can be provided via data-attributes.  An option can be converted to a data-attribute by taking its name, replacing each uppercase letter with its lowercase equivalent preceded by a dash, and prepending "data-date-" to the result.  For example, ``startDate`` would be ``data-date-start-date``, ``format`` would be ``data-date-format``, and ``daysOfWeekDisabled`` would be ``data-date-days-of-week-disabled``.
 
+See the `quick reference`_ for an overview of all options and their default values
 
 autoclose
 ---------
@@ -481,3 +482,50 @@ zIndexOffset
 Integer.  Default: 10
 
 The CSS z-index of the open datepicker is the maximum z-index of the input and all of its DOM ancestors *plus* the ``zIndexOffset``.
+
+Quick reference
+===============
+
+This is a quick overview of all the options and their default values
+
+=====================        =============
+Option                       Default value
+=====================        =============
+autoclose                    false
+beforeShowDay
+beforeShowMonth
+beforeShowYear
+beforeShowDecade
+beforeShowCentury
+calendarWeeks                false
+clearBtncontainer            false
+datesDisabled                []
+daysOfWeekDisabled           []
+daysOfWeekHighlighted        []
+defaultViewDate              today
+disableTouchKeyboard         false
+enableOnReadonly             true
+endDate
+forceParse                   true
+assumeNearbyYear             false
+format                       mm/dd/yyyy
+immediateUpdates             false
+inputs
+keyboardNavigation           true
+language                     en
+maxViewMode                  4 'centuries'
+minViewMode                  0 'day'
+multidate                    false
+multidateSeparator           ","
+orientation                  auto
+showOnFocus                  true
+startDate                    0
+startView                    'month' (current)
+templates
+title                        ''
+todayBtn                     false
+todayHighlight               true
+toggleActive                 false
+weekStart                    0 (Sunday)
+zIndexOffset                 10
+=====================        =============
