@@ -28,6 +28,14 @@ test('Activation by component', function(){
     ok(this.picker.is(':visible'));
 });
 
+test('Dont activation (by disabled) by component', function(){
+    ok(!this.picker.is(':visible'));
+    this.input.prop('disabled', true);
+    this.addon.click();
+    ok(!this.picker.is(':visible'));
+    this.input.prop('disabled', false);
+});
+
 test('simple keyboard nav test', function(){
     var target;
 
