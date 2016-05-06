@@ -60,11 +60,18 @@
 			},
 			contains: function(d){
 				// Array.indexOf is not cross-browser;
-				// $.inArray doesn't work with Dates
-				var val = d && d.valueOf();
-				for (var i=0, l=this.length; i < l; i++)
-					if (this[i].valueOf() === val)
+        // $.inArray doesn't work with Dates
+        
+				for (var i = 0, l = this.length; i < l; i++) {
+          var da = d.getDate(),
+						m = d.getMonth(),
+						y = d.getFullYear(),
+						item = this[i];
+					if (item.getDate() === da &&
+						item.getMonth() === m &&
+						item.getFullYear() === y)
 						return i;
+				}
 				return -1;
 			},
 			remove: function(i){
