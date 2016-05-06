@@ -106,7 +106,7 @@ Stylesheets
 There are a few different stylesheets included in the library. This is an overview of what each file is to be used for:
 
 :code:`bootstrap-datepicker.css` gives legacy support for twitter bootstrap v2, :code:`bootstrap-datepicker3.css` is used for twitter bootstrap v3 support
-and :code:`bootstrap-datepicker.standalone.css` can be used the include the datepicker without depending on the twitter bootstrap library.
+and :code:`bootstrap-datepicker.standalone.css` can be used to include the datepicker without depending on the twitter bootstrap library.
 
 No Conflict mode
 ^^^^^^^^^^^^^^^^
