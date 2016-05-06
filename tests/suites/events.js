@@ -320,6 +320,8 @@ test('paste must update the date', function() {
     };
     this.input.trigger(evt);
     datesEqual(this.dp.dates[0], UTCDate(2015, 6, 22));
+
+    ok(evt.originalEvent.isDefaultPrevented, 'prevented original event');
 });
 
 test('clicking outside datepicker triggers \'hide\' event', function(){
