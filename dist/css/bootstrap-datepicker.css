@@ -428,6 +428,10 @@
 .datepicker tfoot tr th:hover {
   background: #eee;
 }
+.datepicker .prev .disabled,
+.datepicker .next .disabled {
+  visibility: hidden;
+}
 .datepicker .cw {
   font-size: 10px;
   width: 12px;

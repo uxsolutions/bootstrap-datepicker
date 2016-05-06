@@ -1146,16 +1146,16 @@
 			switch (this.viewMode){
 				case 0:
 					if (this.o.startDate !== -Infinity && year <= this.o.startDate.getUTCFullYear() && month <= this.o.startDate.getUTCMonth()){
-						this.picker.find('.prev').css({visibility: 'hidden'});
+						this.picker.find('.prev').addClass('disabled');
 					}
 					else {
-						this.picker.find('.prev').css({visibility: 'visible'});
+						this.picker.find('.prev').removeClass('disabled');
 					}
 					if (this.o.endDate !== Infinity && year >= this.o.endDate.getUTCFullYear() && month >= this.o.endDate.getUTCMonth()){
-						this.picker.find('.next').css({visibility: 'hidden'});
+						this.picker.find('.next').addClass('disabled');
 					}
 					else {
-						this.picker.find('.next').css({visibility: 'visible'});
+						this.picker.find('.next').removeClass('disabled');
 					}
 					break;
 				case 1:
@@ -1163,16 +1163,16 @@
 				case 3:
 				case 4:
 					if (this.o.startDate !== -Infinity && year <= this.o.startDate.getUTCFullYear() || this.o.maxViewMode < 2){
-						this.picker.find('.prev').css({visibility: 'hidden'});
+						this.picker.find('.prev').addClass('disabled');
 					}
 					else {
-						this.picker.find('.prev').css({visibility: 'visible'});
+						this.picker.find('.prev').removeClass('disabled');
 					}
 					if (this.o.endDate !== Infinity && year >= this.o.endDate.getUTCFullYear() || this.o.maxViewMode < 2){
-						this.picker.find('.next').css({visibility: 'hidden'});
+						this.picker.find('.next').addClass('disabled');
 					}
 					else {
-						this.picker.find('.next').css({visibility: 'visible'});
+						this.picker.find('.next').removeClass('disabled');
 					}
 					break;
 			}
