@@ -61,9 +61,9 @@
 			contains: function(d){
 				// Array.indexOf is not cross-browser;
 				// $.inArray doesn't work with Dates
-				var val = d && d.valueOf();
+				var val = d && d.setHours(0,0,0,0).valueOf();
 				for (var i=0, l=this.length; i < l; i++)
-					if (this[i].valueOf() === val)
+					if (this[i].setHours(0,0,0,0).valueOf() === val)
 						return i;
 				return -1;
 			},
