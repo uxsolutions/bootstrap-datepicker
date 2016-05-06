@@ -313,7 +313,9 @@ test('paste must update the date', function() {
             clipboardData: {
                 types: ['text/plain'],
                 getData: function() { return dateToPaste; }
-            }
+            },
+            preventDefault: function() { evt.originalEvent.isDefaultPrevented = true; },
+            isDefaultPrevented: false
         }
     };
     this.input.trigger(evt);
