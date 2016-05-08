@@ -492,7 +492,7 @@
 				}, this)
 			});
 		},
-		_clearMouseDownTarget: function () {
+		_clearMouseDownTarget: function() {
 			this._mousedown_target = null;
 		},
 
