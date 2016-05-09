@@ -44,6 +44,14 @@ test('update - Date', function(){
     strictEqual(returnedObject, this.dp, "is chainable");
 });
 
+test('update - Date with time', function(){
+    var returnedObject = this.dp.update(new Date(2012, 2, 13, 23, 59, 59, 999));
+    datesEqual(this.dp.dates[0], UTCDate(2012, 2, 13, 23, 59, 59, 999));
+    var date = this.dp.picker.find('.datepicker-days td:contains(13)');
+    ok(date.is('.active'), 'Date is selected');
+    strictEqual(returnedObject, this.dp, "is chainable");
+});
+
 test('update - null', function(){
     var returnedObject = this.dp.update(null);
     equal(this.dp.dates[0], undefined);
