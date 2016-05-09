@@ -1477,6 +1477,26 @@ test('templates', function(){
     equal(picker.find('.datepicker-days .next').prop('innerHTML'), $('<div>').html('&raquo;').text());
 });
 
+test('Nav arrow html templates with span tag', function () {
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .val('2012-10-26')
+            .datepicker({
+                format: 'yyyy-mm-dd',
+                templates: {
+                    leftArrow: '<span></span>',
+                    rightArrow: '<span></span>'
+                }
+            }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    target = picker.find('.datepicker-months tbody span:nth(9)');
+    ok(target.hasClass('active'), 'Month is selected');
+});
+
 test('date cells', function(){
     var input = $('<input />')
                 .appendTo('#qunit-fixture')
