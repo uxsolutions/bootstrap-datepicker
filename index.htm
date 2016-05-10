@@ -15,11 +15,14 @@
           bscss.prop('href', '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css');
           bsdpcss.prop('href', 'bootstrap-datepicker/css/bootstrap-datepicker.css');
           page.bootstrap = 2;
-        }
-        else{
+
+          ga('send', 'event', 'Sandbox', 'Bootstrap V2 style');
+        } else{
           bscss.prop('href', '//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css');
           bsdpcss.prop('href', 'bootstrap-datepicker/css/bootstrap-datepicker3.css');
           page.bootstrap = 3;
+
+          ga('send', 'event', 'Sandbox', 'Bootstrap V3 style');
         }
 
         $(page).trigger('change:bootstrap', page.bootstrap);
