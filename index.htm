@@ -140,12 +140,12 @@
         <a id="download-release"
            href="https://github.com/eternicode/bootstrap-datepicker/releases/download/v1.6.1/bootstrap-datepicker-1.6.1-dist.zip"
            class="btn btn-default"
-           onClick="ga('send', 'event', 'download', 'latest-stable');"
+           onClick="var that=this;ga('send', 'event', 'Download', 'latest-stable' ,this.href);"
           >Download 1.6.1</a>
         <a id="download-master"
            href="https://github.com/eternicode/bootstrap-datepicker/zipball/master"
            class="btn btn-default"
-           onClick="ga('send', 'event', 'download', 'dev-master');"
+           onClick="var that=this;ga('send', 'event', 'Download', 'dev-master', this.href);"
         >Download Development (1.7.0-dev)</a>
       </p>
       <style>
