@@ -5,7 +5,7 @@
     <title>Datepicker for Bootstrap</title>
     <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
     <link id="bs-css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
-    <link id="bsdp-css" href="bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet">
+    <link id="bsdp-css" href="bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet">
     <script>
       var page = {bootstrap:3};
       function swap_bs(){
@@ -13,13 +13,13 @@
             bsdpcss = $('#bsdp-css');
         if (page.bootstrap == 3){
           bscss.prop('href', '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css');
-          bsdpcss.prop('href', 'bootstrap-datepicker/css/bootstrap-datepicker.css');
+          bsdpcss.prop('href', 'bootstrap-datepicker/css/bootstrap-datepicker.min.css');
           page.bootstrap = 2;
 
           ga('send', 'event', 'Sandbox', 'Bootstrap V2 style');
         } else{
           bscss.prop('href', '//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css');
-          bsdpcss.prop('href', 'bootstrap-datepicker/css/bootstrap-datepicker3.css');
+          bsdpcss.prop('href', 'bootstrap-datepicker/css/bootstrap-datepicker3.min.css');
           page.bootstrap = 3;
 
           ga('send', 'event', 'Sandbox', 'Bootstrap V3 style');
@@ -42,7 +42,7 @@
 
     <script src="google-code-prettify/prettify.min.js"></script>
 
-    <script src="bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
     <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.ar.min.js" charset="UTF-8"></script>
     <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.az.min.js" charset="UTF-8"></script>
     <script src="bootstrap-datepicker/js/locales/bootstrap-datepicker.bg.min.js" charset="UTF-8"></script>
