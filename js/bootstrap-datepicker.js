@@ -809,7 +809,7 @@
 			}
 			else if (dates.length){
 				// setting date by typing
-                if ((String(this.element[0].value).length == String(this.o.format).length) && (String(oldDates) !== String(this.dates)))
+                if ((String(this.element[0].value).length === String(this.o.format).length) && (String(oldDates) !== String(this.dates)))
                     this._trigger('changeDate');
 			}
 			if (!this.dates.length && oldDates.length)
