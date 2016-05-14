@@ -1,4 +1,4 @@
-Unit tests, written with [QUnit](http://docs.jquery.com/QUnit), are used to
+Unit tests, written with [QUnit](https://qunitjs.com), are used to
 expose bugs for squashing, prevent bugs from respawning, and suppress new
 bugs when adding new features and making changes.
 
@@ -15,7 +15,7 @@ repo:
 
 # Adding tests
 
-Tests go in js files in the `tests/suites/` directory tree.  QUnit organizes
+Tests go in js files in the `tests/suites/` directory tree. QUnit organizes
 tests into suites called "modules"; there is one module per js file.  If the
 tests you are adding do not fit into an existing module, create a new one at
 `tests/suites/<new module>.js`, where `<new module>` is a broad yet

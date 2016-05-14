@@ -4,7 +4,7 @@ module('Events', {
                         .appendTo('#qunit-fixture')
                         .datepicker({format: "dd-mm-yyyy"})
                         .focus(); // Activate for visibility checks
-        this.dp = this.input.data('datepicker')
+        this.dp = this.input.data('datepicker');
         this.picker = this.dp.picker;
     },
     teardown: function(){
@@ -153,7 +153,7 @@ test('format() returns a formatted date string', function(){
 
     datesEqual(this.dp.viewDate, UTCDate(2011, 2, 14));
     datesEqual(this.dp.dates[0], UTCDate(2011, 2, 14));
-    equal(error, undefined)
+    equal(error, undefined);
     equal(out, '14-03-2011');
 });
 
@@ -176,7 +176,7 @@ test('format(altformat) returns a formatted date string', function(){
 
     datesEqual(this.dp.viewDate, UTCDate(2011, 2, 14));
     datesEqual(this.dp.dates[0], UTCDate(2011, 2, 14));
-    equal(error, undefined)
+    equal(error, undefined);
     equal(out, '3/14/11');
 });
 
@@ -327,12 +327,12 @@ test('paste must update the date', function() {
 test('clicking outside datepicker triggers \'hide\' event', function(){
     var $otherelement = $('<div />');
     $('body').append($otherelement);
-	
+
     var isHideTriggered;
     this.input.on('hide', function() { isHideTriggered = true; });
 
     $otherelement.trigger('mousedown');
-	
+
     ok(isHideTriggered, '\'hide\' event is not triggered');
 
     $otherelement.remove();
@@ -352,7 +352,7 @@ test('Selecting date from previous month triggers changeMonth', function() {
 
     // ensure event has been triggered
     equal(triggered, 1);
-})
+});
 
 test('Selecting date from previous month in january triggers changeMonth/changeYear', function() {
     var target,
@@ -377,7 +377,7 @@ test('Selecting date from previous month in january triggers changeMonth/changeY
     // ensure event has been triggered
     equal(triggeredM, 1);
     equal(triggeredY, 1);
-})
+});
 
 test('Selecting date from next month triggers changeMonth', function() {
     var target,
@@ -393,7 +393,7 @@ test('Selecting date from next month triggers changeMonth', function() {
 
     // ensure event has been triggered
     equal(triggered, 1);
-})
+});
 
 test('Selecting date from next month in december triggers changeMonth/changeYear', function() {
     var target,
@@ -418,4 +418,4 @@ test('Selecting date from next month in december triggers changeMonth/changeYear
     // ensure event has been triggered
     equal(triggeredM, 1);
     equal(triggeredY, 1);
-})
+});

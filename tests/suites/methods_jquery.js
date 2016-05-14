@@ -12,12 +12,12 @@ module('Methods (jQuery)', {
 });
 
 test('Methods', function(){
-    $.each([
+    [
         'show',
         'hide',
         'setValue',
         'place'
-    ], $.proxy(function(index, value){
+    ].forEach($.proxy(function(index, value){
         var returnedObject = this.$inputs.datepicker(value);
 
         strictEqual(returnedObject, this.$inputs, "is jQuery element");

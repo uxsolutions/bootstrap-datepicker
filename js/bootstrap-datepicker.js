@@ -1,8 +1,8 @@
 /* =========================================================
  * bootstrap-datepicker.js
  * Repo: https://github.com/eternicode/bootstrap-datepicker/
- * Demo: http://eternicode.github.io/bootstrap-datepicker/
- * Docs: http://bootstrap-datepicker.readthedocs.org/
+ * Demo: https://eternicode.github.io/bootstrap-datepicker/
+ * Docs: https://bootstrap-datepicker.readthedocs.org/
  * Forked from http://www.eyecon.ro/bootstrap-datepicker
  * =========================================================
  * Started by Stefan Petre; improvements by Andrew Rowls + contributors
@@ -668,6 +668,7 @@
 			this._process_options({datesDisabled: datesDisabled});
 			this.update();
 			this.updateNavArrows();
+			return this;
 		},
 
 		place: function(){

@@ -130,7 +130,7 @@ String.  Default: "body"
 
 Appends the date picker popup to a specific element; eg: container: '#picker-container' (will default to "body")
 
-.. _daysofweekdisabled:
+.. _datesdisabled:
 
 
 datesDisabled
@@ -140,7 +140,7 @@ String, Array.  Default: []
 
 Array of date strings or a single date string formatted in the given date format
 
-.. _defaultviewdate:
+.. _daysofweekdisabled:
 
 
 daysOfWeekDisabled
@@ -163,7 +163,7 @@ String, Array.  Default: []
 
 Days of the week that should be highlighted. Values are 0 (Sunday) to 6 (Saturday). Multiple values should be comma-separated. Example: highlight weekends: ``'06'`` or ``'0,6'`` or ``[0,6]``.
 
-.. _datesdisabled:
+.. _defaultviewdate:
 
 
 defaultViewDate
@@ -176,8 +176,6 @@ Date to view when initially opening the calendar. The internal value of the date
  * ``year``: the current year
  * ``month``: 0
  * ``day``: 1
-
-.. _enddate:
 
 
 disableTouchKeyboard
@@ -194,6 +192,8 @@ enableOnReadonly
 Boolean. Default: true
 
 If false the datepicker will not show on a readonly datepicker field.
+
+.. _enddate:
 
 
 endDate
@@ -329,7 +329,7 @@ maxViewMode
 
 Number, String.  Default: 4, "centuries"
 
-Set a maximum limit for the view mode.  Accepts: "days" or 0, "months" or 1, "years" or 2, "decades" or 3, and "centuries" or 4.
+Set a maximum limit for the view mode.  Accepts: 0 or "days" or "month", 1 or "months" or "year", 2 or "years" or "decade", 3 or "decades" or "century", and 4 or "centuries" or "millenium".
 Gives the ability to pick only a day, a month, a year or a decade.  The day is set to the 1st for "months", the month is set to January for "years", the year is set to the first year from the decade for "decades", and the year is set to the first from the millennium for "centuries".
 
 
@@ -338,7 +338,7 @@ minViewMode
 
 Number, String.  Default: 0, "days"
 
-Set a minimum limit for the view mode.  Accepts: "days" or 0, "months" or 1, "years" or 2, "decades" or 3, and "centuries" or 4.
+Set a minimum limit for the view mode.  Accepts: 0 or "days" or "month", 1 or "months" or "year", 2 or "years" or "decade", 3 or "decades" or "century", and 4 or "centuries" or "millenium".
 Gives the ability to pick only a month, a year or a decade.  The day is set to the 1st for "months", and the month is set to January for "years", the year is set to the first year from the decade for "decades", and the year is set to the first from the millennium for "centuries".
 
 
@@ -374,8 +374,6 @@ A space-separated string consisting of one or two of "left" or "right", "top" or
 
 "auto" triggers "smart orientation" of the picker.  Horizontal orientation will default to "left" and left offset will be tweaked to keep the picker inside the browser viewport; vertical orientation will simply choose "top" or "bottom", whichever will show more of the picker in the viewport.
 
-.. _startdate:
-
 
 showOnFocus
 -----------
@@ -384,6 +382,7 @@ Boolean.  Default: true
 
 If false, the datepicker will be prevented from showing when the input field associated with it receives focus.
 
+.. _startdate:
 
 startDate
 ---------
@@ -399,9 +398,9 @@ The earliest date that may be selected; all earlier dates will be disabled.
 startView
 ---------
 
-Number, String.  Default: 0, "month"
+Number, String.  Default: 0, "days"
 
-The view that the datepicker should show when it is opened.  Accepts values of 0 or "month" for month view (the default), 1 or "year" for the 12-month overview, 2 or "decade" for the 10-year overview, 3 or "century" for the 10-decade overview, and 4 or "millennium" for the 10-century overview.  Useful for date-of-birth datepickers.
+The view that the datepicker should show when it is opened.  Accepts: 0 or "days" or "month", 1 or "months" or "year", 2 or "years" or "decade", 3 or "decades" or "century", and 4 or "centuries" or "millenium".  Useful for date-of-birth datepickers.
 
 
 templates
@@ -498,29 +497,30 @@ beforeShowYear
 beforeShowDecade
 beforeShowCentury
 calendarWeeks                false
-clearBtncontainer            false
+clearBtn                     false
+container                    'body'
 datesDisabled                []
 daysOfWeekDisabled           []
 daysOfWeekHighlighted        []
 defaultViewDate              today
 disableTouchKeyboard         false
 enableOnReadonly             true
-endDate
+endDate                      Infinity
 forceParse                   true
 assumeNearbyYear             false
-format                       mm/dd/yyyy
+format                       'mm/dd/yyyy'
 immediateUpdates             false
 inputs
 keyboardNavigation           true
-language                     en
+language                     'en'
 maxViewMode                  4 'centuries'
-minViewMode                  0 'day'
+minViewMode                  0 'days'
 multidate                    false
-multidateSeparator           ","
-orientation                  auto
+multidateSeparator           ','
+orientation                  'auto'
 showOnFocus                  true
-startDate                    0
-startView                    'month' (current)
+startDate                    -Infinity
+startView                    0 'days' (current month)
 templates
 title                        ''
 todayBtn                     false
