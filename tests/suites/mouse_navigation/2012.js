@@ -12,7 +12,7 @@ module('Mouse Navigation 2012', {
                         .appendTo('#qunit-fixture')
                         .datepicker({format: "dd-mm-yyyy"})
                         .focus(); // Activate for visibility checks
-        this.dp = this.input.data('datepicker')
+        this.dp = this.input.data('datepicker');
         this.picker = this.dp.picker;
     },
     teardown: function(){
@@ -30,8 +30,8 @@ test('Selecting date resets viewDate and date', function(){
 
     // Updated internally on click
     target.click();
-    datesEqual(this.dp.viewDate, UTCDate(2012, 2, 4))
-    datesEqual(this.dp.dates.get(-1), UTCDate(2012, 2, 4))
+    datesEqual(this.dp.viewDate, UTCDate(2012, 2, 4));
+    datesEqual(this.dp.dates.get(-1), UTCDate(2012, 2, 4));
 
     // Re-rendered on click
     target = this.picker.find('.datepicker-days tbody td:first');
@@ -219,8 +219,8 @@ test('Selecting date from previous month resets viewDate and date, changing mont
     // Updated internally on click
     target.click();
     equal(this.picker.find('.datepicker-days thead th.datepicker-switch').text(), 'February 2012');
-    datesEqual(this.dp.viewDate, UTCDate(2012, 1, 26))
-    datesEqual(this.dp.dates.get(-1), UTCDate(2012, 1, 26))
+    datesEqual(this.dp.viewDate, UTCDate(2012, 1, 26));
+    datesEqual(this.dp.dates.get(-1), UTCDate(2012, 1, 26));
 
     // Re-rendered on click
     target = this.picker.find('.datepicker-days tbody td:first');
@@ -242,8 +242,8 @@ test('Selecting date from next month resets viewDate and date, changing month di
     // Updated internally on click
     target.click();
     equal(this.picker.find('.datepicker-days thead th.datepicker-switch').text(), 'May 2012');
-    datesEqual(this.dp.viewDate, UTCDate(2012, 4, 5))
-    datesEqual(this.dp.dates.get(-1), UTCDate(2012, 4, 5))
+    datesEqual(this.dp.viewDate, UTCDate(2012, 4, 5));
+    datesEqual(this.dp.dates.get(-1), UTCDate(2012, 4, 5));
 
     // Re-rendered on click
     target = this.picker.find('.datepicker-days tbody td:first');

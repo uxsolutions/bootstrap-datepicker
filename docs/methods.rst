@@ -9,7 +9,7 @@ Methods are called on a datepicker by calling the ``datepicker`` function with a
 
 
 destroy
-------
+-------
 
 Arguments: None
 

@@ -8,6 +8,13 @@
     "bootstrap"
   ],
   "main": "./dist/js/bootstrap-datepicker.js",
+  "files": [
+    "build",
+    "dist",
+    "js/**/*.js",
+    "less/*.less",
+    "LICENSE"
+  ],
   "homepage": "https://github.com/eternicode/bootstrap-datepicker",
   "author": "Andrew Rowls <eternicode@gmail.com>",
   "scripts": {

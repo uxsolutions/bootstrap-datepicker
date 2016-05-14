@@ -2,7 +2,7 @@
   "name": "bootstrap-datepicker",
   "main": [
     "dist/css/bootstrap-datepicker3.css",
-    "dist/js/bootstrap-datepicker.min.js"
+    "dist/js/bootstrap-datepicker.js"
   ],
   "license": "Apache-2.0",
   "dependencies": {

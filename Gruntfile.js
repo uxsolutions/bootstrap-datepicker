@@ -16,7 +16,7 @@ module.exports = function(grunt){
             ' * Improvements by Andrew Rowls',
             ' * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)',
             ' */'
-        ].join('\n'),
+        ].join('\n') + '\n',
 
         // Task configuration.
         clean: {
@@ -59,7 +59,6 @@ module.exports = function(grunt){
         },
         concat: {
             options: {
-                banner: '<%= banner %>',
                 stripBanners: true
             },
             main: {
@@ -125,7 +124,8 @@ module.exports = function(grunt){
             options: {
                 banner: '<%= banner %>'
             },
-            css: 'dist/css/*.css'
+            css: 'dist/css/*.css',
+            js: 'dist/js/**/*.js'
         },
         cssmin: {
             options: {
@@ -207,11 +207,11 @@ module.exports = function(grunt){
     require('time-grunt')(grunt);
 
     // JS distribution task.
-    grunt.registerTask('dist-js', ['concat', 'uglify:main', 'uglify:locales']);
+    grunt.registerTask('dist-js', ['concat', 'uglify:main', 'uglify:locales', 'usebanner:js']);
 
     // CSS distribution task.
     grunt.registerTask('less-compile', 'less');
-    grunt.registerTask('dist-css', ['less-compile', 'cssmin:main', 'cssmin:standalone', 'usebanner']);
+    grunt.registerTask('dist-css', ['less-compile', 'cssmin:main', 'cssmin:standalone', 'usebanner:css']);
 
     // Full distribution task.
     grunt.registerTask('dist', ['clean:dist', 'dist-js', 'dist-css']);
