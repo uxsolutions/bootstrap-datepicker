@@ -13,7 +13,7 @@ Versions are incremented according to [semver](http://semver.org/).
 
 You can use the [CloudFlare](https://www.cloudflare.com) powered [cdnjs.com](https://cdnjs.com) on your website.
 
-[bootstrap-datepicker](http://cdnjs.com/libraries/bootstrap-datepicker) on cdnjs
+[bootstrap-datepicker](https://cdnjs.com/libraries/bootstrap-datepicker) on cdnjs
 
 Please note: It might take a few days until a new version is available on cdnjs.
 
