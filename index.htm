@@ -32,6 +32,15 @@
       body {
         padding-top: 50px;
       }
+      .sandbox-form label, .sandbox-form span {
+        display: inline-block;
+        margin: .5em .5em;
+        vertical-align: middle;
+      }
+      .sandbox-form span label {
+        vertical-align: baseline !important;
+      }
+      .datepicker .green {color: #0F0;}
     </style>
     <link href="google-code-prettify/prettify.css" rel="stylesheet">
     <link href="docs.css" rel="stylesheet">
@@ -148,16 +157,6 @@
            onClick="var that=this;ga('send', 'event', 'Download', 'dev-master', this.href);"
         >Download Development (1.7.0-dev)</a>
       </p>
-      <style>
-        .sandbox-form label, .sandbox-form span {
-          display: inline-block;
-          margin: .5em .5em;
-          vertical-align: middle;
-        }
-        .sandbox-form span label {
-          vertical-align: baseline !important;
-        }
-      </style>
       <form class="form-inline sandbox-form" id="sandbox">
         <div class="well">
           Type:<br>
@@ -386,9 +385,6 @@
           <button class="btn btn-danger" type="reset">Reset to defaults</button>
         </div>
       </form>
-      <style>
-        .datepicker .green {color: #0F0;}
-      </style>
       <script>
         $(function(){
           var defaults = {},
