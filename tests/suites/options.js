@@ -1483,7 +1483,7 @@ test('DatepickerDropdownSpecifyClass', function(){
                 .appendTo('#qunit-fixture')
                 .val('2012-10-26')
                 .datepicker({
-					class: testClassName
+                    class: testClassName
                 }),
         dp = input.data('datepicker'),
         picker = dp.picker;
