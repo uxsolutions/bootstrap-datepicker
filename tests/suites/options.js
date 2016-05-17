@@ -1476,3 +1476,19 @@ test('templates', function(){
     equal(picker.find('.datepicker-days .prev').prop('innerHTML'), '<span class="glyphicon glyphicon-arrow-left"></span>');
     equal(picker.find('.datepicker-days .next').prop('innerHTML'), $('<div>').html('&raquo;').text());
 });
+
+test('DatepickerDropdownSpecifyClass', function(){
+    var testClassName = "test-popup-class",
+		input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-10-26')
+                .datepicker({
+					class: testClassName
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+
+
+    input.focus();
+    ok(picker.hasClass(testClassName), 'Datepicker dropdown has class specified in options.');
+});
