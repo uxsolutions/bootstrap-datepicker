@@ -1784,6 +1784,7 @@
 		beforeShowDecade: $.noop,
 		beforeShowCentury: $.noop,
 		calendarWeeks: false,
+		class: '',
 		clearBtn: false,
 		toggleActive: false,
 		daysOfWeekDisabled: [],
