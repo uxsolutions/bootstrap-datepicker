@@ -420,18 +420,13 @@ test('Selecting date from next month in december triggers changeMonth/changeYear
     equal(triggeredY, 1);
 })
 
-test('manually changing  date should not trigger changedate until we finish typing(it meets the required format)', function(){
+test('Manually changing date should not trigger changeDate until we finish typing(it meets the required format)', function(){
 
     var triggers = 0;
     var expectedTriggers = 1;
 
-    this.input.on('changeDate', function(e){
-        try{
-            triggers += 1;
-        }
-        catch(e){
-            error = e;
-        }
+    this.input.on('changeDate', function(){
+        triggers += 1;
     });
 
     this.input.focus();
