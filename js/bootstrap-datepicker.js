@@ -136,6 +136,10 @@
 		else {
 			this.picker.addClass('datepicker-dropdown dropdown-menu');
 		}
+		
+		if (this.o.class){
+      this.picker.addClass(this.o.class);
+    }
 
 		if (this.o.rtl){
 			this.picker.addClass('datepicker-rtl');
@@ -1743,6 +1747,7 @@
 		beforeShowDecade: $.noop,
 		beforeShowCentury: $.noop,
 		calendarWeeks: false,
+		class: '',
 		clearBtn: false,
 		toggleActive: false,
 		daysOfWeekDisabled: [],
