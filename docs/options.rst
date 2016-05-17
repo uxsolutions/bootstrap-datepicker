@@ -111,6 +111,13 @@ Whether or not to show week numbers to the left of week rows.
 .. figure:: _static/screenshots/option_calendarweeks.png
     :align: center
 
+class
+---------
+
+String.  Default: undefined
+
+Appends specified class to the date picker popup element. Allows styling of datepicker popup without overriding global boostrap styles.
+Could be used to apply different styles to multiple date pickers on same page. 
 
 clearBtn
 --------
