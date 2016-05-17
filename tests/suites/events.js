@@ -426,7 +426,7 @@ test('Manually changing date should not trigger changeDate until we finish typin
     var expectedTriggers = 1;
 
     this.input.on('changeDate', function(){
-        triggers += 1;
+        triggers++
     });
 
     this.input.focus();
