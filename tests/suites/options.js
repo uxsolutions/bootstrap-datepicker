@@ -1528,3 +1528,19 @@ test('DatepickerDropdownSpecifyClass', function(){
     input.focus();
     ok(picker.hasClass(testClassName), 'Datepicker dropdown has class specified in options.');
 });
+
+test('DatepickerDropdownSpecifyClass', function(){
+    var testClassName = "test-popup-class",
+		input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-10-26')
+                .datepicker({
+                    class: testClassName
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+
+
+    input.focus();
+    ok(picker.hasClass(testClassName), 'Datepicker dropdown has class specified in options.');
+});
