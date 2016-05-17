@@ -809,14 +809,14 @@
 			}
 			else if (dates.length){
 				// setting date by typing
-                if (typeof this.o.format === 'string') {
-                    if ((String(this.element[0].value).length === String(this.o.format).length) && (String(oldDates) !== String(this.dates)))
-                        this._trigger('changeDate');
-                }
-                else {
-                    if (String(oldDates) !== String(this.dates))
-                        this._trigger('changeDate');
-                }
+				if (typeof this.o.format === 'string') {
+					if ((String(this.element[0].value).length === String(this.o.format).length) && (String(oldDates) !== String(this.dates)))
+						this._trigger('changeDate');
+				}
+				else {
+					if (String(oldDates) !== String(this.dates))
+						this._trigger('changeDate');
+				}
 			}
 			if (!this.dates.length && oldDates.length)
 				this._trigger('clearDate');
