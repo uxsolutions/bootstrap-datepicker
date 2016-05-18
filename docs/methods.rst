@@ -17,6 +17,7 @@ Remove the datepicker.  Removes attached events, internal attached objects, and 
 
 *Alias: remove*
 
+
 show
 ----
 
@@ -168,7 +169,7 @@ Arguments:
 
 * startDate (Date)
 
-Sets a new lower date limit on the datepicker.  See :ref:`startdate` for valid values.
+Sets a new lower date limit on the datepicker.  See :ref:`startDate` for valid values.
 
 Omit startDate (or provide an otherwise falsey value) to unset the limit.
 
@@ -180,7 +181,7 @@ Arguments:
 
 * endDate (Date)
 
-Sets a new upper date limit on the datepicker.  See :ref:`enddate` for valid values.
+Sets a new upper date limit on the datepicker.  See :ref:`endDate` for valid values.
 
 Omit endDate (or provide an otherwise falsey value) to unset the limit.
 
@@ -204,9 +205,9 @@ Arguments:
 
 * daysOfWeekDisabled (String|Array)
 
-Sets the days of week that should be disabled.  See :ref:`daysofweekdisabled` for valid values.
+Sets the days of week that should be disabled.  See :ref:`daysOfWeekDisabled` for valid values.
 
-Omit daysOfWeekDisabled (or provide an otherwise falsey value) to unset the disabled days.
+Omit daysOfWeekDisabled (or provide an otherwise falsey value) to unset the disabled days of week.
 
 
 setDaysOfWeekHighlighted
@@ -218,4 +219,4 @@ Arguments:
 
 Sets the days of week that should be highlighted.  See :ref:`daysOfWeekHighlighted` for valid values.
 
-Omit daysOfWeekHighlighted (or provide an otherwise falsey value) to unset the disabled days.
+Omit daysOfWeekHighlighted (or provide an otherwise falsey value) to unset the highlighted days of week.

@@ -220,12 +220,12 @@ test('date and viewDate must be between startDate and endDate when setEndDate ca
 });
 
 test('picker should render fine when `$.fn.show` and `$.fn.hide` are overridden', patch_show_hide(function () {
-    var viewModes = $.fn.datepicker.DPGlobal.modes,
+    var viewModes = $.fn.datepicker.DPGlobal.viewModes,
         minViewMode = this.dp.o.minViewMode,
         maxViewMode = this.dp.o.maxViewMode,
         childDivs = this.picker.children('div');
 
-    this.dp.showMode(minViewMode);
+    this.dp.setViewMode(minViewMode);
 
     // Overwritten `$.fn.hide` method adds the `foo` class to its matched elements
     var curDivShowing = childDivs.filter('.datepicker-' + viewModes[minViewMode].clsName);

@@ -130,7 +130,7 @@ String.  Default: "body"
 
 Appends the date picker popup to a specific element; eg: container: '#picker-container' (will default to "body")
 
-.. _datesdisabled:
+.. _datesDisabled:
 
 
 datesDisabled
@@ -140,7 +140,7 @@ String, Array.  Default: []
 
 Array of date strings or a single date string formatted in the given date format
 
-.. _daysofweekdisabled:
+.. _daysOfWeekDisabled:
 
 
 daysOfWeekDisabled
@@ -153,7 +153,7 @@ Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday).
 .. figure:: _static/screenshots/option_daysofweekdisabled.png
     :align: center
 
-.. _daysofweekhighlighted:
+.. _daysOfWeekHighlighted:
 
 
 daysOfWeekHighlighted
@@ -162,8 +162,6 @@ daysOfWeekHighlighted
 String, Array.  Default: []
 
 Days of the week that should be highlighted. Values are 0 (Sunday) to 6 (Saturday). Multiple values should be comma-separated. Example: highlight weekends: ``'06'`` or ``'0,6'`` or ``[0,6]``.
-
-.. _defaultviewdate:
 
 
 defaultViewDate
@@ -193,7 +191,7 @@ Boolean. Default: true
 
 If false the datepicker will not show on a readonly datepicker field.
 
-.. _enddate:
+.. _endDate:
 
 
 endDate
