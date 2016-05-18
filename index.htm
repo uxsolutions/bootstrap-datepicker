@@ -240,9 +240,11 @@
             <input class="span2 col-md-2 form-control" id="endDate" name="endDate" type="text" placeholder="+Infinity"></label>
           <label for="startView">Start view
             <select class="span2 col-md-2 form-control" id="startView" name="startView">
-              <option value="0">0 / month</option>
-              <option value="1">1 / year</option>
-              <option value="2">2 / decade</option>
+              <option value="0">0 / days</option>
+              <option value="1">1 / months</option>
+              <option value="2">2 / years</option>
+              <option value="3">3 / decades</option>
+              <option value="4">4 / centuries</option>
             </select>
           </label>
           <label for="minViewMode">Min view mode
@@ -250,13 +252,17 @@
               <option value="0">0 / days</option>
               <option value="1">1 / months</option>
               <option value="2">2 / years</option>
+              <option value="3">3 / decades</option>
+              <option value="4">4 / centuries</option>
             </select>
           </label>
           <label for="maxViewMode">Max view mode
             <select class="span2 col-md-2 form-control" id="maxViewMode" name="maxViewMode">
               <option value="0">0 / days</option>
               <option value="1">1 / months</option>
-              <option value="2" selected>2 / years</option>
+              <option value="2">2 / years</option>
+              <option value="3">3 / decades</option>
+              <option value="4" selected>4 / centuries</option>
             </select>
           </label>
           <label for="todayBtn" class="inline checkbox">Today button
@@ -379,7 +385,7 @@
             DefaultViewDate option
           </label>
 
-          <br></br>
+          <br><br>
 
           <button class="btn btn-warning" type="button" id="ch_bs"></button>
           <button class="btn btn-danger" type="reset">Reset to defaults</button>
