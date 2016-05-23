@@ -284,6 +284,14 @@ Boolean. Default: false
 If true, selecting a year or month in the datepicker will update the input value immediately. Otherwise, only selecting a day of the month will update the input value immediately.
 
 
+keepEmptyValues
+---------------
+
+Boolean. Default: false
+
+Only effective in a range picker. If true, the selected value does not get propagated to other, currently empty, pickers in the range.
+
+
 inputs
 ------
 
