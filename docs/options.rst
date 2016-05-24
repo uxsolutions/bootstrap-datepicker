@@ -284,14 +284,6 @@ Boolean. Default: false
 If true, selecting a year or month in the datepicker will update the input value immediately. Otherwise, only selecting a day of the month will update the input value immediately.
 
 
-keepEmptyValues
----------------
-
-Boolean. Default: false
-
-Only effective in a range picker. If true, the selected value does not get propagated to other, currently empty, pickers in the range.
-
-
 inputs
 ------
 
@@ -311,6 +303,14 @@ A list of inputs to be used in a range picker, which will be attached to the sel
     $('#event_period').datepicker({
         inputs: $('.actual_range')
     });
+
+
+keepEmptyValues
+---------------
+
+Boolean. Default: false
+
+Only effective in a range picker. If true, the selected value does not get propagated to other, currently empty, pickers in the range.
 
 
 keyboardNavigation
@@ -519,6 +519,7 @@ assumeNearbyYear             false
 format                       'mm/dd/yyyy'
 immediateUpdates             false
 inputs
+keepEmptyValues              false
 keyboardNavigation           true
 language                     'en'
 maxViewMode                  4 'centuries'

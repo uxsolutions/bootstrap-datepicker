@@ -1515,29 +1515,35 @@ test('date cells', function(){
 
 test('keepEmptyValues: none (default is false)', function() {
     var proxy_element = $('<div />').appendTo('#qunit-fixture'),
-        input_from = $('<input />').appendTo('#qunit-fixture'),
+        input_from = $('<input />').val('2016-04-01').appendTo('#qunit-fixture'),
         input_to = $('<input />').appendTo('#qunit-fixture'),
         dp = proxy_element.datepicker({
+            format: 'yyyy-mm-dd',
             inputs: [input_from, input_to]
-        });
+        }),
+        input_from_dp = input_from.data('datepicker');
 
-    input_from.val('2012-03-05');
-    input_from.datepicker('setValue');
+    input_from.focus();
+    input_from_dp.picker.find('.old.day').eq(0).click();
 
-    equal(input_to.val(), input_from.val(), 'Input_from value should be distributed.');
+    equal(input_from.val(), '2016-03-27');
+    equal(input_to.val(), '2016-03-27', 'Input_from value should be distributed.');
 });
 
 test('keepEmptyValues: true', function() {
     var proxy_element = $('<div />').appendTo('#qunit-fixture'),
-        input_from = $('<input />').appendTo('#qunit-fixture'),
+        input_from = $('<input />').val('2016-04-01').appendTo('#qunit-fixture'),
         input_to = $('<input />').appendTo('#qunit-fixture'),
         dp = proxy_element.datepicker({
+            format: 'yyyy-mm-dd',
             inputs: [input_from, input_to],
             keepEmptyValues: true
-        });
+        }),
+        input_from_dp = input_from.data('datepicker');
 
-    input_from.val('2012-03-05');
-    input_from.datepicker('setValue');
+    input_from.focus();
+    input_from_dp.picker.find('.old.day').eq(0).click();
 
-    equal(input_to.val(), '', 'Input_from value should NOT be distributed.');
+    equal(input_from.val(), '2016-03-27');
+    equal(input_to.val(), '', 'Input_from value should not be distributed.');
 });
