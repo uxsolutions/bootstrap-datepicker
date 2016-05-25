@@ -1581,7 +1581,7 @@
 		});
 		delete options.inputs;
 
-		this.keepEmptyValues = options.keepEmptyValues || false;
+		this.keepEmptyValues = options.keepEmptyValues;
 		delete options.keepEmptyValues;
 
 		datepickerPlugin.call($(this.inputs), options)
@@ -1755,6 +1755,7 @@
 		endDate: Infinity,
 		forceParse: true,
 		format: 'mm/dd/yyyy',
+		keepEmptyValues: false,
 		keyboardNavigation: true,
 		language: 'en',
 		minViewMode: 0,
