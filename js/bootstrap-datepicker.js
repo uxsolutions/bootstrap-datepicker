@@ -30,6 +30,8 @@
     }
 }(function($, undefined){
 
+	var DATE_MAX = 8.64e+15;
+
 	function UTCDate(){
 		return new Date(Date.UTC.apply(Date, arguments));
 	}
@@ -785,7 +787,8 @@
 			}
 
 			dates = $.map(dates, $.proxy(function(date){
-				return DPGlobal.parseDate(date, this.o.format, this.o.language, this.o.assumeNearbyYear);
+				var parsed = DPGlobal.parseDate(date, this.o.format, this.o.language, this.o.assumeNearbyYear);
+				return parsed && isNaN(parsed) ? UTCToday() : parsed;
 			}, this));
 			dates = $.grep(dates, $.proxy(function(date){
 				return (
@@ -813,9 +816,9 @@
 				if (String(oldDates) !== String(this.dates))
 					this._trigger('changeDate');
 			}
-			if (!this.dates.length && oldDates.length)
+			if (!this.dates.length && oldDates.length) {
 				this._trigger('clearDate');
-
+      }
 			this.fill();
 			this.element.change();
 			return this;
@@ -1011,7 +1014,7 @@
 			nextMonth = nextMonth.valueOf();
 			var html = [];
 			var clsName;
-			while (prevMonth.valueOf() < nextMonth){
+			while (prevMonth.valueOf() < (nextMonth || DATE_MAX + 1)){
 				if (prevMonth.getUTCDay() === this.o.weekStart){
 					html.push('<tr>');
 					if (this.o.calendarWeeks){
@@ -1415,6 +1418,8 @@
 			// Common date-resetting loop -- if date is beyond end of month, make it
 			// end of month
 			while (test()){
+				if (isNaN(new_date))
+					return new Date(dir > 0 ? DATE_MAX : -DATE_MAX);
 				new_date.setUTCDate(--day);
 				new_date.setUTCMonth(new_month);
 			}
@@ -1934,8 +1939,11 @@
 						while (v < 0) v += 12;
 						v %= 12;
 						d.setUTCMonth(v);
-						while (d.getUTCMonth() !== v)
+						while (d.getUTCMonth() !== v) {
+							if (isNaN(d))
+								return d;
 							d.setUTCDate(d.getUTCDate()-1);
+						}
 						return d;
 					},
 					d: function(d,v){
@@ -1945,7 +1953,7 @@
 				val, filtered;
 			setters_map['M'] = setters_map['MM'] = setters_map['mm'] = setters_map['m'];
 			setters_map['dd'] = setters_map['d'];
-			date = UTCToday();
+			date = new Date(0);
 			var fparts = format.parts.slice();
 			// Remove noop parts
 			if (parts.length !== fparts.length){
@@ -1984,10 +1992,13 @@
 					if (s in parsed && !isNaN(parsed[s])){
 						_date = new Date(date);
 						setters_map[s](_date, parsed[s]);
-						if (!isNaN(_date))
-							date = _date;
+						if (isNaN(_date))
+							return _date;
+						date = _date;
 					}
 				}
+			} else {
+				date = UTCToday();
 			}
 			return date;
 		},
