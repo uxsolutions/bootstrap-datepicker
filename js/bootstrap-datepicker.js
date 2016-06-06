@@ -1049,7 +1049,7 @@
 				}
 
 				clsName = $.unique(clsName);
-				
+
 				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + (this.o.dateCells ? ' data-date="'+(prevMonth.getTime().toString())+'"' : '') + '>'+prevMonth.getUTCDate() + '</td>');
 				tooltip = null;
 				if (prevMonth.getUTCDay() === this.o.weekEnd){
@@ -1857,8 +1857,8 @@
 				format = DPGlobal.parseFormat(format);
 			if (format.toValue)
                 return format.toValue(date, format, language);
-            var part_re = /([\-+]\d+)([dmwy])/,
-				parts = date.match(/([\-+]\d+)([dmwy])/g),
+            var part_re = /([\-+]\d+)([dmwy])/i,
+				parts = date.match(/([\-+]\d+)([dmwy])/gi),
 				fn_map = {
 					d: 'moveDay',
 					m: 'moveMonth',
@@ -1871,12 +1871,12 @@
 					tomorrow: '+1d'
 				},
 				part, dir, i, fn;
-			if (/^[\-+]\d+[dmwy]([\s,]+[\-+]\d+[dmwy])*$/.test(date)){
+			if (/^[\-+]\d+[dmwy]([\s,]+[\-+]\d+[dmwy])*$/i.test(date)){
 				date = new Date();
 				for (i=0; i < parts.length; i++){
 					part = part_re.exec(parts[i]);
 					dir = parseInt(part[1]);
-					fn = fn_map[part[2]];
+					fn = fn_map[part[2].toLowerCase()];
 					date = Datepicker.prototype[fn](date, dir);
 				}
 				return UTCDate(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
@@ -1884,14 +1884,14 @@
 
 			if (typeof dateAliases[date] !== 'undefined') {
 				date = dateAliases[date];
-				parts = date.match(/([\-+]\d+)([dmwy])/g);
+				parts = date.match(/([\-+]\d+)([dmwy])/gi);
 
-				if (/^[\-+]\d+[dmwy]([\s,]+[\-+]\d+[dmwy])*$/.test(date)){
+				if (/^[\-+]\d+[dmwy]([\s,]+[\-+]\d+[dmwy])*$/i.test(date)){
 					date = new Date();
 				  	for (i=0; i < parts.length; i++){
 						part = part_re.exec(parts[i]);
 						dir = parseInt(part[1]);
-						fn = fn_map[part[2]];
+						fn = fn_map[part[2].toLowerCase()];
 						date = Datepicker.prototype[fn](date, dir);
 				  	}
 
