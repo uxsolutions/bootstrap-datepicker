@@ -322,6 +322,27 @@ test('Today Button: moves to today\'s date', function(){
     datesEqual(dp.dates[0], UTCDate(2012, 2, 5));
 });
 
+test('Today Button: moves to days view', function(){
+    var viewModes = $.fn.datepicker.DPGlobal.viewModes;
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    startView: viewModes.length - 1,
+                    todayBtn: true
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    target = picker.find('tfoot .today').filter(':visible');
+
+    target.click();
+    ok(picker.find('.datepicker-days tfoot .today').is(':visible'), 'Today button visible');
+});
+
 test('Today Button: "linked" selects today\'s date', function(){
     var input = $('<input />')
                 .appendTo('#qunit-fixture')
