@@ -1,3 +1,29 @@
+module('Events on initialization', {
+    setup: function(){
+        this.input = $('<input type="text" value="31-03-2011">')
+            .appendTo('#qunit-fixture')
+    }
+});
+
+test('When initializing the datepicker, it should trigger no change or changeDate events', function(){
+    var triggered_change = 0,
+        triggered_changeDate = 0;
+
+    this.input.on({
+        change: function(){
+            triggered_change++;
+        },
+        changeDate: function(){
+            triggered_changeDate++;
+        }
+    });
+
+    this.input.datepicker({format: 'dd-mm-yyyy'});
+
+    equal(triggered_change, 0);
+    equal(triggered_changeDate, 0);
+});
+
 module('Events', {
     setup: function(){
         this.input = $('<input type="text" value="31-03-2011">')
