@@ -320,6 +320,7 @@
 				o.defaultViewDate = UTCToday();
 			}
 		},
+		_mousedown_target: null,
 		_events: [],
 		_secondaryEvents: [],
 		_applyEvents: function(evs){
@@ -397,6 +398,21 @@
 					blur: $.proxy(function(e){
 						this._focused_from = e.target;
 					}, this)
+				}],
+				// Input: listen for focusout on element
+				[this.element, {
+					focusout: $.proxy(function(){
+						if (!(
+								this.element.is(this._mousedown_target) ||
+								this.element.find(this._mousedown_target).length ||
+								this.picker.is(this._mousedown_target) ||
+								this.picker.find(this._mousedown_target).length ||
+								this.isInline
+							)) {
+							this.hide();
+						}
+						this._mousedown_target = null;
+					}, this)
 				}]
 			);
 
@@ -421,16 +437,8 @@
 				}],
 				[$(document), {
 					mousedown: $.proxy(function(e){
-						// Clicked outside the datepicker, hide it
-						if (!(
-							this.element.is(e.target) ||
-							this.element.find(e.target).length ||
-							this.picker.is(e.target) ||
-							this.picker.find(e.target).length ||
-							this.isInline
-						)){
-							this.hide();
-						}
+						this._mousedown_target = e.target;
+						setTimeout(this._clearMouseDownTarget, 100);
 					}, this)
 				}]
 			];
@@ -470,6 +478,9 @@
 					return DPGlobal.formatDate(date, format, this.o.language);
 				}, this)
 			});
+		},
+		_clearMouseDownTarget: function(){
+			this._mousedown_target = null;
 		},
 
 		show: function(){
