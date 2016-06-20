@@ -420,7 +420,7 @@
 					resize: $.proxy(this.place, this)
 				}],
 				[$(document), {
-					mousedown: $.proxy(function(e){
+					'mousedown touchstart': $.proxy(function(e){
 						// Clicked outside the datepicker, hide it
 						if (!(
 							this.element.is(e.target) ||
