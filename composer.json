@@ -32,7 +32,9 @@
                 "dist/css/bootstrap-datepicker3.css"
             ],
             "files": [
-                "js/locales/bootstrap-datepicker.*.js"
+                "js/locales/bootstrap-datepicker.*.js",
+                "dist/css/bootstrap-datepicker.css.map",
+                "dist/css/bootstrap-datepicker3.css.map"
             ]
         }
     }
