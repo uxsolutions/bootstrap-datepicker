@@ -529,7 +529,7 @@
 		},
 
 		_utc_to_local: function(utc){
-			return utc && new Date(utc.getTime() + (utc.getTimezoneOffset()*60000));
+			return utc && new Date(utc.getUTCFullYear(), utc.getUTCMonth(), utc.getUTCDate(), utc.getUTCHours(), utc.getUTCMinutes(), utc.getUTCSeconds(), utc.getUTCMilliseconds());
 		},
 		_local_to_utc: function(local){
 			return local && new Date(local.getTime() - (local.getTimezoneOffset()*60000));
