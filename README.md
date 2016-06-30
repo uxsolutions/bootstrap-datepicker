@@ -15,7 +15,7 @@ You can use the [CloudFlare](https://www.cloudflare.com) powered [cdnjs.com](htt
 
 [bootstrap-datepicker](https://cdnjs.com/libraries/bootstrap-datepicker) on cdnjs
 
-Please note: It might take a few days until a new version is available on cdnjs.
+Please note: It might take a few hours until a new version is available on cdnjs.
 
 ## Links
 
