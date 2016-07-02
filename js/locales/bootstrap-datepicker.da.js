@@ -5,12 +5,13 @@
  */
 ;(function($){
 	$.fn.datepicker.dates['da'] = {
-		days: ["søndag", "mandag", "tirsdag", "onsdag", "torsdag", "fredag", "lørdag"],
-		daysShort: ["søn", "man", "tir", "ons", "tor", "fre", "lør"],
-		daysMin: ["sø", "ma", "ti", "on", "to", "fr", "lø"],
-		months: ["januar", "februar", "marts", "april", "maj", "juni", "juli", "august", "september", "oktober", "november", "december"],
-		monthsShort: ["jan", "feb", "mar", "apr", "maj", "jun", "jul", "aug", "sep", "okt", "nov", "dec"],
-		today: "I Dag",
+		days: ["Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag"],
+		daysShort: ["Søn", "Man", "Tir", "Ons", "Tor", "Fre", "Lør"],
+		daysMin: ["Sø", "Ma", "Ti", "On", "To", "Fr", "Lø"],
+		months: ["Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December"],
+		monthsShort: ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"],
+		today: "I dag",
+		weekStart:1,
 		clear: "Nulstil"
 	};
 }(jQuery));
