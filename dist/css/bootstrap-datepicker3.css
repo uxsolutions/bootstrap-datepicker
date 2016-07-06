@@ -5,6 +5,7 @@
  * Improvements by Andrew Rowls
  * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
  */
+
 .datepicker {
   border-radius: 4px;
   direction: ltr;
@@ -647,8 +648,8 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.focus {
 .datepicker tfoot tr th:hover {
   background: #eeeeee;
 }
-.datepicker .prev .disabled,
-.datepicker .next .disabled {
+.datepicker .prev.disabled,
+.datepicker .next.disabled {
   visibility: hidden;
 }
 .datepicker .cw {

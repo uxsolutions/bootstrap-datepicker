@@ -5,6 +5,7 @@
  * Improvements by Andrew Rowls
  * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
  */
+
 .datepicker {
   padding: 4px;
   -webkit-border-radius: 4px;
@@ -428,8 +429,8 @@
 .datepicker tfoot tr th:hover {
   background: #eee;
 }
-.datepicker .prev .disabled,
-.datepicker .next .disabled {
+.datepicker .prev.disabled,
+.datepicker .next.disabled {
   visibility: hidden;
 }
 .datepicker .cw {
