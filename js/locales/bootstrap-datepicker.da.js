@@ -11,6 +11,8 @@
 		months: ["januar", "februar", "marts", "april", "maj", "juni", "juli", "august", "september", "oktober", "november", "december"],
 		monthsShort: ["jan", "feb", "mar", "apr", "maj", "jun", "jul", "aug", "sep", "okt", "nov", "dec"],
 		today: "I Dag",
-		clear: "Nulstil"
+		clear: "Nulstil",
+    weekStart: 1,
+    format: "dd-mm-yyyy"
 	};
 }(jQuery));
