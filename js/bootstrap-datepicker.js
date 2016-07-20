@@ -716,11 +716,13 @@
 				top += height;
 
 			if (this.o.rtl) {
-				var right = windowWidth - (left + width);
+        var right = windowWidth - (left + width);
+        var rtlLeft = right + left;				
 				this.picker.css({
 					top: top,
 					right: right,
-					zIndex: zIndex
+					zIndex: zIndex,
+					left: rtlLeft
 				});
 			} else {
 				this.picker.css({
