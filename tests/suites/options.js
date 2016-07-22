@@ -1597,3 +1597,18 @@ test('keepEmptyValues: true', function() {
     equal(input_from.val(), '2016-03-27');
     equal(input_to.val(), '', 'Input_from value should not be distributed.');
 });
+
+test('maxViewMode and navigation switch', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .datepicker({
+                    maxViewMode: 0
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+
+    input.focus();
+
+    picker.find('.datepicker-days thead th.datepicker-switch').click();
+    ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
+});
