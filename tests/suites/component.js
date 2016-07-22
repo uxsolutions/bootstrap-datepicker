@@ -238,3 +238,35 @@ test('picker should render fine when `$.fn.show` and `$.fn.hide` are overridden'
         ok(divNotShown.hasClass('foo'), 'Other divs do have overridden `$.fn.hide` side-effects');
     }
 }));
+
+test('today class is set on each view mode', function () {
+  var day = 23, month = 'Jul' /*assume "en"*/,  year = 2016, decade = 2010, century = 2000;
+  this.input.val('23-07-2016');
+
+  this.dp.o.todayHighlight = true;
+  this.dp.update();
+
+  // we start on a day view.. which has ".today"
+  var $el = this.picker.find('.datepicker-days td.today');
+  equal($el.length, 1);
+  equal($el.text(), day);
+
+  // now we try other views..
+  var me = this;
+  [
+    // change from days to months
+    ['.datepicker-days', '.datepicker-months', month],
+    // change from months to years
+    ['.datepicker-months', '.datepicker-years', year],
+    // change from years to decades
+    ['.datepicker-years', '.datepicker-decades', decade],
+    // change from decades to centuries
+    ['.datepicker-decades', '.datepicker-centuries', century]
+
+  ].forEach(function (testCase) {
+    me.picker.find(testCase[0] + ' .datepicker-switch').click();
+    var $el = me.picker.find(testCase[1] + ' tbody span.today');
+    equal($el.length, 1);
+    equal($el.text(), testCase[2]);
+  });
+});
