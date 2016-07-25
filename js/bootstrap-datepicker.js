@@ -1057,9 +1057,9 @@
 					months.eq(d.getUTCMonth()).addClass('active');
 			});
 
-			if (todayHighlight) {
-				months.eq(this.today.getUTCMonth()).addClass('today');
-			}
+      if (todayHighlight && this.today.getUTCFullYear() === year) {
+        months.eq(this.today.getUTCMonth()).addClass('today');
+      }
 
 			if (year < startYear || year > endYear){
 				months.addClass('disabled');
