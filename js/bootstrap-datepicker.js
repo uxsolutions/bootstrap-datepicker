@@ -1119,7 +1119,6 @@
 				month = d.getUTCMonth(),
 				prevState,
 				nextState;
-			this._trigger('changeViewMode', d);
 			switch (this.viewMode){
 				case 0:
 					prevState = (
@@ -1485,6 +1484,7 @@
 				.filter('.datepicker-' + DPGlobal.viewModes[this.viewMode].clsName)
 					.show();
 			this.updateNavArrows();
+      this._trigger('changeViewMode', new Date(this.viewDate));
 		}
 	};
 
