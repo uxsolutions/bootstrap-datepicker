@@ -445,3 +445,37 @@ test('Selecting date from next month in december triggers changeMonth/changeYear
     equal(triggeredM, 1);
     equal(triggeredY, 1);
 });
+
+test('Changing view mode triggers changeViewMode', function () {
+  var viewMode = -1,
+    triggered = 0;
+
+  this.input.val('22-07-2016');
+  this.dp.update();
+
+  this.input.on('changeViewMode', function (e) {
+    viewMode = e.viewMode;
+    triggered++;
+  });
+
+  // change from days to months
+  this.picker.find('.datepicker-days .datepicker-switch').click();
+  equal(triggered, 1);
+  equal(viewMode, 1);
+
+  // change from months to years
+  this.picker.find('.datepicker-months .datepicker-switch').click();
+  equal(triggered, 2);
+  equal(viewMode, 2);
+
+  // change from years to decade
+  this.picker.find('.datepicker-years .datepicker-switch').click();
+  equal(triggered, 3);
+  equal(viewMode, 3);
+
+  // change from decades to centuries
+  this.picker.find('.datepicker-decades .datepicker-switch').click();
+  equal(triggered, 4);
+  equal(viewMode, 4);
+
+});
