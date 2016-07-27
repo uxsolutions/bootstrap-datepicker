@@ -1160,7 +1160,7 @@
 			target = $(e.target);
 
 			// Clicked on the switch
-			if (target.hasClass('datepicker-switch')){
+			if (target.hasClass('datepicker-switch') && this.viewMode !== this.o.maxViewMode){
 				this.setViewMode(this.viewMode + 1);
 			}
 
