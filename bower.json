@@ -6,7 +6,7 @@
   ],
   "license": "Apache-2.0",
   "dependencies": {
-    "jquery" : ">=1.7.1"
+    "jquery" : ">=1.7.1 <4.0.0"
   },
   "ignore": []
 }

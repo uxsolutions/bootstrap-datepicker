@@ -25,7 +25,7 @@
     "url": "https://github.com/eternicode/bootstrap-datepicker.git"
   },
   "dependencies": {
-    "jquery" : ">=1.7.1"
+    "jquery" : ">=1.7.1 <4.0.0"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
