@@ -1770,10 +1770,8 @@
 			if (typeof format === 'string')
 				format = DPGlobal.parseFormat(format);
 			if (format.toValue)
-                return format.toValue(date, format, language);
-            var part_re = /([\-+]\d+)([dmwy])/i,
-				parts = date.match(/([\-+]\d+)([dmwy])/gi),
-				fn_map = {
+				return format.toValue(date, format, language);
+			var fn_map = {
 					d: 'moveDay',
 					m: 'moveMonth',
 					w: 'moveWeek',
@@ -1784,33 +1782,20 @@
 					today: '+0d',
 					tomorrow: '+1d'
 				},
-				part, dir, i, fn;
+				parts, part, dir, i, fn;
+			if (date in dateAliases){
+				date = dateAliases[date];
+			}
 			if (/^[\-+]\d+[dmwy]([\s,]+[\-+]\d+[dmwy])*$/i.test(date)){
+				parts = date.match(/([\-+]\d+)([dmwy])/gi);
 				date = new Date();
 				for (i=0; i < parts.length; i++){
-					part = part_re.exec(parts[i]);
-					dir = parseInt(part[1]);
+					part = parts[i].match(/([\-+]\d+)([dmwy])/i);
+					dir = Number(part[1]);
 					fn = fn_map[part[2].toLowerCase()];
 					date = Datepicker.prototype[fn](date, dir);
 				}
 				return UTCDate(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
-			}
-
-			if (date in dateAliases) {
-				date = dateAliases[date];
-				parts = date.match(/([\-+]\d+)([dmwy])/gi);
-
-				if (/^[\-+]\d+[dmwy]([\s,]+[\-+]\d+[dmwy])*$/i.test(date)){
-					date = new Date();
-					for (i=0; i < parts.length; i++){
-						part = part_re.exec(parts[i]);
-						dir = parseInt(part[1]);
-						fn = fn_map[part[2].toLowerCase()];
-						date = Datepicker.prototype[fn](date, dir);
-					}
-
-					return UTCDate(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
-				}
 			}
 
 			parts = date && date.match(this.nonpunctuation) || [];
