@@ -145,10 +145,28 @@ test('+1d: Tomorrow', patch_date(function(Date){
     equal(this.input.val(), '16-03-2012');
 }));
 
+test('tomorrow (alias for +1d): Tomorrow', patch_date(function(Date){
+    Date.now = UTCDate(2012, 2, 15);
+    this.input
+        .val('tomorrow')
+        .datepicker({format: 'dd-mm-yyyy'})
+        .datepicker('setValue');
+    equal(this.input.val(), '16-03-2012');
+}));
+
 test('-1d: Yesterday', patch_date(function(Date){
     Date.now = UTCDate(2012, 2, 15);
     this.input
         .val('-1d')
+        .datepicker({format: 'dd-mm-yyyy'})
+        .datepicker('setValue');
+    equal(this.input.val(), '14-03-2012');
+}));
+
+test('yesterday (alias for -1d): Yesterday', patch_date(function(Date){
+    Date.now = UTCDate(2012, 2, 15);
+    this.input
+        .val('yesterday')
         .datepicker({format: 'dd-mm-yyyy'})
         .datepicker('setValue');
     equal(this.input.val(), '14-03-2012');
