@@ -2088,7 +2088,7 @@
 
 	/* DATEPICKER VERSION
 	 * =================== */
-	$.fn.datepicker.version = '1.6.3';
+	$.fn.datepicker.version = '1.6.4';
 
 	/* DATEPICKER DATA-API
 	* ================== */
