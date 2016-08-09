@@ -15,7 +15,6 @@
 }
 .datepicker.datepicker-rtl {
   direction: rtl;
-  left: auto;
 }
 .datepicker.datepicker-rtl table tr td span {
   float: right;
