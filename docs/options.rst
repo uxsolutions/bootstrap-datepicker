@@ -470,6 +470,17 @@ Boolean. Default: false
 If true, selecting the currently active date in the datepicker will unset the respective date. This option is always true when the multidate option is being used.
 
 
+updateViewDate
+--------------
+
+Boolean. Default: true
+
+If false viewDate is set according to `value` on initialization and updated
+* if a day in last oder next month is selected or
+* if dates are changed by `setDate`, `setDates`, `setUTCDate` and `setUTCDates` methods.
+If `multidate` option is `true` the last selected date or the last date in array
+passed to `setDates` or `setUTCDates` is used.
+
 weekStart
 ---------
 

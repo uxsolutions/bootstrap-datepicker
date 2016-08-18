@@ -770,14 +770,16 @@
 			}, this), true);
 			this.dates.replace(dates);
 
-			if (this.dates.length)
-				this.viewDate = new Date(this.dates.get(-1));
-			else if (this.viewDate < this.o.startDate)
-				this.viewDate = new Date(this.o.startDate);
-			else if (this.viewDate > this.o.endDate)
-				this.viewDate = new Date(this.o.endDate);
-			else
-				this.viewDate = this.o.defaultViewDate;
+			if (this.o.updateViewDate) {
+				if (this.dates.length)
+					this.viewDate = new Date(this.dates.get(-1));
+				else if (this.viewDate < this.o.startDate)
+					this.viewDate = new Date(this.o.startDate);
+				else if (this.viewDate > this.o.endDate)
+					this.viewDate = new Date(this.o.endDate);
+				else
+					this.viewDate = this.o.defaultViewDate;
+			}
 
 			if (fromArgs){
 				// setting date by clicking
@@ -1193,9 +1195,13 @@
 						month = (month + dir + 12) % 12;
 						if ((dir === -1 && month === 11) || (dir === 1 && month === 0)) {
 							year += dir;
-							this._trigger('changeYear', this.viewDate);
+							if (this.o.updateViewDate) {
+								this._trigger('changeYear', this.viewDate);
+							}
 						}
-						this._trigger('changeMonth', this.viewDate);
+						if (this.o.updateViewDate) {
+							this._trigger('changeMonth', this.viewDate);
+						}
 					}
 					this._setDate(UTCDate(year, month, day));
 				}
@@ -1273,7 +1279,7 @@
 		_setDate: function(date, which){
 			if (!which || which === 'date')
 				this._toggle_multidate(date && new Date(date));
-			if (!which || which === 'view')
+			if ((!which && this.o.updateViewDate) || which === 'view')
 				this.viewDate = date && new Date(date);
 
 			this.fill();
@@ -1688,6 +1694,7 @@
 		startView: 0,
 		todayBtn: false,
 		todayHighlight: false,
+		updateViewDate: true,
 		weekStart: 0,
 		disableTouchKeyboard: false,
 		enableOnReadonly: true,
