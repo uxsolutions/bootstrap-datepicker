@@ -197,9 +197,11 @@ If false the datepicker will not show on a readonly datepicker field.
 endDate
 -------
 
-Date.  Default: End of time
+Date or String.  Default: End of time
 
 The latest date that may be selected; all later dates will be disabled.
+
+Date should be in local timezone. String must be parsable with ``format``.
 
 .. figure:: _static/screenshots/option_enddate.png
     :align: center
@@ -393,9 +395,11 @@ If false, the datepicker will be prevented from showing when the input field ass
 startDate
 ---------
 
-Date.  Default: Beginning of time
+Date or String.  Default: Beginning of time
 
 The earliest date that may be selected; all earlier dates will be disabled.
+
+Date should be in local timezone. String must be parsable with ``format``.
 
 .. figure:: _static/screenshots/option_startdate.png
     :align: center
