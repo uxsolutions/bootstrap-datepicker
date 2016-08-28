@@ -19,6 +19,9 @@
 .datepicker.datepicker-rtl {
   direction: rtl;
 }
+.datepicker.datepicker-rtl.dropdown-menu {
+  left: auto;
+}
 .datepicker.datepicker-rtl table tr td span {
   float: right;
 }
