@@ -1577,6 +1577,7 @@
 		},
 		destroy: function(){
 			$.map(this.pickers, function(p){ p.destroy(); });
+			$(this.inputs).off('changeDate', this.dateUpdated);
 			delete this.element.data().datepicker;
 		},
 		remove: alias('destroy')
