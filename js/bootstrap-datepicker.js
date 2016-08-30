@@ -1932,9 +1932,9 @@
 			                '<th colspan="7" class="datepicker-title"></th>'+
 			              '</tr>'+
 							'<tr>'+
-								'<th class="prev">&laquo;</th>'+
+								'<th class="prev">'+defaults.leftArrow+'</th>'+
 								'<th colspan="5" class="datepicker-switch"></th>'+
-								'<th class="next">&raquo;</th>'+
+								'<th class="next">'+defaults.rightArrow+'</th>'+
 							'</tr>'+
 						'</thead>',
 		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',
