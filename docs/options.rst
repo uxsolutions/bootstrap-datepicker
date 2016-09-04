@@ -320,6 +320,8 @@ Boolean.  Default: true
 
 Whether or not to allow date navigation by arrow keys.
 
+Keyboard navigation is not supported at all for embedded / inline mode. Also it's not working if input element hasn't focus. This could be an issue if used as component or if opened by `show` method.
+
 
 language
 --------
