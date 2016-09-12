@@ -1576,12 +1576,18 @@
 			if (new_date < this.dates[j]){
 				// Date being moved earlier/left
 				while (j >= 0 && new_date < this.dates[j]){
-					this.pickers[j--].setUTCDate(new_date);
+					var earlier_picker = this.pickers[j--];
+
+					if (!keep_empty_values || earlier_picker.getUTCDate())
+						earlier_picker.setUTCDate(new_date);
 				}
 			} else if (new_date > this.dates[k]){
 				// Date being moved later/right
 				while (k < l && new_date > this.dates[k]){
-					this.pickers[k++].setUTCDate(new_date);
+					var later_picker = this.pickers[k++];
+
+					if (!keep_empty_values || later_picker.getUTCDate())
+						later_picker.setUTCDate(new_date);
 				}
 			}
 			this.updateDates();

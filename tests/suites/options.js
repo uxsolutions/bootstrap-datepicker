@@ -1598,6 +1598,24 @@ test('keepEmptyValues: true', function() {
     equal(input_to.val(), '', 'Input_from value should not be distributed.');
 });
 
+test('keepEmptyValues: true when choosing an earlier "to" date', function() {
+    var proxy_element = $('<div />').appendTo('#qunit-fixture'),
+        input_from = $('<input />').appendTo('#qunit-fixture'),
+        input_to = $('<input />').val('2016-04-01').appendTo('#qunit-fixture'),
+        dp = proxy_element.datepicker({
+          format: 'yyyy-mm-dd',
+          inputs: [input_from, input_to],
+          keepEmptyValues: true
+        }),
+        input_to_dp = input_to.data('datepicker');
+
+    input_to.focus();
+    input_to_dp.picker.find('.old.day').eq(0).click();
+
+    equal(input_from.val(), '', 'Input_to value should not be distributed.');
+    equal(input_to.val(), '2016-03-27');
+});
+
 test('maxViewMode and navigation switch', function(){
     var input = $('<input />')
                 .appendTo('#qunit-fixture')
