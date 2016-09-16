@@ -533,7 +533,7 @@
 
 			var local = new Date(utc.getTime() + (utc.getTimezoneOffset() * 60000));
 
-			if (local.getTimezoneOffset() != utc.getTimezoneOffset())
+			if (local.getTimezoneOffset() !== utc.getTimezoneOffset())
 			{
 				local = new Date(utc.getTime() + (local.getTimezoneOffset() * 60000));
 			}
