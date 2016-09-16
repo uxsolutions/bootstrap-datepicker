@@ -529,7 +529,10 @@
 
 		_utc_to_local: function(utc){
 
-			if (!utc) return utc;
+			if (!utc)
+			{
+				return utc;
+			}
 
 			var local = new Date(utc.getTime() + (utc.getTimezoneOffset() * 60000));
 
