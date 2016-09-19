@@ -1913,9 +1913,17 @@
 				m: date.getUTCMonth() + 1,
 				M: dates[language].monthsShort[date.getUTCMonth()],
 				MM: dates[language].months[date.getUTCMonth()],
-				yy: date.getUTCFullYear().toString().substring(2),
+				yy: date.getUTCFullYear() % 100,
 				yyyy: date.getUTCFullYear()
 			};
+			if (val.yyyy < 10) {
+				val.yyyy = (val.yyyy < 10 ? '000' : '') + val.yyyy;
+			} else if (val.yyyy < 100) {
+				val.yyyy = (val.yyyy < 100 ? '00' : '') + val.yyyy;
+			} else if (val.yyyy < 1000) {
+				val.yyyy = (val.yyyy < 1000 ? '0' : '') + val.yyyy;
+			}
+			val.yy = (val.yy < 10 ? '0' : '') + val.yy;
 			val.dd = (val.d < 10 ? '0' : '') + val.d;
 			val.mm = (val.m < 10 ? '0' : '') + val.m;
 			date = [];
