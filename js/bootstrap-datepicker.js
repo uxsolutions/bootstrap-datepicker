@@ -1504,7 +1504,7 @@
 		this.inputs = $.map(options.inputs, function(i){
 			return i.jquery ? i[0] : i;
 		});
-		if (options.rangeTwoInputs && options.inputs.length != 2) {
+		if (options.rangeTwoInputs && options.inputs.length !== 2) {
 			throw new Error("rangeTwoInputs needs 2 inputs");
 		}
 		this.rangeTwoInputs = options.rangeTwoInputs;
