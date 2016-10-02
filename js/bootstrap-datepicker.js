@@ -1504,6 +1504,11 @@
 		this.inputs = $.map(options.inputs, function(i){
 			return i.jquery ? i[0] : i;
 		});
+		if (options.rangeTwoInputs && options.inputs.length !== 2) {
+			throw new Error("rangeTwoInputs needs 2 inputs");
+		}
+		this.rangeTwoInputs = options.rangeTwoInputs;
+
 		delete options.inputs;
 
 		this.keepEmptyValues = options.keepEmptyValues;
@@ -1555,22 +1560,35 @@
 			if (i === -1)
 				return;
 
-			$.each(this.pickers, function(i, p){
-				if (!p.getUTCDate() && (p === dp || !keep_empty_values))
-					p.setUTCDate(new_date);
-			});
+				if (this.rangeTwoInputs) {
+					// Take minimum from pickers
+					if (new_date < this.dates[0]) {
+						// Set first, first move to second
+						this.pickers[0].setUTCDate(new_date);
+						this.pickers[1].setUTCDate(this.dates[0]);
+					} else if (new_date > this.dates[1] || !this.dates[1]) {
+						//Set second, first move 1
+						this.pickers[1].setUTCDate(new_date);
+						this.pickers[0].setUTCDate(this.dates[0]);
+					}
+				} else {
+					$.each(this.pickers, function(i, p){
+						if (!p.getUTCDate() && (p === dp || !keep_empty_values))
+							p.setUTCDate(new_date);
+					});
 
-			if (new_date < this.dates[j]){
-				// Date being moved earlier/left
-				while (j >= 0 && new_date < this.dates[j]){
-					this.pickers[j--].setUTCDate(new_date);
+					if (new_date < this.dates[j]){
+						// Date being moved earlier/left
+						while (j >= 0 && new_date < this.dates[j]){
+							this.pickers[j--].setUTCDate(new_date);
+						}
+					} else if (new_date > this.dates[k]){
+						// Date being moved later/right
+						while (k < l && new_date > this.dates[k]){
+							this.pickers[k++].setUTCDate(new_date);
+						}
+					}
 				}
-			} else if (new_date > this.dates[k]){
-				// Date being moved later/right
-				while (k < l && new_date > this.dates[k]){
-					this.pickers[k++].setUTCDate(new_date);
-				}
-			}
 			this.updateDates();
 
 			delete this.updating;
