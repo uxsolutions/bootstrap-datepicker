@@ -3,10 +3,7 @@
  * Repo: https://github.com/eternicode/bootstrap-datepicker/
  * Demo: https://eternicode.github.io/bootstrap-datepicker/
  * Docs: https://bootstrap-datepicker.readthedocs.org/
- * Forked from http://www.eyecon.ro/bootstrap-datepicker
  * =========================================================
- * Started by Stefan Petre; improvements by Andrew Rowls + contributors
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at

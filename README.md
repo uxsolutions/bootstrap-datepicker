@@ -2,11 +2,6 @@
 
 [![Join the chat at https://gitter.im/eternicode/bootstrap-datepicker](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/eternicode/bootstrap-datepicker?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-This is a fork of Stefan Petre's [original code](http://www.eyecon.ro/bootstrap-datepicker/);
-thanks go to him for getting this thing started!
-
-Please note that this fork is not used on Stefan's page, nor is it maintained or contributed to by him.
-
 Versions are incremented according to [semver](http://semver.org/).
 
 ## CDN
