@@ -385,6 +385,13 @@ A space-separated string consisting of one or two of "left" or "right", "top" or
 "auto" triggers "smart orientation" of the picker.  Horizontal orientation will default to "left" and left offset will be tweaked to keep the picker inside the browser viewport; vertical orientation will simply choose "top" or "bottom", whichever will show more of the picker in the viewport.
 
 
+rangeTwoInputs
+--------------
+
+Boolean. Default: false
+
+If true, datepicker switched to special mode in which user may choose range and start will always be displayed in first input while end in the second. You *always* exactly 2 inputs to make this mode work. If you use date range then give this mode  try.
+
 showOnFocus
 -----------
 

@@ -1612,3 +1612,25 @@ test('maxViewMode and navigation switch', function(){
     picker.find('.datepicker-days thead th.datepicker-switch').click();
     ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
 });
+
+test('rangeTwoInputs mode: click 10, 15 and check 10-15 range selected', function() {
+  var pickerJQ =$(
+		'<div class="input-group input-daterange" id="datepicker">' +
+			'<input type="text" class="form-control" id="start">' +
+			'<span class="input-group-addon">to</span>' +
+			'<input type="text" class="form-control">' +
+		'</div>')
+		.appendTo('#qunit-fixture')
+		.datepicker({
+			rangeTwoInputs: true
+		});
+  var pickerRangeObject = pickerJQ.data("datepicker");
+  var firstInputJQ = $(pickerRangeObject.inputs[0]);
+  firstInputJQ.focus();
+  var firstPickerObject = pickerRangeObject.pickers[0];
+  var firstPickerJQ = firstPickerObject.picker;
+  firstPickerJQ.find('td.day:contains("10")').click();
+  firstPickerJQ.find('td.day:contains("15")').click();
+  firstPickerJQ.find('td.range').html();
+  ok("11121314" == firstPickerJQ.find('td.range').text(), "Wrong range selected");
+});
