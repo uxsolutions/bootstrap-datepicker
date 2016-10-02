@@ -1566,7 +1566,7 @@
 						// Set first, first move to second
 						this.pickers[0].setUTCDate(new_date);
 						this.pickers[1].setUTCDate(this.dates[0]);
-					} else if(new_date > this.dates[1] || !this.dates[1]) {
+					} else if (new_date > this.dates[1] || !this.dates[1]) {
 						//Set second, first move 1
 						this.pickers[1].setUTCDate(new_date);
 						this.pickers[0].setUTCDate(this.dates[0]);
