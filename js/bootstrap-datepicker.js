@@ -1714,8 +1714,8 @@
 		dateCells:false,
 		title: '',
 		templates: {
-			leftArrow: '&laquo;',
-			rightArrow: '&raquo;'
+			leftArrow: '&#x00AB;',
+			rightArrow: '&#x00BB;'
 		}
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
