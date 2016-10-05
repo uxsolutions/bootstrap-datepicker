@@ -528,20 +528,17 @@
 		},
 
 		_utc_to_local: function(utc){
-
-			if (!utc)
-			{
+			if (!utc) {
 				return utc;
 			}
 
 			var local = new Date(utc.getTime() + (utc.getTimezoneOffset() * 60000));
 
-			if (local.getTimezoneOffset() !== utc.getTimezoneOffset())
-			{
+			if (local.getTimezoneOffset() !== utc.getTimezoneOffset()) {
 				local = new Date(utc.getTime() + (local.getTimezoneOffset() * 60000));
 			}
 
-			return utc && local;
+			return local;
 		},
 		_local_to_utc: function(local){
 			return local && new Date(local.getTime() - (local.getTimezoneOffset()*60000));
