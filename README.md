@@ -22,7 +22,7 @@ Please note: It might take a few hours until a new version is available on cdnjs
 * [Online Demo](https://eternicode.github.io/bootstrap-datepicker/)
 * [Online Docs](https://bootstrap-datepicker.readthedocs.org/en/stable/) (ReadTheDocs.com)
 * [Google Group](https://groups.google.com/group/bootstrap-datepicker/)
-* [Travis CI ![Build Status](https://travis-ci.org/eternicode/bootstrap-datepicker.svg?branch=master)](https://travis-ci.org/eternicode/bootstrap-datepicker)
+* [Travis CI ![Build Status](https://travis-ci.org/uxsolutions/bootstrap-datepicker.svg?branch=master)](https://travis-ci.org/uxsolutions/bootstrap-datepicker)
 
 ## Development
 
