@@ -17,3 +17,7 @@
 		clear: "សំអាត"
 	};
 }(jQuery));
+
+if (typeof deprecate === "function") {
+	deprecate('The language code "kh" is deprecated and will be removed in 2.0. For Khmer support use "km" instead.');
+}
