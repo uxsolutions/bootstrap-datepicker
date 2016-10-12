@@ -1612,3 +1612,46 @@ test('maxViewMode and navigation switch', function(){
     picker.find('.datepicker-days thead th.datepicker-switch').click();
     ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
 });
+
+test('updateViewDate', function() {
+    expect(8);
+
+    var input = $('<input value="08/03/1990"/>')
+                .appendTo('#qunit-fixture')
+                .datepicker({
+                  defaultViewDate: {
+                    year: 1945,
+                    month: 4,
+                    day: 8
+                  },
+                  updateViewDate: false
+                })
+                .on('changeMonth', function() {
+                  var msg = shouldTriggerChangeMonth ? 'changeMonth must be triggered' : 'changeMonth must not be triggered';
+                  ok(shouldTriggerChangeMonth, msg);
+                })
+                .on('changeYear', function() {
+                  var msg = shouldTriggerChangeYear ? 'changeYear must be triggered' : 'changeYear must not be triggered';
+                  ok(shouldTriggerChangeYear, msg);
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        shouldTriggerChangeMonth = false,
+        shouldTriggerChangeYear = false,
+        monthShown = picker.find('.datepicker-days thead th.datepicker-switch');
+
+    equal(monthShown.text(), "May 1945", 'uses defaultViewDate on initialization');
+    input.datepicker('setDate', new Date(1945, 8, 2));
+    equal(monthShown.text(), "May 1945", 'does not change viewDate on `setDate` method');
+    input.focus();
+    picker.find('.datepicker-days tbody tr td.day.new:first').click();
+    equal(monthShown.text(), "May 1945", 'does not change viewDate if a day in next month is selected');
+    shouldTriggerChangeMonth = true;
+    picker.find('.datepicker-days thead th.next').click();
+    equal(monthShown.text(), 'June 1945', 'changing month must still be possible'); // and must trigger `changeMonth` event
+    shouldTriggerChangeYear = true;
+    picker.find('.datepicker-days thead th.datepicker-switch').click();
+    picker.find('.datepicker-months thead th.next').click();
+    picker.find('.datepicker-months tbody .month:first').click();
+    equal(monthShown.text(), 'January 1946', 'changing year must still be possible'); // and must trigger `changeYear` and `changeMonth` events
+});

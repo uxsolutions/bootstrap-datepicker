@@ -12,8 +12,6 @@ module.exports = function(grunt){
             '/*!',
             ' * Datepicker for Bootstrap v<%= pkg.version %> (<%= pkg.homepage %>)',
             ' *',
-            ' * Copyright 2012 Stefan Petre',
-            ' * Improvements by Andrew Rowls',
             ' * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)',
             ' */'
         ].join('\n') + '\n',

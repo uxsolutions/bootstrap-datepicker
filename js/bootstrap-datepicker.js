@@ -1,12 +1,9 @@
 /* =========================================================
  * bootstrap-datepicker.js
- * Repo: https://github.com/eternicode/bootstrap-datepicker/
+ * Repo: https://github.com/uxsolutions/bootstrap-datepicker/
  * Demo: https://eternicode.github.io/bootstrap-datepicker/
  * Docs: https://bootstrap-datepicker.readthedocs.org/
- * Forked from http://www.eyecon.ro/bootstrap-datepicker
  * =========================================================
- * Started by Stefan Petre; improvements by Andrew Rowls + contributors
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -528,7 +525,17 @@
 		},
 
 		_utc_to_local: function(utc){
-			return utc && new Date(utc.getTime() + (utc.getTimezoneOffset()*60000));
+			if (!utc) {
+				return utc;
+			}
+
+			var local = new Date(utc.getTime() + (utc.getTimezoneOffset() * 60000));
+
+			if (local.getTimezoneOffset() !== utc.getTimezoneOffset()) {
+				local = new Date(utc.getTime() + (local.getTimezoneOffset() * 60000));
+			}
+
+			return local;
 		},
 		_local_to_utc: function(local){
 			return local && new Date(local.getTime() - (local.getTimezoneOffset()*60000));
@@ -775,14 +782,16 @@
 			}, this), true);
 			this.dates.replace(dates);
 
-			if (this.dates.length)
-				this.viewDate = new Date(this.dates.get(-1));
-			else if (this.viewDate < this.o.startDate)
-				this.viewDate = new Date(this.o.startDate);
-			else if (this.viewDate > this.o.endDate)
-				this.viewDate = new Date(this.o.endDate);
-			else
-				this.viewDate = this.o.defaultViewDate;
+			if (this.o.updateViewDate) {
+				if (this.dates.length)
+					this.viewDate = new Date(this.dates.get(-1));
+				else if (this.viewDate < this.o.startDate)
+					this.viewDate = new Date(this.o.startDate);
+				else if (this.viewDate > this.o.endDate)
+					this.viewDate = new Date(this.o.endDate);
+				else
+					this.viewDate = this.o.defaultViewDate;
+			}
 
 			if (fromArgs){
 				// setting date by clicking
@@ -1198,9 +1207,13 @@
 						month = (month + dir + 12) % 12;
 						if ((dir === -1 && month === 11) || (dir === 1 && month === 0)) {
 							year += dir;
-							this._trigger('changeYear', this.viewDate);
+							if (this.o.updateViewDate) {
+								this._trigger('changeYear', this.viewDate);
+							}
 						}
-						this._trigger('changeMonth', this.viewDate);
+						if (this.o.updateViewDate) {
+							this._trigger('changeMonth', this.viewDate);
+						}
 					}
 					this._setDate(UTCDate(year, month, day));
 				}
@@ -1278,7 +1291,7 @@
 		_setDate: function(date, which){
 			if (!which || which === 'date')
 				this._toggle_multidate(date && new Date(date));
-			if (!which || which === 'view')
+			if ((!which && this.o.updateViewDate) || which === 'view')
 				this.viewDate = date && new Date(date);
 
 			this.fill();
@@ -1694,6 +1707,7 @@
 		startView: 0,
 		todayBtn: false,
 		todayHighlight: false,
+		updateViewDate: true,
 		weekStart: 0,
 		disableTouchKeyboard: false,
 		enableOnReadonly: true,
@@ -1704,8 +1718,8 @@
 		dateCells:false,
 		title: '',
 		templates: {
-			leftArrow: '&laquo;',
-			rightArrow: '&raquo;'
+			leftArrow: '&#x00AB;',
+			rightArrow: '&#x00BB;'
 		}
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
