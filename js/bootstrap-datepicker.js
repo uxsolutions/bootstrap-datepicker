@@ -43,7 +43,7 @@
 	}
 	function alias(method, deprecationMsg){
 		if (typeof deprecationMsg !== 'undefined') {
-			deprecate(deprecationMsg);
+			$.fn.datepicker.deprecated(deprecationMsg);
 		}
 
 		return function(){
@@ -2018,6 +2018,16 @@
 	 * =================== */
 	$.fn.datepicker.version = '1.7.0-dev';
 
+	$.fn.datepicker.deprecated = function(msg){
+		var console = window.console;
+		if (console && console.warn) {
+			console.warn('DEPRECATED: ' + msg);
+			if (console.trace) {
+				console.trace();
+			}
+		}
+	};
+
 	/* DATEPICKER DATA-API
 	* ================== */
 
@@ -2038,13 +2048,3 @@
 	});
 
 }));
-
-function deprecate(msg) {
-	var console = window.console;
-	if (console && console.warn) {
-		console.warn('DEPRECATED: ' + msg);
-		if (console.trace) {
-			console.trace();
-		}
-	}
-}
