@@ -8,7 +8,7 @@ The issue tracker is not the place for support requests.  If you get stuck with 
 
 If you've found a bug in bootstrap-datepicker, we want to know about it!  However, please keep the following in mind:
 
-* This is not the bootstrap-datepicker from [eyecon.ro](http://www.eyecon.ro/bootstrap-datepicker/).  Stefan provided the initial code for bootstrap-datepicker, but this repo is divergent from his codebase.  Please make sure you're using either the latest tagged version or the latest master from https://github.com/eternicode/bootstrap-datepicker/.
+* This is not the bootstrap-datepicker from [eyecon.ro](http://www.eyecon.ro/bootstrap-datepicker/).  Stefan provided the initial code for bootstrap-datepicker, but this repo is divergent from his codebase.  Please make sure you're using either the latest tagged version or the latest master from https://github.com/uxsolutions/bootstrap-datepicker/.
 * A working example of the bug you've found is *much* easier to work with than a  description alone.  If possible, please provide a link to a demonstration of the bug, perhaps using http://jsfiddle.net/ .
   * CDN-backed assets can be found at http://bsdp-assets.blackcherry.us/ .  These should be used *only* for building test cases, as they may be removed or changed at any time.
 * Finally, it's possible someone else has already reported the same bug you have.  Please search the issue tracker for similar issues before posting your own.  Thanks!

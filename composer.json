@@ -1,6 +1,6 @@
 {
     "name": "eternicode/bootstrap-datepicker",
-    "description": "A datepicker for Bootstrap forked from Stefan Petre's (of eyecon.ro)",
+    "description": "A datepicker for Bootstrap",
     "license": "Apache-2.0",
     "keywords": [
         "bootstrap",
@@ -13,7 +13,7 @@
         },
         {
             "name": "Community",
-            "homepage": "https://github.com/eternicode/bootstrap-datepicker/contributors"
+            "homepage": "https://github.com/uxsolutions/bootstrap-datepicker/contributors"
         }
     ],
     "type": "component",
