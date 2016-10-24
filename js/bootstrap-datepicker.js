@@ -113,7 +113,7 @@
 			this.component = false;
 		this.isInline = !this.component && this.element.is('div');
 
-		this.picker = $(DPGlobal.template);
+		this.picker = $(this.o.template || DPGlobal.template);
 
 		// Checking templates and inserting
 		if (this._check_template(this.o.templates.leftArrow)) {
