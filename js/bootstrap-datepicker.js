@@ -1017,6 +1017,8 @@
 				clsName = this.getClassNames(prevMonth);
 				clsName.push('day');
 
+				var displayDate = prevMonth.getUTCDate();
+
 				if (this.o.beforeShowDay !== $.noop){
 					before = this.o.beforeShowDay(this._utc_to_local(prevMonth));
 					if (before === undefined)
@@ -1031,6 +1033,8 @@
 						clsName = clsName.concat(before.classes.split(/\s+/));
 					if (before.tooltip)
 						tooltip = before.tooltip;
+					if (before.displayDate)
+					    displayDate = before.displayDate;
 				}
 
 				//Check if uniqueSort exists (supported by jquery >=1.12 and >=2.2)
@@ -1041,7 +1045,7 @@
 					clsName = $.unique(clsName);
 				}
 
-				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + (this.o.dateCells ? ' data-date="'+(prevMonth.getTime().toString())+'"' : '') + '>'+prevMonth.getUTCDate() + '</td>');
+				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + (this.o.dateCells ? ' data-date="'+(prevMonth.getTime().toString())+'"' : '') + '>' + displayDate + '</td>');
 				tooltip = null;
 				if (weekDay === this.o.weekEnd){
 					html.push('</tr>');
@@ -1196,6 +1200,10 @@
 			}
 
 			if (!target.hasClass('disabled')){
+				// Allow clicking on elements inside a day
+				if (target.parent().hasClass('day'))
+			        target = target.parent();
+				
 				// Clicked on a day
 				if (target.hasClass('day')){
 					day = Number(target.text());

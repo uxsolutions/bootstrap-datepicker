@@ -31,6 +31,7 @@ A function that takes a date as a parameter and returns one of the following val
    * ``enabled``: same as the Boolean value above
    * ``classes``: same as the String value above
    * ``tooltip``: a tooltip to apply to this date, via the ``title`` HTML attribute
+   * ``displayDate``: the value to display in the day cell, rather than the just the day of month
 
 
 beforeShowMonth
