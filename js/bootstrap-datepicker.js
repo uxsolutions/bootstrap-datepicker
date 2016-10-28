@@ -1201,8 +1201,10 @@
 
 			if (!target.hasClass('disabled')){
 				// Allow clicking on elements inside a day
-				if (target.parent().hasClass('day'))
-			        target = target.parent();
+				var day = target.parents('.day');
+
+				if (day.length)
+			        target = day;
 				
 				// Clicked on a day
 				if (target.hasClass('day')){
