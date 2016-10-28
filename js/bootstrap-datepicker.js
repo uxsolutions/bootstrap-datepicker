@@ -1017,7 +1017,7 @@
 				clsName = this.getClassNames(prevMonth);
 				clsName.push('day');
 
-				var displayDate = prevMonth.getUTCDate();
+				var content = prevMonth.getUTCDate();
 
 				if (this.o.beforeShowDay !== $.noop){
 					before = this.o.beforeShowDay(this._utc_to_local(prevMonth));
@@ -1033,8 +1033,8 @@
 						clsName = clsName.concat(before.classes.split(/\s+/));
 					if (before.tooltip)
 						tooltip = before.tooltip;
-					if (before.displayDate)
-					    displayDate = before.displayDate;
+					if (before.content)
+					    content = before.content;
 				}
 
 				//Check if uniqueSort exists (supported by jquery >=1.12 and >=2.2)
@@ -1045,7 +1045,7 @@
 					clsName = $.unique(clsName);
 				}
 
-				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + (this.o.dateCells ? ' data-date="'+(prevMonth.getTime().toString())+'"' : '') + '>' + displayDate + '</td>');
+				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + (this.o.dateCells ? ' data-date="'+(prevMonth.getTime().toString())+'"' : '') + '>' + content + '</td>');
 				tooltip = null;
 				if (weekDay === this.o.weekEnd){
 					html.push('</tr>');
