@@ -175,6 +175,7 @@ Date to view when initially opening the calendar. The internal value of the date
  * ``month``: 0
  * ``day``: 1
 
+Note that the month parameter starts at 0 for January.
 
 disableTouchKeyboard
 --------------------
