@@ -45,7 +45,7 @@ Arguments:
 
 Update the datepicker with given arguments or the current input value.
 The arguments can be either an array of strings, an array of Date objects, multiples strings or multiples Date objects.
-If ``date`` arguments are provided and are Date objects, it is assumed to be "local" Date objects, and will be converted to UTC for internal use.
+If ``date`` arguments are provided and they are Date objects, it is assumed to be "local" Date objects, and will be converted to UTC for internal use.
 
 ::
 
