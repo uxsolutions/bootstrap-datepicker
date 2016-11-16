@@ -1154,10 +1154,13 @@
 					break;
 				case 4:
 					factor *= 10;
+					/* falls through */
 				case 3:
 					factor *= 10;
+					/* falls through */
 				case 2:
 					factor *= 10;
+					/* falls through */
 				case 1:
 					prevState = (
 						this.o.startDate !== -Infinity &&
