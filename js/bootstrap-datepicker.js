@@ -1164,12 +1164,12 @@
 				case 1:
 					prevState = (
 						this.o.startDate !== -Infinity &&
-						(parseInt(year / factor, 10) * factor) <= this.o.startDate.getUTCFullYear()
+						Math.floor(year / factor) * factor <= this.o.startDate.getUTCFullYear()
 					);
 
 					nextState = (
 						this.o.endDate !== Infinity &&
-						((parseInt(year / factor, 10) * factor) + factor) >= this.o.endDate.getUTCFullYear()
+						Math.floor(year / factor) * factor + factor >= this.o.endDate.getUTCFullYear()
 					);
 					break;
 			}
