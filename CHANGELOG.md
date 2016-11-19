@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.7.0
+-----
+
+Features
+ * Added support for dates/strings to defaultViewDate option
+
 1.5.1
 -----
 
