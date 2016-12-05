@@ -3,7 +3,8 @@
     "predef" : [
       "require",
       "define",
-      "escape"
+      "escape",
+      "module"
     ],
     "jquery": true,
     "browser": true,
