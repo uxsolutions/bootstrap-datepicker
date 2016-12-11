@@ -1655,3 +1655,32 @@ test('updateViewDate', function() {
     picker.find('.datepicker-months tbody .month:first').click();
     equal(monthShown.text(), 'January 1946', 'changing year must still be possible'); // and must trigger `changeYear` and `changeMonth` events
 });
+test('Week Days: Week days default visibility (or enabled)', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    format: 'yyyy-mm-dd'
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    ok(picker.find('.dow').length > 0, 'Week days added to view');
+});
+test('Week Days: Week days visibility when disabled', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    showWeekDays: false
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    ok(picker.find('.dow').length === 0, 'Week days not added to view');
+});

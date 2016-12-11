@@ -815,19 +815,21 @@
 		},
 
 		fillDow: function(){
-			var dowCnt = this.o.weekStart,
-				html = '<tr>';
-			if (this.o.calendarWeeks){
-				html += '<th class="cw">&#160;</th>';
-			}
-			while (dowCnt < this.o.weekStart + 7){
-				html += '<th class="dow';
-        if ($.inArray(dowCnt, this.o.daysOfWeekDisabled) !== -1)
-          html += ' disabled';
-        html += '">'+dates[this.o.language].daysMin[(dowCnt++)%7]+'</th>';
-			}
-			html += '</tr>';
-			this.picker.find('.datepicker-days thead').append(html);
+      if (this.o.showWeekDays) {
+  			var dowCnt = this.o.weekStart,
+  				html = '<tr>';
+  			if (this.o.calendarWeeks){
+  				html += '<th class="cw">&#160;</th>';
+  			}
+  			while (dowCnt < this.o.weekStart + 7){
+  				html += '<th class="dow';
+          if ($.inArray(dowCnt, this.o.daysOfWeekDisabled) !== -1)
+            html += ' disabled';
+          html += '">'+dates[this.o.language].daysMin[(dowCnt++)%7]+'</th>';
+  			}
+  			html += '</tr>';
+  			this.picker.find('.datepicker-days thead').append(html);
+      }
 		},
 
 		fillMonths: function(){
@@ -1720,7 +1722,8 @@
 		templates: {
 			leftArrow: '&#x00AB;',
 			rightArrow: '&#x00BB;'
-		}
+		},
+    showWeekDays: true
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',
