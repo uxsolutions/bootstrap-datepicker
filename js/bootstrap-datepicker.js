@@ -26,6 +26,15 @@
         factory(jQuery);
     }
 }(function($, undefined){
+	function deprecated(msg){
+		var console = window.console;
+		if (console && console.warn) {
+			console.warn('DEPRECATED: ' + msg);
+			if (console.trace) {
+				console.trace();
+			}
+		}
+	}
 
 	function UTCDate(){
 		return new Date(Date.UTC.apply(Date, arguments));
@@ -41,7 +50,11 @@
 			date1.getUTCDate() === date2.getUTCDate()
 		);
 	}
-	function alias(method){
+	function alias(method, deprecationMsg){
+		if (deprecationMsg !== undefined) {
+			deprecated(deprecationMsg);
+		}
+
 		return function(){
 			return this[method].apply(this, arguments);
 		};
@@ -598,7 +611,7 @@
 
 		setDate: alias('setDates'),
 		setUTCDate: alias('setUTCDates'),
-		remove: alias('destroy'),
+		remove: alias('destroy', 'Method `remove` is deprecated and will be removed in version 2.0. Use `destroy` instead'),
 
 		setValue: function(){
 			var formatted = this.getFormattedDate();
@@ -2015,6 +2028,8 @@
 	/* DATEPICKER VERSION
 	 * =================== */
 	$.fn.datepicker.version = '1.7.0-dev';
+
+	$.fn.datepicker.deprecated = deprecated;
 
 	/* DATEPICKER DATA-API
 	* ================== */

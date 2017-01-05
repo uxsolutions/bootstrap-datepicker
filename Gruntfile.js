@@ -53,7 +53,10 @@ module.exports = function(grunt){
         },
         qunit: {
             main: 'tests/tests.html',
-            timezone: 'tests/timezone.html'
+            timezone: 'tests/timezone.html',
+            options: {
+                console: false
+            }
         },
         concat: {
             options: {
