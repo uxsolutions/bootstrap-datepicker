@@ -3,8 +3,7 @@
     "predef" : [
       "require",
       "define",
-      "escape",
-      "deprecate"
+      "escape"
     ],
     "jquery": true,
     "browser": true,
