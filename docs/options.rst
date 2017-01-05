@@ -167,15 +167,18 @@ Days of the week that should be highlighted. Values are 0 (Sunday) to 6 (Saturda
 defaultViewDate
 ---------------
 
-Object with keys ``year``, ``month``, and ``day``. Default: today
+Date, String or Object with keys ``year``, ``month``, and ``day``. Default: today
 
-Date to view when initially opening the calendar. The internal value of the date remains today as default, but when the datepicker is first opened the calendar will open to ``defaultViewDate`` rather than today. If this option is not used, "today" remains the default view date. If the given object is missing any of the required keys, their defaults are:
+Date to view when initially opening the calendar. The internal value of the date remains today as default, but when the datepicker is first opened the calendar will open to ``defaultViewDate`` rather than today. If this option is not used, "today" remains the default view date.
 
- * ``year``: the current year
- * ``month``: 0
- * ``day``: 1
+This option can be:
+ * A date, which should be in local timezone.
+ * A string which must be parsable with ``format``.
+ * An object with keys ``year``, ``month`` and ``day`` (can't be set from a data attribute). If the given object is missing any of the required keys, their defaults are:
 
-Note that the month parameter starts at 0 for January.
+   * ``year``: the current year
+   * ``month``: 0 (Note that it starts with 0 for January)
+   * ``day``: 1
 
 disableTouchKeyboard
 --------------------
