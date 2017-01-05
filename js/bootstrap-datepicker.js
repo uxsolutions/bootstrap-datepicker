@@ -675,7 +675,13 @@
 			var zIndex = Math.max.apply(Math, parentsZindex) + this.o.zIndexOffset;
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(false);
-			var width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(false);
+			var width;
+			if (this.component && !this.o.rtl) {
+				width = this.component.outerWidth(true);
+			}
+			else {
+				width = this.element.outerWidth(false);
+			}
 			var left = offset.left - appendOffset.left,
 				top = offset.top - appendOffset.top;
 
@@ -690,7 +696,7 @@
 
 			if (this.o.orientation.x !== 'auto'){
 				this.picker.addClass('datepicker-orient-' + this.o.orientation.x);
-				if (this.o.orientation.x === 'right')
+				if (this.o.orientation.x === 'right' && !this.o.rtl)
 					left -= calendarWidth - width;
 			}
 			// auto x orientation is best-placement: if it crosses a window
@@ -735,6 +741,7 @@
 				this.picker.css({
 					top: top,
 					right: right,
+					left: right - width,
 					zIndex: zIndex
 				});
 			} else {
