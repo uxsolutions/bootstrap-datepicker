@@ -13,7 +13,7 @@
     //"indent": 4, // when we move to spaces
     "latedef": true,
     "undef": true,
-    "unused": true,
+    "unused": false,
     "immed": true,
     "trailing": true,
     "maxcomplexity": 50, // Can we get this under 5?
