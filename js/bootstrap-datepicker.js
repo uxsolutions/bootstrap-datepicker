@@ -1151,8 +1151,8 @@
 			var d = new Date(this.viewDate),
 				year = d.getUTCFullYear(),
 				month = d.getUTCMonth(),
-				prevState,
-				nextState;
+				prevState, nextState,
+				factor = 1;
 			switch (this.viewMode){
 				case 0:
 					prevState = (
@@ -1167,18 +1167,24 @@
 						month >= this.o.endDate.getUTCMonth()
 					);
 					break;
-				case 1:
-				case 2:
-				case 3:
 				case 4:
+					factor *= 10;
+					/* falls through */
+				case 3:
+					factor *= 10;
+					/* falls through */
+				case 2:
+					factor *= 10;
+					/* falls through */
+				case 1:
 					prevState = (
 						this.o.startDate !== -Infinity &&
-						year <= this.o.startDate.getUTCFullYear()
+						Math.floor(year / factor) * factor <= this.o.startDate.getUTCFullYear()
 					);
 
 					nextState = (
 						this.o.endDate !== Infinity &&
-						year >= this.o.endDate.getUTCFullYear()
+						Math.floor(year / factor) * factor + factor >= this.o.endDate.getUTCFullYear()
 					);
 					break;
 			}
