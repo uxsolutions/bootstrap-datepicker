@@ -139,6 +139,9 @@
 		this.setDaysOfWeekDisabled(this.o.daysOfWeekDisabled);
 		this.setDaysOfWeekHighlighted(this.o.daysOfWeekHighlighted);
 		this.setDatesDisabled(this.o.datesDisabled);
+		if (options.startDate){
+			this.setDate(new Date(options.startDate));
+		}
 
 		this.setViewMode(this.o.startView);
 		this.fillDow();
