@@ -1151,17 +1151,18 @@
 			var d = new Date(this.viewDate),
 				year = d.getUTCFullYear(),
 				month = d.getUTCMonth(),
-				prevState, nextState,
+				prevIsDisabled,
+				nextIsDisabled,
 				factor = 1;
 			switch (this.viewMode){
 				case 0:
-					prevState = (
+					prevIsDisabled = (
 						this.o.startDate !== -Infinity &&
 						year <= this.o.startDate.getUTCFullYear() &&
 						month <= this.o.startDate.getUTCMonth()
 					);
 
-					nextState = (
+					nextIsDisabled = (
 						this.o.endDate !== Infinity &&
 						year >= this.o.endDate.getUTCFullYear() &&
 						month >= this.o.endDate.getUTCMonth()
@@ -1177,20 +1178,20 @@
 					factor *= 10;
 					/* falls through */
 				case 1:
-					prevState = (
+					prevIsDisabled = (
 						this.o.startDate !== -Infinity &&
 						Math.floor(year / factor) * factor <= this.o.startDate.getUTCFullYear()
 					);
 
-					nextState = (
+					nextIsDisabled = (
 						this.o.endDate !== Infinity &&
 						Math.floor(year / factor) * factor + factor >= this.o.endDate.getUTCFullYear()
 					);
 					break;
 			}
 
-			this.picker.find('.prev').toggleClass('disabled', prevState);
-			this.picker.find('.next').toggleClass('disabled', nextState);
+			this.picker.find('.prev').toggleClass('disabled', prevIsDisabled);
+			this.picker.find('.next').toggleClass('disabled', nextIsDisabled);
 		},
 
 		click: function(e){
