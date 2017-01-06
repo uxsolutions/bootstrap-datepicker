@@ -11,7 +11,7 @@
     "eqeqeq": true,
     "freeze": true,
     //"indent": 4, // when we move to spaces
-    "latedef": true,
+    "latedef": false,
     "undef": true,
     "unused": false,
     "immed": true,

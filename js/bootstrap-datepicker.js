@@ -26,16 +26,6 @@
         factory(jQuery);
     }
 }(function($, undefined){
-	function deprecated(msg){
-		var console = window.console;
-		if (console && console.warn) {
-			console.warn('DEPRECATED: ' + msg);
-			if (console.trace) {
-				console.trace();
-			}
-		}
-	}
-
 	function UTCDate(){
 		return new Date(Date.UTC.apply(Date, arguments));
 	}
@@ -51,11 +41,11 @@
 		);
 	}
 	function alias(method, deprecationMsg){
-		if (deprecationMsg !== undefined) {
-			deprecated(deprecationMsg);
-		}
-
 		return function(){
+			if (deprecationMsg !== undefined) {
+				$.fn.datepicker.deprecated(deprecationMsg);
+			}
+
 			return this[method].apply(this, arguments);
 		};
 	}
@@ -158,19 +148,20 @@
 				});
 		}
 
+		this._process_options({
+			startDate: this._o.startDate,
+			endDate: this._o.endDate,
+			daysOfWeekDisabled: this.o.daysOfWeekDisabled,
+			daysOfWeekHighlighted: this.o.daysOfWeekHighlighted,
+			datesDisabled: this.o.datesDisabled
+		});
+
 		this._allow_update = false;
-
-		this.setStartDate(this._o.startDate);
-		this.setEndDate(this._o.endDate);
-		this.setDaysOfWeekDisabled(this.o.daysOfWeekDisabled);
-		this.setDaysOfWeekHighlighted(this.o.daysOfWeekHighlighted);
-		this.setDatesDisabled(this.o.datesDisabled);
-
 		this.setViewMode(this.o.startView);
+		this._allow_update = true;
+
 		this.fillDow();
 		this.fillMonths();
-
-		this._allow_update = true;
 
 		this.update();
 
@@ -319,7 +310,7 @@
 				});
 				o.orientation.y = _plc[0] || 'auto';
 			}
-			if (o.defaultViewDate instanceof Date || typeof o.defaultViewDate === "string") {
+			if (o.defaultViewDate instanceof Date || typeof o.defaultViewDate === 'string') {
 				o.defaultViewDate = DPGlobal.parseDate(o.defaultViewDate, format, o.language, o.assumeNearbyYear);
 			} else if (o.defaultViewDate) {
 				var year = o.defaultViewDate.year || new Date().getFullYear();
@@ -1615,7 +1606,7 @@
 			$(this.inputs).off('changeDate', this.dateUpdated);
 			delete this.element.data().datepicker;
 		},
-		remove: alias('destroy')
+		remove: alias('destroy', 'Method `remove` is deprecated and will be removed in version 2.0. Use `destroy` instead')
 	};
 
 	function opts_from_el(el, prefix){
@@ -1737,7 +1728,7 @@
 		zIndexOffset: 10,
 		container: 'body',
 		immediateUpdates: false,
-		dateCells:false,
+		dateCells: false,
 		title: '',
 		templates: {
 			leftArrow: '&#x00AB;',
@@ -1842,11 +1833,10 @@
 					fn = fn_map[part[2].toLowerCase()];
 					date = Datepicker.prototype[fn](date, dir);
 				}
-				return UTCDate(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+				return Datepicker.prototype._zero_utc_time(date);
 			}
 
 			parts = date && date.match(this.nonpunctuation) || [];
-			date = new Date();
 
 			function applyNearbyYear(year, threshold){
 				if (threshold === true)
@@ -2036,7 +2026,16 @@
 	 * =================== */
 	$.fn.datepicker.version = '1.7.0-dev';
 
-	$.fn.datepicker.deprecated = deprecated;
+	$.fn.datepicker.deprecated = function(msg){
+		var console = window.console;
+		if (console && console.warn) {
+			console.warn('DEPRECATED: ' + msg);
+			if (console.trace) {
+				console.trace();
+			}
+		}
+	};
+
 
 	/* DATEPICKER DATA-API
 	* ================== */
