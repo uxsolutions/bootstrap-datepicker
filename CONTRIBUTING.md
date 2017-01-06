@@ -39,3 +39,22 @@ To submit a **documentation fix**:
 1. Create a new branch off of the `master` branch.
 2. Add your documentation fixes (no tests required).
 3. Push to your fork and submit the pull request!
+
+### Linting (strictness) and jscs (style checking).
+
+Install jscs and jshint with
+
+    npm install -g jscs
+		npm install -g jshint
+
+To lint, run
+
+    grunt jshint
+
+To test for style matching, run
+
+    grunt jscs
+
+If style errors are detected try fixing them automagically
+
+    jscs -c ./js/.jscsrc -x <file>
