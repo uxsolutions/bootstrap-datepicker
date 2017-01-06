@@ -238,3 +238,50 @@ test('picker should render fine when `$.fn.show` and `$.fn.hide` are overridden'
         ok(divNotShown.hasClass('foo'), 'Other divs do have overridden `$.fn.hide` side-effects');
     }
 }));
+
+test('today class is set on each view mode', function () {
+
+  // NOTE today is only set on the actual "today" so not via defaultViewDate or such
+
+  this.input.val('23-07-2016'); // arbitrary, but required else it breaks...
+
+  var today = new Date();
+
+  this.dp.o.todayHighlight = true;
+  this.dp.update();
+
+  // we start on a day view.. which has ".today"
+  var $el = this.picker.find('.datepicker-days td.today');
+  equal($el.length, 1);
+  equal($el.text(), today.getDate());
+
+  // now we try other views..
+  var me = this;
+  [
+    // change from days to months
+    ['.datepicker-days', '.datepicker-months', $.fn.datepicker.dates.en.monthsShort[today.getMonth()]],
+    // change from months to years
+    ['.datepicker-months', '.datepicker-years', today.getFullYear()],
+    // change from years to decades
+    ['.datepicker-years', '.datepicker-decades', parseInt(today.getFullYear() / 10, 10) * 10],
+    // change from decades to centuries
+    ['.datepicker-decades', '.datepicker-centuries', parseInt(today.getFullYear() / 100, 10) * 100]
+
+  ].forEach(function (testCase) {
+    me.dp.picker.find(testCase[0] + ' .datepicker-switch').click();
+
+    var $el = me.dp.picker.find(testCase[1] + ' tbody span.today');
+    equal($el.length, 1);
+    equal($el.text(), testCase[2]);
+
+    if (testCase[1] === '.datepicker-months') {
+      // test prev year that today is not set
+      me.dp.picker.find(testCase[0] + ' .prev').click();
+      equal(me.dp.picker.find(testCase[1] + ' tbody span.today').length, 1);
+
+      // go back to "today"
+      me.dp.picker.find(testCase[0] + ' .next').click();
+    }
+  });
+
+});

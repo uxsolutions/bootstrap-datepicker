@@ -903,7 +903,10 @@
 		},
 
 		_fill_yearsView: function(selector, cssClass, factor, step, currentYear, startYear, endYear, callback){
-			var html, view, year, steps, startStep, endStep, thisYear, i, classes, tooltip, before;
+			var html, view, year, steps, startStep, endStep, thisYear, i, classes, tooltip, before, today;
+            if (!this.today) {
+                this.today = UTCToday();
+            }
 
 			html      = '';
 			view      = this.picker.find(selector);
@@ -913,6 +916,7 @@
 			steps     = $.map(this.dates, function(d){
 				return parseInt(d.getUTCFullYear() / step, 10) * step;
 			});
+            today = parseInt(this.today.getFullYear() / step, 10) * step;
 
 			view.find('.datepicker-switch').text(year + '-' + (year + step * 9));
 
@@ -935,6 +939,13 @@
         if (thisYear === this.viewDate.getFullYear()) {
 				  classes.push('focused');
         }
+
+				// add now class to view item (today class clashes somewhere)
+				if (this.o.todayHighlight) {
+					if (thisYear === today) {
+						classes.push('today');
+					}
+				}
 
 				if (callback !== $.noop) {
 					before = callback(new Date(thisYear, 0, 1));
@@ -973,8 +984,12 @@
 				todaytxt = dates[this.o.language].today || dates['en'].today || '',
 				cleartxt = dates[this.o.language].clear || dates['en'].clear || '',
 				titleFormat = dates[this.o.language].titleFormat || dates['en'].titleFormat,
+				todayHighlight = this.o.todayHighlight,
 				tooltip,
 				before;
+			if (!this.today) {
+			    this.today = UTCToday();
+			}
 			if (isNaN(year) || isNaN(month))
 				return;
 			this.picker.find('.datepicker-days .datepicker-switch')
@@ -1067,6 +1082,10 @@
 				if (d.getUTCFullYear() === year)
 					months.eq(d.getUTCMonth()).addClass('active');
 			});
+
+      if (todayHighlight && this.today.getUTCFullYear() === year) {
+        months.eq(this.today.getUTCMonth()).addClass('today');
+      }
 
 			if (year < startYear || year > endYear){
 				months.addClass('disabled');
@@ -1198,7 +1217,7 @@
 			}
 
 			// Clicked on today button
-			if (target.hasClass('today') && !target.hasClass('day')){
+			if (target.hasClass('btn-today')){
 				this.setViewMode(0);
 				this._setDate(UTCToday(), this.o.todayBtn === 'linked' ? null : 'view');
 			}
@@ -1966,7 +1985,7 @@
 		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',
 		footTemplate: '<tfoot>'+
 							'<tr>'+
-								'<th colspan="7" class="today"></th>'+
+								'<th colspan="7" class="btn-today today"></th>'+
 							'</tr>'+
 							'<tr>'+
 								'<th colspan="7" class="clear"></th>'+
