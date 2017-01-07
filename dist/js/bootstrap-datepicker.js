@@ -1,8 +1,6 @@
 /*!
- * Datepicker for Bootstrap v1.7.0-dev (https://github.com/eternicode/bootstrap-datepicker)
+ * Datepicker for Bootstrap v1.7.0-dev (https://github.com/uxsolutions/bootstrap-datepicker)
  *
- * Copyright 2012 Stefan Petre
- * Improvements by Andrew Rowls
  * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
  */
 
@@ -514,7 +512,17 @@
 		},
 
 		_utc_to_local: function(utc){
-			return utc && new Date(utc.getTime() + (utc.getTimezoneOffset()*60000));
+			if (!utc) {
+				return utc;
+			}
+
+			var local = new Date(utc.getTime() + (utc.getTimezoneOffset() * 60000));
+
+			if (local.getTimezoneOffset() !== utc.getTimezoneOffset()) {
+				local = new Date(utc.getTime() + (local.getTimezoneOffset() * 60000));
+			}
+
+			return local;
 		},
 		_local_to_utc: function(local){
 			return local && new Date(local.getTime() - (local.getTimezoneOffset()*60000));
@@ -761,14 +769,16 @@
 			}, this), true);
 			this.dates.replace(dates);
 
-			if (this.dates.length)
-				this.viewDate = new Date(this.dates.get(-1));
-			else if (this.viewDate < this.o.startDate)
-				this.viewDate = new Date(this.o.startDate);
-			else if (this.viewDate > this.o.endDate)
-				this.viewDate = new Date(this.o.endDate);
-			else
-				this.viewDate = this.o.defaultViewDate;
+			if (this.o.updateViewDate) {
+				if (this.dates.length)
+					this.viewDate = new Date(this.dates.get(-1));
+				else if (this.viewDate < this.o.startDate)
+					this.viewDate = new Date(this.o.startDate);
+				else if (this.viewDate > this.o.endDate)
+					this.viewDate = new Date(this.o.endDate);
+				else
+					this.viewDate = this.o.defaultViewDate;
+			}
 
 			if (fromArgs){
 				// setting date by clicking
@@ -1184,9 +1194,13 @@
 						month = (month + dir + 12) % 12;
 						if ((dir === -1 && month === 11) || (dir === 1 && month === 0)) {
 							year += dir;
-							this._trigger('changeYear', this.viewDate);
+							if (this.o.updateViewDate) {
+								this._trigger('changeYear', this.viewDate);
+							}
 						}
-						this._trigger('changeMonth', this.viewDate);
+						if (this.o.updateViewDate) {
+							this._trigger('changeMonth', this.viewDate);
+						}
 					}
 					this._setDate(UTCDate(year, month, day));
 				}
@@ -1264,7 +1278,7 @@
 		_setDate: function(date, which){
 			if (!which || which === 'date')
 				this._toggle_multidate(date && new Date(date));
-			if (!which || which === 'view')
+			if ((!which && this.o.updateViewDate) || which === 'view')
 				this.viewDate = date && new Date(date);
 
 			this.fill();
@@ -1680,6 +1694,7 @@
 		startView: 0,
 		todayBtn: false,
 		todayHighlight: false,
+		updateViewDate: true,
 		weekStart: 0,
 		disableTouchKeyboard: false,
 		enableOnReadonly: true,
@@ -1690,8 +1705,8 @@
 		dateCells:false,
 		title: '',
 		templates: {
-			leftArrow: '&laquo;',
-			rightArrow: '&raquo;'
+			leftArrow: '&#x00AB;',
+			rightArrow: '&#x00BB;'
 		}
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [

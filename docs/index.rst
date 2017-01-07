@@ -6,10 +6,6 @@ Bootstrap-datepicker provides a flexible datepicker widget in the Bootstrap styl
 .. figure:: _static/screenshots/demo_head.png
     :align: center
 
-This is a fork of Stefan Petre's `original code <http://www.eyecon.ro/bootstrap-datepicker/>`_; thanks go to him for getting this thing started!
-
-Please note that this fork is not used on Stefan's page at this time, nor is it maintained or contributed to by him.
-
 Versions are incremented according to `semver <http://semver.org/>`_.
 
 `Online Demo <https://eternicode.github.io/bootstrap-datepicker/>`_

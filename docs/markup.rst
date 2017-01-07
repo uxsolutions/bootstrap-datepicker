@@ -11,7 +11,7 @@ The simplest case: focusing the input (clicking or tabbing into it) will show th
 
 .. code-block:: html
 
-    <input type="text" value="02-16-2012">
+    <input type="text" class="form-control" value="02-16-2012">
 
 .. figure:: _static/screenshots/markup_input.png
     :align: center
@@ -44,7 +44,7 @@ Using the ``input-daterange`` construct with multiple child inputs will instanti
 
     <div class="input-group input-daterange">
         <input type="text" class="form-control" value="2012-04-05">
-        <span class="input-group-addon">to</span>
+        <div class="input-group-addon">to</div>
         <input type="text" class="form-control" value="2012-04-19">
     </div>
 
@@ -56,7 +56,7 @@ Note that that ``input-daterange`` itself does not implement the ``datepicker`` 
 ::
 
     $('.input-daterange input').each(function() {
-        $(this).datepicker("clearDates");
+        $(this).datepicker('clearDates');
     });
 
 inline or embedded
@@ -82,7 +82,7 @@ Example to save the embedded datepicker value to a hidden field
 ::
 
     $('#datepicker').datepicker();
-    $('#datepicker').on("changeDate", function() {
+    $('#datepicker').on('changeDate', function() {
         $('#my_hidden_input').val(
             $('#datepicker').datepicker('getFormattedDate')
         );

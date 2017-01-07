@@ -22,11 +22,11 @@
                 return function(){
                     Array.prototype.push.call(arguments, date);
                     window.Date = date;
-                    res = f.apply(this, arguments);
+                    f.apply(this, arguments);
                     window.Date = NativeDate;
-                }
+                };
             }
-            var setup = patch_date(function setup(Date){
+            var setup = patch_date(function(Date){
                 Date.now = new Date(2013, 2, 18);
                 $('input').datepicker({
                     todayHighlight: true
@@ -35,11 +35,13 @@
         </script>
     </head>
     <body data-capture="input, .datepicker">
-        <div class="span4">
-            <input type="text" value="03/03/2013">
-        </div>
-        <div class="span4">
-            <input type="text" value="03/18/2013">
+        <div class="row">
+            <div class="col-sm-3">
+                <input type="text" class="form-control" value="03/03/2013">
+            </div>
+            <div class="col-sm-offset-2 col-sm-3">
+                <input type="text" class="form-control" value="03/18/2013">
+            </div>
         </div>
     </body>
 </html>

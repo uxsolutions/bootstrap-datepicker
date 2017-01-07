@@ -1,6 +1,6 @@
 /**
  * Khmer translation for bootstrap-datepicker
- * This is the Updated Version of: https://github.com/eternicode/bootstrap-datepicker/blob/71308d42cce9524284c50c6fac50422d1790ac0f/js/locales/bootstrap-datepicker.kh.js
+ * This is the Updated Version of: https://github.com/uxsolutions/bootstrap-datepicker/blob/71308d42cce9524284c50c6fac50422d1790ac0f/js/locales/bootstrap-datepicker.kh.js
  */
 ;(function($){
   $.fn.datepicker.dates['km'] = {

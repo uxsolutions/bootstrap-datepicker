@@ -1,8 +1,6 @@
 /*!
- * Datepicker for Bootstrap v1.7.0-dev (https://github.com/eternicode/bootstrap-datepicker)
+ * Datepicker for Bootstrap v1.7.0-dev (https://github.com/uxsolutions/bootstrap-datepicker)
  *
- * Copyright 2012 Stefan Petre
- * Improvements by Andrew Rowls
  * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
  */
 
@@ -34,7 +32,7 @@
   display: inline-block;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-  border-bottom: 7px solid #999;
+  border-bottom: 7px solid #999999;
   border-top: 0;
   border-bottom-color: rgba(0, 0, 0, 0.2);
   position: absolute;
@@ -44,7 +42,7 @@
   display: inline-block;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-bottom: 6px solid #fff;
+  border-bottom: 6px solid #ffffff;
   border-top: 0;
   position: absolute;
 }
@@ -69,12 +67,12 @@
 .datepicker-dropdown.datepicker-orient-top:before {
   bottom: -7px;
   border-bottom: 0;
-  border-top: 7px solid #999;
+  border-top: 7px solid #999999;
 }
 .datepicker-dropdown.datepicker-orient-top:after {
   bottom: -6px;
   border-bottom: 0;
-  border-top: 6px solid #fff;
+  border-top: 6px solid #ffffff;
 }
 .datepicker table {
   margin: 0;
@@ -101,17 +99,17 @@
 }
 .datepicker table tr td.day:hover,
 .datepicker table tr td.day.focused {
-  background: #eee;
+  background: #eeeeee;
   cursor: pointer;
 }
 .datepicker table tr td.old,
 .datepicker table tr td.new {
-  color: #999;
+  color: #999999;
 }
 .datepicker table tr td.disabled,
 .datepicker table tr td.disabled:hover {
   background: none;
-  color: #999;
+  color: #999999;
   cursor: default;
 }
 .datepicker table tr td.highlighted {
@@ -178,7 +176,7 @@
 .datepicker table tr td.range:hover,
 .datepicker table tr td.range.disabled,
 .datepicker table tr td.range.disabled:hover {
-  background: #eee;
+  background: #eeeeee;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
@@ -291,14 +289,14 @@
 .datepicker table tr td.active.disabled,
 .datepicker table tr td.active.disabled:hover {
   background-color: #006dcc;
-  background-image: -moz-linear-gradient(to bottom, #08c, #0044cc);
-  background-image: -ms-linear-gradient(to bottom, #08c, #0044cc);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#08c), to(#0044cc));
-  background-image: -webkit-linear-gradient(to bottom, #08c, #0044cc);
-  background-image: -o-linear-gradient(to bottom, #08c, #0044cc);
-  background-image: linear-gradient(to bottom, #08c, #0044cc);
+  background-image: -moz-linear-gradient(to bottom, #0088cc, #0044cc);
+  background-image: -ms-linear-gradient(to bottom, #0088cc, #0044cc);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+  background-image: -webkit-linear-gradient(to bottom, #0088cc, #0044cc);
+  background-image: -o-linear-gradient(to bottom, #0088cc, #0044cc);
+  background-image: linear-gradient(to bottom, #0088cc, #0044cc);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#08c', endColorstr='#0044cc', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0088cc', endColorstr='#0044cc', GradientType=0);
   border-color: #0044cc #0044cc #002a80;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
@@ -351,12 +349,12 @@
 }
 .datepicker table tr td span:hover,
 .datepicker table tr td span.focused {
-  background: #eee;
+  background: #eeeeee;
 }
 .datepicker table tr td span.disabled,
 .datepicker table tr td span.disabled:hover {
   background: none;
-  color: #999;
+  color: #999999;
   cursor: default;
 }
 .datepicker table tr td span.active,
@@ -364,14 +362,14 @@
 .datepicker table tr td span.active.disabled,
 .datepicker table tr td span.active.disabled:hover {
   background-color: #006dcc;
-  background-image: -moz-linear-gradient(to bottom, #08c, #0044cc);
-  background-image: -ms-linear-gradient(to bottom, #08c, #0044cc);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#08c), to(#0044cc));
-  background-image: -webkit-linear-gradient(to bottom, #08c, #0044cc);
-  background-image: -o-linear-gradient(to bottom, #08c, #0044cc);
-  background-image: linear-gradient(to bottom, #08c, #0044cc);
+  background-image: -moz-linear-gradient(to bottom, #0088cc, #0044cc);
+  background-image: -ms-linear-gradient(to bottom, #0088cc, #0044cc);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+  background-image: -webkit-linear-gradient(to bottom, #0088cc, #0044cc);
+  background-image: -o-linear-gradient(to bottom, #0088cc, #0044cc);
+  background-image: linear-gradient(to bottom, #0088cc, #0044cc);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#08c', endColorstr='#0044cc', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0088cc', endColorstr='#0044cc', GradientType=0);
   border-color: #0044cc #0044cc #002a80;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
@@ -412,7 +410,7 @@
 }
 .datepicker table tr td span.old,
 .datepicker table tr td span.new {
-  color: #999;
+  color: #999999;
 }
 .datepicker .datepicker-switch {
   width: 145px;
@@ -427,7 +425,7 @@
 .datepicker .prev:hover,
 .datepicker .next:hover,
 .datepicker tfoot tr th:hover {
-  background: #eee;
+  background: #eeeeee;
 }
 .datepicker .prev.disabled,
 .datepicker .next.disabled {
@@ -469,9 +467,9 @@
   font-weight: normal;
   line-height: 18px;
   text-align: center;
-  text-shadow: 0 1px 0 #fff;
+  text-shadow: 0 1px 0 #ffffff;
   vertical-align: middle;
-  background-color: #eee;
+  background-color: #eeeeee;
   border: 1px solid #ccc;
   margin-left: -5px;
   margin-right: -5px;
