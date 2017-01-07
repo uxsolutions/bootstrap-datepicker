@@ -51,8 +51,8 @@ page.open(sys.args[1], function(status){
                 top: Math.min.apply(Math, tops),
                 left: Math.min.apply(Math, lefts)
             };
-            b['width'] = Math.max.apply(Math, rights) - b.left;
-            b['height'] = Math.max.apply(Math, bottoms) - b.top;
+            b.width = Math.max.apply(Math, rights) - b.left;
+            b.height = Math.max.apply(Math, bottoms) - b.top;
 
             // Return bounding box
             return {

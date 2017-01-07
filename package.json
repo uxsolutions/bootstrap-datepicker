@@ -43,6 +43,6 @@
     "grunt-jscs": ">=1.1.0, <2.0",
     "grunt-string-replace": "~1.0.0",
     "time-grunt": "~1.0.0",
-    "phantomjs": "~1.9.0"
+    "phantomjs-prebuilt": "~2.1.7"
   }
 }

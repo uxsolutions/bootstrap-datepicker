@@ -8,21 +8,25 @@
                 $('.input-daterange').datepicker({
                     format: 'yyyy-mm-dd'
                 });
-            };
+            }
         </script>
     </head>
     <body data-capture=".input-daterange, .datepicker" data-show="input:first, input:last">
-        <form class="form-horizontal">
-            <div class="input-daterange span5">
-                <input type="text" class="input-small" value="2012-04-05" />
-                <span class="add-on">to</span>
-                <input type="text" class="input-small" value="2012-04-19" />
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="input-group input-daterange">
+                    <input type="text" class="form-control" value="2012-04-05">
+                    <div class="input-group-addon">to</div>
+                    <input type="text" class="form-control" value="2012-04-19">
+                </div>
             </div>
-            <div class="input-daterange span5">
-                <input type="text" class="input-small" value="2012-04-05" />
-                <span class="add-on">to</span>
-                <input type="text" class="input-small" value="2012-04-19" />
+            <div class="col-sm-5">
+                <div class="input-group input-daterange">
+                    <input type="text" class="form-control" value="2012-04-05">
+                    <div class="input-group-addon">to</div>
+                    <input type="text" class="form-control" value="2012-04-19">
+                </div>
             </div>
-        </form>
+        </div>
     </body>
 </html>
