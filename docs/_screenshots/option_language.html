@@ -2,6 +2,11 @@
 <html>
     <head>
         <link rel="stylesheet" href="script/common.css">
+        <style>
+            .row + .row {
+              margin-top: 30px;
+            }
+        </style>
         <script src="script/common.js"></script>
         <script src="../../js/locales/bootstrap-datepicker.es.js" charset="UTF-8"></script>
         <script src="../../js/locales/bootstrap-datepicker.fr.js" charset="UTF-8"></script>
@@ -11,21 +16,21 @@
         <script>
             function setup(){
                 $('[data-date]').datepicker({
-                    format: "mm/dd/yyyy" // To override locale-specific formats
+                    format: 'mm/dd/yyyy' // To override locale-specific formats
                 });
-            };
+            }
         </script>
     </head>
-    <body data-capture=".row">
+    <body data-capture=".datepicker">
         <div class="row">
-            <div class="span4" data-date="03/03/2013" data-date-language="en"></div>
-            <div class="span4" data-date="03/03/2013" data-date-start-view="1" data-date-language="es"></div>
-            <div class="span4" data-date="03/03/2013" data-date-language="fr"></div>
+            <div class="col-sm-4" data-date="03/03/2013" data-date-language="en"></div>
+            <div class="col-sm-4" data-date="03/03/2013" data-date-start-view="1" data-date-language="es"></div>
+            <div class="col-sm-4" data-date="03/03/2013" data-date-language="fr"></div>
         </div>
         <div class="row">
-            <div class="span4" data-date="03/03/2013" data-date-start-view="1" data-date-language="zh-TW"></div>
-            <div class="span4" data-date="03/03/2013" data-date-language="ja"></div>
-            <div class="span4" data-date="03/03/2013" data-date-start-view="1" data-date-language="ru"></div>
+            <div class="col-sm-4" data-date="03/03/2013" data-date-start-view="1" data-date-language="zh-TW"></div>
+            <div class="col-sm-4" data-date="03/03/2013" data-date-language="ja"></div>
+            <div class="col-sm-4" data-date="03/03/2013" data-date-start-view="1" data-date-language="ru"></div>
         </div>
     </body>
 </html>
