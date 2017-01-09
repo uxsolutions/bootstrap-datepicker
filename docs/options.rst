@@ -212,7 +212,7 @@ Date should be in local timezone. String must be parsable with ``format``.
 
 .. code-block:: html
 
-    <input type="text" data-provide="datepicker" data-date-end-date="0d">
+    <input type="text" class="form-control" data-date-end-date="0d">
 
 Will disable all dates after today.
 
@@ -275,8 +275,7 @@ Custom formatting options
                 d.setDate(d.getDate() + 7);
                 return new Date(d);
             }
-        },
-        autoclose: true
+        }
     });
 
 
@@ -297,7 +296,7 @@ A list of inputs to be used in a range picker, which will be attached to the sel
 
 .. code-block:: html
 
-    <div class="form-group form-group-filled" id="event_period">
+    <div id="event_period">
         <input type="text" class="actual_range">
         <input type="text" class="actual_range">
     </div>

@@ -238,3 +238,30 @@ test('picker should render fine when `$.fn.show` and `$.fn.hide` are overridden'
         ok(divNotShown.hasClass('foo'), 'Other divs do have overridden `$.fn.hide` side-effects');
     }
 }));
+
+test('Focused ceil for decade/century/millenium views', function(){
+    var input = $('<input />')
+      .appendTo('#qunit-fixture')
+      .datepicker({
+        startView: 2,
+        defaultViewDate: {
+          year: 2115
+        }
+      }),
+      dp = input.data('datepicker'),
+      picker = dp.picker,
+      target;
+
+    input.focus();
+
+    target = picker.find('.datepicker-years tbody .focused');
+    ok(target.text() === '2115', 'Year cell is focused');
+
+    picker.find('.datepicker-years thead th.datepicker-switch').click();
+    target = picker.find('.datepicker-decades tbody .focused');
+    ok(target.text() === '2110', 'Decade cell is focused');
+
+    picker.find('.datepicker-decades thead th.datepicker-switch').click();
+    target = picker.find('.datepicker-centuries tbody .focused');
+    ok(target.text() === '2100', 'Century cell is focused');
+});
