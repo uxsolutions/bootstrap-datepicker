@@ -479,3 +479,23 @@ test('Changing view mode triggers changeViewMode', function () {
   equal(viewMode, 4);
 
 });
+
+test('Manually changing date should not trigger changeDate until we finish typing(it meets the required format)', function(){
+
+    var triggers = 0;
+    var expectedTriggers = 1;
+
+    this.input.on('changeDate', function(){
+        triggers++
+    });
+
+    this.input.focus();
+    this.input.val('04-03-20');
+    this.dp.update();
+    this.input.val('04-03-201');
+    this.dp.update();
+    this.input.val('04-03-2013');
+    this.dp.update();
+
+    equal(triggers, expectedTriggers);
+});
