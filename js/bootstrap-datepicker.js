@@ -806,10 +806,14 @@
 			}
 			else if (this.dates.length){
 				// setting date by typing
-				if (String(oldDates) !== String(this.dates) && fromArgs) {
-					this._trigger('changeDate');
-					this.element.change();
-				}
+				if (typeof this.o.format === 'string') {
+					if ((String(this.element[0].value).length === String(this.o.format).length) && (String(oldDates) !== String(this.dates)))
+						this._trigger('changeDate');
+                        this.element.change();
+				    } else if (String(oldDates) !== String(this.dates)) {
+                        this._trigger('changeDate');
+                        this.element.change();
+                    }
 			}
 			if (!this.dates.length && oldDates.length) {
 				this._trigger('clearDate');
