@@ -2007,7 +2007,7 @@
 
 	/* DATEPICKER VERSION
 	 * =================== */
-	$.fn.datepicker.version = '1.7.0-dev';
+	$.fn.datepicker.version = '1.7.0-RC1';
 
 	$.fn.datepicker.deprecated = function(msg){
 		var console = window.console;
