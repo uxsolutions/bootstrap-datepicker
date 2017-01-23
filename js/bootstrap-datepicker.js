@@ -810,7 +810,7 @@
 					this._trigger('changeDate');
 					this.element.change();
 				}
-			}
+            }
 			if (!this.dates.length && oldDates.length) {
 				this._trigger('clearDate');
 				this.element.change();
