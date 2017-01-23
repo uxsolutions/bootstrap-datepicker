@@ -441,6 +441,14 @@ You can use this property to use custom icons libs. for example:
     }
 
 
+showWeekDays
+------------
+
+Boolean.  Default: true
+
+If false, the datepicker will not append the names of the weekdays to its view. Default behavior is appending the weekdays.
+
+
 title
 -----
 
