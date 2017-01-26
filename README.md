@@ -21,7 +21,7 @@ Please note: It might take a few hours until a new version is available on cdnjs
 
 ## Development
 
-Once you cloned the repo, you'll need to install [grunt](http://gruntjs.com/) and the development dependencies using [npm](https://www.npmjs.com/).
+Once you cloned the repo, you'll need to install [grunt](http://gruntjs.com/) and the development dependencies using [yarn](https://yarnpkg.com/).
 
-    $ [sudo] npm install -g grunt-cli
-    $ npm install
+    $ [sudo] yarn global add grunt-cli
+    $ yarn install
