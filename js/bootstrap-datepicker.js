@@ -1543,6 +1543,10 @@
 				p.setRange(range);
 			});
 		},
+		clearDates: function(){
+				this.pickers[0].clearDates();
+				this.pickers[1].clearDates();
+		 }, 
 		dateUpdated: function(e){
 			// `this.updating` is a workaround for preventing infinite recursion
 			// between `changeDate` triggering and `setUTCDate` calling.  Until
