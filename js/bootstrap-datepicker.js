@@ -1199,10 +1199,10 @@
 
 			if (!target.hasClass('disabled')){
 				// Allow clicking on elements inside a day
-				var day = target.parents('.day');
+				var findOuter = target.closest('.day');
 
-				if (day.length)
-			        target = day;
+				if (findOuter.length)
+			        target = findOuter;
 				
 				// Clicked on a day
 				if (target.hasClass('day')){
