@@ -13,6 +13,6 @@
 		today: "I Dag",
 		weekStart: 1,
 		clear: "Nulstil",
-		format: "dd-mm-yyyy"
+        format: "dd/mm/yyyy"
 	};
 }(jQuery));

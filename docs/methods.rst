@@ -39,17 +39,21 @@ update
 
 Arguments:
 
+* date (String|Date|Array, optional)
 * date (String|Date, optional)
+* ...
 
-Update the datepicker with given argument or the current input value.
-
-If ``date`` is provided and is a Date object, it is assumed to be a "local" date object, and will be converted to UTC for internal use.
+Update the datepicker with given arguments or the current input value.
+The arguments can be either an array of strings, an array of Date objects, multiples strings or multiples Date objects.
+If ``date`` arguments are provided and they are Date objects, it is assumed to be "local" Date objects, and will be converted to UTC for internal use.
 
 ::
 
     $('.datepicker').datepicker('update');
     $('.datepicker').datepicker('update', '2011-03-05');
+    $('.datepicker').datepicker('update', '2011-03-05', '2011-03-07');
     $('.datepicker').datepicker('update', new Date(2011, 2, 5));
+    $('.datepicker').datepicker('update', [new Date(2011, 2, 5), new Date(2011, 2, 7)]);
 
 To reset the datepicker and clear the selected date, pass an empty string with ``update``:
 
