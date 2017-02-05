@@ -1253,7 +1253,7 @@
 
 		// Clicked on prev or next
 		navArrowsClick: function(e){
-			var target = $(e.target);
+			var target = $(e.currentTarget);
 			var dir = target.hasClass('prev') ? -1 : 1;
 			if (this.viewMode !== 0){
 				dir *= DPGlobal.viewModes[this.viewMode].navStep * 12;

@@ -1580,6 +1580,27 @@ test('Nav arrow html templates with span tag', function () {
     ok(target.hasClass('active'), 'Month is selected');
 });
 
+test('Nav arrow html templates .prev click', function () {
+    var input = $('<input />')
+        .appendTo('#qunit-fixture')
+        .val('2012-10-26')
+        .datepicker({
+            format: 'yyyy-mm-dd',
+            startView: 1,
+            templates: {
+                leftArrow: '<i></i>'
+            }
+        }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    picker.find('.datepicker-months thead .prev i').trigger('click');
+    target = picker.find('.datepicker-months thead .datepicker-switch');
+    equal(target.text(), '2011');
+});
+
 test('Visibility of the prev and next arrows for decade/century/millenium views with startDate and endDate', function(){
     var input = $('<input />')
                 .appendTo('#qunit-fixture')
