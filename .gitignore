@@ -4,6 +4,7 @@ docs/_build
 # OS or Editor folders
 .DS_Store
 .idea
+*.iml
 
 # Folders to ignore
 bower_components
