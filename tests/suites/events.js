@@ -479,3 +479,29 @@ test('Changing view mode triggers changeViewMode', function () {
   equal(viewMode, 4);
 
 });
+
+test('Clicking inside content of date with custom beforeShowDay content works', function(){
+    this.input = $('<input type="text" value="31-03-2011">')
+                    .appendTo('#qunit-fixture')
+                    .datepicker({
+                        format: "dd-mm-yyyy",
+                        beforeShowDay: function (date) { return { content: '<div><div>' + date.getDate() + '</div></div>' }; }
+                    })
+                    .focus(); // Activate for visibility checks
+    this.dp = this.input.data('datepicker');
+    this.picker = this.dp.picker;
+
+    var target,
+        triggered = 0;
+
+    this.input.on('changeDate', function(){
+        triggered++;
+    });
+
+    // find deepest date
+    target = this.picker.find('.datepicker-days tbody td:first div div');
+    target.click();
+
+    // ensure event has been triggered
+    equal(triggered, 1);
+});

@@ -810,7 +810,7 @@
 					this._trigger('changeDate');
 					this.element.change();
 				}
-            }
+			}
 			if (!this.dates.length && oldDates.length) {
 				this._trigger('clearDate');
 				this.element.change();
@@ -822,24 +822,24 @@
 
 		fillDow: function(){
       if (this.o.showWeekDays) {
-  			var dowCnt = this.o.weekStart,
-  				html = '<tr>';
-  			if (this.o.calendarWeeks){
-  				html += '<th class="cw">&#160;</th>';
-  			}
-  			while (dowCnt < this.o.weekStart + 7){
-  				html += '<th class="dow';
-          if ($.inArray(dowCnt, this.o.daysOfWeekDisabled) !== -1)
-            html += ' disabled';
-          html += '">'+dates[this.o.language].daysMin[(dowCnt++)%7]+'</th>';
-  			}
-  			html += '</tr>';
-  			this.picker.find('.datepicker-days thead').append(html);
+			var dowCnt = this.o.weekStart,
+				html = '<tr>';
+			if (this.o.calendarWeeks){
+				html += '<th class="cw">&#160;</th>';
+			}
+			while (dowCnt < this.o.weekStart + 7){
+				html += '<th class="dow';
+        if ($.inArray(dowCnt, this.o.daysOfWeekDisabled) !== -1)
+          html += ' disabled';
+        html += '">'+dates[this.o.language].daysMin[(dowCnt++)%7]+'</th>';
+			}
+			html += '</tr>';
+			this.picker.find('.datepicker-days thead').append(html);
       }
 		},
 
 		fillMonths: function(){
-			var localDate = this._utc_to_local(this.viewDate);
+      var localDate = this._utc_to_local(this.viewDate);
 			var html = '';
 			var focused;
 			for (var i = 0; i < 12; i++){
@@ -932,8 +932,8 @@
 					classes.push('disabled');
 				}
 				if (currVal === focusedVal) {
-					classes.push('focused');
-				}
+				  classes.push('focused');
+        }
 
 				if (beforeFn !== $.noop) {
 					before = beforeFn(new Date(currVal, 0, 1));
@@ -1023,6 +1023,8 @@
 				clsName = this.getClassNames(prevMonth);
 				clsName.push('day');
 
+				var content = prevMonth.getUTCDate();
+
 				if (this.o.beforeShowDay !== $.noop){
 					before = this.o.beforeShowDay(this._utc_to_local(prevMonth));
 					if (before === undefined)
@@ -1037,6 +1039,8 @@
 						clsName = clsName.concat(before.classes.split(/\s+/));
 					if (before.tooltip)
 						tooltip = before.tooltip;
+					if (before.content)
+					    content = before.content;
 				}
 
 				//Check if uniqueSort exists (supported by jquery >=1.12 and >=2.2)
@@ -1047,7 +1051,7 @@
 					clsName = $.unique(clsName);
 				}
 
-				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + (this.o.dateCells ? ' data-date="' + prevMonth.getTime().toString() + '"' : '') + '>' + prevMonth.getUTCDate() + '</td>');
+				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + (this.o.dateCells ? ' data-date="'+(prevMonth.getTime().toString())+'"' : '') + '>' + content + '</td>');
 				tooltip = null;
 				if (weekDay === this.o.weekEnd){
 					html.push('</tr>');
@@ -1194,6 +1198,12 @@
 			}
 
 			if (!target.hasClass('disabled')){
+				// Allow clicking on elements inside a day
+				var findOuter = target.closest('.day');
+
+				if (findOuter.length)
+			        target = findOuter;
+				
 				// Clicked on a day
 				if (target.hasClass('day')){
 					day = Number(target.text());
@@ -1713,7 +1723,7 @@
 		zIndexOffset: 10,
 		container: 'body',
 		immediateUpdates: false,
-		dateCells: false,
+		dateCells:false,
 		title: '',
 		templates: {
 			leftArrow: '&#x00AB;',

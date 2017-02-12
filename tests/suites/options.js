@@ -754,6 +754,8 @@ test('BeforeShowDay', function(){
                 return {enabled: false, classes:'test27'};
             case 28:
                 return false;
+            case 30:
+                return { content: "foo" + date.getDate() }
         }
     };
 
@@ -782,6 +784,8 @@ test('BeforeShowDay', function(){
     ok(target.hasClass('disabled'), '28th is disabled');
     target = picker.find('.datepicker-days tbody td:nth(29)');
     ok(!target.hasClass('disabled'), '29th is enabled');
+    target = picker.find('.datepicker-days tbody td:nth(30)');
+    ok(target.text() == "foo30", '30th has custom content');
 });
 
 
