@@ -842,14 +842,17 @@
 		},
 
 		fillMonths: function(){
-      var localDate = this._utc_to_local(this.viewDate);
-			var html = '';
-			var focused;
+			var focused, node, localDate = this._utc_to_local(this.viewDate);
+			this.picker.find('.datepicker-months td').html('');
 			for (var i = 0; i < 12; i++){
 				focused = localDate && localDate.getMonth() === i ? ' focused' : '';
-				html += '<span class="month' + focused + '">' + dates[this.o.language].monthsShort[i] + '</span>';
+				node = $('<span>');
+				node.data('date', {day: 1, month: i, year: this.viewDate.getUTCFullYear()});
+				node.attr('class', 'month' + focused);
+				node.html(dates[this.o.language].monthsShort[i]);
+				node.on('click', $.proxy(this.cellClick, this));
+				this.picker.find('.datepicker-months td').append(node);
 			}
-			this.picker.find('.datepicker-months td').html(html);
 		},
 
 		setRange: function(range){
@@ -908,7 +911,6 @@
 		},
 
 		_fill_yearsView: function(selector, cssClass, factor, year, startYear, endYear, beforeFn){
-			var html = '';
 			var step = factor / 10;
 			var view = this.picker.find(selector);
 			var startVal = Math.floor(year / factor) * factor;
@@ -917,8 +919,8 @@
 			var selected = $.map(this.dates, function(d){
 				return Math.floor(d.getUTCFullYear() / step) * step;
 			});
-
-			var classes, tooltip, before;
+			view.find('td').html('');
+			var classes, tooltip, before, content, node;
 			for (var currVal = startVal - step; currVal <= endVal + step; currVal += step) {
 				classes = [cssClass];
 				tooltip = null;
@@ -936,8 +938,8 @@
 					classes.push('disabled');
 				}
 				if (currVal === focusedVal) {
-				  classes.push('focused');
-        }
+					classes.push('focused');
+				}
 
 				if (beforeFn !== $.noop) {
 					before = beforeFn(new Date(currVal, 0, 1));
@@ -962,11 +964,18 @@
 					}
 				}
 
-				html += '<span class="' + classes.join(' ') + '"' + (tooltip ? ' title="' + tooltip + '"' : '') + '>' + content + '</span>';
+				node = $('<span>');
+				node.data('date', {day: 1, month: this.viewDate.getUTCMonth(), year: currVal});
+				node.attr('class', classes.join(' '));
+				if (tooltip) {
+					node.attr('title', tooltip);
+				}
+				node.html(content);
+				node.on('click', $.proxy(this.cellClick, this));
+				view.find('td').append(node);
 			}
 
 			view.find('.datepicker-switch').text(startVal + '-' + endVal);
-			view.find('td').html(html);
 		},
 
 		fill: function(){
@@ -1206,36 +1215,6 @@
 				this.clearDates();
 			}
 
-			if (!target.hasClass('disabled')){
-				// Clicked on a month, year, decade, century
-				if (target.hasClass('month')
-						|| target.hasClass('year')
-						|| target.hasClass('decade')
-						|| target.hasClass('century')) {
-					this.viewDate.setUTCDate(1);
-
-					day = 1;
-					if (this.viewMode === 1){
-						month = target.parent().find('span').index(target);
-						year = this.viewDate.getUTCFullYear();
-						this.viewDate.setUTCMonth(month);
-					} else {
-						month = 0;
-						year = Number(target.text());
-						this.viewDate.setUTCFullYear(year);
-					}
-
-					this._trigger(DPGlobal.viewModes[this.viewMode - 1].e, this.viewDate);
-
-					if (this.viewMode === this.o.minViewMode){
-						this._setDate(UTCDate(year, month, day));
-					} else {
-						this.setViewMode(this.viewMode - 1);
-						this.fill();
-					}
-				}
-			}
-
 			if (this.picker.is(':visible') && this._focused_from){
 				this._focused_from.focus();
 			}
@@ -1257,6 +1236,30 @@
 				}
 			}
 			this._setDate(date);
+		},
+
+		cellClick: function (e) {
+			var data = $(e.currentTarget).data('date');
+
+			if (data === undefined ||
+				data.day === undefined ||
+				data.month === undefined ||
+				data.year === undefined) {
+				return;
+			}
+
+			this.viewDate.setUTCDate(data.day);
+			this.viewDate.setUTCMonth(data.month);
+			this.viewDate.setUTCFullYear(data.year);
+
+			this._trigger(DPGlobal.viewModes[this.viewMode - 1].e, this.viewDate);
+
+			if (this.viewMode === this.o.minViewMode){
+				this._setDate(UTCDate(data.year, data.month, data.day));
+			} else {
+				this.setViewMode(this.viewMode - 1);
+				this.fill();
+			}
 		},
 
 		// Clicked on prev or next
