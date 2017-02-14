@@ -922,6 +922,7 @@
 			for (var currVal = startVal - step; currVal <= endVal + step; currVal += step) {
 				classes = [cssClass];
 				tooltip = null;
+				content = currVal;
 
 				if (currVal === startVal - step) {
 					classes.push('old');
@@ -956,9 +957,12 @@
 					if (before.tooltip) {
 						tooltip = before.tooltip;
 					}
+					if (before.content) {
+						content = before.content;
+					}
 				}
 
-				html += '<span class="' + classes.join(' ') + '"' + (tooltip ? ' title="' + tooltip + '"' : '') + '>' + currVal + '</span>';
+				html += '<span class="' + classes.join(' ') + '"' + (tooltip ? ' title="' + tooltip + '"' : '') + '>' + content + '</span>';
 			}
 
 			view.find('.datepicker-switch').text(startVal + '-' + endVal);
@@ -1102,6 +1106,8 @@
 					    $(month).addClass(before.classes);
 					if (before.tooltip)
 					    $(month).prop('title', before.tooltip);
+					if (before.content)
+					    $(month).html(before.content);
 				});
 			}
 
