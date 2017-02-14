@@ -1250,7 +1250,7 @@
 					this._trigger('changeMonth', this.viewDate);
 				}
 			}
-			this._setDate(new Date(date));
+			this._setDate(date);
 		},
 
 		// Clicked on prev or next
