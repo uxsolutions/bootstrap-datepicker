@@ -1238,7 +1238,7 @@
 			this._setDate(date);
 		},
 
-		cellClick: function (e) {
+		cellClick: function(e){
 			var data = $(e.currentTarget).data('date');
 
 			if (data === undefined ||
