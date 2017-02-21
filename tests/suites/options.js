@@ -92,12 +92,12 @@ test('Startview: year view (integer)', function(){
         picker = dp.picker,
         target;
 
-        input.focus();
-        ok(picker.find('.datepicker-days').is(':not(:visible)'), 'Days view hidden');
-        ok(picker.find('.datepicker-months').is(':visible'), 'Months view visible');
-        ok(picker.find('.datepicker-years').is(':not(:visible)'), 'Years view hidden');
-        ok(picker.find('.datepicker-decades').is(':not(:visible)'), 'Decades view hidden');
-        ok(picker.find('.datepicker-centuries').is(':not(:visible)'), 'Centuries view hidden');
+    input.focus();
+    ok(picker.find('.datepicker-days').is(':not(:visible)'), 'Days view hidden');
+    ok(picker.find('.datepicker-months').is(':visible'), 'Months view visible');
+    ok(picker.find('.datepicker-years').is(':not(:visible)'), 'Years view hidden');
+    ok(picker.find('.datepicker-decades').is(':not(:visible)'), 'Decades view hidden');
+    ok(picker.find('.datepicker-centuries').is(':not(:visible)'), 'Centuries view hidden');
 });
 
 test('Startview: year view (string)', function(){
@@ -112,12 +112,12 @@ test('Startview: year view (string)', function(){
         picker = dp.picker,
         target;
 
-        input.focus();
-        ok(picker.find('.datepicker-days').is(':not(:visible)'), 'Days view hidden');
-        ok(picker.find('.datepicker-months').is(':visible'), 'Months view visible');
-        ok(picker.find('.datepicker-years').is(':not(:visible)'), 'Years view hidden');
-        ok(picker.find('.datepicker-decades').is(':not(:visible)'), 'Decades view hidden');
-        ok(picker.find('.datepicker-centuries').is(':not(:visible)'), 'Centuries view hidden');
+    input.focus();
+    ok(picker.find('.datepicker-days').is(':not(:visible)'), 'Days view hidden');
+    ok(picker.find('.datepicker-months').is(':visible'), 'Months view visible');
+    ok(picker.find('.datepicker-years').is(':not(:visible)'), 'Years view hidden');
+    ok(picker.find('.datepicker-decades').is(':not(:visible)'), 'Decades view hidden');
+    ok(picker.find('.datepicker-centuries').is(':not(:visible)'), 'Centuries view hidden');
 });
 
 test('Startview: decade view (integer)', function(){
@@ -132,12 +132,12 @@ test('Startview: decade view (integer)', function(){
         picker = dp.picker,
         target;
 
-        input.focus();
-        ok(picker.find('.datepicker-days').is(':not(:visible)'), 'Days view hidden');
-        ok(picker.find('.datepicker-months').is(':not(:visible)'), 'Months view hidden');
-        ok(picker.find('.datepicker-years').is(':visible'), 'Years view visible');
-        ok(picker.find('.datepicker-decades').is(':not(:visible)'), 'Decades view hidden');
-        ok(picker.find('.datepicker-centuries').is(':not(:visible)'), 'Centuries view hidden');
+    input.focus();
+    ok(picker.find('.datepicker-days').is(':not(:visible)'), 'Days view hidden');
+    ok(picker.find('.datepicker-months').is(':not(:visible)'), 'Months view hidden');
+    ok(picker.find('.datepicker-years').is(':visible'), 'Years view visible');
+    ok(picker.find('.datepicker-decades').is(':not(:visible)'), 'Decades view hidden');
+    ok(picker.find('.datepicker-centuries').is(':not(:visible)'), 'Centuries view hidden');
 });
 
 test('Startview: decade view (string)', function(){
@@ -152,12 +152,12 @@ test('Startview: decade view (string)', function(){
         picker = dp.picker,
         target;
 
-        input.focus();
-        ok(picker.find('.datepicker-days').is(':not(:visible)'), 'Days view hidden');
-        ok(picker.find('.datepicker-months').is(':not(:visible)'), 'Months view hidden');
-        ok(picker.find('.datepicker-years').is(':visible'), 'Years view visible');
-        ok(picker.find('.datepicker-decades').is(':not(:visible)'), 'Decades view hidden');
-        ok(picker.find('.datepicker-centuries').is(':not(:visible)'), 'Centuries view hidden');
+    input.focus();
+    ok(picker.find('.datepicker-days').is(':not(:visible)'), 'Days view hidden');
+    ok(picker.find('.datepicker-months').is(':not(:visible)'), 'Months view hidden');
+    ok(picker.find('.datepicker-years').is(':visible'), 'Years view visible');
+    ok(picker.find('.datepicker-decades').is(':not(:visible)'), 'Decades view hidden');
+    ok(picker.find('.datepicker-centuries').is(':not(:visible)'), 'Centuries view hidden');
 });
 
 test('Startview: century view (integer)', function(){
@@ -172,12 +172,12 @@ test('Startview: century view (integer)', function(){
         picker = dp.picker,
         target;
 
-        input.focus();
-        ok(picker.find('.datepicker-days').is(':not(:visible)'), 'Days view hidden');
-        ok(picker.find('.datepicker-months').is(':not(:visible)'), 'Months view hidden');
-        ok(picker.find('.datepicker-years').is(':not(:visible)'), 'Years view hidden');
-        ok(picker.find('.datepicker-decades').is(':visible'), 'Decades view visible');
-        ok(picker.find('.datepicker-centuries').is(':not(:visible)'), 'Centuries view hidden');
+    input.focus();
+    ok(picker.find('.datepicker-days').is(':not(:visible)'), 'Days view hidden');
+    ok(picker.find('.datepicker-months').is(':not(:visible)'), 'Months view hidden');
+    ok(picker.find('.datepicker-years').is(':not(:visible)'), 'Years view hidden');
+    ok(picker.find('.datepicker-decades').is(':visible'), 'Decades view visible');
+    ok(picker.find('.datepicker-centuries').is(':not(:visible)'), 'Centuries view hidden');
 });
 
 test('Startview: century view (string)', function(){
@@ -192,12 +192,12 @@ test('Startview: century view (string)', function(){
         picker = dp.picker,
         target;
 
-        input.focus();
-        ok(picker.find('.datepicker-days').is(':not(:visible)'), 'Days view hidden');
-        ok(picker.find('.datepicker-months').is(':not(:visible)'), 'Months view hidden');
-        ok(picker.find('.datepicker-years').is(':not(:visible)'), 'Years view hidden');
-        ok(picker.find('.datepicker-decades').is(':visible'), 'Decades view visible');
-        ok(picker.find('.datepicker-centuries').is(':not(:visible)'), 'Centuries view hidden');
+    input.focus();
+    ok(picker.find('.datepicker-days').is(':not(:visible)'), 'Days view hidden');
+    ok(picker.find('.datepicker-months').is(':not(:visible)'), 'Months view hidden');
+    ok(picker.find('.datepicker-years').is(':not(:visible)'), 'Years view hidden');
+    ok(picker.find('.datepicker-decades').is(':visible'), 'Decades view visible');
+    ok(picker.find('.datepicker-centuries').is(':not(:visible)'), 'Centuries view hidden');
 });
 
 test('Startview: millennium view (integer)', function(){
@@ -212,12 +212,12 @@ test('Startview: millennium view (integer)', function(){
         picker = dp.picker,
         target;
 
-        input.focus();
-        ok(picker.find('.datepicker-days').is(':not(:visible)'), 'Days view hidden');
-        ok(picker.find('.datepicker-months').is(':not(:visible)'), 'Months view hidden');
-        ok(picker.find('.datepicker-years').is(':not(:visible)'), 'Years view hidden');
-        ok(picker.find('.datepicker-decades').is(':not(:visible)'), 'Decades view hidden');
-        ok(picker.find('.datepicker-centuries').is(':visible'), 'Centuries view visible');
+    input.focus();
+    ok(picker.find('.datepicker-days').is(':not(:visible)'), 'Days view hidden');
+    ok(picker.find('.datepicker-months').is(':not(:visible)'), 'Months view hidden');
+    ok(picker.find('.datepicker-years').is(':not(:visible)'), 'Years view hidden');
+    ok(picker.find('.datepicker-decades').is(':not(:visible)'), 'Decades view hidden');
+    ok(picker.find('.datepicker-centuries').is(':visible'), 'Centuries view visible');
 });
 
 test('Startview: millennium view (string)', function(){
@@ -232,12 +232,12 @@ test('Startview: millennium view (string)', function(){
         picker = dp.picker,
         target;
 
-        input.focus();
-        ok(picker.find('.datepicker-days').is(':not(:visible)'), 'Days view hidden');
-        ok(picker.find('.datepicker-months').is(':not(:visible)'), 'Months view hidden');
-        ok(picker.find('.datepicker-years').is(':not(:visible)'), 'Years view hidden');
-        ok(picker.find('.datepicker-decades').is(':not(:visible)'), 'Decades view hidden');
-        ok(picker.find('.datepicker-centuries').is(':visible'), 'Centuries view visible');
+    input.focus();
+    ok(picker.find('.datepicker-days').is(':not(:visible)'), 'Days view hidden');
+    ok(picker.find('.datepicker-months').is(':not(:visible)'), 'Months view hidden');
+    ok(picker.find('.datepicker-years').is(':not(:visible)'), 'Years view hidden');
+    ok(picker.find('.datepicker-decades').is(':not(:visible)'), 'Decades view hidden');
+    ok(picker.find('.datepicker-centuries').is(':visible'), 'Centuries view visible');
 });
 
 test('Today Button: today button not default', function(){
@@ -251,9 +251,9 @@ test('Today Button: today button not default', function(){
         picker = dp.picker,
         target;
 
-        input.focus();
-        ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
-        ok(picker.find('.datepicker-days tfoot .today').is(':not(:visible)'), 'Today button not visible');
+    input.focus();
+    ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
+    ok(picker.find('.datepicker-days tfoot .today').is(':not(:visible)'), 'Today button not visible');
 });
 
 test('Today Button: today visibility when enabled', function(){
@@ -268,17 +268,17 @@ test('Today Button: today visibility when enabled', function(){
         picker = dp.picker,
         target;
 
-        input.focus();
-        ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
-        ok(picker.find('.datepicker-days tfoot .today').is(':visible'), 'Today button visible');
+    input.focus();
+    ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
+    ok(picker.find('.datepicker-days tfoot .today').is(':visible'), 'Today button visible');
 
-        picker.find('.datepicker-days thead th.datepicker-switch').click();
-        ok(picker.find('.datepicker-months').is(':visible'), 'Months view visible');
-        ok(picker.find('.datepicker-months tfoot .today').is(':visible'), 'Today button visible');
+    picker.find('.datepicker-days thead th.datepicker-switch').click();
+    ok(picker.find('.datepicker-months').is(':visible'), 'Months view visible');
+    ok(picker.find('.datepicker-months tfoot .today').is(':visible'), 'Today button visible');
 
-        picker.find('.datepicker-months thead th.datepicker-switch').click();
-        ok(picker.find('.datepicker-years').is(':visible'), 'Years view visible');
-        ok(picker.find('.datepicker-years tfoot .today').is(':visible'), 'Today button visible');
+    picker.find('.datepicker-months thead th.datepicker-switch').click();
+    ok(picker.find('.datepicker-years').is(':visible'), 'Years view visible');
+    ok(picker.find('.datepicker-years tfoot .today').is(':visible'), 'Today button visible');
 });
 
 test('Today Button: data-api', function(){
@@ -292,9 +292,9 @@ test('Today Button: data-api', function(){
         picker = dp.picker,
         target;
 
-        input.focus();
-        ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
-        ok(picker.find('.datepicker-days tfoot .today').is(':visible'), 'Today button visible');
+    input.focus();
+    ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
+    ok(picker.find('.datepicker-days tfoot .today').is(':visible'), 'Today button visible');
 });
 
 test('Today Button: moves to today\'s date', function(){
@@ -309,17 +309,38 @@ test('Today Button: moves to today\'s date', function(){
         picker = dp.picker,
         target;
 
-        input.focus();
-        ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
-        ok(picker.find('.datepicker-days tfoot .today').is(':visible'), 'Today button visible');
+    input.focus();
+    ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
+    ok(picker.find('.datepicker-days tfoot .today').is(':visible'), 'Today button visible');
 
-        target = picker.find('.datepicker-days tfoot .today');
-        target.click();
+    target = picker.find('.datepicker-days tfoot .today');
+    target.click();
 
-        var d = new Date(),
-            today = UTCDate(d.getFullYear(), d.getMonth(), d.getDate());
-        datesEqual(dp.viewDate, today);
-        datesEqual(dp.dates[0], UTCDate(2012, 2, 5));
+    var d = new Date(),
+        today = UTCDate(d.getFullYear(), d.getMonth(), d.getDate());
+    datesEqual(dp.viewDate, today);
+    datesEqual(dp.dates[0], UTCDate(2012, 2, 5));
+});
+
+test('Today Button: moves to days view', function(){
+    var viewModes = $.fn.datepicker.DPGlobal.viewModes;
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    startView: viewModes.length - 1,
+                    todayBtn: true
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    target = picker.find('tfoot .today').filter(':visible');
+
+    target.click();
+    ok(picker.find('.datepicker-days tfoot .today').is(':visible'), 'Today button visible');
 });
 
 test('Today Button: "linked" selects today\'s date', function(){
@@ -334,17 +355,17 @@ test('Today Button: "linked" selects today\'s date', function(){
         picker = dp.picker,
         target;
 
-        input.focus();
-        ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
-        ok(picker.find('.datepicker-days tfoot .today').is(':visible'), 'Today button visible');
+    input.focus();
+    ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
+    ok(picker.find('.datepicker-days tfoot .today').is(':visible'), 'Today button visible');
 
-        target = picker.find('.datepicker-days tfoot .today');
-        target.click();
+    target = picker.find('.datepicker-days tfoot .today');
+    target.click();
 
-        var d = new Date(),
-            today = UTCDate(d.getFullYear(), d.getMonth(), d.getDate());
-        datesEqual(dp.viewDate, today);
-        datesEqual(dp.dates[0], today);
+    var d = new Date(),
+        today = UTCDate(d.getFullYear(), d.getMonth(), d.getDate());
+    datesEqual(dp.viewDate, today);
+    datesEqual(dp.dates[0], today);
 });
 
 test('Today Highlight: today\'s date is not highlighted by default', patch_date(function(Date){
@@ -359,16 +380,16 @@ test('Today Highlight: today\'s date is not highlighted by default', patch_date(
         picker = dp.picker,
         target;
 
-        input.focus();
-        ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
-        equal(picker.find('.datepicker-days thead .datepicker-switch').text(), 'March 2012', 'Title is "March 2012"');
+    input.focus();
+    ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
+    equal(picker.find('.datepicker-days thead .datepicker-switch').text(), 'March 2012', 'Title is "March 2012"');
 
-        target = picker.find('.datepicker-days tbody td:contains(15)');
-        ok(!target.hasClass('today'), 'Today is not marked with "today" class');
-        target = picker.find('.datepicker-days tbody td:contains(14)');
-        ok(!target.hasClass('today'), 'Yesterday is not marked with "today" class');
-        target = picker.find('.datepicker-days tbody td:contains(16)');
-        ok(!target.hasClass('today'), 'Tomorrow is not marked with "today" class');
+    target = picker.find('.datepicker-days tbody td:contains(15)');
+    ok(!target.hasClass('today'), 'Today is not marked with "today" class');
+    target = picker.find('.datepicker-days tbody td:contains(14)');
+    ok(!target.hasClass('today'), 'Yesterday is not marked with "today" class');
+    target = picker.find('.datepicker-days tbody td:contains(16)');
+    ok(!target.hasClass('today'), 'Tomorrow is not marked with "today" class');
 }));
 
 test('Today Highlight: today\'s date is highlighted when not active', patch_date(function(Date){
@@ -384,16 +405,16 @@ test('Today Highlight: today\'s date is highlighted when not active', patch_date
         picker = dp.picker,
         target;
 
-        input.focus();
-        ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
-        equal(picker.find('.datepicker-days thead .datepicker-switch').text(), 'March 2012', 'Title is "March 2012"');
+    input.focus();
+    ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
+    equal(picker.find('.datepicker-days thead .datepicker-switch').text(), 'March 2012', 'Title is "March 2012"');
 
-        target = picker.find('.datepicker-days tbody td:contains(15)');
-        ok(target.hasClass('today'), 'Today is marked with "today" class');
-        target = picker.find('.datepicker-days tbody td:contains(14)');
-        ok(!target.hasClass('today'), 'Yesterday is not marked with "today" class');
-        target = picker.find('.datepicker-days tbody td:contains(16)');
-        ok(!target.hasClass('today'), 'Tomorrow is not marked with "today" class');
+    target = picker.find('.datepicker-days tbody td:contains(15)');
+    ok(target.hasClass('today'), 'Today is marked with "today" class');
+    target = picker.find('.datepicker-days tbody td:contains(14)');
+    ok(!target.hasClass('today'), 'Yesterday is not marked with "today" class');
+    target = picker.find('.datepicker-days tbody td:contains(16)');
+    ok(!target.hasClass('today'), 'Tomorrow is not marked with "today" class');
 }));
 
 test('Clear Button: clear visibility when enabled', function(){
@@ -408,17 +429,17 @@ test('Clear Button: clear visibility when enabled', function(){
         picker = dp.picker,
         target;
 
-        input.focus();
-        ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
-        ok(picker.find('.datepicker-days tfoot .clear').is(':visible'), 'Clear button visible');
+    input.focus();
+    ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
+    ok(picker.find('.datepicker-days tfoot .clear').is(':visible'), 'Clear button visible');
 
-        picker.find('.datepicker-days thead th.datepicker-switch').click();
-        ok(picker.find('.datepicker-months').is(':visible'), 'Months view visible');
-        ok(picker.find('.datepicker-months tfoot .clear').is(':visible'), 'Clear button visible');
+    picker.find('.datepicker-days thead th.datepicker-switch').click();
+    ok(picker.find('.datepicker-months').is(':visible'), 'Months view visible');
+    ok(picker.find('.datepicker-months tfoot .clear').is(':visible'), 'Clear button visible');
 
-        picker.find('.datepicker-months thead th.datepicker-switch').click();
-        ok(picker.find('.datepicker-years').is(':visible'), 'Years view visible');
-        ok(picker.find('.datepicker-years tfoot .clear').is(':visible'), 'Clear button visible');
+    picker.find('.datepicker-months thead th.datepicker-switch').click();
+    ok(picker.find('.datepicker-years').is(':visible'), 'Years view visible');
+    ok(picker.find('.datepicker-years tfoot .clear').is(':visible'), 'Clear button visible');
 });
 
 test('Clear Button: clears input value', function(){
@@ -433,15 +454,15 @@ test('Clear Button: clears input value', function(){
         picker = dp.picker,
         target;
 
-        input.focus();
-        ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
-        ok(picker.find('.datepicker-days tfoot .clear').is(':visible'), 'Today button visible');
+    input.focus();
+    ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
+    ok(picker.find('.datepicker-days tfoot .clear').is(':visible'), 'Today button visible');
 
-        target = picker.find('.datepicker-days tfoot .clear');
-        target.click();
+    target = picker.find('.datepicker-days tfoot .clear');
+    target.click();
 
-        equal(input.val(),'',"Input value has been cleared.")
-        ok(picker.is(':visible'), 'Picker is visible');
+    equal(input.val(),'',"Input value has been cleared.");
+    ok(picker.is(':visible'), 'Picker is visible');
 });
 
 test('Clear Button: hides datepicker if autoclose is on', function(){
@@ -457,16 +478,15 @@ test('Clear Button: hides datepicker if autoclose is on', function(){
         picker = dp.picker,
         target;
 
-        input.focus();
-        ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
-        ok(picker.find('.datepicker-days tfoot .clear').is(':visible'), 'Today button visible');
+    input.focus();
+    ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
+    ok(picker.find('.datepicker-days tfoot .clear').is(':visible'), 'Today button visible');
 
-        target = picker.find('.datepicker-days tfoot .clear');
-        target.click();
+    target = picker.find('.datepicker-days tfoot .clear');
+    target.click();
 
-        equal(input.val(),'',"Input value has been cleared.");
-        ok(picker.is(':not(:visible)'), 'Picker is hidden');
-
+    equal(input.val(),'',"Input value has been cleared.");
+    ok(picker.is(':not(:visible)'), 'Picker is hidden');
 });
 
 test('Active Toggle Default: when active date is selected it is not unset', function(){
@@ -480,18 +500,18 @@ test('Active Toggle Default: when active date is selected it is not unset', func
         picker = dp.picker,
         target;
 
-        // open our datepicker
-        input.focus();
+    // open our datepicker
+    input.focus();
 
-        // Initial value is selected
-        ok(dp.dates.contains(UTCDate(2012, 2, 5)) !== -1, '2012-03-05 selected');
+    // Initial value is selected
+    ok(dp.dates.contains(UTCDate(2012, 2, 5)) !== -1, '2012-03-05 selected');
 
-        // click on our active date
-        target = picker.find('.datepicker-days .day.active');
-        target.click();
+    // click on our active date
+    target = picker.find('.datepicker-days .day.active');
+    target.click();
 
-        // make sure it's still set
-        equal(input.val(), '2012-03-05', "Input value has not been cleared.");
+    // make sure it's still set
+    equal(input.val(), '2012-03-05', "Input value has not been cleared.");
 });
 
 test('Active Toggle Enabled (single date): when active date is selected it is unset', function(){
@@ -506,18 +526,18 @@ test('Active Toggle Enabled (single date): when active date is selected it is un
         picker = dp.picker,
         target;
 
-        // open our datepicker
-        input.focus();
+    // open our datepicker
+    input.focus();
 
-        // Initial value is selected
-        ok(dp.dates.contains(UTCDate(2012, 2, 5)) !== -1, '2012-03-05 selected');
+    // Initial value is selected
+    ok(dp.dates.contains(UTCDate(2012, 2, 5)) !== -1, '2012-03-05 selected');
 
-        // click on our active date
-        target = picker.find('.datepicker-days .day.active');
-        target.click();
+    // click on our active date
+    target = picker.find('.datepicker-days .day.active');
+    target.click();
 
-        // make sure it's no longer set
-        equal(input.val(), '', "Input value has been cleared.");
+    // make sure it's no longer set
+    equal(input.val(), '', "Input value has been cleared.");
 });
 
 test('Active Toggle Multidate Default: when one of the active dates is selected it is unset', function(){
@@ -532,25 +552,25 @@ test('Active Toggle Multidate Default: when one of the active dates is selected 
         picker = dp.picker,
         target;
 
-        // open our datepicker
-        input.focus();
+    // open our datepicker
+    input.focus();
 
-        // Initial value is selected
-        ok(dp.dates.contains(UTCDate(2012, 2, 5)) !== -1, '2012-03-05 in dates');
+    // Initial value is selected
+    ok(dp.dates.contains(UTCDate(2012, 2, 5)) !== -1, '2012-03-05 in dates');
 
-        // Select additional date
-        target = picker.find('.datepicker-days tbody td:nth(7)');
-        target.click();
-        datesEqual(dp.dates.get(-1), UTCDate(2012, 2, 4), '2012-03-04 in dates');
-        datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
-        equal(input.val(), '2012-03-05,2012-03-04');
+    // Select additional date
+    target = picker.find('.datepicker-days tbody td:nth(7)');
+    target.click();
+    datesEqual(dp.dates.get(-1), UTCDate(2012, 2, 4), '2012-03-04 in dates');
+    datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
+    equal(input.val(), '2012-03-05,2012-03-04');
 
-        // Unselect additional date
-        target = picker.find('.datepicker-days tbody td:nth(7)');
-        target.click();
-        ok(dp.dates.contains(UTCDate(2012, 2, 4)) === -1, '2012-03-04 no longer in dates');
-        datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
-        equal(input.val(), '2012-03-05');
+    // Unselect additional date
+    target = picker.find('.datepicker-days tbody td:nth(7)');
+    target.click();
+    ok(dp.dates.contains(UTCDate(2012, 2, 4)) === -1, '2012-03-04 no longer in dates');
+    datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
+    equal(input.val(), '2012-03-05');
 });
 
 test('Active Toggle Disabled: when active date is selected it remains', function(){
@@ -565,20 +585,20 @@ test('Active Toggle Disabled: when active date is selected it remains', function
         picker = dp.picker,
         target;
 
-        // open our datepicker
-        input.focus();
+    // open our datepicker
+    input.focus();
 
-        // Initial value is selected
-        ok(dp.dates.contains(UTCDate(2012, 2, 5)) !== -1, '2012-03-05 selected');
+    // Initial value is selected
+    ok(dp.dates.contains(UTCDate(2012, 2, 5)) !== -1, '2012-03-05 selected');
 
-        // click on our active date
-        target = picker.find('.datepicker-days .day.active');
-        target.click();
+    // click on our active date
+    target = picker.find('.datepicker-days .day.active');
+    target.click();
 
-        // make sure it's still set
-        ok(dp.dates.contains(UTCDate(2012, 2, 5)) !== -1, '2012-03-05 still selected');
-        datesEqual(dp.viewDate, UTCDate(2012, 2, 5));
-        equal(input.val(), '2012-03-05');
+    // make sure it's still set
+    ok(dp.dates.contains(UTCDate(2012, 2, 5)) !== -1, '2012-03-05 still selected');
+    datesEqual(dp.viewDate, UTCDate(2012, 2, 5));
+    equal(input.val(), '2012-03-05');
 });
 
 test('Active Toggle Multidate Disabled: when activeToggle is set to false, but multidate is set, the option is ignored and selecting an active date it is unset', function(){
@@ -594,25 +614,25 @@ test('Active Toggle Multidate Disabled: when activeToggle is set to false, but m
         picker = dp.picker,
         target;
 
-        // open our datepicker
-        input.focus();
+    // open our datepicker
+    input.focus();
 
-        // Initial value is selected
-        ok(dp.dates.contains(UTCDate(2012, 2, 5)) !== -1, '2012-03-05 in dates');
+    // Initial value is selected
+    ok(dp.dates.contains(UTCDate(2012, 2, 5)) !== -1, '2012-03-05 in dates');
 
-        // Select additional date
-        target = picker.find('.datepicker-days tbody td:nth(7)');
-        target.click();
-        datesEqual(dp.dates.get(-1), UTCDate(2012, 2, 4), '2012-03-04 in dates');
-        datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
-        equal(input.val(), '2012-03-05,2012-03-04');
+    // Select additional date
+    target = picker.find('.datepicker-days tbody td:nth(7)');
+    target.click();
+    datesEqual(dp.dates.get(-1), UTCDate(2012, 2, 4), '2012-03-04 in dates');
+    datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
+    equal(input.val(), '2012-03-05,2012-03-04');
 
-        // Unselect additional date
-        target = picker.find('.datepicker-days tbody td:nth(7)');
-        target.click();
-        ok(dp.dates.contains(UTCDate(2012, 2, 4)) === -1, '2012-03-04 no longer in dates');
-        datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
-        equal(input.val(), '2012-03-05');
+    // Unselect additional date
+    target = picker.find('.datepicker-days tbody td:nth(7)');
+    target.click();
+    ok(dp.dates.contains(UTCDate(2012, 2, 4)) === -1, '2012-03-04 no longer in dates');
+    datesEqual(dp.viewDate, UTCDate(2012, 2, 4));
+    equal(input.val(), '2012-03-05');
 });
 
 test('DaysOfWeekDisabled', function(){
@@ -626,7 +646,6 @@ test('DaysOfWeekDisabled', function(){
         dp = input.data('datepicker'),
         picker = dp.picker,
         target;
-
 
     input.focus();
     target = picker.find('.datepicker-days tbody td:nth(22)');
@@ -649,7 +668,6 @@ test('DaysOfWeekHighlighted', function(){
         dp = input.data('datepicker'),
         picker = dp.picker,
         target;
-
 
     input.focus();
     target = picker.find('.datepicker-days tbody td:nth(0)');
@@ -674,9 +692,36 @@ test('DatesDisabled', function(){
         picker = dp.picker,
         target;
 
+    input.focus();
+    target = picker.find('.datepicker-days tbody td:nth(1)');
+    ok(target.hasClass('disabled'), 'Day of week is disabled');
+    ok(target.hasClass('disabled-date'), 'Date is disabled');
+    target = picker.find('.datepicker-days tbody td:nth(2)');
+    ok(!target.hasClass('disabled'), 'Day of week is enabled');
+    target = picker.find('.datepicker-days tbody td:nth(10)');
+    ok(target.hasClass('disabled'), 'Day of week is disabled');
+    ok(target.hasClass('disabled-date'), 'Date is disabled');
+    target = picker.find('.datepicker-days tbody td:nth(11)');
+    ok(!target.hasClass('disabled'), 'Day of week is enabled');
+    target = picker.find('.datepicker-days tbody td:nth(20)');
+    ok(target.hasClass('disabled'), 'Day of week is disabled');
+    ok(target.hasClass('disabled-date'), 'Date is disabled');
+    target = picker.find('.datepicker-days tbody td:nth(21)');
+    ok(!target.hasClass('disabled'), 'Day of week is enabled');
+});
+
+test('DatesDisabled as attribute', function(){
+    var input = $('<input data-date-dates-disabled="2012-10-1,2012-10-10,2012-10-20" />')
+                .appendTo('#qunit-fixture')
+                .val('2012-10-26')
+                .datepicker({
+                    format: 'yyyy-mm-dd'
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
 
     input.focus();
-
     target = picker.find('.datepicker-days tbody td:nth(1)');
     ok(target.hasClass('disabled'), 'Day of week is disabled');
     ok(target.hasClass('disabled-date'), 'Date is disabled');
@@ -706,9 +751,11 @@ test('BeforeShowDay', function(){
             case 26:
                 return "test26";
             case 27:
-                return {enabled: false, classes:'test27'};
+                return {enabled: false, classes: 'test27'};
             case 28:
                 return false;
+            case 30:
+                return { content: "foo" + date.getDate() }
         }
     };
 
@@ -737,8 +784,31 @@ test('BeforeShowDay', function(){
     ok(target.hasClass('disabled'), '28th is disabled');
     target = picker.find('.datepicker-days tbody td:nth(29)');
     ok(!target.hasClass('disabled'), '29th is enabled');
+    target = picker.find('.datepicker-days tbody td:nth(30)');
+    ok(target.text() == "foo30", '30th has custom content');
 });
 
+test('BeforeShowMonth regress .day content', function() {
+    var input = $('<input />')
+        .appendTo('#qunit-fixture')
+        .val('2012-10-26')
+        .datepicker({
+            format: 'yyyy-mm-dd',
+            beforeShowDay: function(date) {
+                return {
+                    content: '<strong>foo123</strong>'
+                };
+            }
+        }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    target = picker.find('.datepicker-days tbody td:nth(30)');
+    target.trigger('click');
+    datesEqual(dp.viewDate, UTCDate(2012, 9, 30));
+});
 
 test('BeforeShowMonth', function () {
 
@@ -1230,12 +1300,44 @@ test('Container', function(){
     equal(target.parent()[0], testContainer[0], 'Container is not the testContainer that was specificed');
 });
 
-test('Default View Date', function(){
+test('Default View Date (Object)', function(){
     var input = $('<input />')
                 .appendTo('#qunit-fixture')
                 .datepicker({
                     format: 'yyyy-mm-dd',
                     defaultViewDate: { year: 1977, month: 04, day: 25 }
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+
+    equal(picker.find('.datepicker-days thead .datepicker-switch').text(), 'May 1977');
+});
+
+test('Default View Date (Date)', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    defaultViewDate: new Date(1977, 4, 25)
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+
+    equal(picker.find('.datepicker-days thead .datepicker-switch').text(), 'May 1977');
+});
+
+test('Default View Date (String)', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    defaultViewDate: "1977-05-24"
                 }),
         dp = input.data('datepicker'),
         picker = dp.picker,
@@ -1267,9 +1369,19 @@ test('Immediate Updates', function(){
     picker.find('.datepicker-months .next').click();
     equal(input.val(), '2015-02-01');
 
-    // Change year set (doesn't update input)
+    // Change decade set (doesn't update input)
     picker.find('.datepicker-months .datepicker-switch').click();
     picker.find('.datepicker-years .next').click();
+    equal(input.val(), '2015-02-01');
+
+    // Change century set (doesn't update input)
+    picker.find('.datepicker-years .datepicker-switch').click();
+    picker.find('.datepicker-decades .next').click();
+    equal(input.val(), '2015-02-01');
+
+    // Change millennium set (doesn't update input)
+    picker.find('.datepicker-decades .datepicker-switch').click();
+    picker.find('.datepicker-centuries .next').click();
     equal(input.val(), '2015-02-01');
 });
 
@@ -1331,10 +1443,6 @@ test('Enable on readonly options (false)', function(){
     input.focus();
     ok(!picker.is(':visible'));
 });
-
-/*
-
- */
 
 test('Startview: year view visible after date pick', function(){
     var input = $('<input />')
@@ -1436,8 +1544,8 @@ test('Z-index Offset: none', function(){
             .datepicker(),
         dp = input.data('datepicker'),
         picker = dp.picker;
-    input.parent().css('z-index', 234);
 
+    input.parent().css('z-index', 234);
     input.focus();
 
     equal(dp.o.zIndexOffset, 10, 'Z-index offset option defaults to 10.');
@@ -1452,8 +1560,8 @@ test('Z-index Offset: with value', function(){
             }),
         dp = input.data('datepicker'),
         picker = dp.picker;
-    input.parent().css('z-index', 234);
 
+    input.parent().css('z-index', 234);
     input.focus();
 
     equal(dp.o.zIndexOffset, 1000, 'Z-index offset option is accepted.');
@@ -1475,4 +1583,214 @@ test('templates', function(){
     input.focus();
     equal(picker.find('.datepicker-days .prev').prop('innerHTML'), '<span class="glyphicon glyphicon-arrow-left"></span>');
     equal(picker.find('.datepicker-days .next').prop('innerHTML'), $('<div>').html('&raquo;').text());
+});
+
+test('Nav arrow html templates with span tag', function () {
+    var input = $('<input />')
+            .appendTo('#qunit-fixture')
+            .val('2012-10-26')
+            .datepicker({
+                format: 'yyyy-mm-dd',
+                templates: {
+                    leftArrow: '<span></span>',
+                    rightArrow: '<span></span>'
+                }
+            }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    target = picker.find('.datepicker-months tbody span:nth(9)');
+    ok(target.hasClass('active'), 'Month is selected');
+});
+
+test('Nav arrow html templates .prev click', function () {
+    var input = $('<input />')
+        .appendTo('#qunit-fixture')
+        .val('2012-10-26')
+        .datepicker({
+            format: 'yyyy-mm-dd',
+            startView: 1,
+            templates: {
+                leftArrow: '<i></i>'
+            }
+        }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    picker.find('.datepicker-months thead .prev i').trigger('click');
+    target = picker.find('.datepicker-months thead .datepicker-switch');
+    equal(target.text(), '2011');
+});
+
+test('Visibility of the prev and next arrows for decade/century/millenium views with startDate and endDate', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('01/01/2015')
+                .datepicker({
+                    format: 'dd/mm/yyyy',
+                    startView: 2,
+                    startDate: '01/12/2014',
+                    endDate: '01/12/2016'
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+
+    target = picker.find('.datepicker-years thead th.prev');
+    ok(target.hasClass('disabled'), 'Prev switcher is hidden');
+    target = picker.find('.datepicker-years thead th.next');
+    ok(target.hasClass('disabled'), 'Next switcher is hidden');
+
+    picker.find('.datepicker-years thead th.datepicker-switch').click();
+    target = picker.find('.datepicker-decades thead th.prev');
+    ok(target.hasClass('disabled'), 'Prev switcher is hidden');
+    target = picker.find('.datepicker-decades thead th.next');
+    ok(target.hasClass('disabled'), 'Next switcher is hidden');
+
+    picker.find('.datepicker-decades thead th.datepicker-switch').click();
+    target = picker.find('.datepicker-centuries thead th.prev');
+    ok(target.hasClass('disabled'), 'Prev switcher is hidden');
+    target = picker.find('.datepicker-centuries thead th.next');
+    ok(target.hasClass('disabled'), 'Next switcher is hidden');
+});
+
+test('date cells (outdated)', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .datepicker(),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+
+    input.focus();
+    picker.find('.datepicker-days .day').each(function(){
+        ok(this.hasAttribute('data-date'));
+    });
+});
+
+test('keepEmptyValues: none (default is false)', function() {
+    var proxy_element = $('<div />').appendTo('#qunit-fixture'),
+        input_from = $('<input />').val('2016-04-01').appendTo('#qunit-fixture'),
+        input_to = $('<input />').appendTo('#qunit-fixture'),
+        dp = proxy_element.datepicker({
+            format: 'yyyy-mm-dd',
+            inputs: [input_from, input_to]
+        }),
+        input_from_dp = input_from.data('datepicker');
+
+    input_from.focus();
+    input_from_dp.picker.find('.old.day').eq(0).click();
+
+    equal(input_from.val(), '2016-03-27');
+    equal(input_to.val(), '2016-03-27', 'Input_from value should be distributed.');
+});
+
+test('keepEmptyValues: true', function() {
+    var proxy_element = $('<div />').appendTo('#qunit-fixture'),
+        input_from = $('<input />').val('2016-04-01').appendTo('#qunit-fixture'),
+        input_to = $('<input />').appendTo('#qunit-fixture'),
+        dp = proxy_element.datepicker({
+            format: 'yyyy-mm-dd',
+            inputs: [input_from, input_to],
+            keepEmptyValues: true
+        }),
+        input_from_dp = input_from.data('datepicker');
+
+    input_from.focus();
+    input_from_dp.picker.find('.old.day').eq(0).click();
+
+    equal(input_from.val(), '2016-03-27');
+    equal(input_to.val(), '', 'Input_from value should not be distributed.');
+});
+
+test('maxViewMode and navigation switch', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .datepicker({
+                    maxViewMode: 0
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker;
+
+    input.focus();
+
+    picker.find('.datepicker-days thead th.datepicker-switch').click();
+    ok(picker.find('.datepicker-days').is(':visible'), 'Days view visible');
+});
+
+test('updateViewDate', function() {
+    expect(8);
+
+    var input = $('<input value="08/03/1990"/>')
+                .appendTo('#qunit-fixture')
+                .datepicker({
+                  defaultViewDate: {
+                    year: 1945,
+                    month: 4,
+                    day: 8
+                  },
+                  updateViewDate: false
+                })
+                .on('changeMonth', function() {
+                  var msg = shouldTriggerChangeMonth ? 'changeMonth must be triggered' : 'changeMonth must not be triggered';
+                  ok(shouldTriggerChangeMonth, msg);
+                })
+                .on('changeYear', function() {
+                  var msg = shouldTriggerChangeYear ? 'changeYear must be triggered' : 'changeYear must not be triggered';
+                  ok(shouldTriggerChangeYear, msg);
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        shouldTriggerChangeMonth = false,
+        shouldTriggerChangeYear = false,
+        monthShown = picker.find('.datepicker-days thead th.datepicker-switch');
+
+    equal(monthShown.text(), "May 1945", 'uses defaultViewDate on initialization');
+    input.datepicker('setDate', new Date(1945, 8, 2));
+    equal(monthShown.text(), "May 1945", 'does not change viewDate on `setDate` method');
+    input.focus();
+    picker.find('.datepicker-days tbody tr td.day.new:first').click();
+    equal(monthShown.text(), "May 1945", 'does not change viewDate if a day in next month is selected');
+    shouldTriggerChangeMonth = true;
+    picker.find('.datepicker-days thead th.next').click();
+    equal(monthShown.text(), 'June 1945', 'changing month must still be possible'); // and must trigger `changeMonth` event
+    shouldTriggerChangeYear = true;
+    picker.find('.datepicker-days thead th.datepicker-switch').click();
+    picker.find('.datepicker-months thead th.next').click();
+    picker.find('.datepicker-months tbody .month:first').click();
+    equal(monthShown.text(), 'January 1946', 'changing year must still be possible'); // and must trigger `changeYear` and `changeMonth` events
+});
+test('Week Days: Week days default visibility (or enabled)', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    format: 'yyyy-mm-dd'
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    ok(picker.find('.dow').length > 0, 'Week days added to view');
+});
+test('Week Days: Week days visibility when disabled', function(){
+    var input = $('<input />')
+                .appendTo('#qunit-fixture')
+                .val('2012-03-05')
+                .datepicker({
+                    format: 'yyyy-mm-dd',
+                    showWeekDays: false
+                }),
+        dp = input.data('datepicker'),
+        picker = dp.picker,
+        target;
+
+    input.focus();
+    ok(picker.find('.dow').length === 0, 'Week days not added to view');
 });

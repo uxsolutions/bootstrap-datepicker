@@ -6,13 +6,9 @@ Bootstrap-datepicker provides a flexible datepicker widget in the Bootstrap styl
 .. figure:: _static/screenshots/demo_head.png
     :align: center
 
-This is a fork of Stefan Petre's `original code <http://www.eyecon.ro/bootstrap-datepicker/>`_; thanks go to him for getting this thing started!
-
-Please note that this fork is not used on Stefan's page at this time, nor is it maintained or contributed to by him.
-
 Versions are incremented according to `semver <http://semver.org/>`_.
 
-`Online Demo <http://eternicode.github.io/bootstrap-datepicker/>`_
+`Online Demo <https://eternicode.github.io/bootstrap-datepicker/>`_
 
 
 Requirements
@@ -21,8 +17,8 @@ Requirements
 * `Bootstrap`_ 2.0.4+
 * `jQuery`_ 1.7.1+
 
-.. _Bootstrap: http://getbootstrap.com/
-.. _jQuery: http://jquery.com/
+.. _Bootstrap: https://getbootstrap.com/
+.. _jQuery: https://jquery.com/
 
 These are the specific versions bootstrap-datepicker is tested against (``js`` files) and built against (``css`` files).  Use other versions at your own risk.
 
@@ -106,7 +102,7 @@ Stylesheets
 There are a few different stylesheets included in the library. This is an overview of what each file is to be used for:
 
 :code:`bootstrap-datepicker.css` gives legacy support for twitter bootstrap v2, :code:`bootstrap-datepicker3.css` is used for twitter bootstrap v3 support
-and :code:`bootstrap-datepicker.standalone.css` can be used the include the datepicker without depending on the twitter bootstrap library.
+and :code:`bootstrap-datepicker.standalone.css` can be used to include the datepicker without depending on the twitter bootstrap library.
 
 No Conflict mode
 ^^^^^^^^^^^^^^^^
@@ -129,13 +125,3 @@ Table of Contents
    events
    keyboard
    i18n
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-

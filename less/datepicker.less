@@ -5,8 +5,9 @@
 		width: 220px;
 	}
 	direction: ltr;
-	&&-rtl {
+	&-rtl {
 		direction: rtl;
+		&.dropdown-menu { left: auto; }
 		table tr td span {
 			float: right;
 		}
@@ -185,6 +186,12 @@
 		cursor: pointer;
 		&:hover {
 			background: @grayLighter;
+		}
+	}
+
+	.prev, .next {
+		&.disabled {
+			visibility: hidden;
 		}
 	}
 

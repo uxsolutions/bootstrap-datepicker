@@ -8,7 +8,7 @@ module('Component', {
                         .datepicker({format: "dd-mm-yyyy"});
         this.input = this.component.find('input');
         this.addon = this.component.find('.add-on');
-        this.dp = this.component.data('datepicker')
+        this.dp = this.component.data('datepicker');
         this.picker = this.dp.picker;
     },
     teardown: function(){
@@ -160,8 +160,8 @@ test('Selecting date resets viewDate and date', function(){
 
     // Updated internally on click
     target.click();
-    datesEqual(this.dp.viewDate, UTCDate(2012, 1, 26))
-    datesEqual(this.dp.dates[0], UTCDate(2012, 1, 26))
+    datesEqual(this.dp.viewDate, UTCDate(2012, 1, 26));
+    datesEqual(this.dp.dates[0], UTCDate(2012, 1, 26));
 
     // Re-rendered on click
     target = this.picker.find('.datepicker-days tbody td:first');
@@ -220,12 +220,12 @@ test('date and viewDate must be between startDate and endDate when setEndDate ca
 });
 
 test('picker should render fine when `$.fn.show` and `$.fn.hide` are overridden', patch_show_hide(function () {
-    var viewModes = $.fn.datepicker.DPGlobal.modes,
+    var viewModes = $.fn.datepicker.DPGlobal.viewModes,
         minViewMode = this.dp.o.minViewMode,
         maxViewMode = this.dp.o.maxViewMode,
         childDivs = this.picker.children('div');
 
-    this.dp.showMode(minViewMode);
+    this.dp.setViewMode(minViewMode);
 
     // Overwritten `$.fn.hide` method adds the `foo` class to its matched elements
     var curDivShowing = childDivs.filter('.datepicker-' + viewModes[minViewMode].clsName);
@@ -238,3 +238,30 @@ test('picker should render fine when `$.fn.show` and `$.fn.hide` are overridden'
         ok(divNotShown.hasClass('foo'), 'Other divs do have overridden `$.fn.hide` side-effects');
     }
 }));
+
+test('Focused ceil for decade/century/millenium views', function(){
+    var input = $('<input />')
+      .appendTo('#qunit-fixture')
+      .datepicker({
+        startView: 2,
+        defaultViewDate: {
+          year: 2115
+        }
+      }),
+      dp = input.data('datepicker'),
+      picker = dp.picker,
+      target;
+
+    input.focus();
+
+    target = picker.find('.datepicker-years tbody .focused');
+    ok(target.text() === '2115', 'Year cell is focused');
+
+    picker.find('.datepicker-years thead th.datepicker-switch').click();
+    target = picker.find('.datepicker-decades tbody .focused');
+    ok(target.text() === '2110', 'Decade cell is focused');
+
+    picker.find('.datepicker-decades thead th.datepicker-switch').click();
+    target = picker.find('.datepicker-centuries tbody .focused');
+    ok(target.text() === '2100', 'Century cell is focused');
+});
