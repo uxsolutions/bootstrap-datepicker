@@ -1,9 +1,9 @@
 /**
- * Indian Tamil translation for bootstrap-datepicker
+ * Tamil translation for bootstrap-datepicker
  * Abubacker Siddik A <abuabdul86@hotmail.com>
  */
 ;(function($){
-	$.fn.datepicker.dates['ta-IN'] = {
+	$.fn.datepicker.dates['ta'] = {
 		days: ["ஞாயிறு", "திங்கள்", "செவ்வாய்", "புதன்", "வியாழன்", "வெள்ளி", "சனி"],
 		daysShort: ["ஞாயி", "திங்", "செவ்", "புத", "வியா", "வெள்", "சனி"],
 		daysMin: ["ஞா", "தி", "செ", "பு", "வி", "வெ", "ச"],
