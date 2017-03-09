@@ -282,7 +282,7 @@
 			var plc = String(o.orientation).toLowerCase().split(/\s+/g),
 				_plc = o.orientation.toLowerCase();
 			plc = $.grep(plc, function(word){
-				return /^auto|left|right|top|bottom$/.test(word);
+				return /^auto|left|right|center|top|bottom$/.test(word);
 			});
 			o.orientation = {x: 'auto', y: 'auto'};
 			if (!_plc || _plc === 'auto')
@@ -295,13 +295,14 @@
 						break;
 					case 'left':
 					case 'right':
+					case 'center':
 						o.orientation.x = plc[0];
 						break;
 				}
 			}
 			else {
 				_plc = $.grep(plc, function(word){
-					return /^left|right$/.test(word);
+					return /^left|right|center$/.test(word);
 				});
 				o.orientation.x = _plc[0] || 'auto';
 
@@ -692,13 +693,15 @@
 
 			this.picker.removeClass(
 				'datepicker-orient-top datepicker-orient-bottom '+
-				'datepicker-orient-right datepicker-orient-left'
+				'datepicker-orient-right datepicker-orient-left datepicker-orient-center'
 			);
 
 			if (this.o.orientation.x !== 'auto'){
 				this.picker.addClass('datepicker-orient-' + this.o.orientation.x);
 				if (this.o.orientation.x === 'right')
 					left -= calendarWidth - width;
+				if (this.o.orientation.x === 'center')
+					left -= (calendarWidth - width) / 2;
 			}
 			// auto x orientation is best-placement: if it crosses a window
 			// edge, fudge it sideways
@@ -708,9 +711,18 @@
 					this.picker.addClass('datepicker-orient-left');
 					left -= offset.left - visualPadding;
 				} else if (left + calendarWidth > windowWidth) {
-					// the calendar passes the widow right edge. Align it to component right side
-					this.picker.addClass('datepicker-orient-right');
-					left += width - calendarWidth;
+					// the calendar passes the window right edge
+					if (left + width < calendarWidth) {
+						// pulling the calendar left would move it outside the left window edge.
+						// Center it or move it to left edge if centering would still move it out of sight
+						this.picker.addClass('datepicker-orient-center');
+						left = Math.max(left + (width - calendarWidth) / 2, 0);
+						// If calendar passes window right edge center it with respect to the window
+						left = Math.min(left, windowWidth - calendarWidth);
+					} else {
+						this.picker.addClass('datepicker-orient-right');
+						left += width - calendarWidth;
+					}
 				} else {
 					if (this.o.rtl) {
 						// Default to right
