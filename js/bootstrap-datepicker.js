@@ -633,13 +633,6 @@
 			this.updateNavArrows();
 			return this;
 		},
-		
-		setDefaultViewDate: function(defaultViewDate){
-			this._process_options({defaultViewDate: defaultViewDate});
-			this.update();
-			this.updateNavArrows();
-			return this;
-		},
 
 		getEndDate: function(){
 			return this.o.endDate;
