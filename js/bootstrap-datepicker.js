@@ -635,7 +635,7 @@
 		},
 		
 		setDefaultViewDate: function(defaultViewDate){
-			if(defaultViewDate instanceof Date){
+			if( defaultViewDate instanceof Date ){
 				defaultViewDate = {year: defaultViewDate.getFullYear(), month: defaultViewDate.getMonth(), day: defaultViewDate.getDay()};
 			}
  			this._process_options({defaultViewDate: defaultViewDate});
