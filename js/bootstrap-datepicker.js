@@ -1279,11 +1279,11 @@
 				this.dates.clear();
 				this.dates.push(date);
 			}
-			else {
+			else if (this.o.multidate === true || (typeof this.o.multidate === 'number' && (this.dates.length < this.o.multidate || this.o.multidateAutoRemove))) {
 				this.dates.push(date);
 			}
 
-			if (typeof this.o.multidate === 'number')
+			if (this.o.multidateAutoRemove && typeof this.o.multidate === 'number')
 				while (this.dates.length > this.o.multidate)
 					this.dates.remove(0);
 		},
@@ -1701,6 +1701,7 @@
 		maxViewMode: 4,
 		multidate: false,
 		multidateSeparator: ',',
+		multidateAutoRemove: true,
 		orientation: "auto",
 		rtl: false,
 		startDate: -Infinity,
