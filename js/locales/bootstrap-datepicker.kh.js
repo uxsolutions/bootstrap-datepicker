@@ -16,4 +16,6 @@
 		today: "ថ្ងៃនេះ",
 		clear: "សំអាត"
 	};
+
+	$.fn.datepicker.deprecated('The language code "kh" is deprecated and will be removed in 2.0. For Khmer support use "km" instead.');
 }(jQuery));

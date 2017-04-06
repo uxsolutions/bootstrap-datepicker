@@ -1,3 +1,29 @@
+module('Events on initialization', {
+    setup: function(){
+        this.input = $('<input type="text" value="31-03-2011">')
+            .appendTo('#qunit-fixture')
+    }
+});
+
+test('When initializing the datepicker, it should trigger no change or changeDate events', function(){
+    var triggered_change = 0,
+        triggered_changeDate = 0;
+
+    this.input.on({
+        change: function(){
+            triggered_change++;
+        },
+        changeDate: function(){
+            triggered_changeDate++;
+        }
+    });
+
+    this.input.datepicker({format: 'dd-mm-yyyy'});
+
+    equal(triggered_change, 0);
+    equal(triggered_changeDate, 0);
+});
+
 module('Events', {
     setup: function(){
         this.input = $('<input type="text" value="31-03-2011">')
@@ -418,4 +444,64 @@ test('Selecting date from next month in december triggers changeMonth/changeYear
     // ensure event has been triggered
     equal(triggeredM, 1);
     equal(triggeredY, 1);
+});
+
+test('Changing view mode triggers changeViewMode', function () {
+  var viewMode = -1,
+    triggered = 0;
+
+  this.input.val('22-07-2016');
+  this.dp.update();
+
+  this.input.on('changeViewMode', function (e) {
+    viewMode = e.viewMode;
+    triggered++;
+  });
+
+  // change from days to months
+  this.picker.find('.datepicker-days .datepicker-switch').click();
+  equal(triggered, 1);
+  equal(viewMode, 1);
+
+  // change from months to years
+  this.picker.find('.datepicker-months .datepicker-switch').click();
+  equal(triggered, 2);
+  equal(viewMode, 2);
+
+  // change from years to decade
+  this.picker.find('.datepicker-years .datepicker-switch').click();
+  equal(triggered, 3);
+  equal(viewMode, 3);
+
+  // change from decades to centuries
+  this.picker.find('.datepicker-decades .datepicker-switch').click();
+  equal(triggered, 4);
+  equal(viewMode, 4);
+
+});
+
+test('Clicking inside content of date with custom beforeShowDay content works', function(){
+    this.input = $('<input type="text" value="31-03-2011">')
+                    .appendTo('#qunit-fixture')
+                    .datepicker({
+                        format: "dd-mm-yyyy",
+                        beforeShowDay: function (date) { return { content: '<div><div>' + date.getDate() + '</div></div>' }; }
+                    })
+                    .focus(); // Activate for visibility checks
+    this.dp = this.input.data('datepicker');
+    this.picker = this.dp.picker;
+
+    var target,
+        triggered = 0;
+
+    this.input.on('changeDate', function(){
+        triggered++;
+    });
+
+    // find deepest date
+    target = this.picker.find('.datepicker-days tbody td:first div div');
+    target.click();
+
+    // ensure event has been triggered
+    equal(triggered, 1);
 });

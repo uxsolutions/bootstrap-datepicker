@@ -12,6 +12,7 @@
 		today: "Сегодня",
 		clear: "Очистить",
 		format: "dd.mm.yyyy",
-		weekStart: 1
+		weekStart: 1,
+    monthsTitle: 'Месяцы'
 	};
 }(jQuery));

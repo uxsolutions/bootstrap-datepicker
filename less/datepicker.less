@@ -5,8 +5,9 @@
 		width: 220px;
 	}
 	direction: ltr;
-	&&-rtl {
+	&-rtl {
 		direction: rtl;
+		&.dropdown-menu { left: auto; }
 		table tr td span {
 			float: right;
 		}
@@ -49,9 +50,6 @@
 			border-bottom: 0;
 			border-top:    6px solid @white;
 		}
-	}
-	> div {
-		display: none;
 	}
 	table {
 		margin: 0;
@@ -192,7 +190,7 @@
 	}
 
 	.prev, .next {
-		.disabled {
+		&.disabled {
 			visibility: hidden;
 		}
 	}

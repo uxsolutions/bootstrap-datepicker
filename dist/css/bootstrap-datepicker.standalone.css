@@ -1,10 +1,9 @@
 /*!
- * Datepicker for Bootstrap v1.7.0-dev (https://github.com/eternicode/bootstrap-datepicker)
+ * Datepicker for Bootstrap v1.7.0-dev (https://github.com/uxsolutions/bootstrap-datepicker)
  *
- * Copyright 2012 Stefan Petre
- * Improvements by Andrew Rowls
  * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
  */
+
 .datepicker {
   padding: 4px;
   -webkit-border-radius: 4px;
@@ -17,6 +16,9 @@
 }
 .datepicker.datepicker-rtl {
   direction: rtl;
+}
+.datepicker.datepicker-rtl.dropdown-menu {
+  left: auto;
 }
 .datepicker.datepicker-rtl table tr td span {
   float: right;
@@ -71,9 +73,6 @@
   bottom: -6px;
   border-bottom: 0;
   border-top: 6px solid #fff;
-}
-.datepicker > div {
-  display: none;
 }
 .datepicker table {
   margin: 0;
@@ -428,8 +427,8 @@
 .datepicker tfoot tr th:hover {
   background: #eee;
 }
-.datepicker .prev .disabled,
-.datepicker .next .disabled {
+.datepicker .prev.disabled,
+.datepicker .next.disabled {
   visibility: hidden;
 }
 .datepicker .cw {
