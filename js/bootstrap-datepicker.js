@@ -80,7 +80,7 @@
 				this.push.apply(this, new_array);
 			},
 			clear: function(){
-				this.length = 0;
+				this.splice(0);
 			},
 			copy: function(){
 				var a = new DateArray();
@@ -107,6 +107,8 @@
 		this.dates = new DateArray();
 		this.viewDate = this.o.defaultViewDate;
 		this.focusDate = null;
+		this._windowWidth = $(window).width();
+	    	this._windowHeight = $(window).height();
 
 		this.element = $(element);
 		this.isInput = this.element.is('input');
@@ -421,7 +423,13 @@
 					click: $.proxy(this.dayCellClick, this)
 				}],
 				[$(window), {
-					resize: $.proxy(this.place, this)
+				    resize: $.proxy(function (e) {
+				        if ($(e.target).width() != this._windowWidth || $(e.target).height() != this._windowHeight) {
+				            this._windowWidth = $(e.target).width();
+				            this._windowHeight = $(e.target).height();
+				            this.place();
+				        }
+				    }, this)
 				}],
 				[$(document), {
 					'mousedown touchstart': $.proxy(function(e){
