@@ -11,6 +11,7 @@
 		monthsShort: ["Ian", "Feb", "Mar", "Apr", "Mai", "Iun", "Iul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 		today: "Astăzi",
 		clear: "Șterge",
-		weekStart: 1
+		weekStart: 1,
+		format: "dd/mm/yyyy"
 	};
 }(jQuery));
