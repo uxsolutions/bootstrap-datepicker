@@ -24,7 +24,7 @@
     "type": "git",
     "url": "https://github.com/uxsolutions/bootstrap-datepicker.git"
   },
-  "dependencies": {
+  "peerDependencies": {
     "jquery": ">=1.7.1 <4.0.0"
   },
   "devDependencies": {
