@@ -128,6 +128,14 @@ test('yyyy-mm-dd: Alternative format', function(){
     equal(this.input.val(), '2012-02-12');
 });
 
+test('[yyyy-mm-dd]: head literal and tail literal.', function(){
+    this.input
+        .val('2012-02-12')
+        .datepicker({format: '[yyyy-mm-dd]'})
+        .datepicker('setValue');
+    equal(this.input.val(), '[2012-02-12]');
+});
+
 test('yyyy-MM-dd: Regression: Infinite loop when numbers used for month', function(){
     this.input
         .val('2012-02-12')
