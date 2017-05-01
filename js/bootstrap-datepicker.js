@@ -741,6 +741,7 @@
 				var right = windowWidth - (left + width);
 				this.picker.css({
 					top: top,
+					left: 'auto',
 					right: right,
 					zIndex: zIndex
 				});
@@ -748,6 +749,7 @@
 				this.picker.css({
 					top: top,
 					left: left,
+					right: 'auto',
 					zIndex: zIndex
 				});
 			}
