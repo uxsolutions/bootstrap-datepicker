@@ -317,6 +317,8 @@
 				var month = o.defaultViewDate.month || 0;
 				var day = o.defaultViewDate.day || 1;
 				o.defaultViewDate = UTCDate(year, month, day);
+			} else if (o.startDate && o.startDate > UTCToday()) {
+				o.defaultViewDate = o.startDate;
 			} else {
 				o.defaultViewDate = UTCToday();
 			}
