@@ -1859,6 +1859,7 @@
 						return d;
 					},
 					d: function(d,v){
+						v+=1;
 						return d.setUTCDate(v);
 					}
 				},
