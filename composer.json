@@ -25,7 +25,8 @@
     "extra": {
         "component": {
             "scripts": [
-                "js/bootstrap-datepicker.js"
+                "js/bootstrap-datepicker.js",
+                "js/locales/*"
             ],
             "styles": [
                 "dist/css/bootstrap-datepicker.css",
