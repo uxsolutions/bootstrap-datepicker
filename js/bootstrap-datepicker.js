@@ -690,6 +690,10 @@
 				top += scrollTop;
 			}
 
+			if (this.o.container !== 'body') {
+				top += scrollTop;
+			}
+
 			this.picker.removeClass(
 				'datepicker-orient-top datepicker-orient-bottom '+
 				'datepicker-orient-right datepicker-orient-left'
