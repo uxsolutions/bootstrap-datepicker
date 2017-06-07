@@ -1015,8 +1015,9 @@
 							weekStart = new Date(+prevMonth + (this.o.weekStart - weekDay - 7) % 7 * 864e5),
 							// Weekday that must be included in first calendar week of year (in current week)
 							currentFirstCWDay = new Date(Number(weekStart) + (7 + this.o.firstCalendarWeekDay - weekStart.getUTCDay()) % 7 * 864e5),
+							yearStart = UTCDate(currentFirstCWDay.getUTCFullYear(), 0, 1),
 							// First occurrence of this weekday in the year from currentFirstCWDay
-							firstCWDay = new Date(Number(yearStart = UTCDate(currentFirstCWDay.getUTCFullYear(), 0, 1)) + (7 + this.o.firstCalendarWeekDay - yearStart.getUTCDay()) % 7 * 864e5),
+							firstCWDay = new Date(Number(yearStart) + (7 + this.o.firstCalendarWeekDay - yearStart.getUTCDay()) % 7 * 864e5),
 							// Calendar week: ms between firstCalendarWeekDay in first week of the year and in current week, div ms per day, div 7 days
 							calWeek = (currentFirstCWDay - firstCWDay) / 864e5 / 7 + 1;
 						html.push('<td class="cw">'+ calWeek +'</td>');
