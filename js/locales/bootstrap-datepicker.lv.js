@@ -13,6 +13,7 @@
         monthsTitle: "Mēneši",
         today: "Šodien",
         clear: "Nodzēst",
-        weekStart: 1
+        weekStart: 1,
+        firstCalendarWeekDay: 4
     };
 }(jQuery));

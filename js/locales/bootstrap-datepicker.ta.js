@@ -13,6 +13,7 @@
 		monthsTitle: "மாதங்கள்",
 		clear: "நீக்கு",
 		weekStart: 1,
+    firstCalendarWeekDay: 4,
 		format: "dd/mm/yyyy"
 	};
 }(jQuery));

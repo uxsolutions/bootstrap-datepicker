@@ -11,6 +11,7 @@
         monthsShort: ["Sty.", "Lut.", "Mar.", "Kwi.", "Maj", "Cze.", "Lip.", "Sie.", "Wrz.", "Paź.", "Lis.", "Gru."],
         today: "Dzisiaj",
         weekStart: 1,
+        firstCalendarWeekDay: 4,
         clear: "Wyczyść",
         format: "dd.mm.yyyy"
     };

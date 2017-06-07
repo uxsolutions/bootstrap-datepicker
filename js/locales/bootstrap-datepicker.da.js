@@ -12,8 +12,9 @@
 		monthsShort: ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"],
 		today: "I Dag",
 		weekStart: 1,
+		firstCalendarWeekDay: 4,
 		clear: "Nulstil",
-        format: "dd/mm/yyyy",
-        monthsTitle:"Måneder"
+	        format: "dd/mm/yyyy",
+	        monthsTitle:"Måneder"
 	};
 }(jQuery));

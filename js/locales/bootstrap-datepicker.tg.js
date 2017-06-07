@@ -14,6 +14,7 @@
         monthsTitle: "Моҳҳо",
         clear: "Тоза намудан",
         weekStart: 1,
+        firstCalendarWeekDay: 4,
         format: "dd.mm.yyyy"
     };
 }(jQuery));

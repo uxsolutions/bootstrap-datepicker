@@ -11,6 +11,7 @@
 		monthsShort: ["jan", "feb", "már", "ápr", "máj", "jún", "júl", "aug", "sze", "okt", "nov", "dec"],
 		today: "ma",
 		weekStart: 1,
+    firstCalendarWeekDay: 4,
 		clear: "töröl",
 		titleFormat: "yyyy. MM",
 		format: "yyyy.mm.dd"

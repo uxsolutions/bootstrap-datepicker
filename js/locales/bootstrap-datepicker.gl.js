@@ -8,6 +8,7 @@
 		today: "Hoxe",
 		clear: "Limpar",
 		weekStart: 1,
+    firstCalendarWeekDay: 4,
 		format: "dd/mm/yyyy"
 	};
 }(jQuery));

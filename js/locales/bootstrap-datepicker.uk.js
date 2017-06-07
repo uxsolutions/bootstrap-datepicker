@@ -12,6 +12,7 @@
 		today: "Сьогодні",
 		clear: "Очистити",
 		format: "dd.mm.yyyy",
-		weekStart: 1
+		weekStart: 1,
+    firstCalendarWeekDay: 4
 	};
 }(jQuery));

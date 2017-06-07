@@ -13,6 +13,7 @@
     monthsTitle: 'Måneder',
     clear: 'Nullstill',
     weekStart: 1,
+    firstCalendarWeekDay: 4,
     format: 'dd.mm.yyyy'
   };
 }(jQuery));

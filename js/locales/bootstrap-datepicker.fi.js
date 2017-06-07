@@ -12,6 +12,7 @@
 		today: "tänään",
 		clear: "Tyhjennä",
 		weekStart: 1,
+    firstCalendarWeekDay: 4,
 		format: "d.m.yyyy"
 	};
 }(jQuery));

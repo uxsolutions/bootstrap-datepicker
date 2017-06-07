@@ -1009,17 +1009,16 @@
 				if (weekDay === this.o.weekStart){
 					html.push('<tr>');
 					if (this.o.calendarWeeks){
-						// ISO 8601: First week contains first thursday.
-						// ISO also states week starts on Monday, but we can be more abstract here.
+						// First week contains first weekday specified by this.o.firstCalendarWeekDay (4 = Thursday for ISO 8601)
 						var
 							// Start of current week: based on weekstart/current date
-							ws = new Date(+prevMonth + (this.o.weekStart - weekDay - 7) % 7 * 864e5),
-							// Thursday of this week
-							th = new Date(Number(ws) + (7 + 4 - ws.getUTCDay()) % 7 * 864e5),
-							// First Thursday of year, year from thursday
-							yth = new Date(Number(yth = UTCDate(th.getUTCFullYear(), 0, 1)) + (7 + 4 - yth.getUTCDay()) % 7 * 864e5),
-							// Calendar week: ms between thursdays, div ms per day, div 7 days
-							calWeek = (th - yth) / 864e5 / 7 + 1;
+							weekStart = new Date(+prevMonth + (this.o.weekStart - weekDay - 7) % 7 * 864e5),
+							// Weekday that must be included in first calendar week of year (in current week)
+							currentFirstCWDay = new Date(Number(weekStart) + (7 + this.o.firstCalendarWeekDay - weekStart.getUTCDay()) % 7 * 864e5),
+							// First occurrence of this weekday in the year from currentFirstCWDay
+							firstCWDay = new Date(Number(yearStart = UTCDate(currentFirstCWDay.getUTCFullYear(), 0, 1)) + (7 + this.o.firstCalendarWeekDay - yearStart.getUTCDay()) % 7 * 864e5),
+							// Calendar week: ms between firstCalendarWeekDay in first week of the year and in current week, div ms per day, div 7 days
+							calWeek = (currentFirstCWDay - firstCWDay) / 864e5 / 7 + 1;
 						html.push('<td class="cw">'+ calWeek +'</td>');
 					}
 				}
@@ -1714,6 +1713,7 @@
 		todayHighlight: false,
 		updateViewDate: true,
 		weekStart: 0,
+		firstCalendarWeekDay: 6,
 		disableTouchKeyboard: false,
 		enableOnReadonly: true,
 		showOnFocus: true,
@@ -1730,7 +1730,8 @@
 	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',
 		'rtl',
-		'weekStart'
+		'weekStart',
+		'firstCalendarWeekDay'
 	];
 	$.fn.datepicker.Constructor = Datepicker;
 	var dates = $.fn.datepicker.dates = {

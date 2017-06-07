@@ -13,6 +13,7 @@
 		monthsShort: ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Avg", "Sep", "Okt", "Nov", "Dec"],
 		today: "Danas",
 		weekStart: 1,
+    firstCalendarWeekDay: 4,
 		format: "dd.mm.yyyy"
 	};
 

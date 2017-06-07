@@ -12,6 +12,7 @@
 		today: "Idag",
 		format: "yyyy-mm-dd",
 		weekStart: 1,
+    firstCalendarWeekDay: 4,
 		clear: "Rensa"
 	};
 }(jQuery));

@@ -12,6 +12,7 @@
         today: "Өнөөдөр",
         clear: "Тодорхой",
         format: "yyyy.mm.dd",
-        weekStart: 1
+        weekStart: 1,
+        firstCalendarWeekDay: 4
     };
 }(jQuery));

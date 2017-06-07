@@ -1,7 +1,7 @@
 /**
  * French (Switzerland) translation for bootstrap-datepicker
  * Christoph Jossi <c.jossi@ascami.ch>
- * Based on 
+ * Based on
  * French translation for bootstrap-datepicker
  * Nico Mollet <nico.mollet@gmail.com>
  */
@@ -16,6 +16,7 @@
 		monthsTitle: "Mois",
 		clear: "Effacer",
 		weekStart: 1,
+    firstCalendarWeekDay: 4,
 		format: "dd.mm.yyyy"
 	};
 }(jQuery));
