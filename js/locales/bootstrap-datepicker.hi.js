@@ -2,7 +2,7 @@
  * Hindi translation for bootstrap-datepicker
  * Visar Uruqi <visar.uruqi@gmail.com>
  */
-; (function ($) {
+; (function($){
 	$.fn.datepicker.dates['hi'] = {
 		days: ["रविवार", "सोमवार", "मंगलवार", "बुधवार", "गुरुवार", "शुक्रवार", "शनिवार"],
 		daysShort: ["सूर्य", "सोम", "मंगल", "बुध", "गुरु", "शुक्र", "शनि"],
