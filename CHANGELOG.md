@@ -1,6 +1,81 @@
 Changelog
 =========
 
+1.7.0
+-----
+
+## Features
+ * Adding dateCells option (#1723)
+ * Added keepEmptyValues option (#1558 + #1901)
+ * added "changeViewMode" event; also adds the current `viewMode` to events (#1953)
+ * adds `updateViewDate` option (#1982)
+ * Added hiding week day names functionality (#2087)
+ * Allow customizing day cell value (#2043)
+
+## Bugfixes
+ * originalEvent object needs preventDefault fn (#1824)
+ * Fix jQuery selector from premature selection of span element in inline/embedded calendar's month selection (#1859 + #1886)
+ * Use date arithmetic to allow dates with times other than 00:00:00 (#1483)
+ * Multiple general fixes (#1883 + #1893)
+ * Visibility fix for nav arrows (#1916)
+ * Do not trigger change or changeDate on initialization (#1912)
+ * Fix: Close datepicker on touchstart (#1924)
+ * Fix data-date-dates-disabled attribute to accept a comma-separated list (#1946)
+ * Fix maxViewMode and navigation switch click (#1951)
+ * Add support jQuery 3. Bootstrap 2 still available (composer.json) (#1958)
+ * fix(parseDate) use insensitive regex to support +15d with capslock (#1910)
+ * Refactoring timedelta aliases (dateAliases) (#1965)
+ * Fix RTL layout (#1973)
+ * Remove listen `changeDate` after destroy DateRangePicker (#1968)
+ * add tests for setDatesDisabled function (#1983)
+ * resolves bug on days when DST is added. (#2009)
+ * XHTML fixes (#1998)
+ * update grunt and other dev-dependencies (#2111)
+ * Use display:table-cell instead of display:block for today, clear and title (#2121)
+ * moved assumeNearbyYear to correct location (#2140)
+ * move `jquery` to `peerDependencies` from `dependencies` (#2163)
+ * Use default arrow values (#2176)
+
+## Locales
+### New
+ * en-ZA (#1798)
+ * en-ZNZ (#1799)
+ * en-IE (#1800)
+ * ar-tn (#1863)
+ * Added Sinhala (si) locale (#2025)
+ * Occitan locale (#2024 + #2026) 
+ * [l10n]Add breton translation (#2028)
+ * Added Tajik language (#2117)
+ * Add Uzbek latin and cyrill locales (#2152)
+ * add Bengali (Bangla) language (#2171)
+ * Added Hindi locale (#2199)
+
+### Bugfix
+ * km/kh (#1812)
+ * Capital letters in Polish translation (#1890)
+ * Add missing monthsTitle in cs (#1900)
+ * Update bootstrap-datepicker.da.js (#1936)
+ * Fix typo in month name (#2040)
+ * Added missing basque language properties (#2066)
+ * Added weekStart to slovenian translation (#2067)
+ * add monthsTitle for ru (#2092)
+ * Change danish (da) date format to match the rest of the locales (#2048)
+ * Fix Tamil Language file with proper locale code (#2141)
+ * Revert strange changes, +monthsTitle (#2153)
+ * updated Tajik (cyrillic) translation file (#2167)
+ * Romanian uses dd/mm/yyyy format for dates (#2173)
+ * Missing latvian translation (#2204)
+
+## Docs
+ * Fix typo in index.rst (#1882)
+ * Update CDNjs info in README.md (#1933)
+ * [Doc] Keyboard navigation is not supported for embedded / inline type (#2002)
+ * Removed reference to stefan petre (#2031)
+ * Improve defaultViewDate documentation (#2052)
+ * Add notes about multiple dates and examples for update method (#2060)
+ * Add Code Of Conduct (#2095)
+ * Update install instructions on README.md (#2160)
+
 1.6.2 - 1.6.3 - 1.6.4
 ---------------------
 
