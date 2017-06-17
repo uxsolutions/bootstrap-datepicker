@@ -1,6 +1,56 @@
 Changelog
 =========
 
+1.6.2 - 1.6.3 - 1.6.4
+---------------------
+
+Bugfix
+
+ * Backported jquery 3 fix from #1958
+
+1.6.1
+-----
+Bugfixes
+
+ * add specific class for disabled dates back (Fixes #1785)
+ * [fix] Allow keyboard navigation for non-input fields (Fixes: #874)
+ * fix kazakh mothShort
+ * Fix bug when clicking on a day that is highlighted today in the next month
+ * dates read out are 12am UTC
+ * Fix show by component (with disabled attribute)
+
+1.6.0
+-----
+Features
+
+ * Changes nonpunctuation to accept unicode characters
+ * Add "assumeNearbyYear" option
+ * Decade and century picking
+ * Added timedelta aliases. (Fixes #785)
+ * add getter methods for date limits
+ * Replace arrow entities for glyphicon + template + libs snippets (Fixes: #610 #833 #1007)
+ * added class .disabled to dow header
+ * Rename "remove" to "destroy" and create alias
+ 
+Bugfix
+
+ * Month/year view keyboard navigation
+ * fix changeMonth, changeYear not triggered when selecting day from prev/next month
+ * Fix default arrows for BS2 and screenshots (for docs)
+ * Extend beforeShowMonth event functionality to work like beforeShowDay and beforeShowYear
+ 
+Locale changes
+
+ * Correct date format for ko locale
+ * Add en-AU (Australian English) locale
+ 
+Repository
+
+ * Add CSS sourcemap
+ * [BS3 Less] Remove unused variables and cleanup
+ * Added timezone aware tests
+ * remove .idea-folder from npm
+
 1.5.1
 -----
 
