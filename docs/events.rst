@@ -1,11 +1,13 @@
 Events
 ======
 
-Datepicker triggers a number of events in certain circumstances.  All events have extra data attached to the event object that is passed to any event handlers::
+Datepicker triggers a number of events in certain circumstances.  All events have extra data attached to the event object that is passed to any event handlers
+
+::
 
     $('.datepicker').datepicker()
-        .on(picker_event, function(e){
-            # `e` here contains the extra attributes
+        .on(picker_event, function(e) {
+            // `e` here contains the extra attributes
         });
 
 * ``date``: the relevant Date object, in local timezone.  For a multidate picker, this will be the latest date picked.
@@ -37,12 +39,25 @@ changeDate
 Fired when the date is changed.
 
 
+changeMonth
+-----------
+
+Fired when the *view* month is changed from year view.
+
+
 changeYear
 ----------
 
 Fired when the *view* year is changed from decade view.
 
-changeMonth
------------
 
-Fired when the *view* month is changed from year view.
+changeDecade
+------------
+
+Fired when the *view* decade is changed from century view.
+
+
+changeCentury
+-------------
+
+Fired when the *view* century is changed from millennium view.

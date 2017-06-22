@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
         <link rel="stylesheet" href="assets/qunit.css" />
         <script src="assets/qunit.js"></script>
-        <script src="assets/qunit-logging.js"></script> <!-- console.log for test failures -->
+        <!-- console.log for test failures: enable locally if you need extra debug info-->
+        <!--<script src="assets/qunit-logging.js"></script>-->
         <script src="assets/jquery-1.7.1.min.js"></script>
         <script src="../js/bootstrap-datepicker.js"></script>
+        <!-- This locale is included to test usage of titleFormat when available: see tests/suites/options.js -->
+        <script src="../js/locales/bootstrap-datepicker.zh-CN.js"></script>
 
         <style>
             .datepicker {
@@ -29,6 +33,7 @@
         <script src="suites/keyboard_navigation/all.js"></script>
         <script src="suites/keyboard_navigation/2012.js"></script>
         <script src="suites/keyboard_navigation/2011.js"></script>
+        <script src="suites/touch_navigation/all.js"></script>
         <script src="suites/component.js"></script>
         <script src="suites/events.js"></script>
         <script src="suites/options.js"></script>
@@ -37,6 +42,7 @@
         <script src="suites/data-api.js"></script>
         <script src="suites/noconflict.js"></script>
         <script src="suites/methods.js"></script>
+        <script src="suites/methods_jquery.js"></script>
     </head>
     <body>
         <h1 id="qunit-header">bootstrap-datepicker</h1>

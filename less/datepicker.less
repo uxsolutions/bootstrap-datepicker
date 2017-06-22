@@ -1,22 +1,13 @@
-/*!
- * Datepicker for Bootstrap
- *
- * Copyright 2012 Stefan Petre
- * Improvements by Andrew Rowls
- * Licensed under the Apache License v2.0
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- */
-
 .datepicker {
 	padding: 4px;
-	.border-radius(4px);
+	.border-radius(@baseBorderRadius);
 	&-inline {
 		width: 220px;
 	}
 	direction: ltr;
-	&&-rtl {
+	&-rtl {
 		direction: rtl;
+		&.dropdown-menu { left: auto; }
 		table tr td span {
 			float: right;
 		}
@@ -29,7 +20,7 @@
 			display: inline-block;
 			border-left:   7px solid transparent;
 			border-right:  7px solid transparent;
-			border-bottom: 7px solid #ccc;
+			border-bottom: 7px solid @grayLight;
 			border-top:    0;
 			border-bottom-color: rgba(0,0,0,.2);
 			position: absolute;
@@ -47,32 +38,20 @@
 		&.datepicker-orient-left:after    { left: 7px; }
 		&.datepicker-orient-right:before  { right: 6px; }
 		&.datepicker-orient-right:after   { right: 7px; }
-		&.datepicker-orient-top:before    { top: -7px; }
-		&.datepicker-orient-top:after     { top: -6px; }
-		&.datepicker-orient-bottom:before {
+		&.datepicker-orient-bottom:before { top: -7px; }
+		&.datepicker-orient-bottom:after  { top: -6px; }
+		&.datepicker-orient-top:before {
 			bottom: -7px;
 			border-bottom: 0;
-			border-top:    7px solid #999;
+			border-top:    7px solid @grayLight;
 		}
-		&.datepicker-orient-bottom:after {
+		&.datepicker-orient-top:after {
 			bottom: -6px;
 			border-bottom: 0;
 			border-top:    6px solid @white;
 		}
 	}
-	>div {
-		display: none;
-	}
-	&.days div.datepicker-days {
-		display: block;
-	}
-	&.months div.datepicker-months {
-		display: block;
-	}
-	&.years div.datepicker-years {
-		display: block;
-	}
-	table{
+	table {
 		margin: 0;
 		-webkit-touch-callout: none;
 		-webkit-user-select: none;
@@ -81,8 +60,7 @@
 		-ms-user-select: none;
 		user-select: none;
 	}
-	td,
-	th{
+	td, th {
 		text-align: center;
 		width: 20px;
 		height: 20px;
@@ -94,11 +72,12 @@
 	// border and background colors.
 	.table-striped & table tr {
 		td, th {
-			background-color:transparent;
+			background-color: transparent;
 		}
 	}
 	table tr td {
-		&.day:hover, &.day.focused {
+		&.day:hover,
+		&.day.focused {
 			background: @grayLighter;
 			cursor: pointer;
 		}
@@ -111,6 +90,10 @@
 			background: none;
 			color: @grayLight;
 			cursor: default;
+		}
+		&.highlighted {
+			background: @infoBackground;
+			border-radius: 0;
 		}
 		&.today,
 		&.today:hover,
@@ -131,7 +114,7 @@
 		&.range:hover,
 		&.range.disabled,
 		&.range.disabled:hover {
-			background:@grayLighter;
+			background: @grayLighter;
 			.border-radius(0);
 		}
 		&.range.today,
@@ -167,12 +150,13 @@
 			margin: 1%;
 			cursor: pointer;
 			.border-radius(4px);
-			&:hover {
+			&:hover,
+			&.focused {
 				background: @grayLighter;
 			}
 			&.disabled,
 			&.disabled:hover {
-				background:none;
+				background: none;
 				color: @grayLight;
 				cursor: default;
 			}
@@ -191,20 +175,25 @@
 		}
 	}
 
-	th.datepicker-switch {
+	.datepicker-switch {
 		width: 145px;
 	}
 
-	thead tr:first-child th,
+	.datepicker-switch,
+	.prev,
+	.next,
 	tfoot tr th {
 		cursor: pointer;
-		&:hover{
+		&:hover {
 			background: @grayLighter;
 		}
 	}
-	/*.dow {
-		border-top: 1px solid #ddd !important;
-	}*/
+
+	.prev, .next {
+		&.disabled {
+			visibility: hidden;
+		}
+	}
 
 	// Basic styling for calendar-week cells
 	.cw {
@@ -213,18 +202,14 @@
 		padding: 0 2px 0 5px;
 		vertical-align: middle;
 	}
-	thead tr:first-child th.cw {
-		cursor: default;
-		background-color: transparent;
-	}
 }
 .input-append,
 .input-prepend {
-	&.date {
-		.add-on i {
-			cursor: pointer;
-			width: 16px;
-			height: 16px;
+	&.date .add-on {
+		cursor: pointer;
+
+		i {
+			margin-top: 3px;
 		}
 	}
 }
@@ -251,7 +236,7 @@
 		vertical-align: middle;
 		background-color: @grayLighter;
 		border: 1px solid #ccc;
-		margin-left:-5px;
-		margin-right:-5px;
+		margin-left: -5px;
+		margin-right: -5px;
 	}
 }

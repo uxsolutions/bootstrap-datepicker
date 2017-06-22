@@ -8,7 +8,7 @@ module('Calendar Weeks', {
                 calendarWeeks: true
             })
             .focus(); // Activate for visibility checks
-        this.dp = this.input.data('datepicker')
+        this.dp = this.input.data('datepicker');
         this.picker = this.dp.picker;
     },
     teardown: function(){
@@ -17,7 +17,7 @@ module('Calendar Weeks', {
 });
 
 test('adds cw header column', function(){
-    var target = this.picker.find('.datepicker-days thead th:first-child');
+    var target = this.picker.find('.datepicker-days thead tr:nth-child(3) th:first-child');
     ok(target.hasClass('cw'), 'First column heading is from cw column');
 });
 
@@ -42,7 +42,7 @@ test('displays correct calendar week', function(){
 });
 
 test('it prepends column to switcher thead row', function(){
-    var target = this.picker.find('.datepicker-days thead tr:first-child');
-    equal(target.children().length, 4, 'first row has 4 columns');
-    ok(target.children().first().hasClass('cw'), 'cw column is prepended');
+    var target = this.picker.find('.datepicker-days thead tr:nth-child(2)');
+    equal(target.children().length, 3, 'first row has 3 columns');
+    ok(!target.children().first().hasClass('cw'), 'cw column is not prepended');
 });

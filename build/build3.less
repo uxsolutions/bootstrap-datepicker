@@ -2,34 +2,30 @@
 // and imports the included datepicker.less to output a minimal datepicker.css
 //
 // Usage:
-//     lessc build.less datepicker.css
+//     lessc build3.less datepicker.css
 //
-// Variables and mixins copied from bootstrap 2.0.2
+// Variables and mixins copied from Bootstrap 3.3.5
 
 // Variables
 @gray:                   lighten(#000, 33.5%); // #555
-@gray-light:             lighten(#000, 60%);   // #999
+@gray-light:             lighten(#000, 46.7%); // #777
 @gray-lighter:           lighten(#000, 93.5%); // #eee
 
-@input-border:                   #ccc;
+@brand-primary:         darken(#428bca, 6.5%); // #337ab7
 
-@brand-primary:         #428bca;
-//@btn-default-color:              #333;
-//@btn-default-bg:                 #fff;
-//@btn-default-border:             #ccc;
 @btn-primary-color:              #fff;
 @btn-primary-bg:                 @brand-primary;
 @btn-primary-border:             darken(@btn-primary-bg, 5%);
 
-
 @btn-link-disabled-color:        @gray-light;
 
-@input-group-addon-bg:           @gray-lighter;
-@input-group-addon-border-color: @input-border;
+@state-info-bg:           #d9edf7;
 
-@font-size-base:          14px;
 @line-height-base:        1.428571429; // 20/14
-@line-height-computed:    floor(@font-size-base * @line-height-base); // ~20px
+@border-radius-base:      4px;
+
+@dropdown-bg:                   #fff;
+@dropdown-border:               rgba(0,0,0,.15);
 
 
 // Mixins
@@ -40,30 +36,39 @@
   background-color: @background;
   border-color: @border;
 
-  &:hover,
   &:focus,
-  &:active,
-  &.active,
-  .open .dropdown-toggle& {
+  &.focus {
     color: @color;
-    background-color: darken(@background, 8%);
+    background-color: darken(@background, 10%);
+        border-color: darken(@border, 25%);
+  }
+  &:hover {
+    color: @color;
+    background-color: darken(@background, 10%);
         border-color: darken(@border, 12%);
   }
   &:active,
-  &.active,
-  .open .dropdown-toggle& {
-    background-image: none;
+  &.active {
+    color: @color;
+    background-color: darken(@background, 10%);
+        border-color: darken(@border, 12%);
+
+    &:hover,
+    &:focus,
+    &.focus {
+      color: @color;
+      background-color: darken(@background, 17%);
+          border-color: darken(@border, 25%);
+    }
   }
   &.disabled,
   &[disabled],
   fieldset[disabled] & {
-    &,
     &:hover,
     &:focus,
-    &:active,
-    &.active {
+    &.focus {
       background-color: @background;
-          border-color: @border
+          border-color: @border;
     }
   }
 }
