@@ -475,6 +475,7 @@
 			this._trigger('show');
 			if ((window.navigator.msMaxTouchPoints || 'ontouchstart' in document) && this.o.disableTouchKeyboard) {
 				$(this.element).blur();
+				$(this.inputField).blur();
 			}
 			return this;
 		},
