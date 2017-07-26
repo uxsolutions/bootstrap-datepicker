@@ -18,7 +18,9 @@
  * ========================================================= */
 
 (function(factory){
-    if (typeof define === "function" && define.amd) {
+    if (typeof jQuery === "function" && jQuery.fn) {
+        factory(jQuery);
+    } else if (typeof define === "function" && define.amd) {
         define(["jquery"], factory);
     } else if (typeof exports === 'object') {
         factory(require('jquery'));
