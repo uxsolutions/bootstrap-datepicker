@@ -153,7 +153,7 @@
 		this.update();
 
 		if (this.isInline){
-			this.show();
+			this.css('display','block');
 		}
 	};
 
@@ -470,7 +470,7 @@
 			if (!this.isInline)
 				this.picker.appendTo(this.o.container);
 			this.place();
-			this.picker.show();
+			this.picker.css('display','block');
 			this._attachSecondaryEvents();
 			this._trigger('show');
 			if ((window.navigator.msMaxTouchPoints || 'ontouchstart' in document) && this.o.disableTouchKeyboard) {
@@ -1390,7 +1390,7 @@
 		keydown: function(e){
 			if (!this.picker.is(':visible')){
 				if (e.keyCode === 40 || e.keyCode === 27) { // allow down to re-show picker
-					this.show();
+					this.css('display','block');
 					e.stopPropagation();
         }
 				return;
@@ -1492,7 +1492,7 @@
 				.children('div')
 				.hide()
 				.filter('.datepicker-' + DPGlobal.viewModes[this.viewMode].clsName)
-					.show();
+					.css('display','block');
 			this.updateNavArrows();
       this._trigger('changeViewMode', new Date(this.viewDate));
 		}
