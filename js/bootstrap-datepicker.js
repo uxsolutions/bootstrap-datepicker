@@ -114,7 +114,11 @@
 		this.component = this.element.hasClass('date') ? this.element.find('.add-on, .input-group-addon, .btn') : false;
 		if (this.component && this.component.length === 0)
 			this.component = false;
-		this.isInline = !this.component && this.element.is('div');
+		if (this.o.isInline === null){
+			this.isInline = !this.component && this.element.is('div');
+		} else {
+			this.isInline = this.o.isInline;
+		}
 
 		this.picker = $(DPGlobal.template);
 
@@ -1694,6 +1698,7 @@
 		endDate: Infinity,
 		forceParse: true,
 		format: 'mm/dd/yyyy',
+		isInline: null,
 		keepEmptyValues: false,
 		keyboardNavigation: true,
 		language: 'en',
