@@ -53,13 +53,10 @@
 		return d && !isNaN(d.getTime());
 	}
 
-	var LatestJQuery = (function(){
-		if (window.jQuery) {  
-			  var version = jQuery().jquery;
-			  return (parseInt(version[0])>=3);
-		}
-		return false;
-	});
+	var LatestJQuery = false;
+	if (window.jQuery) {  
+		LatestJQuery = (parseInt(jQuery().jquery[0]) >= 3);
+	}
 
 	var DateArray = (function(){
 		var extras = {
@@ -174,7 +171,7 @@
 		this.update();
 
 		if (this.isInline){
-			if(LatestJQuery)
+			if (LatestJQuery)
 				this.css('display','block');	
 			else
 				this.show();
@@ -494,7 +491,7 @@
 			if (!this.isInline)
 				this.picker.appendTo(this.o.container);
 			this.place();
-			if(LatestJQuery)
+			if (LatestJQuery)
 				this.picker.css('display','block');
 			else
 				this.picker.show();
@@ -1417,7 +1414,7 @@
 		keydown: function(e){
 			if (!this.picker.is(':visible')){
 				if (e.keyCode === 40 || e.keyCode === 27) { // allow down to re-show picker
-					if(LatestJQuery)
+					if (LatestJQuery)
 						this.css('display','block');
 					else
 						this.show();
@@ -1518,7 +1515,7 @@
 
 		setViewMode: function(viewMode){
 			this.viewMode = viewMode;
-			if(LatestJQuery)
+			if (LatestJQuery)
 				this.picker
 				.children('div')
 				.hide()
