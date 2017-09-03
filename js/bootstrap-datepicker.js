@@ -53,13 +53,13 @@
 		return d && !isNaN(d.getTime());
 	}
 
-	var LatestJQuery = (function(){
+	var LatestJQuery = function(){
 		if (window.jQuery) {  
 			  var version = jQuery().jquery;
 			  return (parseInt(version[0])>=3);
 		}
 		return false;
-	});
+	};
 
 	var DateArray = (function(){
 		var extras = {
