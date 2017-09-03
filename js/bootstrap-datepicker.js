@@ -53,6 +53,11 @@
 		return d && !isNaN(d.getTime());
 	}
 
+	var LatestJQuery = false;
+	if (window.jQuery) {  
+		LatestJQuery = (parseInt(jQuery().jquery[0]) >= 3);
+	}
+
 	var DateArray = (function(){
 		var extras = {
 			get: function(i){
@@ -166,7 +171,10 @@
 		this.update();
 
 		if (this.isInline){
-			this.show();
+			if (LatestJQuery)
+				this.css('display','block');	
+			else
+				this.show();
 		}
 	};
 
@@ -483,7 +491,10 @@
 			if (!this.isInline)
 				this.picker.appendTo(this.o.container);
 			this.place();
-			this.picker.show();
+			if (LatestJQuery)
+				this.picker.css('display','block');
+			else
+				this.picker.show();
 			this._attachSecondaryEvents();
 			this._trigger('show');
 			if ((window.navigator.msMaxTouchPoints || 'ontouchstart' in document) && this.o.disableTouchKeyboard) {
@@ -1403,7 +1414,10 @@
 		keydown: function(e){
 			if (!this.picker.is(':visible')){
 				if (e.keyCode === 40 || e.keyCode === 27) { // allow down to re-show picker
-					this.show();
+					if (LatestJQuery)
+						this.css('display','block');
+					else
+						this.show();
 					e.stopPropagation();
         }
 				return;
@@ -1501,11 +1515,18 @@
 
 		setViewMode: function(viewMode){
 			this.viewMode = viewMode;
-			this.picker
+			if (LatestJQuery)
+				this.picker
 				.children('div')
 				.hide()
 				.filter('.datepicker-' + DPGlobal.viewModes[this.viewMode].clsName)
-					.show();
+				.css('display','block');
+			else
+				this.picker
+				.children('div')
+				.hide()
+				.filter('.datepicker-' + DPGlobal.viewModes[this.viewMode].clsName)
+				.show();
 			this.updateNavArrows();
       this._trigger('changeViewMode', new Date(this.viewDate));
 		}

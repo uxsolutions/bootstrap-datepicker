@@ -1,12 +1,25 @@
-/*!
- * Datepicker for Bootstrap v1.7.1 (https://github.com/uxsolutions/bootstrap-datepicker)
+/* =========================================================
+ * bootstrap-datepicker.js
+ * Repo: https://github.com/uxsolutions/bootstrap-datepicker/
+ * Demo: https://eternicode.github.io/bootstrap-datepicker/
+ * Docs: https://bootstrap-datepicker.readthedocs.org/
+ * =========================================================
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
- */
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ========================================================= */
 
 (function(factory){
-    if (typeof define === "function" && define.amd) {
-        define(["jquery"], factory);
+    if (typeof define === 'function' && define.amd) {
+        define(['jquery'], factory);
     } else if (typeof exports === 'object') {
         factory(require('jquery'));
     } else {
@@ -38,6 +51,11 @@
 	}
 	function isValidDate(d) {
 		return d && !isNaN(d.getTime());
+	}
+
+	var LatestJQuery = false;
+	if (window.jQuery) {  
+		LatestJQuery = (parseInt(jQuery().jquery[0]) >= 3);
 	}
 
 	var DateArray = (function(){
@@ -153,7 +171,10 @@
 		this.update();
 
 		if (this.isInline){
-			this.show();
+			if (LatestJQuery)
+				this.css('display','block');	
+			else
+				this.show();
 		}
 	};
 
@@ -470,7 +491,10 @@
 			if (!this.isInline)
 				this.picker.appendTo(this.o.container);
 			this.place();
-			this.picker.show();
+			if (LatestJQuery)
+				this.picker.css('display','block');
+			else
+				this.picker.show();
 			this._attachSecondaryEvents();
 			this._trigger('show');
 			if ((window.navigator.msMaxTouchPoints || 'ontouchstart' in document) && this.o.disableTouchKeyboard) {
@@ -1390,7 +1414,10 @@
 		keydown: function(e){
 			if (!this.picker.is(':visible')){
 				if (e.keyCode === 40 || e.keyCode === 27) { // allow down to re-show picker
-					this.show();
+					if (LatestJQuery)
+						this.css('display','block');
+					else
+						this.show();
 					e.stopPropagation();
         }
 				return;
@@ -1488,11 +1515,18 @@
 
 		setViewMode: function(viewMode){
 			this.viewMode = viewMode;
-			this.picker
+			if (LatestJQuery)
+				this.picker
 				.children('div')
 				.hide()
 				.filter('.datepicker-' + DPGlobal.viewModes[this.viewMode].clsName)
-					.show();
+				.css('display','block');
+			else
+				this.picker
+				.children('div')
+				.hide()
+				.filter('.datepicker-' + DPGlobal.viewModes[this.viewMode].clsName)
+				.show();
 			this.updateNavArrows();
       this._trigger('changeViewMode', new Date(this.viewDate));
 		}
@@ -1530,6 +1564,11 @@
 			});
 			$.each(this.pickers, function(i, p){
 				p.setRange(range);
+			});
+		},
+		clearDates: function(){
+			$.each(this.pickers, function(i, p){
+				p.clearDates();
 			});
 		},
 		dateUpdated: function(e){
