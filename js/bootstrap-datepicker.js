@@ -961,7 +961,7 @@
 				html += '<span class="' + classes.join(' ') + '"' + (tooltip ? ' title="' + tooltip + '"' : '') + '>' + currVal + '</span>';
 			}
 
-			view.find('.datepicker-switch').text(startVal + '-' + endVal);
+			view.find('.datepicker-switch').text( (startVal-step) + '-' + (endVal+step) );
 			view.find('td').html(html);
 		},
 
