@@ -18,8 +18,8 @@
  * ========================================================= */
 
 (function(factory){
-    if (typeof define === "function" && define.amd) {
-        define(["jquery"], factory);
+    if (typeof define === 'function' && define.amd) {
+        define(['jquery'], factory);
     } else if (typeof exports === 'object') {
         factory(require('jquery'));
     } else {
@@ -1543,6 +1543,11 @@
 			});
 			$.each(this.pickers, function(i, p){
 				p.setRange(range);
+			});
+		},
+		clearDates: function(){
+			$.each(this.pickers, function(i, p){
+				p.clearDates();
 			});
 		},
 		dateUpdated: function(e){
