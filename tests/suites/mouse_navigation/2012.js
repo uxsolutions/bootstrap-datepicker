@@ -178,14 +178,14 @@ test('Navigating prev/next in decade view', function(){
     // Not modified when switching modes
     datesEqual(this.dp.viewDate, UTCDate(2012, 2, 31));
     datesEqual(this.dp.dates.get(-1), UTCDate(2012, 2, 31));
-
     target = this.picker.find('.datepicker-months thead th.datepicker-switch');
     ok(target.is(':visible'), 'View switcher is visible');
 
     target.click();
     ok(this.picker.find('.datepicker-years').is(':visible'), 'Year picker is visible');
+
     equal(this.dp.viewMode, 2);
-    equal(this.picker.find('.datepicker-years thead th.datepicker-switch').text(), '2010-2019');
+    equal(this.picker.find('.datepicker-years thead th.datepicker-switch').text(), expectedHeadline(this.picker));
     // Not modified when switching modes
     datesEqual(this.dp.viewDate, UTCDate(2012, 2, 31));
     datesEqual(this.dp.dates.get(-1), UTCDate(2012, 2, 31));
@@ -193,7 +193,7 @@ test('Navigating prev/next in decade view', function(){
     // Go to next decade (2020-29)
     target = this.picker.find('.datepicker-years thead th.next');
     target.click();
-    equal(this.picker.find('.datepicker-years thead th.datepicker-switch').text(), '2020-2029');
+    equal(this.picker.find('.datepicker-years thead th.datepicker-switch').text(), expectedHeadline(this.picker));
     // Only viewDate modified
     datesEqual(this.dp.viewDate, UTCDate(2022, 2, 31));
     datesEqual(this.dp.dates.get(-1), UTCDate(2012, 2, 31));
@@ -201,7 +201,7 @@ test('Navigating prev/next in decade view', function(){
     // Go to prev year (x2 == 2000-09)
     target = this.picker.find('.datepicker-years thead th.prev');
     target.click().click();
-    equal(this.picker.find('.datepicker-years thead th.datepicker-switch').text(), '2000-2009');
+    equal(this.picker.find('.datepicker-years thead th.datepicker-switch').text(), expectedHeadline(this.picker));
     // Only viewDate modified
     datesEqual(this.dp.viewDate, UTCDate(2002, 2, 31));
     datesEqual(this.dp.dates.get(-1), UTCDate(2012, 2, 31));
@@ -264,3 +264,7 @@ test('Selecting today from next month', patch_date(function(Date){
 
     datesEqual(this.dp.viewDate, UTCDate(2012, 2, 3));
 }));
+
+function expectedHeadline(datepicker){
+  return datepicker.find('.datepicker-years tbody .year:first-child').text() + '-' + datepicker.find('.datepicker-years tbody .year:last-child').text();
+};
