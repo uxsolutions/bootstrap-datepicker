@@ -1650,8 +1650,8 @@
 					// Preliminary otions
 					xopts = $.extend({}, defaults, elopts, options),
 					locopts = opts_from_locale(xopts.language),
-					// Options priority: js args, data-attrs, locales, defaults
-					opts = $.extend({}, defaults, locopts, elopts, options);
+					// Options priority: data-attrs, js args, locales, defaults
+					opts = $.extend({}, defaults, locopts, options, elopts);
 				if ($this.hasClass('input-daterange') || opts.inputs){
 					$.extend(opts, {
 						inputs: opts.inputs || $this.find('input').toArray()
