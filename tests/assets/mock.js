@@ -18,10 +18,10 @@ window.patch_date = function patch(f){
     return function(){
         Array.prototype.push.call(arguments, date);
         window.Date = date;
-        res = f.apply(this, arguments);
+        f.apply(this, arguments);
         window.Date = NativeDate;
-    }
-}
+    };
+};
 
 
 window.patch_show_hide = function patch(f){
@@ -43,7 +43,7 @@ window.patch_show_hide = function patch(f){
         f.apply(this, arguments);
         $.fn.show = oldShow;
         $.fn.hide = oldHide;
-    }
-}
+    };
+};
 
 }());

@@ -6,6 +6,7 @@ There are also aliases for the relative timedelta's: "yesterday" equals "-1d", "
 
 Most options can be provided via data-attributes.  An option can be converted to a data-attribute by taking its name, replacing each uppercase letter with its lowercase equivalent preceded by a dash, and prepending "data-date-" to the result.  For example, ``startDate`` would be ``data-date-start-date``, ``format`` would be ``data-date-format``, and ``daysOfWeekDisabled`` would be ``data-date-days-of-week-disabled``.
 
+See the `quick reference`_ for an overview of all options and their default values
 
 autoclose
 ---------
@@ -13,6 +14,16 @@ autoclose
 Boolean.  Default: false
 
 Whether or not to close the datepicker immediately when a date is selected.
+
+
+assumeNearbyYear
+----------------
+
+Boolean or Integer.  Default: false
+
+If true, manually-entered dates with two-digit years, such as "5/1/15", will be parsed as "2015", not "15". If the year is less than 10 years in advance, the picker will use the current century, otherwise, it will use the previous one. For example "5/1/15" would parse to May 1st, 2015, but "5/1/97" would be May 1st, 1997.
+
+To configure the number of years in advance that the picker will still use the current century, use an Integer instead of the Boolean true. E.g. "assumeNearbyYear: 20"
 
 
 beforeShowDay
@@ -30,6 +41,7 @@ A function that takes a date as a parameter and returns one of the following val
    * ``enabled``: same as the Boolean value above
    * ``classes``: same as the String value above
    * ``tooltip``: a tooltip to apply to this date, via the ``title`` HTML attribute
+   * ``content``: the content to display in the day cell, rather than the default (day of month as text)
 
 
 beforeShowMonth
@@ -129,7 +141,7 @@ String.  Default: "body"
 
 Appends the date picker popup to a specific element; eg: container: '#picker-container' (will default to "body")
 
-.. _daysofweekdisabled:
+.. _datesDisabled:
 
 
 datesDisabled
@@ -139,7 +151,7 @@ String, Array.  Default: []
 
 Array of date strings or a single date string formatted in the given date format
 
-.. _defaultviewdate:
+.. _daysOfWeekDisabled:
 
 
 daysOfWeekDisabled
@@ -152,7 +164,7 @@ Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday).
 .. figure:: _static/screenshots/option_daysofweekdisabled.png
     :align: center
 
-.. _daysofweekhighlighted:
+.. _daysOfWeekHighlighted:
 
 
 daysOfWeekHighlighted
@@ -162,22 +174,22 @@ String, Array.  Default: []
 
 Days of the week that should be highlighted. Values are 0 (Sunday) to 6 (Saturday). Multiple values should be comma-separated. Example: highlight weekends: ``'06'`` or ``'0,6'`` or ``[0,6]``.
 
-.. _datesdisabled:
-
 
 defaultViewDate
 ---------------
 
-Object with keys ``year``, ``month``, and ``day``. Default: today
+Date, String or Object with keys ``year``, ``month``, and ``day``. Default: today
 
-Date to view when initially opening the calendar. The internal value of the date remains today as default, but when the datepicker is first opened the calendar will open to ``defaultViewDate`` rather than today. If this option is not used, "today" remains the default view date. If the given object is missing any of the required keys, their defaults are:
+Date to view when initially opening the calendar. The internal value of the date remains today as default, but when the datepicker is first opened the calendar will open to ``defaultViewDate`` rather than today. If this option is not used, "today" remains the default view date.
 
- * ``year``: the current year
- * ``month``: 0
- * ``day``: 1
+This option can be:
+ * A date, which should be in local timezone.
+ * A string which must be parsable with ``format``.
+ * An object with keys ``year``, ``month`` and ``day`` (can't be set from a data attribute). If the given object is missing any of the required keys, their defaults are:
 
-.. _enddate:
-
+   * ``year``: the current year
+   * ``month``: 0 (Note that it starts with 0 for January)
+   * ``day``: 1
 
 disableTouchKeyboard
 --------------------
@@ -194,6 +206,8 @@ Boolean. Default: true
 
 If false the datepicker will not show on a readonly datepicker field.
 
+.. _endDate:
+
 
 endDate
 -------
@@ -209,7 +223,7 @@ Date should be in local timezone. String must be parsable with ``format``.
 
 .. code-block:: html
 
-    <input type="text" data-provide="datepicker" data-date-end-date="0d">
+    <input type="text" class="form-control" data-date-end-date="0d">
 
 Will disable all dates after today.
 
@@ -220,16 +234,6 @@ forceParse
 Boolean.  Default: true
 
 Whether or not to force parsing of the input value when the picker is closed.  That is, when an invalid date is left in the input field by the user, the picker will forcibly parse that value, and set the input's value to the new, valid date, conforming to the given `format`.
-
-
-assumeNearbyYear
-----------------
-
-Boolean or Integer.  Default: false
-
-If true, manually-entered dates with two-digit years, such as "5/1/15", will be parsed as "2015", not "15". If the year is less than 10 years in advance, the picker will use the current century, otherwise, it will use the previous one. For example "5/1/15" would parse to May 1st, 2015, but "5/1/97" would be May 1st, 1997.
-
-To configure the number of years in advance that the picker will still use the current century, use an Integer instead of the Boolean true. E.g. "assumeNearbyYear: 20"
 
 
 format
@@ -272,8 +276,7 @@ Custom formatting options
                 d.setDate(d.getDate() + 7);
                 return new Date(d);
             }
-        },
-        autoclose: true
+        }
     });
 
 
@@ -294,7 +297,7 @@ A list of inputs to be used in a range picker, which will be attached to the sel
 
 .. code-block:: html
 
-    <div class="form-group form-group-filled" id="event_period">
+    <div id="event_period">
         <input type="text" class="actual_range">
         <input type="text" class="actual_range">
     </div>
@@ -306,12 +309,22 @@ A list of inputs to be used in a range picker, which will be attached to the sel
     });
 
 
+keepEmptyValues
+---------------
+
+Boolean. Default: false
+
+Only effective in a range picker. If true, the selected value does not get propagated to other, currently empty, pickers in the range.
+
+
 keyboardNavigation
 ------------------
 
 Boolean.  Default: true
 
 Whether or not to allow date navigation by arrow keys.
+
+Keyboard navigation is not supported at all for embedded / inline mode. Also it's not working if input element hasn't focus. This could be an issue if used as component or if opened by `show` method.
 
 
 language
@@ -330,7 +343,7 @@ maxViewMode
 
 Number, String.  Default: 4, "centuries"
 
-Set a maximum limit for the view mode.  Accepts: "days" or 0, "months" or 1, "years" or 2, "decades" or 3, and "centuries" or 4.
+Set a maximum limit for the view mode.  Accepts: 0 or "days" or "month", 1 or "months" or "year", 2 or "years" or "decade", 3 or "decades" or "century", and 4 or "centuries" or "millenium".
 Gives the ability to pick only a day, a month, a year or a decade.  The day is set to the 1st for "months", the month is set to January for "years", the year is set to the first year from the decade for "decades", and the year is set to the first from the millennium for "centuries".
 
 
@@ -339,7 +352,7 @@ minViewMode
 
 Number, String.  Default: 0, "days"
 
-Set a minimum limit for the view mode.  Accepts: "days" or 0, "months" or 1, "years" or 2, "decades" or 3, and "centuries" or 4.
+Set a minimum limit for the view mode.  Accepts: 0 or "days" or "month", 1 or "months" or "year", 2 or "years" or "decade", 3 or "decades" or "century", and 4 or "centuries" or "millenium".
 Gives the ability to pick only a month, a year or a decade.  The day is set to the 1st for "months", and the month is set to January for "years", the year is set to the first year from the decade for "decades", and the year is set to the first from the millennium for "centuries".
 
 
@@ -375,8 +388,6 @@ A space-separated string consisting of one or two of "left" or "right", "top" or
 
 "auto" triggers "smart orientation" of the picker.  Horizontal orientation will default to "left" and left offset will be tweaked to keep the picker inside the browser viewport; vertical orientation will simply choose "top" or "bottom", whichever will show more of the picker in the viewport.
 
-.. _startdate:
-
 
 showOnFocus
 -----------
@@ -385,6 +396,7 @@ Boolean.  Default: true
 
 If false, the datepicker will be prevented from showing when the input field associated with it receives focus.
 
+.. _startdate:
 
 startDate
 ---------
@@ -402,9 +414,9 @@ Date should be in local timezone. String must be parsable with ``format``.
 startView
 ---------
 
-Number, String.  Default: 0, "month"
+Number, String.  Default: 0, "days"
 
-The view that the datepicker should show when it is opened.  Accepts values of 0 or "month" for month view (the default), 1 or "year" for the 12-month overview, 2 or "decade" for the 10-year overview, 3 or "century" for the 10-decade overview, and 4 or "millennium" for the 10-century overview.  Useful for date-of-birth datepickers.
+The view that the datepicker should show when it is opened.  Accepts: 0 or "days" or "month", 1 or "months" or "year", 2 or "years" or "decade", 3 or "decades" or "century", and 4 or "centuries" or "millenium".  Useful for date-of-birth datepickers.
 
 
 templates
@@ -428,6 +440,14 @@ You can use this property to use custom icons libs. for example:
         leftArrow: '<i class="fa fa-long-arrow-left"></i>',
         rightArrow: '<i class="fa fa-long-arrow-right"></i>'
     }
+
+
+showWeekDays
+------------
+
+Boolean.  Default: true
+
+If false, the datepicker will not append the names of the weekdays to its view. Default behavior is appending the weekdays.
 
 
 title
@@ -468,6 +488,17 @@ Boolean. Default: false
 If true, selecting the currently active date in the datepicker will unset the respective date. This option is always true when the multidate option is being used.
 
 
+updateViewDate
+--------------
+
+Boolean. Default: true
+
+If false viewDate is set according to `value` on initialization and updated
+* if a day in last oder next month is selected or
+* if dates are changed by `setDate`, `setDates`, `setUTCDate` and `setUTCDates` methods.
+If `multidate` option is `true` the last selected date or the last date in array
+passed to `setDates` or `setUTCDates` is used.
+
 weekStart
 ---------
 
@@ -485,3 +516,52 @@ zIndexOffset
 Integer.  Default: 10
 
 The CSS z-index of the open datepicker is the maximum z-index of the input and all of its DOM ancestors *plus* the ``zIndexOffset``.
+
+Quick reference
+===============
+
+This is a quick overview of all the options and their default values
+
+=====================        =============
+Option                       Default value
+=====================        =============
+autoclose                    false
+assumeNearbyYear             false
+beforeShowDay
+beforeShowMonth
+beforeShowYear
+beforeShowDecade
+beforeShowCentury
+calendarWeeks                false
+clearBtn                     false
+container                    'body'
+datesDisabled                []
+daysOfWeekDisabled           []
+daysOfWeekHighlighted        []
+defaultViewDate              today
+disableTouchKeyboard         false
+enableOnReadonly             true
+endDate                      Infinity
+forceParse                   true
+format                       'mm/dd/yyyy'
+immediateUpdates             false
+inputs
+keepEmptyValues              false
+keyboardNavigation           true
+language                     'en'
+maxViewMode                  4 'centuries'
+minViewMode                  0 'days'
+multidate                    false
+multidateSeparator           ','
+orientation                  'auto'
+showOnFocus                  true
+startDate                    -Infinity
+startView                    0 'days' (current month)
+templates
+title                        ''
+todayBtn                     false
+todayHighlight               true
+toggleActive                 false
+weekStart                    0 (Sunday)
+zIndexOffset                 10
+=====================        =============

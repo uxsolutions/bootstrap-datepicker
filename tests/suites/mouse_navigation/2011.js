@@ -7,7 +7,7 @@ module('Mouse Navigation 2011', {
                         .appendTo('#qunit-fixture')
                         .datepicker({format: "dd-mm-yyyy"})
                         .focus(); // Activate for visibility checks
-        this.dp = this.input.data('datepicker')
+        this.dp = this.input.data('datepicker');
         this.picker = this.dp.picker;
     },
     teardown: function(){
@@ -20,8 +20,8 @@ test('Selecting date from previous month while in January changes month and year
 
     this.input.val('01-01-2011');
     this.dp.update();
-    datesEqual(this.dp.viewDate, UTCDate(2011, 0, 1))
-    datesEqual(this.dp.dates.get(-1), UTCDate(2011, 0, 1))
+    datesEqual(this.dp.viewDate, UTCDate(2011, 0, 1));
+    datesEqual(this.dp.dates.get(-1), UTCDate(2011, 0, 1));
 
     // Rendered correctly
     equal(this.dp.viewMode, 0);
@@ -32,8 +32,8 @@ test('Selecting date from previous month while in January changes month and year
     // Updated internally on click
     target.click();
     equal(this.picker.find('.datepicker-days thead th.datepicker-switch').text(), 'December 2010');
-    datesEqual(this.dp.viewDate, UTCDate(2010, 11, 26))
-    datesEqual(this.dp.dates.get(-1), UTCDate(2010, 11, 26))
+    datesEqual(this.dp.viewDate, UTCDate(2010, 11, 26));
+    datesEqual(this.dp.dates.get(-1), UTCDate(2010, 11, 26));
 
     // Re-rendered on click
     target = this.picker.find('.datepicker-days tbody td:first');
@@ -45,8 +45,8 @@ test('Selecting date from next month while in December changes month and year di
 
     this.input.val('01-12-2010');
     this.dp.update();
-    datesEqual(this.dp.viewDate, UTCDate(2010, 11, 1))
-    datesEqual(this.dp.dates.get(-1), UTCDate(2010, 11, 1))
+    datesEqual(this.dp.viewDate, UTCDate(2010, 11, 1));
+    datesEqual(this.dp.dates.get(-1), UTCDate(2010, 11, 1));
 
     // Rendered correctly
     equal(this.dp.viewMode, 0);
@@ -57,8 +57,8 @@ test('Selecting date from next month while in December changes month and year di
     // Updated internally on click
     target.click();
     equal(this.picker.find('.datepicker-days thead th.datepicker-switch').text(), 'January 2011');
-    datesEqual(this.dp.viewDate, UTCDate(2011, 0, 8))
-    datesEqual(this.dp.dates.get(-1), UTCDate(2011, 0, 8))
+    datesEqual(this.dp.viewDate, UTCDate(2011, 0, 8));
+    datesEqual(this.dp.dates.get(-1), UTCDate(2011, 0, 8));
 
     // Re-rendered on click
     target = this.picker.find('.datepicker-days tbody td:first');
