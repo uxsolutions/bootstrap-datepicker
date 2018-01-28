@@ -1243,11 +1243,11 @@
 
 			if (this.o.updateViewDate) {
 				if (date.getUTCFullYear() !== this.viewDate.getUTCFullYear()) {
-					this._trigger('changeYear', this.viewDate);
+					this._trigger('changeYear', date);
 				}
 
 				if (date.getUTCMonth() !== this.viewDate.getUTCMonth()) {
-					this._trigger('changeMonth', this.viewDate);
+					this._trigger('changeMonth', date);
 				}
 			}
 			this._setDate(date);
