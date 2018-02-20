@@ -153,7 +153,8 @@
 			endDate: this._o.endDate,
 			daysOfWeekDisabled: this.o.daysOfWeekDisabled,
 			daysOfWeekHighlighted: this.o.daysOfWeekHighlighted,
-			datesDisabled: this.o.datesDisabled
+			datesDisabled: this.o.datesDisabled,
+			datesEnabled: this.o.datesEnabled,
 		});
 
 		this._allow_update = false;
@@ -276,6 +277,14 @@
 				o.datesDisabled = o.datesDisabled.split(',');
 			}
 			o.datesDisabled = $.map(o.datesDisabled, function(d){
+				return DPGlobal.parseDate(d, format, o.language, o.assumeNearbyYear);
+			});
+
+			o.datesEnabled = o.datesEnabled||[];
+			if (!$.isArray(o.datesEnabled)) {
+				o.datesEnabled = o.datesEnabled.split(',');
+			}
+			o.datesEnabled = $.map(o.datesEnabled, function(d){
 				return DPGlobal.parseDate(d, format, o.language, o.assumeNearbyYear);
 			});
 
@@ -659,6 +668,12 @@
 
 		setDatesDisabled: function(datesDisabled){
 			this._process_options({datesDisabled: datesDisabled});
+			this.update();
+			return this;
+		},
+
+		setDatesEnabled: function(datesEnabled){
+			this._process_options({datesEnabled: datesEnabled});
 			this.update();
 			return this;
 		},
@@ -1387,8 +1402,11 @@
 			return $.inArray(date.getUTCDay(), this.o.daysOfWeekDisabled) !== -1;
 		},
 
-		dateIsDisabled: function(date){
-			return (
+		dateIsDisabled: function(date){                       
+			return (this.o.datesEnabled.length && 
+				!$.grep(this.o.datesEnabled, function(d){
+					return isUTCEquals(date, d);
+				}).length > 0) || (
 				this.weekOfDateIsDisabled(date) ||
 				$.grep(this.o.datesDisabled, function(d){
 					return isUTCEquals(date, d);
@@ -1696,6 +1714,7 @@
 		daysOfWeekDisabled: [],
 		daysOfWeekHighlighted: [],
 		datesDisabled: [],
+		datesEnabled: [],
 		endDate: Infinity,
 		forceParse: true,
 		format: 'mm/dd/yyyy',
