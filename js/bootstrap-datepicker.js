@@ -583,7 +583,8 @@
 			this.inputField.val('');
 			this.update();
 			this._trigger('changeDate');
-
+      this.inputField.change();
+      
 			if (this.o.autoclose) {
 				this.hide();
 			}
