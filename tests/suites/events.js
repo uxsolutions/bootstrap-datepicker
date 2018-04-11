@@ -355,6 +355,40 @@ test('paste must update the date', function() {
     ok(evt.originalEvent.isDefaultPrevented, 'prevented original event');
 });
 
+test('paste triggers change and changeDate event', function() {
+    var dateToPaste = '22-07-2015';
+    var evt = {
+        type: 'paste',
+        originalEvent: {
+            clipboardData: {
+                types: ['text/plain'],
+                getData: function() { return dateToPaste; }
+            },
+            preventDefault: function() { evt.originalEvent.isDefaultPrevented = true; },
+            isDefaultPrevented: false
+        }
+    };
+    var triggered_change = 0,
+        triggered_changeDate = 0,
+        triggered_clearDate = 0;
+    this.input.on({
+        changeDate: function(){
+            triggered_changeDate++;
+        },
+        clearDate: function() {
+            triggered_clearDate++;
+        },
+        change: function(){
+            triggered_change++;
+        }
+    });
+
+    this.input.trigger(evt);
+    equal(triggered_change, 1);
+    equal(triggered_changeDate, 1);
+    equal(triggered_clearDate, 0);
+});
+
 test('clicking outside datepicker triggers \'hide\' event', function(){
     var $otherelement = $('<div />');
     $('body').append($otherelement);
