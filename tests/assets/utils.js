@@ -1,5 +1,11 @@
 function UTCDate(){
-    return new Date(Date.UTC.apply(Date, arguments));
+    var utcdate = new Date(Date.UTC.apply(Date, arguments));
+    if (arguments[0] < 0) {
+        utcdate.setUTCFullYear(arguments[0] - 1);
+    } else if (arguments[0] < 1900) {
+        utcdate.setUTCFullYear(arguments[0]);
+    }
+    return utcdate;
 }
 
 
