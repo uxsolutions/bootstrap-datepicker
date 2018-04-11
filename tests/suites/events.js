@@ -264,7 +264,7 @@ test('format(ix, altformat) returns a formatted date string', function(){
     equal(out, '3/14/11');
 });
 
-test('Clear button: triggers change and changeDate events', function(){
+test('Clear button: triggers change, changeDate and clearDate events', function(){
     this.input = $('<input type="text" value="31-03-2011">')
                     .appendTo('#qunit-fixture')
                     .datepicker({
@@ -277,11 +277,15 @@ test('Clear button: triggers change and changeDate events', function(){
 
     var target,
         triggered_change = 0,
-        triggered_changeDate = 0;
+        triggered_changeDate = 0,
+        triggered_clearDate = 0;
 
     this.input.on({
         changeDate: function(){
             triggered_changeDate++;
+        },
+        clearDate: function() {
+            triggered_clearDate++;
         },
         change: function(){
             triggered_change++;
@@ -297,6 +301,7 @@ test('Clear button: triggers change and changeDate events', function(){
 
     equal(triggered_change, 1);
     equal(triggered_changeDate, 1);
+    equal(triggered_clearDate, 1);
 });
 
 test('setDate: triggers change and changeDate events', function(){
