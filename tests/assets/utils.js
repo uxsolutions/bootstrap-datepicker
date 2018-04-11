@@ -19,3 +19,13 @@ function format_date(date){
 function datesEqual(actual, expected, message){
     QUnit.push(QUnit.equiv(actual, expected), format_date(actual), format_date(expected), message);
 }
+
+function triggerKey(element, keycode) {
+    var evtKeyDown = $.Event( 'keydown', { which: keycode } ),
+        evtKeyPress = $.Event( 'keypress', { which: keycode } ),
+        evtKeyUp = $.Event( 'keyup' );
+
+    element.trigger(evtKeyDown);
+    element.trigger(evtKeyPress);
+    element.trigger(evtKeyUp);
+}

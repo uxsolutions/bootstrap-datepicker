@@ -389,6 +389,83 @@ test('paste triggers change and changeDate event', function() {
     equal(triggered_clearDate, 0);
 });
 
+test('editing text triggers change, changeDate and (eventually) clearDate event', function() {
+    var keyBackspace = 8,
+        key2 = '2'.charCodeAt(0),
+        dateNow = new Date(),
+        utcNow = UTCDate(dateNow.getUTCFullYear(), dateNow.getUTCMonth(), dateNow.getUTCDate()),
+        triggered_change = 0,
+        triggered_changeDate = 0,
+        triggered_clearDate = 0;
+
+    this.input.on({
+        changeDate: function(){
+            triggered_changeDate++;
+        },
+        clearDate: function() {
+            triggered_clearDate++;
+        },
+        change: function(){
+            triggered_change++;
+        }
+    });
+
+    this.input.val(this.input.val().substr(0, this.input.val().length - 1));
+    triggerKey(this.input, keyBackspace);
+    equal(triggered_change, 1);
+    equal(triggered_changeDate, 1);
+    equal(triggered_clearDate, 0);
+    this.input.val(this.input.val() + '2');
+    triggerKey(this.input, key2);
+    equal(triggered_change, 2);
+    equal(triggered_changeDate, 2);
+    equal(triggered_clearDate, 0);
+    this.input.val(this.input.val().substr(0, this.input.val().length - 1));
+    triggerKey(this.input, keyBackspace);
+    equal(triggered_change, 3);
+    equal(triggered_changeDate, 3);
+    this.input.val(this.input.val().substr(0, this.input.val().length - 1));
+    triggerKey(this.input, keyBackspace);
+    equal(triggered_change, 4);
+    equal(triggered_changeDate, 4);
+    this.input.val(this.input.val().substr(0, this.input.val().length - 1));
+    triggerKey(this.input, keyBackspace);
+    equal(triggered_change, 5);
+    equal(triggered_changeDate, 5);
+    this.input.val(this.input.val().substr(0, this.input.val().length - 1));
+    triggerKey(this.input, keyBackspace);
+    equal(triggered_change, 6);
+    equal(triggered_changeDate, 6);
+    datesEqual(this.dp.dates[0], utcNow);
+    // no more changes due to invalid format until empty
+    this.input.val(this.input.val().substr(0, this.input.val().length - 1));
+    triggerKey(this.input, keyBackspace);
+    equal(triggered_change, 6);
+    equal(triggered_changeDate, 6);
+    datesEqual(this.dp.dates[0], utcNow);
+    this.input.val(this.input.val().substr(0, this.input.val().length - 1));
+    triggerKey(this.input, keyBackspace);
+    equal(triggered_change, 6);
+    equal(triggered_changeDate, 6);
+    this.input.val(this.input.val().substr(0, this.input.val().length - 1));
+    triggerKey(this.input, keyBackspace);
+    equal(triggered_change, 6);
+    equal(triggered_changeDate, 6);
+    this.input.val(this.input.val().substr(0, this.input.val().length - 1));
+    triggerKey(this.input, keyBackspace);
+    equal(triggered_change, 6);
+    equal(triggered_changeDate, 6);
+    this.input.val(this.input.val().substr(0, this.input.val().length - 1));
+    triggerKey(this.input, keyBackspace);
+    equal(triggered_change, 6);
+    equal(triggered_changeDate, 6);
+    this.input.val(this.input.val().substr(0, this.input.val().length - 1));
+    triggerKey(this.input, keyBackspace);
+    equal(triggered_change, 7);
+    equal(triggered_changeDate, 6);
+    equal(triggered_clearDate, 1);   
+});
+
 test('clicking outside datepicker triggers \'hide\' event', function(){
     var $otherelement = $('<div />');
     $('body').append($otherelement);
