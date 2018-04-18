@@ -1,11 +1,30 @@
 Changelog
 =========
 
+1.8.x (Unreleased)
+------------------
+
+## Features
+ * Added clearDates for clears range (#2114)
+
+## Bugfix
+ * Fix navigation buttons states (#2277)
+ * Fix updateNavArrows bug (#2230)
+
+## Locales
+### Bugfix
+ * Added monthsTitle to Latvian locale (#2255)
+ * Rename en-CA locale file to match the rest of the files (#2217)
+ * Fix cs locale date format (#2275)
+ * Added translation for months (fixing the default 'en' locale) (#2271)
+
+
 1.7.1
 -----
 
 ## Bugfixes
- * 	Revert "move `jquery` to `peerDependencies` from `dependencies`"
+ * Revert "move `jquery` to `peerDependencies` from `dependencies`"
+
 
 1.7.0
 -----
@@ -112,19 +131,19 @@ Features
  * Replace arrow entities for glyphicon + template + libs snippets (Fixes: #610 #833 #1007)
  * added class .disabled to dow header
  * Rename "remove" to "destroy" and create alias
- 
+
 Bugfix
 
  * Month/year view keyboard navigation
  * fix changeMonth, changeYear not triggered when selecting day from prev/next month
  * Fix default arrows for BS2 and screenshots (for docs)
  * Extend beforeShowMonth event functionality to work like beforeShowDay and beforeShowYear
- 
+
 Locale changes
 
  * Correct date format for ko locale
  * Add en-AU (Australian English) locale
- 
+
 Repository
 
  * Add CSS sourcemap
@@ -143,17 +162,17 @@ Bugfixes
  * Use document scrollTop instead of body scrollTop when using the body container
  * Fix focus for disabled week days (Fixes: #1365, #1187, #1648)
  * Fixes enableOnReadOnly bug when datepicker is of type component
- 
+
 Translations
  * Added missing translations for slovak translation. (Fixes: #1521)
  * Added missing date format for norwegian (nb) locale (Fixes #1690)
  * Armenian translation short names
  * adding Today translation, default date format for the lithuanian translation
- 
+
 Docs
  * Document data-api on container
  * Added docs for the different stylesheet files. (Fixes #1459)
- 
+
 Repository
  * Enable travis container builds for faster builds
 
@@ -398,12 +417,12 @@ Locale changes:
 
 
 1.1.3
- ----------
- 
- Clicking the clear button now triggers the input's `change` and datepicker's `changeDate` events.
- Fixed a bug that broke the event-attached `format` function.
- 
- 
+----------
+
+Clicking the clear button now triggers the input's `change` and datepicker's `changeDate` events.
+Fixed a bug that broke the event-attached `format` function.
+
+
 1.1.2
 ----------
 
