@@ -18,8 +18,8 @@
  * ========================================================= */
 
 (function(factory){
-    if (typeof define === "function" && define.amd) {
-        define(["jquery"], factory);
+    if (typeof define === 'function' && define.amd) {
+        define(['jquery'], factory);
     } else if (typeof exports === 'object') {
         factory(require('jquery'));
     } else {
@@ -1169,10 +1169,6 @@
 				nextIsDisabled,
 				factor = 1;
 			switch (this.viewMode){
-				case 0:
-					prevIsDisabled = year <= startYear && month <= startMonth;
-					nextIsDisabled = year >= endYear && month >= endMonth;
-					break;
 				case 4:
 					factor *= 10;
 					/* falls through */
@@ -1184,7 +1180,11 @@
 					/* falls through */
 				case 1:
 					prevIsDisabled = Math.floor(year / factor) * factor <= startYear;
-					nextIsDisabled = Math.floor(year / factor) * factor + factor >= endYear;
+					nextIsDisabled = Math.floor(year / factor) * factor + factor > endYear;
+					break;
+				case 0:
+					prevIsDisabled = year <= startYear && month <= startMonth;
+					nextIsDisabled = year >= endYear && month >= endMonth;
 					break;
 			}
 
@@ -1552,6 +1552,11 @@
 			});
 			$.each(this.pickers, function(i, p){
 				p.setRange(range);
+			});
+		},
+		clearDates: function(){
+			$.each(this.pickers, function(i, p){
+				p.clearDates();
 			});
 		},
 		dateUpdated: function(e){
@@ -1954,9 +1959,9 @@
 			                '<th colspan="7" class="datepicker-title"></th>'+
 			              '</tr>'+
 							'<tr>'+
-								'<th class="prev">&laquo;</th>'+
+								'<th class="prev">'+defaults.templates.leftArrow+'</th>'+
 								'<th colspan="5" class="datepicker-switch"></th>'+
-								'<th class="next">&raquo;</th>'+
+								'<th class="next">'+defaults.templates.rightArrow+'</th>'+
 							'</tr>'+
 						'</thead>',
 		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',
@@ -2020,7 +2025,7 @@
 
 	/* DATEPICKER VERSION
 	 * =================== */
-	$.fn.datepicker.version = '1.7.0-RC1';
+	$.fn.datepicker.version = '1.8.0';
 
 	$.fn.datepicker.deprecated = function(msg){
 		var console = window.console;
