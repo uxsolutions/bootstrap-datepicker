@@ -264,7 +264,7 @@ test('format(ix, altformat) returns a formatted date string', function(){
     equal(out, '3/14/11');
 });
 
-test('Clear button: triggers change and changeDate events', function(){
+test('Clear button: triggers change, changeDate and clearDate events', function(){
     this.input = $('<input type="text" value="31-03-2011">')
                     .appendTo('#qunit-fixture')
                     .datepicker({
@@ -277,11 +277,15 @@ test('Clear button: triggers change and changeDate events', function(){
 
     var target,
         triggered_change = 0,
-        triggered_changeDate = 0;
+        triggered_changeDate = 0,
+        triggered_clearDate = 0;
 
     this.input.on({
         changeDate: function(){
             triggered_changeDate++;
+        },
+        clearDate: function() {
+            triggered_clearDate++;
         },
         change: function(){
             triggered_change++;
@@ -297,6 +301,7 @@ test('Clear button: triggers change and changeDate events', function(){
 
     equal(triggered_change, 1);
     equal(triggered_changeDate, 1);
+    equal(triggered_clearDate, 1);
 });
 
 test('setDate: triggers change and changeDate events', function(){
@@ -348,6 +353,117 @@ test('paste must update the date', function() {
     datesEqual(this.dp.dates[0], UTCDate(2015, 6, 22));
 
     ok(evt.originalEvent.isDefaultPrevented, 'prevented original event');
+});
+
+test('paste triggers change and changeDate event', function() {
+    var dateToPaste = '22-07-2015';
+    var evt = {
+        type: 'paste',
+        originalEvent: {
+            clipboardData: {
+                types: ['text/plain'],
+                getData: function() { return dateToPaste; }
+            },
+            preventDefault: function() { evt.originalEvent.isDefaultPrevented = true; },
+            isDefaultPrevented: false
+        }
+    };
+    var triggered_change = 0,
+        triggered_changeDate = 0,
+        triggered_clearDate = 0;
+    this.input.on({
+        changeDate: function(){
+            triggered_changeDate++;
+        },
+        clearDate: function() {
+            triggered_clearDate++;
+        },
+        change: function(){
+            triggered_change++;
+        }
+    });
+
+    this.input.trigger(evt);
+    equal(triggered_change, 1);
+    equal(triggered_changeDate, 1);
+    equal(triggered_clearDate, 0);
+});
+
+test('editing text triggers change, changeDate and (eventually) clearDate event', function() {
+    var keyBackspace = 8,
+        key2 = '2'.charCodeAt(0),
+        dateNow = new Date(),
+        utcNow = UTCDate(dateNow.getUTCFullYear(), dateNow.getUTCMonth(), dateNow.getUTCDate()),
+        triggered_change = 0,
+        triggered_changeDate = 0,
+        triggered_clearDate = 0;
+
+    this.input.on({
+        changeDate: function(){
+            triggered_changeDate++;
+        },
+        clearDate: function() {
+            triggered_clearDate++;
+        },
+        change: function(){
+            triggered_change++;
+        }
+    });
+
+    this.input.val(this.input.val().substr(0, this.input.val().length - 1));
+    triggerKey(this.input, keyBackspace);
+    equal(triggered_change, 1);
+    equal(triggered_changeDate, 1);
+    equal(triggered_clearDate, 0);
+    this.input.val(this.input.val() + '2');
+    triggerKey(this.input, key2);
+    equal(triggered_change, 2);
+    equal(triggered_changeDate, 2);
+    equal(triggered_clearDate, 0);
+    this.input.val(this.input.val().substr(0, this.input.val().length - 1));
+    triggerKey(this.input, keyBackspace);
+    equal(triggered_change, 3);
+    equal(triggered_changeDate, 3);
+    this.input.val(this.input.val().substr(0, this.input.val().length - 1));
+    triggerKey(this.input, keyBackspace);
+    equal(triggered_change, 4);
+    equal(triggered_changeDate, 4);
+    this.input.val(this.input.val().substr(0, this.input.val().length - 1));
+    triggerKey(this.input, keyBackspace);
+    equal(triggered_change, 5);
+    equal(triggered_changeDate, 5);
+    this.input.val(this.input.val().substr(0, this.input.val().length - 1));
+    triggerKey(this.input, keyBackspace);
+    equal(triggered_change, 6);
+    equal(triggered_changeDate, 6);
+    datesEqual(this.dp.dates[0], utcNow);
+    // no more changes due to invalid format until empty
+    this.input.val(this.input.val().substr(0, this.input.val().length - 1));
+    triggerKey(this.input, keyBackspace);
+    equal(triggered_change, 6);
+    equal(triggered_changeDate, 6);
+    datesEqual(this.dp.dates[0], utcNow);
+    this.input.val(this.input.val().substr(0, this.input.val().length - 1));
+    triggerKey(this.input, keyBackspace);
+    equal(triggered_change, 6);
+    equal(triggered_changeDate, 6);
+    this.input.val(this.input.val().substr(0, this.input.val().length - 1));
+    triggerKey(this.input, keyBackspace);
+    equal(triggered_change, 6);
+    equal(triggered_changeDate, 6);
+    this.input.val(this.input.val().substr(0, this.input.val().length - 1));
+    triggerKey(this.input, keyBackspace);
+    equal(triggered_change, 6);
+    equal(triggered_changeDate, 6);
+    this.input.val(this.input.val().substr(0, this.input.val().length - 1));
+    triggerKey(this.input, keyBackspace);
+    equal(triggered_change, 6);
+    equal(triggered_changeDate, 6);
+    this.input.val(this.input.val().substr(0, this.input.val().length - 1));
+    triggerKey(this.input, keyBackspace);
+    equal(triggered_change, 7);
+    equal(triggered_changeDate, 6);
+    equal(triggered_clearDate, 1);   
 });
 
 test('clicking outside datepicker triggers \'hide\' event', function(){

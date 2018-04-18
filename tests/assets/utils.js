@@ -1,5 +1,11 @@
 function UTCDate(){
-    return new Date(Date.UTC.apply(Date, arguments));
+    var utcdate = new Date(Date.UTC.apply(Date, arguments));
+    if (arguments[0] < 0) {
+        utcdate.setUTCFullYear(arguments[0] - 1);
+    } else if (arguments[0] < 1900) {
+        utcdate.setUTCFullYear(arguments[0]);
+    }
+    return utcdate;
 }
 
 
@@ -18,4 +24,14 @@ function format_date(date){
 
 function datesEqual(actual, expected, message){
     QUnit.push(QUnit.equiv(actual, expected), format_date(actual), format_date(expected), message);
+}
+
+function triggerKey(element, keycode) {
+    var evtKeyDown = $.Event( 'keydown', { which: keycode } ),
+        evtKeyPress = $.Event( 'keypress', { which: keycode } ),
+        evtKeyUp = $.Event( 'keyup' );
+
+    element.trigger(evtKeyDown);
+    element.trigger(evtKeyPress);
+    element.trigger(evtKeyUp);
 }
