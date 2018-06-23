@@ -102,6 +102,10 @@
 
 	var Datepicker = function(element, options){
 		$.data(element, 'datepicker', this);
+    
+		this._events = [];
+		this._secondaryEvents = [];
+    
 		this._process_options(options);
 
 		this.dates = new DateArray();
@@ -321,8 +325,6 @@
 				o.defaultViewDate = UTCToday();
 			}
 		},
-		_events: [],
-		_secondaryEvents: [],
 		_applyEvents: function(evs){
 			for (var i=0, el, ch, ev; i < evs.length; i++){
 				el = evs[i][0];
