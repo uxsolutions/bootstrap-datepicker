@@ -89,6 +89,10 @@
 
 	var Datepicker = function(element, options){
 		$.data(element, 'datepicker', this);
+    
+		this._events = [];
+		this._secondaryEvents = [];
+    
 		this._process_options(options);
 
 		this.dates = new DateArray();
@@ -308,8 +312,6 @@
 				o.defaultViewDate = UTCToday();
 			}
 		},
-		_events: [],
-		_secondaryEvents: [],
 		_applyEvents: function(evs){
 			for (var i=0, el, ch, ev; i < evs.length; i++){
 				el = evs[i][0];
@@ -900,7 +902,7 @@
 			var view = this.picker.find(selector);
 			var startVal = Math.floor(year / factor) * factor;
 			var endVal = startVal + step * 9;
-			var focusedVal = Math.floor(this.viewDate.getFullYear() / step) * step;
+			var focusedVal = Math.floor(this.viewDate.getUTCFullYear() / step) * step;
 			var selected = $.map(this.dates, function(d){
 				return Math.floor(d.getUTCFullYear() / step) * step;
 			});
