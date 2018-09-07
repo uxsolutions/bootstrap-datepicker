@@ -813,7 +813,7 @@
 					});
 				html += '<th class="cw">&#160;</th>';
 			}
-			if(this.o.showWeekDays){
+			if (this.o.showWeekDays){
 			while (dowCnt < this.o.weekStart + 7){
 				html += '<th class="dow';
         if ($.inArray(dowCnt, this.o.daysOfWeekDisabled) > -1)
