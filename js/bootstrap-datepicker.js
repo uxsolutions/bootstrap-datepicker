@@ -558,6 +558,11 @@
 			return utc && UTCDate(utc.getUTCFullYear(), utc.getUTCMonth(), utc.getUTCDate());
 		},
 
+		// Gp
+		getOptions: function () {
+			return this._o;
+		},
+
 		getDates: function(){
 			return $.map(this.dates, this._utc_to_local);
 		},
