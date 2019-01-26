@@ -1919,16 +1919,12 @@
 			}
 			else
 			{
-				// if iser writes date without separators 26012019
+				// if user writes date without separators 26012019
 				var startPosition = 0;
-				var rawDateString = "";
+				var rawDateString = parts.join('');
 				var fpart, v;
+				var _date = new Date(date);
 
-				for (i = 0; i < parts.length; i++){
-					rawDateString = rawDateString + parts[i];
-				}
-
-				_date = new Date(date);
 				for (i = 0; i < fparts.length; i++){
 					fpart = fparts[i];
 					v = 0;
@@ -1936,7 +1932,7 @@
 						v = rawDateString.substring( startPosition, startPosition + fpart.length );
 						startPosition += fpart.length;
 					}
-					else if( fpart == "yy" || fpart == "yyyy" ) //in case year is not complete or missing put current year
+					else if( fpart === "yy" || fpart === "yyyy" ) //in case year is not complete or missing put current year
 						v = (new Date()).getFullYear();
 
 					setters_map[ fpart ](_date, v);
