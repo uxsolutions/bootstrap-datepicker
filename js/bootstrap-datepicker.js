@@ -1923,7 +1923,7 @@
 				var startPosition = 0;
 				var rawDateString = parts.join('');
 				var fpart, v;
-				var _date = new Date(date);
+				var _dateTmp = new Date(date);
 
 				for (i = 0; i < fparts.length; i++){
 					fpart = fparts[i];
@@ -1935,9 +1935,9 @@
 					else if( fpart === "yy" || fpart === "yyyy" ) //in case year is not complete or missing put current year
 						v = (new Date()).getFullYear();
 
-					setters_map[ fpart ](_date, v);
-					if (!isNaN(_date))
-						date = _date;
+					setters_map[ fpart ](_dateTmp, v);
+					if (!isNaN(_dateTmp))
+						date = _dateTmp;
 				}
 			}
 			return date;
