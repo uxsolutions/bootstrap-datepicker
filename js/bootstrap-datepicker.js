@@ -102,10 +102,10 @@
 
 	var Datepicker = function(element, options){
 		$.data(element, 'datepicker', this);
-    
+
 		this._events = [];
 		this._secondaryEvents = [];
-    
+
 		this._process_options(options);
 
 		this.dates = new DateArray();
@@ -1915,6 +1915,33 @@
 						if (!isNaN(_date))
 							date = _date;
 					}
+				}
+			}
+			else
+			{
+				// if iser writes date without separators 26012019
+				var startPosition = 0;
+				var rawDateString = "";
+				var fpart, v;
+
+				for (i = 0; i < parts.length; i++){
+					rawDateString = rawDateString + parts[i];
+				}
+
+				_date = new Date(date);
+				for (i = 0; i < fparts.length; i++){
+					fpart = fparts[i];
+					v = 0;
+					if( ( startPosition + fpart.length ) <= rawDateString.length ){
+						v = rawDateString.substring( startPosition, startPosition + fpart.length );
+						startPosition += fpart.length;
+					}
+					else if( fpart == "yy" || fpart == "yyyy" ) //in case year is not complete or missing put current year
+						v = (new Date()).getFullYear();
+
+					setters_map[ fpart ](_date, v);
+					if (!isNaN(_date))
+						date = _date;
 				}
 			}
 			return date;
