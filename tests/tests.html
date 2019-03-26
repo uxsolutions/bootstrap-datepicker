@@ -8,6 +8,8 @@
         <!--<script src="assets/qunit-logging.js"></script>-->
         <script src="assets/jquery-1.7.1.min.js"></script>
         <script src="../js/bootstrap-datepicker.js"></script>
+        <!-- This locale is included to test ISO 8601 calendar weeks: see tests/suites/calendar-weeks/2016.js -->
+        <script src="../js/locales/bootstrap-datepicker.de.js"></script>
         <!-- This locale is included to test usage of titleFormat when available: see tests/suites/options.js -->
         <script src="../js/locales/bootstrap-datepicker.zh-CN.js"></script>
 
@@ -27,6 +29,11 @@
 
         <!-- Test suites -->
         <script src="suites/formats.js"></script>
+        <script src="suites/calendar-weeks/all.js"></script>
+        <script src="suites/calendar-weeks/2015.js"></script>
+        <script src="suites/calendar-weeks/2016.js"></script>
+        <script src="suites/calendar-weeks/2017.js"></script>
+        <script src="suites/calendar-weeks/2018.js"></script>
         <script src="suites/mouse_navigation/all.js"></script>
         <script src="suites/mouse_navigation/2012.js"></script>
         <script src="suites/mouse_navigation/2011.js"></script>
@@ -38,7 +45,6 @@
         <script src="suites/events.js"></script>
         <script src="suites/options.js"></script>
         <script src="suites/inline.js"></script>
-        <script src="suites/calendar-weeks.js"></script>
         <script src="suites/data-api.js"></script>
         <script src="suites/noconflict.js"></script>
         <script src="suites/methods.js"></script>

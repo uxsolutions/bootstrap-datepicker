@@ -15,7 +15,8 @@ The plugin supports i18n for the month and weekday names and the ``weekStart`` o
         clear: "Clear",
         format: "mm/dd/yyyy",
         titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
-        weekStart: 0
+        weekStart: 0,
+        firstCalendarWeekDay: 6
     };
 
 Right-to-left languages may also include ``rtl: true`` to make the calendar display appropriately.

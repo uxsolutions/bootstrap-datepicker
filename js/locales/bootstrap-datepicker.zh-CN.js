@@ -14,6 +14,7 @@
 		clear: "清除",
 		format: "yyyy-mm-dd",
 		titleFormat: "yyyy年mm月",
-		weekStart: 1
+		weekStart: 1,
+    firstCalendarWeekDay: 4
 	};
 }(jQuery));

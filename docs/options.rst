@@ -228,6 +228,15 @@ Date should be in local timezone. String must be parsable with ``format``.
 Will disable all dates after today.
 
 
+firstCalendarWeekDay
+---------
+
+Integer.  Default: 6
+
+Day that must be included in the first calendar week of the year.
+From 0 (Sunday) to 6 (Saturday). Use 4 (Thursday) for ISO 8601.
+
+
 forceParse
 ----------
 

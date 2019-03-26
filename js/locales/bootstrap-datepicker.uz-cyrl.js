@@ -13,6 +13,7 @@
         clear: "Ўчириш",
         format: "dd.mm.yyyy",
         weekStart: 1,
+        firstCalendarWeekDay: 4,
         monthsTitle: 'Ойлар'
     };
 }(jQuery));

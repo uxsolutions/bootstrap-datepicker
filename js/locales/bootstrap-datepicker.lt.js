@@ -14,6 +14,7 @@
         monthsTitle:"Mėnesiai",
         clear:"Išvalyti",
         weekStart: 1,
+        firstCalendarWeekDay: 4,
         format:"yyyy-mm-dd"
     };
 }(jQuery));

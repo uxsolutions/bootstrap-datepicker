@@ -12,6 +12,7 @@
 		monthsTitle: "Months",
 		clear: "Clear",
 		weekStart: 1,
+    firstCalendarWeekDay: 4,
 		format: "yyyy/mm/d"
 	};
 }(jQuery));

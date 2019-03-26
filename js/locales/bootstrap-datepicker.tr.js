@@ -12,6 +12,7 @@
 		today: "Bugün",
 		clear: "Temizle",
 		weekStart: 1,
+    firstCalendarWeekDay: 4,
 		format: "dd.mm.yyyy"
 	};
 }(jQuery));

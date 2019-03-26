@@ -11,6 +11,7 @@
 		monthsShort: ["Јан", "Феб", "Мар", "Апр", "Мај", "Јун", "Јул", "Авг", "Сеп", "Окт", "Нов", "Дец"],
 		today: "Данас",
 		weekStart: 1,
+    firstCalendarWeekDay: 4,
 		format: "dd.mm.yyyy"
 	};
 }(jQuery));

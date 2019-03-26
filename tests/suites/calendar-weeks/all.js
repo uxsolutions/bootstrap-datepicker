@@ -31,16 +31,6 @@ test('adds calendar week cells to each day row', function(){
     });
 });
 
-test('displays correct calendar week', function(){
-    var target = this.picker.find('.datepicker-days tbody tr');
-
-    expect(target.length);
-    target.each(function(i){
-        var t = $(this).children().first();
-        equal(t.text(), i+1, "Displays correct calendar weeks");
-    });
-});
-
 test('it prepends column to switcher thead row', function(){
     var target = this.picker.find('.datepicker-days thead tr:nth-child(2)');
     equal(target.children().length, 3, 'first row has 3 columns');
