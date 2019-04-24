@@ -19,11 +19,11 @@
 
 (function(factory){
     if (typeof define === 'function' && define.amd) {
-        define(['jquery'], factory);
+      define(['jquery'], factory(jQuery || window.jQuery || require('jquery')))
     } else if (typeof exports === 'object') {
-        factory(require('jquery'));
+      factory(jQuery || window.jQuery || require('jquery'));
     } else {
-        factory(jQuery);
+      factory(jQuery || window.jQuery);
     }
 }(function($, undefined){
 	function UTCDate(){
