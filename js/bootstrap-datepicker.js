@@ -19,7 +19,7 @@
 
 (function(factory){
     if (typeof define === 'function' && define.amd) {
-      define(['jquery'], factory(jQuery || window.jQuery || require('jquery')))
+      define(['jquery'], factory(jQuery || window.jQuery || require('jquery')));
     } else if (typeof exports === 'object') {
       factory(jQuery || window.jQuery || require('jquery'));
     } else {
