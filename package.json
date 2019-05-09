@@ -1,7 +1,7 @@
 {
   "name": "bootstrap-datepicker",
   "description": "A datepicker for Bootstrap",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "license": "Apache-2.0",
   "keywords": [
     "datepicker",
@@ -36,7 +36,7 @@
     "grunt-contrib-csslint": "^2.0.0",
     "grunt-contrib-cssmin": "^1.0.2",
     "grunt-contrib-jshint": "^1.1.0",
-    "grunt-contrib-less": "^1.4.0",
+    "grunt-contrib-less": "^2.0.0",
     "grunt-contrib-qunit": "^1.2.0",
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-jscs": "^3.0.1",
