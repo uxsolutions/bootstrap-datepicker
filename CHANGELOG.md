@@ -1,6 +1,24 @@
 Changelog
 =========
 
+1.9.0
+-----
+
+## Features
+ * Added clearDates for clears range (#2114)
+
+## Bugfix
+ * Hide today button when before start or after end date (#2474)
+ * Fix navigation buttons states (#2277)
+ * Fix updateNavArrows bug (#2230)
+
+## Locales
+### Bugfix
+ * Added monthsTitle to Latvian locale (#2255)
+ * Rename en-CA locale file to match the rest of the files (#2217)
+ * Fix cs locale date format (#2275)
+ * Added translation for months (fixing the default 'en' locale) (#2271)
+
 1.7.1
 -----
 
