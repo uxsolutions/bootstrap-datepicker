@@ -102,10 +102,10 @@
 
 	var Datepicker = function(element, options){
 		$.data(element, 'datepicker', this);
-    
+
 		this._events = [];
 		this._secondaryEvents = [];
-    
+
 		this._process_options(options);
 
 		this.dates = new DateArray();
@@ -2020,7 +2020,7 @@
 
 	/* DATEPICKER VERSION
 	 * =================== */
-	$.fn.datepicker.version = '1.8.0';
+	$.fn.datepicker.version = '1.9.0';
 
 	$.fn.datepicker.deprecated = function(msg){
 		var console = window.console;
