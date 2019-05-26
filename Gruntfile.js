@@ -227,33 +227,6 @@ module.exports = function(grunt){
     // grunt bump-version --newver=X.Y.Z
     grunt.registerTask('bump-version', 'string-replace');
 
-    // Docs task.
-    grunt.registerTask('screenshots', 'Rebuilds automated docs screenshots', function(){
-        var phantomjs = require('phantomjs-prebuilt').path;
-
-        grunt.file.recurse('docs/_static/screenshots/', function(abspath){
-            grunt.file.delete(abspath);
-        });
-
-        grunt.file.recurse('docs/_screenshots/', function(abspath, root, subdir, filename){
-            if (!/.html$/.test(filename))
-                return;
-            subdir = subdir || '';
-
-            var outdir = 'docs/_static/screenshots/' + subdir,
-                outfile = outdir + filename.replace(/.html$/, '.png');
-
-            if (!grunt.file.exists(outdir))
-                grunt.file.mkdir(outdir);
-
-            // NOTE: For 'zh-TW' and 'ja' locales install adobe-source-han-sans-jp-fonts (Arch Linux)
-            grunt.util.spawn({
-                cmd: phantomjs,
-                args: ['docs/_screenshots/script/screenshot.js', abspath, outfile]
-            });
-        });
-    });
-
     grunt.registerTask('qunit-timezone', 'Run timezone tests', function(){
         process.env.TZ = 'Europe/Moscow';
         grunt.task.run('qunit:timezone');
