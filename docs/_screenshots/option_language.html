@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="script/common.css">
+        <link rel="stylesheet" href="assets/common.css">
         <style>
             .row + .row {
               margin-top: 30px;
             }
         </style>
-        <script src="script/common.js"></script>
+        <script src="assets/common.js"></script>
         <script src="../../js/locales/bootstrap-datepicker.es.js" charset="UTF-8"></script>
         <script src="../../js/locales/bootstrap-datepicker.fr.js" charset="UTF-8"></script>
         <script src="../../js/locales/bootstrap-datepicker.zh-TW.js" charset="UTF-8"></script>
         <script src="../../js/locales/bootstrap-datepicker.ru.js" charset="UTF-8"></script>
         <script src="../../js/locales/bootstrap-datepicker.ja.js" charset="UTF-8"></script>
         <script>
-            function setup(){
+            document.addEventListener('DOMContentLoaded', function() {
                 $('[data-date]').datepicker({
                     format: 'mm/dd/yyyy' // To override locale-specific formats
                 });
-            }
+            });
         </script>
     </head>
     <body data-capture=".datepicker">

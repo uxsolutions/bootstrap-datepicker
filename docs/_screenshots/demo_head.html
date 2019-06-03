@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="script/common.css">
-        <script src="script/common.js"></script>
+        <link rel="stylesheet" href="assets/common.css">
+        <script src="assets/common.js"></script>
         <script>
-            function setup(){
-                var dp = $('.base').datepicker().data('datepicker');
+            document.addEventListener('DOMContentLoaded', function() {
+                const dp = $('.base').datepicker().data('datepicker');
 
                 dp.focusDate = new Date(Date.UTC(2013, 7, 14));
                 dp.update();
+                dp.show();
 
                 $('.date').datepicker({
                     format: 'mm-dd-yyyy'
-                });
+                }).datepicker('show');
+
                 $('.inline').datepicker();
-            }
+            });
         </script>
     </head>
     <body data-capture=".base, .date, .datepicker">
