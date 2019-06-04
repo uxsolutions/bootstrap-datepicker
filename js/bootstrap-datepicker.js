@@ -582,10 +582,10 @@
 		},
 
 		clearDates: function(){
-			this.inputField.val('');
-			this.update();
+			this.inputField.val('');			
 			this._trigger('changeDate');
-
+      this.inputField.change();
+      
 			if (this.o.autoclose) {
 				this.hide();
 			}
