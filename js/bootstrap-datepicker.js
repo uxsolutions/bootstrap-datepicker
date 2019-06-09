@@ -102,10 +102,10 @@
 
 	var Datepicker = function(element, options){
 		$.data(element, 'datepicker', this);
-    
+
 		this._events = [];
 		this._secondaryEvents = [];
-    
+
 		this._process_options(options);
 
 		this.dates = new DateArray();
@@ -118,7 +118,7 @@
 		this.component = this.element.hasClass('date') ? this.element.find('.add-on, .input-group-addon, .input-group-append, .input-group-prepend, .btn') : false;
 		if (this.component && this.component.length === 0)
 			this.component = false;
-		this.isInline = !this.component && this.element.is('div');
+		this.isInline = !this.component && !this.isInput;
 
 		this.picker = $(DPGlobal.template);
 
@@ -976,7 +976,9 @@
 				endMonth = this.o.endDate !== Infinity ? this.o.endDate.getUTCMonth() : Infinity,
 				todaytxt = dates[this.o.language].today || dates['en'].today || '',
 				cleartxt = dates[this.o.language].clear || dates['en'].clear || '',
-				titleFormat = dates[this.o.language].titleFormat || dates['en'].titleFormat,
+        titleFormat = dates[this.o.language].titleFormat || dates['en'].titleFormat,
+        todayDate = UTCToday(),
+        titleBtnVisible = (this.o.todayBtn === true || this.o.todayBtn === 'linked') && todayDate >= this.o.startDate && todayDate <= this.o.endDate && !this.weekOfDateIsDisabled(todayDate),
 				tooltip,
 				before;
 			if (isNaN(year) || isNaN(month))
@@ -985,7 +987,7 @@
 						.text(DPGlobal.formatDate(d, titleFormat, this.o.language));
 			this.picker.find('tfoot .today')
 						.text(todaytxt)
-						.css('display', this.o.todayBtn === true || this.o.todayBtn === 'linked' ? 'table-cell' : 'none');
+            .css('display', titleBtnVisible ? 'table-cell' : 'none');
 			this.picker.find('tfoot .clear')
 						.text(cleartxt)
 						.css('display', this.o.clearBtn === true ? 'table-cell' : 'none');
@@ -2017,7 +2019,7 @@
 
 	/* DATEPICKER VERSION
 	 * =================== */
-	$.fn.datepicker.version = '1.8.0';
+	$.fn.datepicker.version = '1.9.0';
 
 	$.fn.datepicker.deprecated = function(msg){
 		var console = window.console;
