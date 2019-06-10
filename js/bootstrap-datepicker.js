@@ -583,9 +583,8 @@
 
 		clearDates: function(){
 			this.inputField.val('');
-			this.update();
 			this._trigger('changeDate');
-
+			this.update();
 			if (this.o.autoclose) {
 				this.hide();
 			}
@@ -1584,12 +1583,12 @@
 
 			if (new_date < this.dates[j]){
 				// Date being moved earlier/left
-				while (j >= 0 && new_date < this.dates[j]){
+				while (j >= 0 && new_date < this.dates[j] && (this.pickers[j].element.val() || "").length > 0) {
 					this.pickers[j--].setUTCDate(new_date);
 				}
 			} else if (new_date > this.dates[k]){
 				// Date being moved later/right
-				while (k < l && new_date > this.dates[k]){
+				while (k < l && new_date > this.dates[k] && (this.pickers[k].element.val() || "").length > 0) {
 					this.pickers[k++].setUTCDate(new_date);
 				}
 			}
