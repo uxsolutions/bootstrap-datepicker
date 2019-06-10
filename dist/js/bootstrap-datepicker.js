@@ -5,13 +5,13 @@
  */
 
 (function(factory){
-    if (typeof define === 'function' && define.amd) {
-      define(['jquery'], factory(jQuery || window.jQuery || require('jquery')));
-    } else if (typeof exports === 'object') {
-      factory(jQuery || window.jQuery || require('jquery'));
-    } else {
-      factory(jQuery || window.jQuery);
-    }
+  if (typeof define === 'function' && define.amd) {
+    define(['jquery'], factory(window.jQuery || require('jquery')));
+  } else if (typeof exports === 'object') {
+    factory(require('jquery'));
+  } else {
+    factory(jQuery);
+  }
 }(function($, undefined){
 	function UTCDate(){
 		return new Date(Date.UTC.apply(Date, arguments));
