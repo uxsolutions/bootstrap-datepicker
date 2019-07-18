@@ -373,7 +373,7 @@ Repository changes:
 * Changed the js file header to point at repo/demo/docs urls instead of eyecon.ro
 * The css files are now the output of the standalone build scripts instead of `build/build.less` etc.
 * `composer.json` now supports component-installer
-* Added [JSHint](http://www.jshint.com/docs/) and [JSCS](https://github.com/mdevils/node-jscs) configurations
+* Added [JSHint](https://www.jshint.com/docs/) and [JSCS](https://github.com/mdevils/node-jscs) configurations
 
 
 1.2.0
