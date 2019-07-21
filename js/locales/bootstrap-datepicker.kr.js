@@ -1,6 +1,6 @@
 /**
  * Korean translation for bootstrap-datepicker
- * Gu Youn <http://github.com/guyoun>
+ * Gu Youn <https://github.com/guyoun>
  *
  * DEPRECATED: This language code 'kr' is deprecated and will be removed in 2.0.
  * Korean support is now in a 'ko' translation file to follow the ISO language

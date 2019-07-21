@@ -6,7 +6,7 @@
 [![npm](https://img.shields.io/npm/dt/bootstrap-datepicker.svg)](https://github.com/uxsolutions/bootstrap-datepicker)
 [![Twitter Follow](https://img.shields.io/twitter/follow/bsdatepicker.svg?style=social&label=Follow)](https://twitter.com/bsdatepicker)
 
-Versions are incremented according to [semver](http://semver.org/).
+Versions are incremented according to [semver](https://semver.org/).
 
 ## CDN
 
