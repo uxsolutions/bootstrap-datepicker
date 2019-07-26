@@ -251,9 +251,11 @@ test('Selecting date from next month resets viewDate and date, changing month di
 });
 
 test('Selecting today from next month', patch_date(function(Date){
+    Date.now = function(){
+        return new Date(2012, 2, 3).getTime(); // Mar 3
+    };
     var target;
     this.dp.o.todayHighlight = true;
-    Date.now = new Date(2012, 2, 3); // Mar 3
     this.input.val('01-02-2012');    // Feb 1
     this.dp.update();
 

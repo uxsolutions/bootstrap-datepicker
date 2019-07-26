@@ -1,10 +1,10 @@
 ;(function(){
 
-window.patch_date = function patch(f){
-    var NativeDate = window.Date;
-    var date = function date(y,m,d,h,i,s,j){
+window.patch_date = function(f){
+    const NativeDate = window.Date;
+    const date = function date(y,m,d,h,i,s,j){
         switch(arguments.length){
-            case 0: return date.now ? new NativeDate(date.now) : new NativeDate();
+            case 0: return new NativeDate(date.now());
             case 1: return new NativeDate(y);
             case 2: return new NativeDate(y,m);
             case 3: return new NativeDate(y,m,d);
@@ -14,6 +14,7 @@ window.patch_date = function patch(f){
             case 7: return new NativeDate(y,y,m,d,h,i,s,j);
         }
     };
+    date.now = NativeDate.now;
     date.UTC = NativeDate.UTC;
     return function(){
         Array.prototype.push.call(arguments, date);
@@ -23,8 +24,7 @@ window.patch_date = function patch(f){
     };
 };
 
-
-window.patch_show_hide = function patch(f){
+window.patch_show_hide = function(f){
     var oldShow = $.fn.show,
         newShow = function () {
             $(this).removeClass('foo');
