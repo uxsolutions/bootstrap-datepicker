@@ -1,14 +1,14 @@
 /* =========================================================
  * bootstrap-datepicker.js
  * Repo: https://github.com/uxsolutions/bootstrap-datepicker/
- * Demo: https://eternicode.github.io/bootstrap-datepicker/
+ * Demo: https://uxsolutions.github.io/bootstrap-datepicker/
  * Docs: https://bootstrap-datepicker.readthedocs.org/
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -102,10 +102,10 @@
 
 	var Datepicker = function(element, options){
 		$.data(element, 'datepicker', this);
-    
+
 		this._events = [];
 		this._secondaryEvents = [];
-    
+
 		this._process_options(options);
 
 		this.dates = new DateArray();
@@ -115,11 +115,13 @@
 		this.element = $(element);
 		this.isInput = this.element.is('input');
 		this.inputField = this.isInput ? this.element : this.element.find('input');
-		this.component = this.element.hasClass('date') ? this.element.find('.add-on, .input-group-addon, .btn') : false;
-		if (this.component && this.component.length === 0)
+		this.component = this.element.hasClass('date') ? this.element.find('.add-on, .input-group-addon, .input-group-append, .input-group-prepend, .btn') : false;
+		if (this.component && this.component.length === 0){
 			this.component = false;
+    }
+
 		if (this.o.isInline === null){
-			this.isInline = !this.component && this.element.is('div');
+			this.isInline = !this.component && !this.isInput;
 		} else {
 			this.isInline = this.o.isInline;
 		}
@@ -484,7 +486,7 @@
 		},
 
 		show: function(){
-			if (this.inputField.prop('disabled') || (this.inputField.prop('readonly') && this.o.enableOnReadonly === false))
+			if (this.inputField.is(':disabled') || (this.inputField.prop('readonly') && this.o.enableOnReadonly === false))
 				return;
 			if (!this.isInline)
 				this.picker.appendTo(this.o.container);
@@ -587,9 +589,8 @@
 
 		clearDates: function(){
 			this.inputField.val('');
-			this.update();
 			this._trigger('changeDate');
-
+			this.update();
 			if (this.o.autoclose) {
 				this.hide();
 			}
@@ -981,7 +982,9 @@
 				endMonth = this.o.endDate !== Infinity ? this.o.endDate.getUTCMonth() : Infinity,
 				todaytxt = dates[this.o.language].today || dates['en'].today || '',
 				cleartxt = dates[this.o.language].clear || dates['en'].clear || '',
-				titleFormat = dates[this.o.language].titleFormat || dates['en'].titleFormat,
+        titleFormat = dates[this.o.language].titleFormat || dates['en'].titleFormat,
+        todayDate = UTCToday(),
+        titleBtnVisible = (this.o.todayBtn === true || this.o.todayBtn === 'linked') && todayDate >= this.o.startDate && todayDate <= this.o.endDate && !this.weekOfDateIsDisabled(todayDate),
 				tooltip,
 				before;
 			if (isNaN(year) || isNaN(month))
@@ -990,7 +993,7 @@
 						.text(DPGlobal.formatDate(d, titleFormat, this.o.language));
 			this.picker.find('tfoot .today')
 						.text(todaytxt)
-						.css('display', this.o.todayBtn === true || this.o.todayBtn === 'linked' ? 'table-cell' : 'none');
+            .css('display', titleBtnVisible ? 'table-cell' : 'none');
 			this.picker.find('tfoot .clear')
 						.text(cleartxt)
 						.css('display', this.o.clearBtn === true ? 'table-cell' : 'none');
@@ -1586,12 +1589,12 @@
 
 			if (new_date < this.dates[j]){
 				// Date being moved earlier/left
-				while (j >= 0 && new_date < this.dates[j]){
+				while (j >= 0 && new_date < this.dates[j] && (this.pickers[j].element.val() || "").length > 0) {
 					this.pickers[j--].setUTCDate(new_date);
 				}
 			} else if (new_date > this.dates[k]){
 				// Date being moved later/right
-				while (k < l && new_date > this.dates[k]){
+				while (k < l && new_date > this.dates[k] && (this.pickers[k].element.val() || "").length > 0) {
 					this.pickers[k++].setUTCDate(new_date);
 				}
 			}
@@ -2023,7 +2026,7 @@
 
 	/* DATEPICKER VERSION
 	 * =================== */
-	$.fn.datepicker.version = '1.8.0';
+	$.fn.datepicker.version = '1.9.0';
 
 	$.fn.datepicker.deprecated = function(msg){
 		var console = window.console;

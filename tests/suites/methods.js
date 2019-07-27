@@ -186,3 +186,70 @@ test('parseDate - outputs correct value for dates containing unicodes', function
     equal(parsedDate.getUTCMonth(), "10", "month is correct");
     equal(parsedDate.getUTCFullYear(), "2015", "fullyear is correct");
 });
+
+test('setDates - does not replace empty values', function () {
+	var html, comp;
+
+    html = '<div class="input-daterange" data-provide="datepicker">'+
+                '<input class="datepicker">'+
+                '<span class="add-on">to</span>'+
+                '<input class="datepicker">'+
+            '</div>';
+
+    comp = $(html).appendTo('#qunit-fixture');
+	
+	comp.datepicker({ format: 'yyyy-mm-dd', keepEmptyValues: true });
+	
+	var picker = comp.data('datepicker');
+	
+	picker.pickers[1].setDates('2019-03-31');
+	picker.pickers[1].setDates('2019-03-30');
+	equal(picker.pickers[0].element.val(), "");
+	
+	picker.clearDates();
+	
+	picker.pickers[0].setDates('2019-03-30');
+	picker.pickers[0].setDates('2019-03-31');
+	equal(picker.pickers[1].element.val(), "");
+});
+
+test('clearDates - updates state to allow correct range enforcement', function () {
+	
+	var html, comp;
+
+    html = '<div class="input-daterange" data-provide="datepicker">'+
+                '<input class="datepicker">'+
+                '<span class="add-on">to</span>'+
+                '<input class="datepicker">'+
+            '</div>';
+
+    comp = $(html).appendTo('#qunit-fixture');
+	
+	comp.datepicker({ format: 'yyyy-mm-dd', keepEmptyValues: true });
+	
+	var picker = comp.data('datepicker');
+	
+	picker.pickers[0].setDates("2019-03-31");
+	picker.pickers[1].setDates("2019-03-31");
+	picker.pickers[0].clearDates();
+	equal(picker.pickers[0].element.val(), "");
+	equal(picker.pickers[1].element.val(), "2019-03-31")
+	
+	picker.pickers[0].setDates("2019-04-01");
+	
+	equal(picker.pickers[0].element.val(), "2019-04-01");
+	equal(picker.pickers[1].element.val(), "2019-04-01");
+	
+	picker.clearDates();
+	
+	picker.pickers[0].setDates("2019-03-31");
+	picker.pickers[1].setDates("2019-03-31");
+	picker.pickers[1].clearDates();
+	equal(picker.pickers[0].element.val(), "2019-03-31");
+	equal(picker.pickers[1].element.val(), "");
+	
+	picker.pickers[1].setDates("2019-03-30");
+	
+	equal(picker.pickers[0].element.val(), "2019-03-30");
+	equal(picker.pickers[1].element.val(), "2019-03-30");
+});
