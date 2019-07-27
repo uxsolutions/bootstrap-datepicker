@@ -137,7 +137,9 @@ test('yyyy-MM-dd: Regression: Infinite loop when numbers used for month', functi
 });
 
 test('+1d: Tomorrow', patch_date(function(Date){
-    Date.now = UTCDate(2012, 2, 15);
+    Date.now = function(){
+        return UTCDate(2012, 2, 15).getTime();
+    };
     this.input
         .val('+1d')
         .datepicker({format: 'dd-mm-yyyy'})
@@ -146,7 +148,9 @@ test('+1d: Tomorrow', patch_date(function(Date){
 }));
 
 test('tomorrow (alias for +1d): Tomorrow', patch_date(function(Date){
-    Date.now = UTCDate(2012, 2, 15);
+    Date.now = function(){
+        return UTCDate(2012, 2, 15).getTime();
+    };
     this.input
         .val('tomorrow')
         .datepicker({format: 'dd-mm-yyyy'})
@@ -155,7 +159,9 @@ test('tomorrow (alias for +1d): Tomorrow', patch_date(function(Date){
 }));
 
 test('-1d: Yesterday', patch_date(function(Date){
-    Date.now = UTCDate(2012, 2, 15);
+    Date.now = function(){
+        return UTCDate(2012, 2, 15).getTime();
+    };
     this.input
         .val('-1d')
         .datepicker({format: 'dd-mm-yyyy'})
@@ -164,7 +170,9 @@ test('-1d: Yesterday', patch_date(function(Date){
 }));
 
 test('yesterday (alias for -1d): Yesterday', patch_date(function(Date){
-    Date.now = UTCDate(2012, 2, 15);
+    Date.now = function(){
+        return UTCDate(2012, 2, 15).getTime();
+    };
     this.input
         .val('yesterday')
         .datepicker({format: 'dd-mm-yyyy'})
@@ -173,7 +181,9 @@ test('yesterday (alias for -1d): Yesterday', patch_date(function(Date){
 }));
 
 test('+1w: Next week', patch_date(function(Date){
-    Date.now = UTCDate(2012, 2, 15);
+    Date.now = function(){
+        return UTCDate(2012, 2, 15).getTime();
+    };
     this.input
         .val('+1w')
         .datepicker({format: 'dd-mm-yyyy'})
@@ -182,7 +192,9 @@ test('+1w: Next week', patch_date(function(Date){
 }));
 
 test('-1w: Last week', patch_date(function(Date){
-    Date.now = UTCDate(2012, 2, 15);
+    Date.now = function(){
+        return UTCDate(2012, 2, 15).getTime();
+    };
     this.input
         .val('-1w')
         .datepicker({format: 'dd-mm-yyyy'})
@@ -191,7 +203,9 @@ test('-1w: Last week', patch_date(function(Date){
 }));
 
 test('+1m: Next month', patch_date(function(Date){
-    Date.now = UTCDate(2012, 2, 15);
+    Date.now = function(){
+        return UTCDate(2012, 2, 15).getTime();
+    };
     this.input
         .val('+1m')
         .datepicker({format: 'dd-mm-yyyy'})
@@ -200,7 +214,9 @@ test('+1m: Next month', patch_date(function(Date){
 }));
 
 test('-1m: Last month', patch_date(function(Date){
-    Date.now = UTCDate(2012, 2, 15);
+    Date.now = function(){
+        return UTCDate(2012, 2, 15).getTime();
+    };
     this.input
         .val('-1m')
         .datepicker({format: 'dd-mm-yyyy'})
@@ -209,7 +225,9 @@ test('-1m: Last month', patch_date(function(Date){
 }));
 
 test('+1y: Next year', patch_date(function(Date){
-    Date.now = UTCDate(2012, 2, 15);
+    Date.now = function(){
+        return UTCDate(2012, 2, 15).getTime();
+    };
     this.input
         .val('+1y')
         .datepicker({format: 'dd-mm-yyyy'})
@@ -218,7 +236,9 @@ test('+1y: Next year', patch_date(function(Date){
 }));
 
 test('-1y: Last year', patch_date(function(Date){
-    Date.now = UTCDate(2012, 2, 15);
+    Date.now = function(){
+        return UTCDate(2012, 2, 15).getTime();
+    };
     this.input
         .val('-1y')
         .datepicker({format: 'dd-mm-yyyy'})
@@ -227,7 +247,9 @@ test('-1y: Last year', patch_date(function(Date){
 }));
 
 test('-1y +2m: Multiformat', patch_date(function(Date){
-    Date.now = UTCDate(2012, 2, 15);
+    Date.now = function(){
+        return UTCDate(2012, 2, 15).getTime();
+    };
     this.input
         .val('-1y +2m')
         .datepicker({format: 'dd-mm-yyyy'})
@@ -236,7 +258,9 @@ test('-1y +2m: Multiformat', patch_date(function(Date){
 }));
 
 test('Regression: End-of-month bug', patch_date(function(Date){
-    Date.now = UTCDate(2012, 4, 31);
+    Date.now = function(){
+        return UTCDate(2012, 4, 31).getTime();
+    };
     this.input
         .val('29-02-2012')
         .datepicker({format: 'dd-mm-yyyy'})
@@ -245,7 +269,9 @@ test('Regression: End-of-month bug', patch_date(function(Date){
 }));
 
 test('Invalid formats are force-parsed into a valid date on tab', patch_date(function(Date){
-    Date.now = UTCDate(2012, 4, 31);
+    Date.now = function(){
+        return UTCDate(2012, 4, 31).getTime();
+    };
     this.input
         .val('44-44-4444')
         .datepicker({format: 'yyyy-MM-dd'})
@@ -260,7 +286,9 @@ test('Invalid formats are force-parsed into a valid date on tab', patch_date(fun
 }));
 
 test('Trailing separators', patch_date(function(Date){
-    Date.now = UTCDate(2012, 4, 31);
+    Date.now = function(){
+        return UTCDate(2012, 4, 31).getTime();
+    };
     this.input
         .val('29.02.2012.')
         .datepicker({format: 'dd.mm.yyyy.'})
@@ -269,7 +297,9 @@ test('Trailing separators', patch_date(function(Date){
 }));
 
 test('Assume nearby year - last century', patch_date(function(Date){
-    Date.now = UTCDate(2012, 4, 31);
+    Date.now = function(){
+        return UTCDate(2012, 4, 31).getTime();
+    };
     this.input
         .val('02/14/91')
         .datepicker({format: 'mm/dd/yyyy', assumeNearbyYear: true})
@@ -278,7 +308,9 @@ test('Assume nearby year - last century', patch_date(function(Date){
 }));
 
 test('Assume nearby year - this century (- 1 year)', patch_date(function(Date){
-    Date.now = UTCDate(2012, 4, 31);
+    Date.now = function(){
+        return UTCDate(2012, 4, 31).getTime();
+    };
     this.input
         .val('02/14/01')
         .datepicker({format: 'mm/dd/yyyy', assumeNearbyYear: true})
@@ -287,7 +319,9 @@ test('Assume nearby year - this century (- 1 year)', patch_date(function(Date){
 }));
 
 test('Assume nearby year - this century (+ 7 years)', patch_date(function(Date){
-    Date.now = UTCDate(2012, 4, 31);
+    Date.now = function(){
+        return UTCDate(2012, 4, 31).getTime();
+    };
     this.input
         .val('02/14/19')
         .datepicker({format: 'mm/dd/yyyy', assumeNearbyYear: true})
@@ -296,7 +330,9 @@ test('Assume nearby year - this century (+ 7 years)', patch_date(function(Date){
 }));
 
 test('Assume nearby year - this century (+ 13 years)', patch_date(function(Date){
-    Date.now = UTCDate(2012, 4, 31);
+    Date.now = function(){
+        return UTCDate(2012, 4, 31).getTime();
+    };
     this.input
         .val('02/14/23')
         .datepicker({format: 'mm/dd/yyyy', assumeNearbyYear: true})
@@ -305,7 +341,9 @@ test('Assume nearby year - this century (+ 13 years)', patch_date(function(Date)
 }));
 
 test('Assume nearby year - this century (+ 13 years, threshold = 30)', patch_date(function(Date){
-    Date.now = UTCDate(2012, 4, 31);
+    Date.now = function(){
+        return UTCDate(2012, 4, 31).getTime();
+    };
     this.input
         .val('02/14/23')
         .datepicker({format: 'mm/dd/yyyy', assumeNearbyYear: 30})

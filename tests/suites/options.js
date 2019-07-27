@@ -672,7 +672,9 @@ test('Today Button: "linked" selects today\'s date', function(){
 });
 
 test('Today Highlight: today\'s date is not highlighted by default', patch_date(function(Date){
-    Date.now = UTCDate(2012, 2, 15);
+    Date.now = function(){
+        return UTCDate(2012, 2, 15).getTime();
+    };
     var input = $('<input />')
                 .appendTo('#qunit-fixture')
                 .val('2012-03-05')
@@ -696,7 +698,9 @@ test('Today Highlight: today\'s date is not highlighted by default', patch_date(
 }));
 
 test('Today Highlight: today\'s date is highlighted when not active', patch_date(function(Date){
-    Date.now = new Date(2012, 2, 15);
+    Date.now = function(){
+        return UTCDate(2012, 2, 15).getTime();
+    };
     var input = $('<input />')
                 .appendTo('#qunit-fixture')
                 .val('2012-03-05')

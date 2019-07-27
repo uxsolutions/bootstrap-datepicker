@@ -4,15 +4,12 @@ const puppeteer = require('puppeteer');
 
 (async () => {
     const browser = await puppeteer.launch({
-        headless: false,
         args: [
-            '--no-sandbox',
             '--disable-gpu',
             '--disable-translate',
             '--disable-extensions',
             '--hide-scrollbars'
-        ],
-        slowMo: 100
+        ]
     });
 
     const page = await browser.newPage();
