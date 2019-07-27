@@ -23,6 +23,9 @@ Please note: It might take a few hours until a new version is available on cdnjs
 * [Google Group](https://groups.google.com/group/bootstrap-datepicker/)
 * [Travis CI](https://travis-ci.org/uxsolutions/bootstrap-datepicker)
 
+#### Snippets
+* [Booking demo with two pickers](https://jsfiddle.net/azaret/25bqa6ho/)
+
 ## Development
 
 Once you cloned the repo, you'll need to install [grunt](https://gruntjs.com/) and the development dependencies using a package manager:
