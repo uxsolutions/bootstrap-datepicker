@@ -26,7 +26,7 @@
     "url": "https://github.com/uxsolutions/bootstrap-datepicker.git"
   },
   "dependencies": {
-    "jquery": ">=1.7.1 <4.0.0"
+    "jquery": ">=3.4.0 <4.0.0"
   },
   "devDependencies": {
     "grunt": "^1.0.4",
