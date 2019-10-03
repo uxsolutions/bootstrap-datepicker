@@ -1,5 +1,7 @@
 body {
   padding-top: 50px;
+  background-color: steelblue;
+  font-family: "Avenir";
 }
 .sandbox-form label, .sandbox-form span {
   display: inline-block;
