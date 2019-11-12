@@ -119,22 +119,31 @@
     </div>
 
     <div class="container">
-      <h2>bootstrap-datepicker sandbox <small>&alpha;lph&alpha;</small></h2>
-      <p>Use the form below to tweak the options; results and code appear in realtime below.</p>
-      <p>As you change options, your address bar will update to reflect the current configuration (requires a browser with <code>history.replaceState</code> support).  This url can be used to link to the sandbox with the given configuration pre-loaded.</p>
-      <p>
-        <a id="download-release"
-           href="https://github.com/uxsolutions/bootstrap-datepicker/releases/download/v1.9.0/bootstrap-datepicker-1.9.0-dist.zip"
-           class="btn btn-default"
-           download
-           onClick="var that=this;ga('send', 'event', 'Download', 'latest-stable' ,this.href);"
-          >Download 1.9.0</a>
-        <a id="download-master"
-           href="https://github.com/uxsolutions/bootstrap-datepicker/zipball/master"
-           class="btn btn-default"
-           onClick="var that=this;ga('send', 'event', 'Download', 'dev-master', this.href);"
-        >Download Development (master)</a>
-      </p>
+      <div class="row">
+        <div class="col-md-8">
+          <h2>bootstrap-datepicker sandbox <small>&alpha;lph&alpha;</small></h2>
+          <p>Use the form below to tweak the options; results and code appear in realtime below.</p>
+          <p>As you change options, your address bar will update to reflect the current configuration (requires a browser with <code>history.replaceState</code> support).  This url can be used to link to the sandbox with the given configuration pre-loaded.</p>
+          <p>
+            <a id="download-release"
+               href="https://github.com/uxsolutions/bootstrap-datepicker/releases/download/v1.9.0/bootstrap-datepicker-1.9.0-dist.zip"
+               class="btn btn-default"
+               download
+               onClick="var that=this;ga('send', 'event', 'Download', 'latest-stable' ,this.href);"
+            >Download 1.9.0</a>
+            <a id="download-master"
+               href="https://github.com/uxsolutions/bootstrap-datepicker/zipball/master"
+               class="btn btn-default"
+               onClick="var that=this;ga('send', 'event', 'Download', 'dev-master', this.href);"
+            >Download Development (master)</a>
+          </p>
+        </div>
+        <div class="col-md-4 ad-holder">
+          <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CE7DKK3I&placement=uxsolutionsgithubio" id="_carbonads_js"></script>
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-lg-12">
       <form class="form-inline sandbox-form" id="sandbox">
         <div class="well">
           Type:<br>
@@ -369,6 +378,8 @@
           <button class="btn btn-danger" type="reset">Reset to defaults</button>
         </div>
       </form>
+      </div>
+    </div>
 
       <div class="row form-horizontal">
         <div class="span5 col-md-5" id="sandbox-container"></div>
