@@ -1,6 +1,6 @@
 /**
  * Arabic-Algeria translation for bootstrap-datepicker
- * Rabah Saadi <infosrabah@yahoo.fr>
+ * Rabah Saadi <infosrabah@gmail.com>
  */
 ;(function($){
     $.fn.datepicker.dates['ar-tn'] = {
