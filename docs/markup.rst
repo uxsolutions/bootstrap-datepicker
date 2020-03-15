@@ -55,7 +55,7 @@ Note that that ``input-daterange`` itself does not implement the ``datepicker`` 
 
 ::
 
-    $('.input-daterange input').each(function() {
+    $('.input-daterange').each(function() {
         $(this).datepicker('clearDates');
     });
 
