@@ -563,7 +563,7 @@ startView                    0 'days' (current month)
 templates
 title                        ''
 todayBtn                     false
-todayHighlight               true
+todayHighlight               false
 toggleActive                 false
 weekStart                    0 (Sunday)
 zIndexOffset                 10
