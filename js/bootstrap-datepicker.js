@@ -405,6 +405,7 @@
 				[this.element, {
 					blur: $.proxy(function(e){
 						this._focused_from = e.target;
+            this.hide();
 					}, this)
 				}]
 			);
@@ -1496,7 +1497,6 @@
 					this.focusDate = null;
 					this.viewDate = this.dates.get(-1) || this.viewDate;
 					this.fill();
-					this.hide();
 					break;
 			}
 			if (dateChanged){
