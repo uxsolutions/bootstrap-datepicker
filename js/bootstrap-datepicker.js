@@ -1663,7 +1663,7 @@
 					opts = $.extend({}, defaults, locopts, elopts, options);
 				if ($this.hasClass('input-daterange') || opts.inputs){
 					$.extend(opts, {
-						inputs: opts.inputs || $this.find('input').toArray()
+						inputs: opts.inputs || $this.find('.date').toArray().length !== 0 ? $this.find('.date').toArray() : $this.find('input').toArray()
 					});
 					data = new DateRangePicker(this, opts);
 				}
