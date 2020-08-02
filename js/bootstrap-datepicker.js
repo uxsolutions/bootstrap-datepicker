@@ -74,7 +74,7 @@
 			replace: function(new_array){
 				if (!new_array)
 					return;
-				if (!$.isArray(new_array))
+				if (!Array.isArray(new_array))
 					new_array = [new_array];
 				this.clear();
 				this.push.apply(this, new_array);
@@ -195,7 +195,7 @@
 		},
 
 		_resolveDaysOfWeek: function(daysOfWeek){
-			if (!$.isArray(daysOfWeek))
+			if (!Array.isArray(daysOfWeek))
 				daysOfWeek = daysOfWeek.split(/[,\s]*/);
 			return $.map(daysOfWeek, Number);
 		},
@@ -282,7 +282,7 @@
 			o.daysOfWeekHighlighted = this._resolveDaysOfWeek(o.daysOfWeekHighlighted||[]);
 
 			o.datesDisabled = o.datesDisabled||[];
-			if (!$.isArray(o.datesDisabled)) {
+			if (!Array.isArray(o.datesDisabled)) {
 				o.datesDisabled = o.datesDisabled.split(',');
 			}
 			o.datesDisabled = $.map(o.datesDisabled, function(d){
@@ -597,7 +597,7 @@
 		},
 
 		setDates: function(){
-			var args = $.isArray(arguments[0]) ? arguments[0] : arguments;
+			var args = Array.isArray(arguments[0]) ? arguments[0] : arguments;
 			this.update.apply(this, args);
 			this._trigger('changeDate');
 			this.setValue();
@@ -605,7 +605,7 @@
 		},
 
 		setUTCDates: function(){
-			var args = $.isArray(arguments[0]) ? arguments[0] : arguments;
+			var args = Array.isArray(arguments[0]) ? arguments[0] : arguments;
 			this.setDates.apply(this, $.map(args, this._utc_to_local));
 			return this;
 		},
@@ -1057,7 +1057,7 @@
 
 				//Check if uniqueSort exists (supported by jquery >=1.12 and >=2.2)
 				//Fallback to unique function for older jquery versions
-				if ($.isFunction($.uniqueSort)) {
+				if (typeof $.uniqueSort === "function") {
 					clsName = $.uniqueSort(clsName);
 				} else {
 					clsName = $.unique(clsName);
