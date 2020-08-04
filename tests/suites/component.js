@@ -246,6 +246,7 @@ test('picker should render fine when `$.fn.show` and `$.fn.hide` are overridden'
     }
 }));
 
+
 test('Focused ceil for decade/century/millenium views', function(){
     var input = $('<input />')
       .appendTo('#qunit-fixture')
@@ -271,4 +272,15 @@ test('Focused ceil for decade/century/millenium views', function(){
     picker.find('.datepicker-decades thead th.datepicker-switch').click();
     target = picker.find('.datepicker-centuries tbody .focused');
     ok(target.text() === '2100', 'Century cell is focused');
+});
+
+test('viewDate must remain unaffected when setDatesDisabled called', function() {
+    this.dp.setDate(new Date(2013, 11, 1));
+    datesEqual(this.dp.dates[0], UTCDate(2013, 11, 1));
+    datesEqual(this.dp.viewDate, UTCDate(2013, 11, 1));
+    this.dp.viewDate = this.dp.moveMonth(this.dp.viewDate, -1);
+    datesEqual(this.dp.viewDate, UTCDate(2013, 10, 1));
+    this.dp.setDatesDisabled([new Date(2013, 11, 6)]);
+    datesEqual(this.dp.viewDate, UTCDate(2013, 10, 1));
+    equal(this.dp.dates.length, 1);
 });
