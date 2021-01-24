@@ -6,7 +6,7 @@
 [![npm](https://img.shields.io/npm/dt/bootstrap-datepicker.svg)](https://github.com/uxsolutions/bootstrap-datepicker)
 [![Twitter Follow](https://img.shields.io/twitter/follow/bsdatepicker.svg?style=social&label=Follow)](https://twitter.com/bsdatepicker)
 
-Versions are incremented according to [semver](http://semver.org/).
+Versions are incremented according to [semver](https://semver.org/).
 
 ## CDN
 
@@ -22,6 +22,9 @@ Please note: It might take a few hours until a new version is available on cdnjs
 * [Online Docs](https://bootstrap-datepicker.readthedocs.org/en/stable/) (ReadTheDocs.com)
 * [Google Group](https://groups.google.com/group/bootstrap-datepicker/)
 * [Travis CI](https://travis-ci.org/uxsolutions/bootstrap-datepicker)
+
+#### Snippets
+* [Booking demo with two pickers](https://jsfiddle.net/azaret/25bqa6ho/)
 
 ## Development
 
