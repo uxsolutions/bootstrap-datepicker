@@ -4,14 +4,14 @@
  */
 ;(function($){
 	$.fn.datepicker.dates['ca'] = {
-		days: ["Diumenge", "Dilluns", "Dimarts", "Dimecres", "Dijous", "Divendres", "Dissabte"],
-		daysShort: ["Diu",  "Dil", "Dmt", "Dmc", "Dij", "Div", "Dis"],
+		days: ["diumenge", "dilluns", "dimarts", "dimecres", "dijous", "divendres", "dissabte"],
+		daysShort: ["dg.",  "dl.", "dt.", "dc.", "dj.", "dv.", "ds."],
 		daysMin: ["dg", "dl", "dt", "dc", "dj", "dv", "ds"],
-		months: ["Gener", "Febrer", "Març", "Abril", "Maig", "Juny", "Juliol", "Agost", "Setembre", "Octubre", "Novembre", "Desembre"],
-		monthsShort: ["Gen", "Feb", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Oct", "Nov", "Des"],
+		months: ["gener", "febrer", "març", "abril", "maig", "juny", "juliol", "agost", "setembre", "octubre", "novembre", "desembre"],
+		monthsShort: ["gen.", "febr.", "març", "abr.", "maig", "juny", "jul.", "ag.", "set.", "oct.", "nov.", "des."],
 		today: "Avui",
 		monthsTitle: "Mesos",
-		clear: "Esborrar",
+		clear: "Esborra",
 		weekStart: 1,
 		format: "dd/mm/yyyy"
 	};
