@@ -418,6 +418,12 @@ Number, String.  Default: 0, "days"
 
 The view that the datepicker should show when it is opened.  Accepts: 0 or "days" or "month", 1 or "months" or "year", 2 or "years" or "decade", 3 or "decades" or "century", and 4 or "centuries" or "millennium".  Useful for date-of-birth datepickers.
 
+template
+---------
+
+Object. Default: null
+
+Allow overriding the datepicker surrounding HTML template per picker, vs. only once in DPGlobal.template.
 
 templates
 ---------
@@ -560,6 +566,7 @@ orientation                  'auto'
 showOnFocus                  true
 startDate                    -Infinity
 startView                    0 'days' (current month)
+template
 templates
 title                        ''
 todayBtn                     false

@@ -126,7 +126,7 @@
 			this.isInline = this.o.isInline;
 		}
 
-		this.picker = $(DPGlobal.template);
+		this.picker = $(this.o.template || DPGlobal.template);
 
 		// Checking templates and inserting
 		if (this._check_template(this.o.templates.leftArrow)) {
