@@ -144,6 +144,12 @@ test('setDatesDisabled', function(){
     this.dp.setDatesDisabled(['01-01-2011']);
     equal(monthShown.text(), 'March 2011', 'should not change viewDate');
     strictEqual(returnedObject, this.dp, "is chainable");
+
+    // upddate viewDate to a non default one, this is currently only possible with private api
+    this.dp._setDate(Date.UTC(2016, 0, 1), 'view');
+    equal(monthShown.text(), 'January 2016', 'testing assumption that _setDate with `view` as second parameter updates viewDate');
+    this.dp.setDatesDisabled(['01-01-2015']);
+    equal(monthShown.text(), 'January 2016', 'should not reset viewDate to default one');
 });
 
 test('setValue', function(){
