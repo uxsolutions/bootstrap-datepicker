@@ -617,6 +617,8 @@
 		setValue: function(){
 			var formatted = this.getFormattedDate();
 			this.inputField.val(formatted);
+			var event = new Event('input', {bubbles: true});
+			this.inputField[0].dispatchEvent(event);
 			return this;
 		},
 
