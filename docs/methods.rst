@@ -224,3 +224,15 @@ Arguments:
 Sets the days of week that should be highlighted.  See :ref:`daysOfWeekHighlighted` for valid values.
 
 Omit daysOfWeekHighlighted (or provide an otherwise falsey value) to unset the highlighted days of week.
+
+
+setDefaultViewDate
+------------
+
+Arguments:
+
+* setDefaultViewDate (Date || {year: number, month: number, day: number} || string)
+
+Sets the date to view when initially opening the calendar..
+
+Omit defaultViewDate (or provide an otherwise falsey value) to unset the default calendar view.
