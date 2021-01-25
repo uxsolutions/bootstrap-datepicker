@@ -16,6 +16,10 @@ You can use the [CloudFlare](https://www.cloudflare.com) powered [cdnjs.com](htt
 
 Please note: It might take a few hours until a new version is available on cdnjs.
 
+## Mobile Add-On
+
+If you'd like to add responsive and mobile support to your datepickers, then please visit <https://github.com/niftylettuce/bootstrap-datepicker-mobile>.
+
 ## Links
 
 * [Online Demo](https://uxsolutions.github.io/bootstrap-datepicker/)
