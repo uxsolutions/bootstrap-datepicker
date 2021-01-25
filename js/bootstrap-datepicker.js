@@ -1062,6 +1062,12 @@
 				} else {
 					clsName = $.unique(clsName);
 				}
+		                $.each(this.dates, function(i, d){
+                    			if (d.getUTCFullYear() === prevMonth.getUTCFullYear() 
+                            			&& d.getUTCMonth() === prevMonth.getUTCMonth() 
+			                            && d.getUTCDate() === prevMonth.getUTCDate())
+			                        clsName.push('active');
+		                });
 
 				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + ' data-date="' + prevMonth.getTime().toString() + '">' + content + '</td>');
 				tooltip = null;
