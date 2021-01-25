@@ -1925,6 +1925,29 @@
 					}
 				}
 			}
+			else
+			{
+				// if user writes date without separators 26012019
+				var startPosition = 0;
+				var rawDateString = parts.join('');
+				var fpart, v;
+				var _dateTmp = new Date(date);
+
+				for (i = 0; i < fparts.length; i++){
+					fpart = fparts[i];
+					v = 0;
+					if( ( startPosition + fpart.length ) <= rawDateString.length ){
+						v = rawDateString.substring( startPosition, startPosition + fpart.length );
+						startPosition += fpart.length;
+					}
+					else if( fpart === "yy" || fpart === "yyyy" ) //in case year is not complete or missing put current year
+						v = (new Date()).getFullYear();
+
+					setters_map[ fpart ](_dateTmp, v);
+					if (!isNaN(_dateTmp))
+						date = _dateTmp;
+				}
+			}
 			return date;
 		},
 		formatDate: function(date, format, language){

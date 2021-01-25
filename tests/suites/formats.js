@@ -350,3 +350,21 @@ test('Assume nearby year - this century (+ 13 years, threshold = 30)', patch_dat
         .datepicker('setValue');
     equal(this.input.val(), '02/14/2023');
 }));
+
+test('Write date without separators - with Year', patch_date(function(Date){
+    Date.now = UTCDate(2012, 4, 31);
+    this.input
+        .val('01262019')
+        .datepicker({format: 'mm/dd/yyyy'})
+        .datepicker('setValue');
+    equal(this.input.val(), '01/26/2019');
+}));
+
+test('Write date without separators - without Year', patch_date(function(Date){
+    Date.now = UTCDate(2012, 4, 31);
+    this.input
+        .val('0126')
+        .datepicker({format: 'mm/dd/yyyy'})
+        .datepicker('setValue');
+    equal(this.input.val(), '01/26/2012');
+}));
