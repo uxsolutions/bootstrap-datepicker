@@ -20,8 +20,27 @@ test('Tapping outside datepicker hides datepicker', function(){
     this.input.trigger('click');
     ok(this.picker.is(':visible'), 'Picker is still visible');
 
-    $otherelement.trigger('touchstart');
+    $otherelement.trigger('touchend');
     ok(this.picker.is(':not(:visible)'), 'Picker is hidden');
+
+    $otherelement.remove();
+});
+
+test('Swiping finger to scroll, outside datepicker, does not hide it', function(){
+    var $otherelement = $('<div />');
+    $('body').append($otherelement);
+
+    ok(this.picker.is(':visible'), 'Picker is visible');
+    this.input.trigger('click');
+    ok(this.picker.is(':visible'), 'Picker is still visible');
+
+    $otherelement.trigger('touchstart');
+    ok(this.picker.is(':visible'), 'Picker is still visible');
+
+    $(window).scrollTop($(window).scrollTop() + 300);
+
+    $otherelement.trigger('touchend');
+    ok(this.picker.is(':visible'), 'Picker is still visible after swiping');
 
     $otherelement.remove();
 });
