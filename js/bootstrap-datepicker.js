@@ -677,6 +677,7 @@
 				calendarHeight = this.picker.outerHeight(),
 				visualPadding = 10,
 				container = $(this.o.container),
+				fixedHeight = this.o.fixedHeight,
 				windowWidth = container.width(),
 				scrollTop = this.o.container === 'body' ? $(document).scrollTop() : container.scrollTop(),
 				appendOffset = container.offset();
@@ -734,7 +735,7 @@
 			var yorient = this.o.orientation.y,
 				top_overflow;
 			if (yorient === 'auto'){
-				top_overflow = -scrollTop + top - calendarHeight;
+				top_overflow = -scrollTop + top - (calendarHeight < 250 ? 250 : calendarHeight) - fixedHeight;
 				yorient = top_overflow < 0 ? 'bottom' : 'top';
 			}
 
@@ -1706,6 +1707,7 @@
 		daysOfWeekHighlighted: [],
 		datesDisabled: [],
 		endDate: Infinity,
+		fixedHeight: 0,
 		forceParse: true,
 		format: 'mm/dd/yyyy',
 		isInline: null,
