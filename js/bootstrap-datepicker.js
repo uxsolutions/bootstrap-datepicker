@@ -425,7 +425,7 @@
 				[this.picker, '.prev, .next', {
 					click: $.proxy(this.navArrowsClick, this)
 				}],
-				[this.picker, '.day:not(.disabled)', {
+				[this.picker, '.day:not(.disabled:not(.active))', {
 					click: $.proxy(this.dayCellClick, this)
 				}],
 				[$(window), {
