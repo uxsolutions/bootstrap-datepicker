@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <link href="https://stackpath.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" integrity="sha384-4FeI0trTH/PCsLWrGCD1mScoFu9Jf2NdknFdFoJhXZFwsvzZ3Bo5sAh7+zL8Xgnd" crossorigin="anonymous">
+
+      <script src="assets/jquery-1.7.1.min.js"></script>
+      <script src="../js/bootstrap-datepicker.js"></script>
+      <script src="../js/bootstrap-datepicker-fix.js"></script>
+    </head>
+    <body>
+      <div class="container">
+        <h1>Testing bootstrap-datepicker</h1>
+      </div>
+
+      <h2>Testing outside of a container</h2>
+      <h3>No Container option used, defaulting to body.</h3>
+      <form class="form-horizontal">
+        <div class="control-group">
+          <label class="control-label" for="datepicker-1">DatePicker 1</label>
+          <div class="controls">
+            <input class="datepicker" type="text" id="datepicker-1" value="12-02-2012">
+          </div>
+        </div>
+
+        <div class="control-group date">
+          <label class="control-label" for="datepicker-2">DatePicker 2</label>
+          <div class="controls">
+            <input type="text" class="form-control datepicker" id="datepicker-2" value="12-02-2012">
+            <div class="input-group-addon">
+              <span class="glyphicon glyphicon-th"></span>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <h3>Using container='#form-1'</h3>
+      <form class="form-horizontal" id="form-1">
+        <div class="control-group">
+          <label class="control-label" for="datepicker-3">DatePicker 3</label>
+          <div class="controls">
+            <input class="datepicker" type="text" id="datepicker-3" value="12-02-2012" data-date-container="#form-1">
+          </div>
+        </div>
+
+        <div class="control-group date">
+          <label class="control-label" for="datepicker-4">DatePicker 4</label>
+          <div class="controls">
+            <input type="text" class="form-control datepicker" id="datepicker-4" value="12-02-2012" data-date-container="#form-1">
+            <div class="input-group-addon">
+              <span class="glyphicon glyphicon-th"></span>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div class="container">
+        <h2>Testing in a bootstrap container</h2>
+        <h3>No Container option used, defaulting to body.</h3>
+        <form class="form-horizontal">
+          <div class="control-group">
+            <label class="control-label" for="datepicker-5">DatePicker 5</label>
+            <div class="controls">
+              <input class="datepicker" type="text" id="datepicker-5" value="12-02-2012">
+            </div>
+          </div>
+
+          <div class="control-group date">
+            <label class="control-label" for="datepicker-6">DatePicker 6</label>
+            <div class="controls">
+              <input type="text" class="form-control datepicker" id="datepicker-6" value="12-02-2012">
+              <div class="input-group-addon">
+                  <span class="glyphicon glyphicon-th"></span>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <h3>Using container='#form-2'</h3>
+        <form class="form-horizontal" id="form-2">
+          <div class="control-group">
+            <label class="control-label" for="datepicker-7">DatePicker 7</label>
+            <div class="controls">
+              <input class="datepicker" type="text" id="datepicker-7" value="12-02-2012" data-date-container="#form-2">
+            </div>
+          </div>
+
+          <div class="control-group date">
+            <label class="control-label" for="datepicker-8">DatePicker 8</label>
+            <div class="controls">
+              <input type="text" class="form-control datepicker" id="datepicker-8" value="12-02-2012" data-date-container="#form-2">
+              <div class="input-group-addon">
+                  <span class="glyphicon glyphicon-th"></span>
+              </div>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+      <script src="https://stackpath.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+      <script type="text/javascript">
+
+        <!-- $.fn.datepicker.prototype._place = $.fn.datepicker.prototype.place -->
+        <!-- $.fn.datepicker.prototype.place = function  () { -->
+        <!-- console.log('here i am'); -->
+        <!-- return this._place(); -->
+        <!-- }; -->
+        $('.datepicker').datepicker({
+                weekStart: 1,
+                calendarWeeks: true,
+                assumeNearbyYear: true,
+                todayHighlight: true,
+                autoclose: true,
+                format: "yyyy-mm-dd"
+        });
+      </script>
+    </body>
+</html>
