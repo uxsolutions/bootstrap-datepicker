@@ -816,7 +816,7 @@
 			}
 			else if (this.dates.length){
 				// setting date by typing
-				if (String(oldDates) !== String(this.dates) && fromArgs) {
+				if (String(oldDates) !== String(this.dates)) {
 					this._trigger('changeDate');
 					this.element.change();
 				}
