@@ -51,7 +51,13 @@ Using the ``input-daterange`` construct with multiple child inputs will instanti
 .. figure:: _static/screenshots/markup_daterange.png
     :align: center
 
-Note that that ``input-daterange`` itself does not implement the ``datepicker`` methods. Methods should be directly called to the inputs. For example:
+In this case you'll need to instantiate the datepicker on the input's container, rather than on the inputs themselves. For example, in the markup above we could do:
+
+::
+
+    $('.input-daterange').datepicker();
+
+Note that that ``input-daterange`` itself does not implement the ``datepicker`` methods. Methods should still be directly called to the inputs. For example:
 
 ::
 
