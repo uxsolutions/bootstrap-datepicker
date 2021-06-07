@@ -1807,6 +1807,8 @@
 				return undefined;
 			if (date instanceof Date)
 				return date;
+      if (typeof date === 'number')
+				return new Date(date)
 			if (typeof format === 'string')
 				format = DPGlobal.parseFormat(format);
 			if (format.toValue)
