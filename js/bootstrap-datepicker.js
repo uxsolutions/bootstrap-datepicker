@@ -792,8 +792,9 @@
 			}, this));
 			dates = $.grep(dates, $.proxy(function(date){
 				return (
-					!this.dateWithinRange(date) ||
-					!date
+          !this.dateWithinRange(date) ||
+          !date ||
+          this.dateIsDisabled(date)
 				);
 			}, this), true);
 			this.dates.replace(dates);
