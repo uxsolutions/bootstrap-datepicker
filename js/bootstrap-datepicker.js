@@ -237,8 +237,8 @@
 
 			// Retrieve view index from any aliases
 			o.startView = this._resolveViewName(o.startView);
-			o.minViewMode = this._resolveViewName(o.minViewMode);
-			o.maxViewMode = this._resolveViewName(o.maxViewMode);
+			o.minViewMode = this._resolveViewName(parseInt(o.minViewMode));
+			o.maxViewMode = this._resolveViewName(parseInt(o.maxViewMode));
 
 			// Check view is between min and max
 			o.startView = Math.max(this.o.minViewMode, Math.min(this.o.maxViewMode, o.startView));
