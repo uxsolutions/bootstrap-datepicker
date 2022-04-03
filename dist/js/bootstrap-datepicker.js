@@ -727,7 +727,7 @@
 				top += height;
 
 			if (this.o.rtl) {
-				var right = windowWidth - (left + width);
+				var right = windowWidth - (left + calendarWidth);
 				this.picker.css({
 					top: top,
 					right: right,
