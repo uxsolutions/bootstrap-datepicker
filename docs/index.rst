@@ -65,7 +65,6 @@ You can disable datepicker's data-api in the same way as you would disable other
 
     $(document).off('.datepicker.data-api');
 
-
 Configuration
 ^^^^^^^^^^^^^
 
