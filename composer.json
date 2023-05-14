@@ -18,9 +18,11 @@
     ],
     "type": "component",
     "require": {
-        "robloach/component-installer": "*",
         "components/bootstrap" : ">=2.0, <4.0",
         "components/jquery": ">=1.7.1, <4.0.0"
+    },
+    "suggest": {
+        "robloach/component-installer": "*"
     },
     "extra": {
         "component": {
