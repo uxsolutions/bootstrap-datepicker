@@ -164,6 +164,16 @@ Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday).
 .. figure:: _static/screenshots/option_daysofweekdisabled.png
     :align: center
 
+.. _datesEnabled:
+
+
+datesEnabled
+-------------
+
+String, Array.  Default: []
+
+Array of date strings or a single date string formatted in the given date format. Will override datesDisabled and daysOfWeekDisabled.
+
 .. _daysOfWeekHighlighted:
 
 
