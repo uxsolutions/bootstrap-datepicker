@@ -747,12 +747,14 @@
 			if (this.o.rtl) {
 				var right = windowWidth - (left + width);
 				this.picker.css({
+          width:this.o.widthCustom|| this.widthCustom,
 					top: top,
 					right: right,
 					zIndex: zIndex
 				});
 			} else {
 				this.picker.css({
+          width:this.o.widthCustom|| this.widthCustom,
 					top: top,
 					left: left,
 					zIndex: zIndex
@@ -1729,6 +1731,7 @@
 		showOnFocus: true,
 		zIndexOffset: 10,
 		container: 'body',
+    widthCustom: 'auto',
 		immediateUpdates: false,
 		title: '',
 		templates: {
@@ -1955,7 +1958,7 @@
 			}
 			return date.join('');
 		},
-		headTemplate: '<thead>'+
+		headTemplate: '<colgroup><col width="14%"><col width="14%"><col width="14%"><col width="14%"><col width="14%"><col width="14%"><col width="14%"></colgroup><thead>'+
 			              '<tr>'+
 			                '<th colspan="7" class="datepicker-title"></th>'+
 			              '</tr>'+
