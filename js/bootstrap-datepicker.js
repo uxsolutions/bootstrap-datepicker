@@ -1054,6 +1054,12 @@
 					if (before.content)
 						content = before.content;
 				}
+		                $.each(this.dates, function(i, d){
+                    			if (d.getUTCFullYear() === prevMonth.getUTCFullYear() 
+                            			&& d.getUTCMonth() === prevMonth.getUTCMonth() 
+			                            && d.getUTCDate() === prevMonth.getUTCDate())
+			                        clsName.push('active');
+		                });
 
 				//Check if uniqueSort exists (supported by jquery >=1.12 and >=2.2)
 				//Fallback to unique function for older jquery versions
