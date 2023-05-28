@@ -376,6 +376,12 @@ String.  Default: ","
 
 The string that will appear between dates when generating the input's value.  When parsing the input's value for a multidate picker, this will also be used to split the incoming string to separate multiple formatted dates; as such, it is highly recommended that you not use a string that could be a substring of a formatted date (eg, using '-' to separate dates when your format is 'yyyy-mm-dd').
 
+multidateAutoRemove
+-------------------
+
+Boolean. Default: true
+
+When using a number for the ``multidate`` option, allows enabling or disabling dropping the oldest date from the list when the number is exceeded. When ``true``, the oldest date will be dropped. When ``false``, attempting to select more dates after the number specified by ``multidate`` has been reached will do nothing.
 
 orientation
 -----------
@@ -556,6 +562,7 @@ maxViewMode                  4 'centuries'
 minViewMode                  0 'days'
 multidate                    false
 multidateSeparator           ','
+multidateAutoRemove          true
 orientation                  'auto'
 showOnFocus                  true
 startDate                    -Infinity
