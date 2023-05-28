@@ -92,6 +92,15 @@ test('setStartDate', function(){
     strictEqual(returnedObject, this.dp, "is chainable");
 });
 
+test('setDefaultViewDate', function(){
+    var date_in = new Date(2012, 3, 5),
+		expected_date = new Date(Date.UTC(2012, 3, 4)),
+		returnedObject = this.dp.setDefaultViewDate(date_in);
+    // ...
+    datesEqual(this.dp.o.defaultViewDate, expected_date);
+    strictEqual(returnedObject, this.dp, "is chainable");
+});
+
 test('setEndDate', function(){
     var date_in = new Date(2012, 3, 5),
         expected_date = new Date(Date.UTC(2012, 3, 5)),

@@ -640,6 +640,16 @@
 			this.updateNavArrows();
 			return this;
 		},
+		
+		setDefaultViewDate: function(defaultViewDate){
+			if (defaultViewDate instanceof Date){
+				defaultViewDate = {year: defaultViewDate.getFullYear(), month: defaultViewDate.getMonth(), day: defaultViewDate.getDay()};
+			}
+ 			this._process_options({defaultViewDate: defaultViewDate});
+ 			this.update();
+ 			this.updateNavArrows();
+ 			return this;
+ 		},
 
 		getEndDate: function(){
 			return this.o.endDate;
