@@ -462,7 +462,7 @@
 			this._unapplyEvents(this._secondaryEvents);
 		},
 		_trigger: function(event, altdate){
-			var date = altdate || this.dates.get(-1),
+			var date = altdate || this.dates.get(this.dates.contains(this.viewDate)),
 				local_date = this._utc_to_local(date);
 
 			this.element.trigger({
