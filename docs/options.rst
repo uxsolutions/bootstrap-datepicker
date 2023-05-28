@@ -59,6 +59,7 @@ A function that takes a date as a parameter and returns one of the following val
    * ``enabled``: same as the Boolean value above
    * ``classes``: same as the String value above
    * ``tooltip``: a tooltip to apply to this date, via the ``title`` HTML attribute
+   * ``content``: the content to display in the month cell, rather than the default (month label as text)
 
 
 beforeShowYear
@@ -76,6 +77,7 @@ A function that takes a date as a parameter and returns one of the following val
    * ``enabled``: same as the Boolean value above
    * ``classes``: same as the String value above
    * ``tooltip``: a tooltip to apply to this year, via the ``title`` HTML attribute
+   * ``content``: the content to display in the year cell, rather than the default (year as text)
 
 
 beforeShowDecade
@@ -93,6 +95,7 @@ A function that takes a date as a parameter and returns one of the following val
    * ``enabled``: same as the Boolean value above
    * ``classes``: same as the String value above
    * ``tooltip``: a tooltip to apply to this year, via the ``title`` HTML attribute
+   * ``content``: the content to display in the decade cell, rather than the default (decade as text)
 
 
 beforeShowCentury
@@ -110,6 +113,7 @@ A function that takes a date as a parameter and returns one of the following val
    * ``enabled``: same as the Boolean value above
    * ``classes``: same as the String value above
    * ``tooltip``: a tooltip to apply to this year, via the ``title`` HTML attribute
+   * ``content``: the content to display in the century cell, rather than the default (century as text)
 
 
 calendarWeeks
