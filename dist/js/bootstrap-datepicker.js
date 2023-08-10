@@ -2007,7 +2007,7 @@
 			              '</tr>'+
 							'<tr>'+
 								'<th class="prev">&laquo;</th>'+
-								'<th colspan="5" class="datepicker-switch"></th>'+
+								'<th colspan="5" class="datepicker-switch" aria-live="assertive" aria-atomic="true" role="heading"></th>'+
 								'<th class="next">&raquo;</th>'+
 							'</tr>'+
 						'</thead>',
