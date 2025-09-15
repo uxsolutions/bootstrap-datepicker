@@ -1,9 +1,12 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 const puppeteer = require('puppeteer');
 
 (async () => {
     const browser = await puppeteer.launch({
+        // NOTE: https://developer.chrome.com/blog/chrome-headless-shell
+        headless: 'shell',
+
         args: [
             '--disable-gpu',
             '--disable-translate',
