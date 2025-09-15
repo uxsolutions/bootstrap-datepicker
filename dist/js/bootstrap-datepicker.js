@@ -1,5 +1,5 @@
 /*!
- * Datepicker for Bootstrap v1.10.0 (https://github.com/uxsolutions/bootstrap-datepicker)
+ * Datepicker for Bootstrap v1.10.1 (https://github.com/uxsolutions/bootstrap-datepicker)
  *
  * Licensed under the Apache License v2.0 (https://www.apache.org/licenses/LICENSE-2.0)
  */
@@ -2013,7 +2013,7 @@
 
 	/* DATEPICKER VERSION
 	 * =================== */
-	$.fn.datepicker.version = '1.10.0';
+	$.fn.datepicker.version = '1.10.1';
 
 	$.fn.datepicker.deprecated = function(msg){
 		var console = window.console;

@@ -2,7 +2,7 @@
  * bootstrap-datepicker.js
  * Repo: https://github.com/uxsolutions/bootstrap-datepicker/
  * Demo: https://uxsolutions.github.io/bootstrap-datepicker/
- * Docs: https://bootstrap-datepicker.readthedocs.org/
+ * Docs: https://bootstrap-datepicker.readthedocs.io/
  * =========================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -2026,7 +2026,7 @@
 
 	/* DATEPICKER VERSION
 	 * =================== */
-	$.fn.datepicker.version = '1.10.0';
+	$.fn.datepicker.version = '1.10.1';
 
 	$.fn.datepicker.deprecated = function(msg){
 		var console = window.console;
