@@ -440,7 +440,10 @@
 			if (!this.isInline)
 				this.picker.appendTo(this.o.container);
 			this.place();
-			this.picker[0].showPopover();
+			if (!this.isInline) {
+			 	this.picker.attr('popover', "manual");
+				this.picker[0].showPopover();
+			}
 			this.picker.show();
 			this._attachSecondaryEvents();
 			this._trigger('show');
@@ -456,7 +459,9 @@
 			if (!this.picker.is(':visible'))
 				return this;
 			this.focusDate = null;
-			this.picker.get(0).hidePopover();
+			if (!this.isInline) {
+				this.picker.get(0).hidePopover();
+			}
 			this.picker.hide().detach();
 			this._detachSecondaryEvents();
 			this.viewMode = this.o.startView;
@@ -1745,7 +1750,7 @@
 							'</tr>'+
 						'</tfoot>'
 	};
-	DPGlobal.template = '<div class="datepicker" popover="manual">'+
+	DPGlobal.template = '<div class="datepicker">'+
 							'<div class="datepicker-days">'+
 								'<table class=" table-condensed">'+
 									DPGlobal.headTemplate+
