@@ -11,7 +11,7 @@
 		monthsShort: ["ژان", "فور", "مار", "آور", "مه", "ژون", "ژوی", "اوت", "سپت", "اکت", "نوا", "دسا"],
 		today: "امروز",
 		clear: "پاک کن",
-		weekStart: 1,
+		weekStart: 6,
 		format: "yyyy/mm/dd"
 	};
 }(jQuery));
