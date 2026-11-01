@@ -14,6 +14,6 @@
         monthsTitle: "أشهر",
         clear: "إزالة",
         format: "yyyy/mm/dd",
-        weekStart: 0
+        weekStart: 6
     };
 }(jQuery));

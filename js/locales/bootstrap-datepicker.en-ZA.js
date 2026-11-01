@@ -11,7 +11,7 @@
 		today: "Today",
 		monthsTitle: "Months",
 		clear: "Clear",
-		weekStart: 1,
+		weekStart: 0,
 		format: "yyyy/mm/d"
 	};
 }(jQuery));

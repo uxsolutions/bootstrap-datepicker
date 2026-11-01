@@ -8,6 +8,7 @@
 		daysMin: ["Ne", "Po", "Ut", "Sr", "Če", "Pe", "Su"],
 		months: ["Siječanj", "Veljača", "Ožujak", "Travanj", "Svibanj", "Lipanj", "Srpanj", "Kolovoz", "Rujan", "Listopad", "Studeni", "Prosinac"],
 		monthsShort: ["Sij", "Velj", "Ožu", "Tra", "Svi", "Lip", "Srp", "Kol", "Ruj", "Lis", "Stu", "Pro"],
-		today: "Danas"
+		today: "Danas",
+		weekStart: 1
 	};
 }(jQuery));

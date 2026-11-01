@@ -12,7 +12,7 @@
 		today: "இன்று",
 		monthsTitle: "மாதங்கள்",
 		clear: "நீக்கு",
-		weekStart: 1,
+		weekStart: 0,
 		format: "dd/mm/yyyy"
 	};
 }(jQuery));

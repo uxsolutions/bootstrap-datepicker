@@ -12,7 +12,7 @@
 		today: "आज",
 		monthsTitle: "महीने",
 		clear: "साफ",
-		weekStart: 1,
+		weekStart: 0,
 		format: "dd / mm / yyyy"
 	};
 }(jQuery));

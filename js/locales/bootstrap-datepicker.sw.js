@@ -10,6 +10,7 @@
         daysMin: ["2", "3", "4", "5", "A", "I", "1"],
         months: ["Januari", "Februari", "Machi", "Aprili", "Mei", "Juni", "Julai", "Agosti", "Septemba", "Oktoba", "Novemba", "Desemba"],
         monthsShort: ["Jan", "Feb", "Mac", "Apr", "Mei", "Jun", "Jul", "Ago", "Sep", "Okt", "Nov", "Des"],
-        today: "Leo"
+        today: "Leo",
+        weekStart: 1
     };
 }(jQuery));
