@@ -9,6 +9,7 @@
 		daysMin: ["Su", "Ll", "Ma", "Me", "Ia", "Gwe", "Sa"],
 		months: ["Ionawr", "Chewfror", "Mawrth", "Ebrill", "Mai", "Mehefin", "Gorfennaf", "Awst", "Medi", "Hydref", "Tachwedd", "Rhagfyr"],
 		monthsShort: ["Ion", "Chw", "Maw", "Ebr", "Mai", "Meh", "Gor", "Aws", "Med", "Hyd", "Tach", "Rha"],
-		today: "Heddiw"
+		today: "Heddiw",
+		weekStart: 1
 	};
 }(jQuery));
