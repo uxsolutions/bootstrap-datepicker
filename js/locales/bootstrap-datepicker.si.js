@@ -12,7 +12,7 @@
 		today: "අද",
 		monthsTitle: "මාස",
 		clear: "මකන්න",
-		weekStart: 0,
+		weekStart: 1,
 		format: "yyyy-mm-dd"
 	};
 }(jQuery));
