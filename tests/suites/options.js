@@ -1751,6 +1751,27 @@ test('Enable on readonly options (false)', function(){
     ok(!picker.is(':visible'));
 });
 
+test('Open picker respects disabled and readonly input changes', function(){
+    $.each(['disabled', 'readonly'], function(_, state){
+        var input = $('<input value="11/10/2026" />')
+                .appendTo('#qunit-fixture')
+                .datepicker({enableOnReadonly: false}),
+            picker = input.data('datepicker').picker,
+            changes = 0;
+
+        input.on('changeDate', function(){ changes++; });
+        input.datepicker('show');
+        input.prop(state, true);
+        picker.find('.day').not('.old, .new').filter(function(){
+            return $(this).text() === '16';
+        }).trigger('click');
+
+        equal(input.val(), '11/10/2026', state + ' preserves the input value');
+        equal(changes, 0, state + ' prevents changeDate');
+        input.datepicker('destroy').remove();
+    });
+});
+
 test('Startview: year view visible after date pick', function(){
     var input = $('<input />')
             .appendTo('#qunit-fixture')

@@ -485,8 +485,12 @@
 			});
 		},
 
+		_canInteract: function(){
+			return !this.inputField.is(':disabled') && (!this.inputField.prop('readonly') || this.o.enableOnReadonly !== false);
+		},
+
 		show: function(){
-			if (this.inputField.is(':disabled') || (this.inputField.prop('readonly') && this.o.enableOnReadonly === false))
+			if (!this._canInteract())
 				return;
 			if (!this.isInline)
 				this.picker.appendTo(this.o.container);
@@ -1187,6 +1191,9 @@
 		},
 
 		click: function(e){
+			if (!this._canInteract())
+				return;
+
 			e.preventDefault();
 			e.stopPropagation();
 
@@ -1246,6 +1253,9 @@
 		},
 
 		dayCellClick: function(e){
+			if (!this._canInteract())
+				return;
+
 			var $target = $(e.currentTarget);
 			var timestamp = $target.data('date');
 			var date = new Date(timestamp);
@@ -1474,7 +1484,7 @@
 					}
 					break;
 				case 13: // enter
-					if (!this.o.forceParse)
+					if (!this.o.forceParse || !this._canInteract())
 						break;
 					focusDate = this.focusDate || this.dates.get(-1) || this.viewDate;
 					if (this.o.keyboardNavigation) {
